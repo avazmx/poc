@@ -12,5 +12,6 @@ export class AppComponent {
   constructor(private config: NgSelectConfig) {
     this.config.notFoundText = 'Custom not found';
     this.config.loadingText = 'Loading Text';
-}
+  }
+
 }
