@@ -1,0 +1,22 @@
+<form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+      <div class="col">
+      <ng-select formControlName="community_type" [items]="communityTypes" bindLabel="name" bindValue="id"
+        [placeholder]="'Select'">
+      </ng-select>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name*" formControlName="name">
+      </div>
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Description*" formControlName="description">
+    </div>
+
+    <div class="col">
+      <button [disabled]="loading" class="btn btn-primary" type="submit">Set</button>
+    </div>
+  </div>
+</form>

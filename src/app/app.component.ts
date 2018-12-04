@@ -1,25 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { environment } from 'environments/environment';
-import { AppState } from './app.service';
-
-export const ROOT_SELECTOR = 'app';
+import { Component } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
-  selector: ROOT_SELECTOR,
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: [ './app.component.scss' ],
-  template: `<router-outlet></router-outlet>`
+  selector: 'ups-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
+export class AppComponent {
+  title = 'angular-pocs';
 
-export class AppComponent implements OnInit {
-  public showDevModule: boolean = environment.showDevModule;
-
-  constructor(
-    public appState: AppState
-  ) {}
-
-  public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-  }
-
+  constructor(private config: NgSelectConfig) {
+    this.config.notFoundText = 'Custom not found';
+    this.config.loadingText = 'Loading Text';
+}
 }

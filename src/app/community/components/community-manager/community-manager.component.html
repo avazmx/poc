@@ -1,0 +1,25 @@
+<aw-wizard class="container" [navBarLayout]="wizzardLayout">
+
+  <div class="row">
+    <aw-wizard-step stepTitle="Title of step 1">
+      <div class="row">
+        <ups-community-attributes (formIsValid)="onChangeFormValidity($event)"></ups-community-attributes>
+      </div>
+      <br>
+      <button type="button" class="btn btn-primary" awNextStep [disabled]="formNotValid">Next Step</button>
+    </aw-wizard-step>
+  </div>
+  <aw-wizard-step stepTitle="Title of step 2" awOptionalStep>
+    <div class="row">Content of Step 2</div>
+    <br>
+
+    <button type="button" class="btn btn-primary" awPreviousStep>Go to previous step</button>
+    <button type="button" class="btn btn-primary" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Title of step 3">
+    <div class="row">Content of Step 3</div>
+    <br>
+    <button type="button" class="btn btn-primary" awPreviousStep>Previous Step</button>
+    <button type="button" class="btn btn-primary" (click)="finishFunction()">Finish</button>
+  </aw-wizard-step>
+</aw-wizard>
