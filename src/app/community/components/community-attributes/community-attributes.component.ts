@@ -61,7 +61,7 @@ export class CommunityAttributesComponent implements OnInit {
     this.formIsValid = new EventEmitter();
 
     this._countriesService.getInfo().subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
 
   }
