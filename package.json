@@ -95,6 +95,7 @@
     "@angular/platform-browser-dynamic": "^6.0.6",
     "@angular/platform-server": "^6.0.6",
     "@angular/router": "^6.0.6",
+    "angular-archwizard": "^3.0.0",
     "angular-wizard-form": "^0.4.1",
     "angular2-wizard": "^0.4.0",
     "bootstrap": "^4.1.3",
