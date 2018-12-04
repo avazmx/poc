@@ -12,7 +12,23 @@ import { CommunityService } from '../../services/community.service';
 export class CommunityAttributesComponent implements OnInit {
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private _communityService: CommunityService, private _countriesService: CountryService) {
+
+  columnDefs = [
+    {headerName: 'Make', field: 'make' },
+    {headerName: 'Model', field: 'model' },
+    {headerName: 'Price', field: 'price'}
+  ];
+
+  rowData = [
+    { make: 'Toyota', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxter', price: 72000 }
+  ];
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _communityService: CommunityService,
+    private _countriesService: CountryService) {
 
   }
 
@@ -43,6 +59,10 @@ export class CommunityAttributesComponent implements OnInit {
 
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
+
+    this._countriesService.getInfo().subscribe(data => {
+      console.log(data);
+    });
 
   }
 

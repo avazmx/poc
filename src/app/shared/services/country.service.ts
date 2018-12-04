@@ -7,8 +7,13 @@ import { HttpClient } from '@angular/common/http';
 export class CountryService {
 
   private countries: Country[] = [{ country_id: 1, name: 'Unated States Of America' }, { country_id: 2, name: 'México' }];
+  carUrl = 'http://22HW020536:8080/governance/level';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+    ) {
+
+  }
 
   /**
    * Return the list of countries.
@@ -19,4 +24,9 @@ export class CountryService {
     return this.countries;
 
   }
+
+  getInfo() {
+    return this.http.get('http://22HW020536:8080/governance/level');
+  }
+
 }

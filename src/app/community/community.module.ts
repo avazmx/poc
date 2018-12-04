@@ -8,6 +8,8 @@ import { CommunityAttributesComponent } from './components/community-attributes/
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { AgGridModule } from 'ag-grid-angular';
+
 @NgModule({
   declarations: [CommunityManagerComponent, CommunityAttributesComponent],
   imports: [
@@ -16,7 +18,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ArchwizardModule,
     ReactiveFormsModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    AgGridModule.withComponents([])
   ]
 })
+
 export class CommunityModule { }
