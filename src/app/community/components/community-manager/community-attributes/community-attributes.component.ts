@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { NgOption } from '@ng-select/ng-select';
-import { CommunityService } from '../../services/community.service';
+import { CommunityService } from '../../../services/community.service';
 import { AgGridNg2 } from 'ag-grid-angular';
 
 @Component({
