@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { NgOption } from '@ng-select/ng-select';
-import { CommunityService } from '../../services/community.service';
+import { CommunityService } from '../../../services/community.service';
+import { AgGridNg2 } from 'ag-grid-angular';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -10,19 +11,27 @@ import { CommunityService } from '../../services/community.service';
   styleUrls: ['./community-attributes.component.scss']
 })
 export class CommunityAttributesComponent implements OnInit {
+  @ViewChild('agGrid') agGrid: AgGridNg2;
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
 
   columnDefs = [
-    {headerName: 'Make', field: 'make' },
-    {headerName: 'Model', field: 'model' },
-    {headerName: 'Price', field: 'price'}
+    { headerName: 'Country', field: 'country' },
+    { headerName: 'District', field: 'district' },
+    { headerName: 'State/Province', field: 'state' },
+    { headerName: 'SLIC Range Low', field: 'slicLow' },
+    { headerName: 'SLIC Range High', field: 'slicHigh' },
+    { headerName: 'Business Unit', field: 'bu' },
+    { headerName: 'GND', field: 'gnd' },
+    { headerName: '3DS', field: 'three' },
+    { headerName: '2DS', field: 'two' },
+    { headerName: '1DA', field: 'one' }
   ];
 
   rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 }
+    { country: 'Toyota', district: 'Celica', state: 35000 },
+    { country: 'Ford', district: 'Mondeo', state: 32000 },
+    { country: 'Porsche', district: 'Boxter', state: 72000 }
   ];
 
   constructor(
@@ -60,9 +69,9 @@ export class CommunityAttributesComponent implements OnInit {
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
 
-    this._countriesService.getInfo().subscribe(data => {
-      // console.log(data);
-    });
+    // this._countriesService.getInfo().subscribe(data => {
+    //   console.log(data);
+    // });
 
   }
 
@@ -85,8 +94,8 @@ export class CommunityAttributesComponent implements OnInit {
 
 
 /**
- * 
- * 
+ *
+ *
  * interface Community {
     community_id: number;
     community_type: CommunityType;
@@ -94,6 +103,6 @@ export class CommunityAttributesComponent implements OnInit {
     description: string;
     geo_services: GeoService[];
     members: Member[];
-    governance: GovernanceLevel[];   
+    governance: GovernanceLevel[];
 }
  */

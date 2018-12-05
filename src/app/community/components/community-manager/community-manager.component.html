@@ -1,26 +1,32 @@
-<aw-wizard class="container" [navBarLayout]="wizzardLayout">
+<aw-wizard [navBarLayout]="wizzardLayout">
 
   <div class="row">
-    <aw-wizard-step stepTitle="Title of step 1">
+    <aw-wizard-step stepTitle="Community Attributes">
       <div class="row">
         <ups-community-attributes (formIsValid)="onChangeFormValidity($event)"></ups-community-attributes>
       </div>
       <br>
-      <button type="button" class="btn btn-primary" awNextStep>Next</button>
+      <div class="end">
+        <button type="button" class="btn btn-primary" awNextStep>Next</button>
+      </div>
     </aw-wizard-step>
   </div>
-  <aw-wizard-step stepTitle="Title of step 2" awOptionalStep>
-    <div class="row">Content of Step 2</div>
+  <aw-wizard-step stepTitle="Manage Members" awOptionalStep>
+    <ups-manage-members></ups-manage-members>
     <br>
 
-    <button type="button" class="btn btn-primary" awPreviousStep>Back</button>
-    <button type="button" class="btn btn-primary" awNextStep>Next</button>
+    <div class="end">
+      <button type="button" class="btn btn-primary" awPreviousStep>Back</button>
+      <button type="button" class="btn btn-primary end-btn" awNextStep>Next</button>
+    </div>
   </aw-wizard-step>
-  <aw-wizard-step stepTitle="Title of step 3">
-    <div class="row">Content of Step 3</div>
+  <aw-wizard-step stepTitle="Community Governance">
+    <ups-community-governance></ups-community-governance>
     <br>
-    <button type="button" class="btn btn-primary" awPreviousStep>Back</button>
-    <button type="button" class="btn btn-primary" (click)="finishFunction()">Save</button>
+    <div class="end">
+      <button type="button" class="btn btn-primary" awPreviousStep>Back</button>
+      <button type="button" class="btn btn-primary end-btn" (click)="finishFunction()">Save</button>
+    </div>
   </aw-wizard-step>
 
 </aw-wizard>

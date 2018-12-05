@@ -1,4 +1,6 @@
 <form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
+  <h3>COMMUNITY STRUCTURE</h3>
+  <br>
   <div class="row">
       <div class="col">
       <ng-select formControlName="community_type" [items]="communityTypes" bindLabel="name" bindValue="id"
@@ -21,9 +23,10 @@
   </div>
 </form>
 
-<ag-grid-angular 
-    style="width: 500px; height: 500px;" 
+<ag-grid-angular #agGrid
+    style="width: 1200px; height: 300px;"
     class="ag-theme-balham"
+    [enableColResize]="true"
     [rowData]="rowData" 
     [columnDefs]="columnDefs"
     >
