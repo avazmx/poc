@@ -21,9 +21,10 @@
   </div>
 </form>
 
-<ag-grid-angular 
-    style="width: 500px; height: 500px;" 
+<ag-grid-angular #agGrid
+    style="width: 800px; height: 500px;" 
     class="ag-theme-balham"
+    [enableColResize]="true"
     [rowData]="rowData" 
     [columnDefs]="columnDefs"
     >
