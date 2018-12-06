@@ -11,34 +11,42 @@ import { AgGridNg2 } from 'ag-grid-angular';
   styleUrls: ['./community-attributes.component.scss']
 })
 export class CommunityAttributesComponent implements OnInit {
-  @ViewChild('agGrid') agGrid: AgGridNg2;
+  // @ViewChild('agGrid') agGrid: AgGridNg2;
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
 
+  private gridApi;
+  private gridColumnApi;
+  private rowData;
+  private attributesGrid;
+  newCount = 1;
+
   columnDefs = [
-    { headerName: 'Country', field: 'country' },
-    { headerName: 'District', field: 'district' },
-    { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slicLow' },
-    { headerName: 'SLIC Range High', field: 'slicHigh' },
-    { headerName: 'Business Unit', field: 'bu' },
-    { headerName: 'GND', field: 'gnd' },
-    { headerName: '3DS', field: 'three' },
-    { headerName: '2DS', field: 'two' },
-    { headerName: '1DA', field: 'one' }
+    { headerName: 'Country', field: 'country', editable: true },
+    { headerName: 'District', field: 'district', editable: true },
+    { headerName: 'State/Province', field: 'state', editable: true },
+    { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },
+    { headerName: 'SLIC Range High', field: 'slicHigh', editable: true },
+    { headerName: 'Business Unit', field: 'bu', editable: true },
+    { headerName: 'GND', field: 'gnd', editable: true },
+    { headerName: '3DS', field: 'three', editable: true },
+    { headerName: '2DS', field: 'two', editable: true },
+    { headerName: '1DA', field: 'one', editable: true },
   ];
 
-  rowData = [
-    { country: 'Toyota', district: 'Celica', state: 35000 },
-    { country: 'Ford', district: 'Mondeo', state: 32000 },
-    { country: 'Porsche', district: 'Boxter', state: 72000 }
-  ];
 
   constructor(
     private _formBuilder: FormBuilder,
     private _communityService: CommunityService,
-    private _countriesService: CountryService) {
+    private _countriesService: CountryService
+    ) {
+
+    this.rowData = [
+      { country: 'Toyota', district: 'Celica', state: 35000 },
+      { country: 'Ford', district: 'Mondeo', state: 32000 },
+      { country: 'Porsche', district: 'Boxter', state: 72000 }
+    ];
 
   }
 
@@ -74,6 +82,32 @@ export class CommunityAttributesComponent implements OnInit {
     //   console.log(data);
     // });
 
+  }
+
+  /* AG-Grid */
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    this.gridApi.setDomLayout('autoHeight');
+    this.attributesGrid = document.querySelector('#attributesGrid');
+
+    params.api.sizeColumnsToFit();
+  }
+
+  createNewRowData() {
+    console.log(this.rowData);
+    const newData = {
+      country: 'Toyota ' + this.newCount,
+      district: 'Celica ' + this.newCount,
+      state: 35000 + this.newCount * 17,
+      slicLow: 'Headless',
+      slicHigh: 'Little',
+      bu: 'Airbag'
+    };
+    // this.newCount++;
+    this.rowData.push(newData);
+    console.log(this.rowData);
   }
 
   onSubmit() {

@@ -7,15 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageMembersComponent implements OnInit {
   private defaultColDef;
+  private gridApi;
+  private gridColumnApi;
+  private membersGrid;
   headerHeight = 38;
+  newCount = 1;
+
   columnDefs = [
-    { headerName: 'Member Name', field: 'member_name' },
-    { headerName: 'Access Level', field: 'access_level' },
-    { headerName: 'Country', field: 'country' },
-    { headerName: 'District', field: 'district' },
-    { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slic_range_low' },
-    { headerName: 'SLIC Range High', field: 'slic_range_high' }
+    { headerName: 'Member Name', field: 'member_name', editable: true, },
+    { headerName: 'Access Level', field: 'access_level', editable: true, },
+    { headerName: 'Country', field: 'country', editable: true },
+    { headerName: 'District', field: 'district', editable: true },
+    { headerName: 'State/Province', field: 'state', editable: true, },
+    { headerName: 'SLIC Range Low', field: 'slic_range_low', editable: true, },
+    { headerName: 'SLIC Range High', field: 'slic_range_high', editable: true, },
   ];
 
   rowData = [
@@ -63,9 +68,36 @@ export class ManageMembersComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  onGridReady(event: any) {
 
   }
+
+
+  createNewRowData() {
+    console.log(this.rowData);
+    const newData = {
+      member_name: 'Toyota ' + this.newCount,
+      access_level: 'Celica ' + this.newCount,
+      country: '35090',
+      district: 'Headless',
+      state: 'Little',
+      slic_range_low: 654,
+      slic_range_high: 198
+    };
+    // this.newCount++;
+    this.rowData.push(newData);
+    console.log(this.rowData);
+  }
+
+
+  /* AG-Grid */
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    this.gridApi.setDomLayout('autoHeight');
+    this.membersGrid = document.querySelector('#membersGrid');
+
+    params.api.sizeColumnsToFit();
+  }
+
 }

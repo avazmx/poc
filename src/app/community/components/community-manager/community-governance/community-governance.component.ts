@@ -7,28 +7,34 @@ import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/cor
 })
 export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
+  private rowData;
   private gridApi;
   private gridColumnApi;
+  private governanceGrid;
+
   headerHeight = 38;
   columnDefs = [
-    { headerName: 'Country', field: 'country' },
-    { headerName: 'District', field: 'district' },
-    { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slic_range_low' },
-    { headerName: 'SLIC Range High', field: 'slic_range_high' },
-    { headerName: 'Level 1 Approver', field: 'level_one_approver' },
-    { headerName: 'Alt Level 1 Approver', field: 'alt_level_one_approver' },
-    { headerName: 'Level 2 Approver', field: 'level_two_approver' },
-    { headerName: 'Alt Level 2 Approver', field: 'alt_level_two_approver' }
+    { headerName: 'Country', field: 'country', editable: true },
+    { headerName: 'District', field: 'district', editable: true },
+    { headerName: 'State', field: 'state', editable: true },
+    { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },
+    { headerName: 'SLIC Range High', field: 'slicHigh', editable: true },
+    { headerName: 'Level 1 Approver', field: 'lvl1approver', editable: true },
+    { headerName: 'Alt Level 1 Approver', field: 'altlvl1approver', editable: true },
+    { headerName: 'Level 2 Approver', field: 'lvl2approver', editable: true },
+    { headerName: 'Alt Level 2 Approver', field: 'altlvl2approver', editable: true },
   ];
 
-  rowData = [
-    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
-    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
-    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
-  ];
+  constructor(
 
-  constructor() { }
+  ) {
+    this.rowData = [
+      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
+      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
+      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
+    ];
+
+  }
 
 
   ngAfterViewInit(): void {
@@ -38,13 +44,19 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   }
 
+  sizeToFit() {
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-  }
 
-  sizeToFit() {
-    this.gridApi.sizeColumnsToFit();
+    this.gridApi.setDomLayout('autoHeight');
+    this.governanceGrid = document.querySelector('#governanceGrid');
+
+    params.api.sizeColumnsToFit();
   }
 
 }

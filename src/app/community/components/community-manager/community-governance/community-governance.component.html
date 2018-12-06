@@ -2,8 +2,13 @@
   <h1>dual box around here...</h1>
   <br>
   <br>
-  <ag-grid-angular #agGrid style="width: 1200px; height: 300px" class="ag-theme-balham" [enableColResize]="true"
-    [rowData]="rowData" [columnDefs]="columnDefs" [headerHeight]="headerHeight" (gridReady)="onGridReady($event)">
+  <ag-grid-angular #governanceGrid
+    class="ag-theme-balham" 
+    [headerHeight]="headerHeight"
+    [enableColResize]="true"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)">
   </ag-grid-angular>
 
   <br>
