@@ -84,8 +84,8 @@ export class ManageMembersComponent implements OnInit {
       slic_range_high: 198
     };
     // this.newCount++;
-    this.rowData.push(newData);
-    console.log(this.rowData);
+    var res = this.gridApi.updateRowData({ add: [newData] });
+    console.log(res);
   }
 
 
