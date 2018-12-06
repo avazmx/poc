@@ -1,7 +1,10 @@
-<ag-grid-angular 
-  #agGrid
-  class="ag-theme-balham manageMembers" 
-  [enableColResize]="true"
-  [rowData]="rowData" 
-  [columnDefs]="columnDefs">
-</ag-grid-angular>
+<div id="members">
+  <div class="end" (click)="createNewRowData()">Add Row</div>
+  <ag-grid-angular #membersGrid
+    class="ag-theme-balham manageMembers" 
+    [enableColResize]="true"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+</div>

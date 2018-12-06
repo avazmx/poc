@@ -6,18 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-members.component.scss']
 })
 export class ManageMembersComponent implements OnInit {
+  private gridApi;
+  private gridColumnApi;
+  private membersGrid;
+  newCount = 1;
 
   columnDefs = [
-    { headerName: 'Country', field: 'country' },
-    { headerName: 'District', field: 'district' },
-    { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slicLow' },
-    { headerName: 'SLIC Range High', field: 'slicHigh' },
-    { headerName: 'Business Unit', field: 'bu' },
-    { headerName: 'GND', field: 'gnd' },
-    { headerName: '3DS', field: 'three' },
-    { headerName: '2DS', field: 'two' },
-    { headerName: '1DA', field: 'one' }
+    { headerName: 'Member Name', field: 'memberName', editable: true, },
+    { headerName: 'Access Level', field: 'accessLvl', editable: true, },
+    { headerName: 'Country', field: 'country', editable: true },
+    { headerName: 'District', field: 'district', editable: true },
+    { headerName: 'State/Province', field: 'state', editable: true, },
+    { headerName: 'SLIC Range Low', field: 'slicLow', editable: true, },
+    { headerName: 'SLIC Range High', field: 'slicHigh', editable: true, },
   ];
 
   rowData = [
@@ -26,9 +27,41 @@ export class ManageMembersComponent implements OnInit {
     { country: 'Porsche', district: 'Boxter', state: 72000 }
   ];
 
-  constructor() { }
+  constructor(
+
+    ) {
+  }
 
   ngOnInit() {
+
+  }
+
+
+  createNewRowData() {
+    console.log(this.rowData);
+    const newData = {
+      country: 'Toyota ' + this.newCount,
+      district: 'Celica ' + this.newCount,
+      state: 35000 + this.newCount * 17,
+      slicLow: 'Headless',
+      slicHigh: 'Little',
+      bu: 'Airbag'
+    };
+    // this.newCount++;
+    this.rowData.push(newData);
+    console.log(this.rowData);
+  }
+
+
+  /* AG-Grid */
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    this.gridApi.setDomLayout('autoHeight');
+    this.membersGrid = document.querySelector('#membersGrid');
+
+    params.api.sizeColumnsToFit();
   }
 
 }

@@ -6,29 +6,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./community-governance.component.scss']
 })
 export class CommunityGovernanceComponent implements OnInit {
+  private gridApi;
+  private gridColumnApi;
+  private rowData;
+  private governanceGrid;
 
   columnDefs = [
-    { headerName: 'Country', field: 'country' },
-    { headerName: 'District', field: 'district' },
-    { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slicLow' },
-    { headerName: 'SLIC Range High', field: 'slicHigh' },
-    { headerName: 'Business Unit', field: 'bu' },
-    { headerName: 'GND', field: 'gnd' },
-    { headerName: '3DS', field: 'three' },
-    { headerName: '2DS', field: 'two' },
-    { headerName: '1DA', field: 'one' }
+    { headerName: 'Country', field: 'country', editable: true },
+    { headerName: 'District', field: 'district', editable: true },
+    { headerName: 'State', field: 'state', editable: true },
+    { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },
+    { headerName: 'SLIC Range High', field: 'slicHigh', editable: true },
+    { headerName: 'Level 1 Approver', field: 'lvl1approver', editable: true },
+    { headerName: 'Alt Level 1 Approver', field: 'altlvl1approver', editable: true },
+    { headerName: 'Level 2 Approver', field: 'lvl2approver', editable: true },
+    { headerName: 'Alt Level 2 Approver', field: 'altlvl2approver', editable: true },
   ];
 
-  rowData = [
-    { country: 'Toyota', district: 'Celica', state: 35000 },
-    { country: 'Ford', district: 'Mondeo', state: 32000 },
-    { country: 'Porsche', district: 'Boxter', state: 72000 }
-  ];
+  constructor(
 
-  constructor() { }
+  ) {
+    this.rowData = [
+      { country: 'Toyota', district: 'Celica', state: 35000 },
+      { country: 'Ford', district: 'Mondeo', state: 32000 },
+      { country: 'Porsche', district: 'Boxter', state: 72000 }
+    ];
+
+  }
 
   ngOnInit() {
+  }
+
+  /* AG-Grid */
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    this.gridApi.setDomLayout('autoHeight');
+    this.governanceGrid = document.querySelector('#governanceGrid');
+
+    params.api.sizeColumnsToFit();
   }
 
 }

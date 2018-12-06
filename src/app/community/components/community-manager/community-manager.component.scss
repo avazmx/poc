@@ -1,8 +1,10 @@
-.end {
-    display: flex;
-    justify-content: flex-end;
+.wizard {
+    .end {
+        display: flex;
+        justify-content: flex-end;
 
-    .end-btn {
-        margin-left: 2rem;
+        .end-btn {
+            margin-left: 2rem;
+        }
     }
 }

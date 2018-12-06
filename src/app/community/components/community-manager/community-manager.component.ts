@@ -10,7 +10,7 @@ export class CommunityManagerComponent implements OnInit {
   /**
    * 	small | large-filled | large-empty | large-filled-symbols | large-empty-symbols
    */
-  wizzardLayout = 'large-filled';
+  wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
   constructor() { }
 
