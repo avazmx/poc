@@ -1,7 +1,4 @@
-<ag-grid-angular 
-  #agGrid
-  class="ag-theme-balham manageMembers" 
-  [enableColResize]="true"
-  [rowData]="rowData" 
-  [columnDefs]="columnDefs">
+<ag-grid-angular #agGrid class="ag-theme-balham manageMembers" [enableColResize]="true" [animateRows]="true"
+  [rowDragManaged]="true" [rowData]="rowData" [columnDefs]="columnDefs" [enableFilter]="true" (gridReady)="onGridReady($event)"
+  [defaultColDef]="defaultColDef" [headerHeight]="headerHeight">
 </ag-grid-angular>

@@ -3,5 +3,15 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
-@import "~ag-grid-community/dist/styles/ag-grid.css";
-@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+$ag-icons-path:"../node_modules/ag-grid-community/src/styles/icons/";
+$odd-row-background-color: rgba(213, 228, 224, 0.507);
+// $border-color: #FF0000;
+$header-background-color: #351c15;
+$secondary-foreground-color: white;
+$font-size: 16px;
+
+
+
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+@import "~ag-grid-community/src/styles/ag-theme-balham.scss";
+

@@ -2,7 +2,7 @@
   <h3>COMMUNITY STRUCTURE</h3>
   <br>
   <div class="row">
-      <div class="col">
+    <div class="col">
       <ng-select formControlName="community_type" [items]="communityTypes" bindLabel="name" bindValue="id"
         [placeholder]="'Select'">
       </ng-select>
@@ -23,11 +23,6 @@
   </div>
 </form>
 
-<ag-grid-angular #agGrid
-    style="width: 1200px; height: 300px;"
-    class="ag-theme-balham"
-    [enableColResize]="true"
-    [rowData]="rowData" 
-    [columnDefs]="columnDefs"
-    >
+<ag-grid-angular #agGrid style="width: 1200px; height: 300px;" class="ag-theme-balham" [enableColResize]="true"
+  [rowData]="rowData" [columnDefs]="columnDefs" [headerHeight]="headerHeight">
 </ag-grid-angular>
