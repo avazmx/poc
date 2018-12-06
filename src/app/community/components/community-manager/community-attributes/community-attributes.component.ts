@@ -106,7 +106,7 @@ export class CommunityAttributesComponent implements OnInit {
       bu: 'Airbag'
     };
     // this.newCount++;
-    this.rowData.push(newData);
+    var res = this.gridApi.updateRowData({ add: [newData] });
     console.log(this.rowData);
   }
 
