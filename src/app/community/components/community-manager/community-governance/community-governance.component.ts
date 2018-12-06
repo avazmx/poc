@@ -1,34 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
   styleUrls: ['./community-governance.component.scss']
 })
-export class CommunityGovernanceComponent implements OnInit {
-
+export class CommunityGovernanceComponent implements OnInit, AfterViewInit
+ {
+  ngAfterViewInit(): void {
+  }
+  private gridApi;
+  private gridColumnApi;
+  headerHeight = 38;
   columnDefs = [
     { headerName: 'Country', field: 'country' },
     { headerName: 'District', field: 'district' },
     { headerName: 'State/Province', field: 'state' },
-    { headerName: 'SLIC Range Low', field: 'slicLow' },
-    { headerName: 'SLIC Range High', field: 'slicHigh' },
-    { headerName: 'Business Unit', field: 'bu' },
-    { headerName: 'GND', field: 'gnd' },
-    { headerName: '3DS', field: 'three' },
-    { headerName: '2DS', field: 'two' },
-    { headerName: '1DA', field: 'one' }
+    { headerName: 'SLIC Range Low', field: 'slic_range_low' },
+    { headerName: 'SLIC Range High', field: 'slic_range_high' },
+    { headerName: 'Level 1 Approver', field: 'level_one_approver' },
+    { headerName: 'Alt Level 1 Approver', field: 'alt_level_one_approver' },
+    { headerName: 'Level 2 Approver', field: 'level_two_approver' },
+    { headerName: 'Alt Level 2 Approver', field: 'alt_level_two_approver' }
   ];
 
   rowData = [
-    { country: 'Toyota', district: 'Celica', state: 35000 },
-    { country: 'Ford', district: 'Mondeo', state: 32000 },
-    { country: 'Porsche', district: 'Boxter', state: 72000 }
+    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
+    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
+    { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
   ];
 
   constructor() { }
 
   ngOnInit() {
+    
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+  }
+
+  sizeToFit() {
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

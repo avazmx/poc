@@ -14,6 +14,7 @@ export class CommunityAttributesComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridNg2;
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
+  headerHeight = 38;
 
   columnDefs = [
     { headerName: 'Country', field: 'country' },
