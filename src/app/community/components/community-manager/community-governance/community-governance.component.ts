@@ -5,10 +5,8 @@ import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/cor
   templateUrl: './community-governance.component.html',
   styleUrls: ['./community-governance.component.scss']
 })
-export class CommunityGovernanceComponent implements OnInit, AfterViewInit
- {
-  ngAfterViewInit(): void {
-  }
+export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
+
   private gridApi;
   private gridColumnApi;
   headerHeight = 38;
@@ -32,8 +30,12 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit
 
   constructor() { }
 
+
+  ngAfterViewInit(): void {
+  }
+
   ngOnInit() {
-    
+
   }
 
   onGridReady(params) {
