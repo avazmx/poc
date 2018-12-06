@@ -15,3 +15,45 @@ $font-size: 16px;
 @import "~ag-grid-community/src/styles/ag-grid.scss";
 @import "~ag-grid-community/src/styles/ag-theme-balham.scss";
 
+/*Overwriting step 2*/
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.optional:after {
+    color: black !important;
+    background-color: #E1E1E1 !important;
+    border: 0 !important;
+}
+
+/*Overwriting step 3*/
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li:after {
+    color: black !important;
+    background-color: #E1E1E1 !important;
+    border: 0 !important;
+}
+
+/*The current step*/
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.current:after{
+    color: white !important;
+    background-color: #426DA9 !important;
+    border: 2px solid #426DA9 !important;
+}
+
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.current div a {
+    color: #426DA9 !important;
+}
+
+/*Going one step back*/
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.editing:after {
+    color: white !important;
+    background-color: #426DA9 !important;
+    border: 2px solid #426DA9 !important;
+}
+
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.editing div a {
+    color: #426DA9 !important;
+}
+
+/*The past step*/
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.done:after {
+    color: white !important;
+    background-color: #4EC877 !important;
+    border: 2px solid #4EC877 !important;
+}
