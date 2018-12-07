@@ -1,0 +1,24 @@
+#members {
+    margin-top: 2rem;
+
+    .end {
+        display: flex;
+        justify-content: flex-end;
+        font-size: .90rem;
+        padding: 0.5rem 0;
+        .emptyBtn {
+            background: transparent;
+            font-weight: 500;
+            border: 0;
+            cursor: pointer;
+            transition: all .17s;
+            &:hover {
+                color: #999;
+            }
+        }
+    }
+}
+   
+ag-grid-angular {
+    width: 1100px;
+}

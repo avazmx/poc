@@ -1,9 +1,12 @@
 <form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
-  <h5>Community Structure</h5>
+  <h3>Community Structure</h3>
   <div class="row">
     <div class="col">
       <label> COMMUNITY TYPE*</label>
-      <ng-select formControlName="community_type" [items]="communityTypes" bindLabel="name" bindValue="id"
+      <ng-select formControlName="community_type" 
+        bindLabel="name" bindValue="id"
+        class="selectInput"
+        [items]="communityTypes"
         [placeholder]="'Select'">
       </ng-select>
     </div>
@@ -11,23 +14,27 @@
     <div class="col">
       <label> NAME*</label>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Enter Name..." formControlName="name">
+        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
       </div>
     </div>
     <div class="col">
       <label> DESCRIPTION*</label>
-      <input type="text" class="form-control" placeholder="Enter Description..." formControlName="description">
+      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
     </div>
     <div class="col">
     </div>
   </div>
 </form>
 
-<h5>Geo/Service</h5>
-<div class="end" (click)="createNewRowData()">Add Row</div>
+<h4>Geo/Service</h4>
+<div class="end">
+  <button (click)="createNewRowData()" class="emptyBtn">
+    Add Row
+  </button>
+</div>
 
 <ag-grid-angular #attributesGrid
-    class="ag-theme-balham"
+    class="ag-theme-bootstrap"
     [enableColResize]="true"
     [rowData]="rowData" 
     [columnDefs]="columnDefs"

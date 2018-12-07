@@ -44,10 +44,6 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   }
 
-  sizeToFit() {
-    this.gridApi.sizeColumnsToFit();
-  }
-
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;
@@ -57,6 +53,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     this.governanceGrid = document.querySelector('#governanceGrid');
 
     params.api.sizeColumnsToFit();
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

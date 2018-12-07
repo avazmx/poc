@@ -1,17 +1,32 @@
 <div id="governance">
-  <h1>dual box around here...</h1>
+  <h3>East Region Small Package Community - Community Governance</h3>
+  <hr>
+  <label>GOVERNANCE LEVEL*</label>
+  <ng-select formControlName="community_type" bindLabel="name" bindValue="id" 
+    class="selectInput" [items]="communityTypes" [placeholder]="'Select'">
+  </ng-select>
   <br>
-  <br>
-  <ag-grid-angular #governanceGrid
-    class="ag-theme-balham" 
-    [headerHeight]="headerHeight"
-    [enableColResize]="true"
-    [rowData]="rowData" 
-    [columnDefs]="columnDefs"
-    (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
-
-  <br>
-  <button (click)="sizeToFit()">Size to Fit</button>
-  <button (click)="autoSizeAll()">Auto-Size All</button>
+  <div class="transferContainer">
+    <div class="transferBox">
+      <div class="boxTitle">Comunity Geography</div>
+      <div class="insideBox">1</div>
+    </div>
+    <div class="btnsContainer">
+      <span> > </span>
+      <span> < </span>
+    </div>
+    <div class="transferBox">
+      <div class="boxTitle">Selected Geography</div>
+      <div class="insideBox">2</div>
+    </div>
+  </div>
 </div>
+
+<ag-grid-angular #governanceGrid
+  class="ag-theme-bootstrap" 
+  [headerHeight]="headerHeight"
+  [enableColResize]="true"
+  [rowData]="rowData" 
+  [columnDefs]="columnDefs"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>

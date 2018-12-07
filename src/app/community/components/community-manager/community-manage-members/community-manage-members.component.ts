@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ups-manage-members',
-  templateUrl: './manage-members.component.html',
-  styleUrls: ['./manage-members.component.scss']
+  selector: 'ups-community-manage-members',
+  templateUrl: './community-manage-members.component.html',
+  styleUrls: ['./community-manage-members.component.scss']
 })
-export class ManageMembersComponent implements OnInit {
+
+export class CommunityManageMembersComponent implements OnInit {
   private defaultColDef;
   private gridApi;
   private gridColumnApi;

@@ -1,8 +1,41 @@
 #governance {
-    margin: 2rem 0;
-    text-align: center;
+    margin-top: 2rem;
 
-    ag-grid-angular {
-        width: 1200px;
+    hr {
+        margin: 1rem 0;
     }
+
+    .transferContainer {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        padding: 2rem 6rem;
+        .transferBox {
+            margin: 0 1rem;
+            .boxTitle {
+                background: #351c15;
+                padding: 0.5rem 0.85rem;
+                color: #FFF;
+                font-weight: 700;
+            }
+            .insideBox {
+                padding: 6rem 7rem;
+                border: solid #EEE;
+            }
+        }
+        .btnsContainer {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5rem;
+            span {
+                margin-top: 1rem;
+                font-weight: 900;
+                color: #CCC;
+            }
+        }
+    }
+}
+
+ag-grid-angular {
+    width: 1100px;
 }

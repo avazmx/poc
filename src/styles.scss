@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap/dist/css/bootstrap-grid.css";
 @import "~font-awesome/css/font-awesome.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
@@ -10,10 +10,57 @@ $header-background-color: #351c15;
 $secondary-foreground-color: white;
 $font-size: 16px;
 
+* {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    margin: 0;
+}
 
+input {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    width: 150px;
+}
+
+label {
+    color: #999;
+}
+
+hr {
+    background: #CCC;
+    height: 1px;
+    border: 0;
+}
+
+.selectInput {
+    width: 150px;
+    margin: 0.5rem 0;
+}
+
+.inputBig {
+    width: 300px;
+}
+
+.btn {
+    border: 0;
+    padding: 8px;
+    margin: 16px 0 16px 16px;
+}
+
+.btn-primary {
+    background: #426DA9;
+    color: #FFF;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #426DA9;
+    color: #426DA9;
+}
 
 @import "~ag-grid-community/src/styles/ag-grid.scss";
-@import "~ag-grid-community/src/styles/ag-theme-balham.scss";
+@import "~ag-grid-community/src/styles/ag-theme-bootstrap.scss";
 
 /*Overwriting step 2*/
 aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.optional:after {
@@ -27,6 +74,16 @@ aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li:af
     color: black !important;
     background-color: #E1E1E1 !important;
     border: 0 !important;
+    line-height: 1.75rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    font-weight: 700;
+}
+
+aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li:not(:last-child):before {
+    top: -2.3rem !important;
+    left: 12.5rem !important;
+    height: 4px !important;
 }
 
 /*The current step*/
@@ -47,6 +104,13 @@ aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.ed
     border: 2px solid #426DA9 !important;
 }
 
+aw-wizard-navigation-bar.horizontal ul.steps-indicator li div a {
+    text-transform: none !important;
+    font-size: inherit !important;
+    line-height: 0 !important;
+    margin-top: -0.67rem !important;
+}
+
 aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.editing div a {
     color: #426DA9 !important;
 }
@@ -56,4 +120,8 @@ aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.do
     color: white !important;
     background-color: #4EC877 !important;
     border: 2px solid #4EC877 !important;
+}
+
+.ag-theme-bootstrap .ag-header-cell-label .ag-header-cell-text {
+    font-weight: 500;
 }

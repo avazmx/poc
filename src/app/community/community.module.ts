@@ -9,14 +9,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { ManageMembersComponent } from './components/community-manager/manage-members/manage-members.component';
+import { CommunityManageMembersComponent } from './components/community-manager/community-manage-members/community-manage-members.component';
 import { CommunityGovernanceComponent } from './components/community-manager/community-governance/community-governance.component';
 
 @NgModule({
   declarations: [
     CommunityManagerComponent,
     CommunityAttributesComponent,
-    ManageMembersComponent,
+    CommunityManageMembersComponent,
     CommunityGovernanceComponent
   ],
   imports: [
