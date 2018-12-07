@@ -11,10 +11,10 @@ import { AgGridNg2 } from 'ag-grid-angular';
   styleUrls: ['./community-attributes.component.scss']
 })
 export class CommunityAttributesComponent implements OnInit {
-  // @ViewChild('agGrid') agGrid: AgGridNg2;
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
+  communityTypes: any;
 
   private gridApi;
   private gridColumnApi;
@@ -35,7 +35,6 @@ export class CommunityAttributesComponent implements OnInit {
     { headerName: '1DA', field: 'one', editable: true },
   ];
 
-
   constructor(
     private _formBuilder: FormBuilder,
     private _communityService: CommunityService,
@@ -51,7 +50,7 @@ export class CommunityAttributesComponent implements OnInit {
   }
 
   countries: NgOption[] = [];
-  communityTypes: NgOption[] = [];
+  // communityTypes: NgOption[] = [];
   formIsValid: EventEmitter<boolean>;
 
   ngOnInit() {
@@ -69,19 +68,23 @@ export class CommunityAttributesComponent implements OnInit {
     });
 
     // We fill the community types.
-    this._communityService.getCommunityTypes().forEach(element => {
-      this.communityTypes.push({ id: element.community_type_id, name: element.name });
-      console.log(element);
-      console.log(this.communityTypes);
-    });
+    // this._communityService.getCommunityTypes().forEach(element => {
+    //  this.communityTypes.push({ id: element.community_type_id, name: element.name });
+    //  console.log(element);
+    //  console.log(this.communityTypes);
+    // });
 
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
+    this.getCommunityType();
+  }
 
-    // this._countriesService.getInfo().subscribe(data => {
-    //   console.log(data);
-    // });
-
+  getCommunityType() {
+    this._communityService.getCommunityTypes().subscribe(
+      data => {
+        this.communityTypes = data;
+        console.log(this.communityTypes);
+    });
   }
 
   /* AG-Grid */

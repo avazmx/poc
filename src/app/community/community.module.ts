@@ -7,6 +7,7 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { CommunityAttributesComponent } from './components/community-manager/community-attributes/community-attributes.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { CommunityManageMembersComponent } from './components/community-manager/community-manage-members/community-manage-members.component';
@@ -26,7 +27,8 @@ import { CommunityGovernanceComponent } from './components/community-manager/com
     ReactiveFormsModule,
     NgSelectModule,
     FormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    AngularFontAwesomeModule,
   ]
 })
 

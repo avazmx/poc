@@ -19,18 +19,29 @@
                 font-weight: 700;
             }
             .insideBox {
-                padding: 6rem 7rem;
+                // padding: 6rem 7rem;
+                height: 12rem;
+                width: 14rem;
                 border: solid #EEE;
             }
         }
+
         .btnsContainer {
             display: flex;
             flex-direction: column;
-            margin-top: 5rem;
+            margin-top: 2rem;
             span {
-                margin-top: 1rem;
+                margin-top: 2rem;
                 font-weight: 900;
                 color: #CCC;
+                transition: all .17s;
+                cursor: pointer;
+                &:hover {
+                    color: #999;
+                }
+                fa {
+                    font-size: 24px;
+                }
             }
         }
     }

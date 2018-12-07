@@ -2,9 +2,13 @@
   <h3>East Region Small Package Community - Community Governance</h3>
   <hr>
   <label>GOVERNANCE LEVEL*</label>
-  <ng-select formControlName="community_type" bindLabel="name" bindValue="id" 
+  <!-- <ng-select formControlName="community_type" bindLabel="name" bindValue="id" 
     class="selectInput" [items]="communityTypes" [placeholder]="'Select'">
-  </ng-select>
+  </ng-select> -->
+  
+  <select>
+    <option> type.name}} </option>
+  </select>
   <br>
   <div class="transferContainer">
     <div class="transferBox">
@@ -12,8 +16,8 @@
       <div class="insideBox">1</div>
     </div>
     <div class="btnsContainer">
-      <span> > </span>
-      <span> < </span>
+      <span> <fa name="arrow-right"></fa> </span>
+      <span> <fa name="arrow-left"></fa> </span>
     </div>
     <div class="transferBox">
       <div class="boxTitle">Selected Geography</div>

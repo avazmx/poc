@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AgGridModule } from 'ag-grid-angular';
 
@@ -19,7 +17,7 @@ import { AgGridModule } from 'ag-grid-angular';
     AppRoutingModule,
     LayoutModule,
     HttpClientModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
   ],
   providers: [],
   bootstrap: [AppComponent]
