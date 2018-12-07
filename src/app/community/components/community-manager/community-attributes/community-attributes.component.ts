@@ -23,7 +23,16 @@ export class CommunityAttributesComponent implements OnInit {
   newCount = 1;
 
   columnDefs = [
-    { headerName: 'Country', field: 'country', editable: true },
+    {
+      headerName: 'Country',
+      field: 'country',
+      cellRenderer: params => {
+        return `<select>
+          <option>option 1</option>
+          <option>option 2</option>
+        </select>`;
+      }
+    },
     { headerName: 'District', field: 'district', editable: true },
     { headerName: 'State/Province', field: 'state', editable: true },
     { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },

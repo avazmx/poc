@@ -169,3 +169,20 @@ aw-wizard-navigation-bar.horizontal.large-empty-symbols ul.steps-indicator li.do
         border-right: 0;
     }
 }
+
+
+/*
+
+ul.steps-indicator {
+
+    li::before {
+        background-color: red !important;
+    }
+
+    li:first-child::before {
+        background-color: green !important;
+    }
+
+}
+
+*/
