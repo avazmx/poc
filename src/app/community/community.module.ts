@@ -12,13 +12,15 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AgGridModule } from 'ag-grid-angular';
 import { CommunityManageMembersComponent } from './components/community-manager/community-manage-members/community-manage-members.component';
 import { CommunityGovernanceComponent } from './components/community-manager/community-governance/community-governance.component';
+import { CommunitySelectComponent } from './components/community-manager/community-select/community-select.component';
 
 @NgModule({
   declarations: [
     CommunityManagerComponent,
     CommunityAttributesComponent,
     CommunityManageMembersComponent,
-    CommunityGovernanceComponent
+    CommunityGovernanceComponent,
+    CommunitySelectComponent
   ],
   imports: [
     CommonModule,
@@ -27,9 +29,12 @@ import { CommunityGovernanceComponent } from './components/community-manager/com
     ReactiveFormsModule,
     NgSelectModule,
     FormsModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([
+      CommunitySelectComponent
+    ]),
     AngularFontAwesomeModule,
-  ]
+  ],
+  entryComponents: [ CommunitySelectComponent ]
 })
 
 export class CommunityModule { }
