@@ -13,7 +13,9 @@
   <div class="transferContainer">
     <div class="transferBox">
       <div class="boxTitle">Comunity Geography</div>
-      <div class="insideBox">1</div>
+      <div class="insideBox">
+        <app-multi-select [active]="true" [list]="data" (selectedList)="onSelected($event)"></app-multi-select>
+      </div>
     </div>
     <div class="btnsContainer">
       <span> <fa name="arrow-right"></fa> </span>
@@ -21,7 +23,9 @@
     </div>
     <div class="transferBox">
       <div class="boxTitle">Selected Geography</div>
-      <div class="insideBox">2</div>
+      <div class="insideBox">
+        <app-multi-select [active]="false" [list]="secondData" (selectedList)="onSelected($event)"></app-multi-select>
+      </div>
     </div>
   </div>
 </div>

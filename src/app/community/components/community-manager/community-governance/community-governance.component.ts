@@ -12,6 +12,60 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private gridColumnApi;
   private governanceGrid;
 
+  secondData = [];
+  data: any = [
+    {
+      country: {
+        id: 1,
+        name: "one",
+        districts: [
+          {
+            id: 1,
+            name: "dist one",
+            states: [
+              {
+                id: 1,
+                name:"state one"
+              },
+              {
+                id: 11,
+                name:"state one one"
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: "dist two",
+            states: [
+              {
+                id: 2,
+                name:"state two"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      country: {
+        id: 2,
+        name: "two",
+        districts: [
+          {
+            id: 3,
+            name: "dist three",
+            states: [
+              {
+                id: 3,
+                name:"state three"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ];
+
   headerHeight = 38;
   columnDefs = [
     { headerName: 'Country', field: 'country', editable: true },
@@ -42,6 +96,10 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
+  }
+
+  onSelected(selected) {
+    this.secondData = selected;
   }
 
   /* AG-Grid */
