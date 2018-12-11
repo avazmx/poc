@@ -88,4 +88,28 @@
         100% {
             transform: rotate(90deg);
         }
+      }
+      .gridsearch {
+        height: auto;
+        width: auto;
+        display: grid;
+        grid-template-columns: auto 25px;
+        background-color: #f2f2f2;
+    }
+    
+    .gridsearch input[type="text"]{
+        background-color: transparent;
+        border-color: transparent;
+        height: 35px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .gridsearch input:focus {
+      outline: none;
+    }
+    
+    .gridsearch img{
+        margin-top: 7px;
+        margin-left: -8px;
     }
