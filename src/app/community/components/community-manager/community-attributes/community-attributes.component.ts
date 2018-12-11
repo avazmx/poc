@@ -98,6 +98,8 @@ export class CommunityAttributesComponent implements OnInit {
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
     this.getCommunityType();
+    //console.log("yees: " , type);
+    //this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(type));
   }
 
   changeName() {
@@ -143,7 +145,8 @@ export class CommunityAttributesComponent implements OnInit {
     }
     const communityType: CommunityType = {
       community_type_id: this.form.controls['community_type'].value,
-      name: this.form.controls['community_type'].value
+      name: this.form.controls['community_type'].value,
+      description: this.form.controls['description'].value
     };
 
     this._communityService.setCommunityAttributes(communityType, this.form.get('name').value, this.form.get('description').value);
