@@ -15,11 +15,11 @@ export const columnDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        cellRenderer: 'customizedCountryCell'
+        editable: true
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        cellRenderer: 'customizedCountryCell'
+        editable: true
     }, {
         headerName: 'Business Unit',
         field: 'bu',

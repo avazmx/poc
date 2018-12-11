@@ -17,11 +17,11 @@
   </select>
   
   <select *ngSwitchCase="'district'">
-    <option>data.district}}</option>
+    <option *ngFor="let data of districts">{{data.name}}</option>
   </select>
 
   <select *ngSwitchCase="'state'">
-    <option>data.state}}</option>
+    <option *ngFor="let data of states">{{data.state}}</option>
   </select>
     
   <select *ngSwitchCase="'slicLow'">

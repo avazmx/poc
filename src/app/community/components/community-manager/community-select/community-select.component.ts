@@ -14,6 +14,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   private columnDefs;
   countries: any;
   districts: any;
+  states: any;
 
   constructor(
     private _communityService: CommunityService,
@@ -30,6 +31,12 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
       .subscribe(districts => {
         this.districts = districts;
         console.log(this.districts);
+    });
+
+    this._communityService.getStates()
+      .subscribe(states => {
+        this.states = states;
+        console.log(this.states);
     });
 
     // console.log(this.columnDefs);
