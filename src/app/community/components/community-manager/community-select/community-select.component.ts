@@ -21,6 +21,12 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   ) {
     this.attributesDef = attributesDef;
 
+    this._communityService.getStates()
+      .subscribe(states => {
+        this.states = states;
+        console.log(this.states);
+    });
+
     // console.log(this.columnDefs);
   }
 

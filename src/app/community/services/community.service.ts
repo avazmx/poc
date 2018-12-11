@@ -54,6 +54,10 @@ export class CommunityService {
     return this.http.get(this.url + 'geo/service');
   }
 
+  getCommunityType() {
+    return this.http.get(this.url + 'community/type');
+  }
+
 
   getGovernanceLevel() {
     return this.http.get(this.url + 'governance/level');
