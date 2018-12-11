@@ -7,6 +7,33 @@
   <option *ngFor="let data of rowData">{{data.country}}</option>
 </select> -->
 
-<select>
-  <option *ngFor="let data of altData">{{data.country}}</option>
-</select>
+
+<span [ngSwitch]="altData">
+  
+  <!-- <option value="" disabled selected>Select your option</option> -->
+
+  <select *ngSwitchCase="'country'">
+    <option *ngFor="let country of countries">{{country.name}}</option>
+  </select>
+  
+  <select *ngSwitchCase="'district'">
+    <option>data.district}}</option>
+  </select>
+
+  <select *ngSwitchCase="'state'">
+    <option>data.state}}</option>
+  </select>
+    
+  <select *ngSwitchCase="'slicLow'">
+    <option>data.slicLow}}</option>
+  </select>
+    
+  <select *ngSwitchCase="'slicHigh'">
+    <option>data.slicHigh}}</option>
+  </select>
+
+  <select *ngSwitchDefault>
+    <option>default</option>
+  </select>
+
+</span>

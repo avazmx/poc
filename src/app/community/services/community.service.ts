@@ -15,21 +15,33 @@ export class CommunityService {
 
   private members: Member[] = [];
   private membersUpdated = new Subject<{ members: Member[] }>();
-  
+
   private url = 'http://22HW020536:8080/';
   private localUrl = 'http://10.101.170.1:8080/';
 
-  // private communityTypes: CommunityType[] = [{ community_type_id: 1, name: 'Community type 1' }, { community_type_id: 2, name: 'Community type 2' }];
+  constructor(
+    private http: HttpClient,
+    ) {
+  }
 
-  constructor(private http: HttpClient) { }
-
-  /**
-    * Return the list of countries.
-    */
-
-  getCommunityTypes() {
-    // return this.http.get(this.url + 'governance/level');
+  getCountries() {
     return this.http.get(this.url + 'countries');
+  }
+
+  getDistricts() {
+    return this.http.get(this.url + 'district');
+  }
+
+  getStates() {
+    return this.http.get(this.url + 'state/province');
+  }
+
+  getSlicLow() {
+    return this.http.get(this.url + 'geo/service');
+  }
+
+  getSlicHigh() {
+    return this.http.get(this.url + 'geo/service');
   }
 
   setCommunityAttributes(communityTipe: CommunityType, name: string, description: string) {
@@ -40,4 +52,5 @@ export class CommunityService {
 
     this.communityUpdated.next({ community: this.community });
   }
+
 }
