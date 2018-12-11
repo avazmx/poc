@@ -30,6 +30,10 @@ export class CommunityService {
     ) {
   }
 
+  getCommunityTypes() {
+    return this.http.get(this.url + 'community/type');
+  }
+
   getCountries() {
     return this.http.get(this.url + 'countries');
   }

@@ -42,24 +42,6 @@ export class CommunityManageMembersComponent implements OnInit {
       state: 'Chicago',
       slic_range_low: 123,
       slic_range_high: 456
-    },
-    {
-      member_name: 'Toyota',
-      access_level: 'Celica',
-      country: 'USA',
-      district: 'District 1',
-      state: 'Chicago',
-      slic_range_low: 123,
-      slic_range_high: 456
-    },
-    {
-      member_name: 'Toyota',
-      access_level: 'Celica',
-      country: 'USA',
-      district: 'District 1',
-      state: 'Chicago',
-      slic_range_low: 123,
-      slic_range_high: 456
     }
   ];
 

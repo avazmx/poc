@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { columnDef } from '../../../models/column-def';
+import { attributesDef } from '../../../models/attributes-def';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ export class CommunityAttributesComponent implements OnInit {
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
-  countries: any;
+  communityTypes: any;
   newRow: boolean;
 
   private gridApi;
@@ -27,9 +27,12 @@ export class CommunityAttributesComponent implements OnInit {
   private frameworkComponents;
   rowData: any;
   altData: any;
-  private columnDefs;
+  private attributesDef;
   private attributesGrid;
   newCount = 1;
+  
+  formIsValid: EventEmitter<boolean>;
+  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   community$: Observable<Community>;
 
@@ -49,42 +52,18 @@ export class CommunityAttributesComponent implements OnInit {
       // { country: 'Porsche', district: 'Boxter', state: 72000 }
     ];
 
-    this.columnDefs = columnDef;
-/*
-    this.columnDefs = [
-      {
-        headerName: 'Country',
-        field: 'country',
-        // cellRendererFramework: CommunitySelectComponent,
-        cellRenderer: 'customizedCountryCell'
-        // cellRenderer : params => {
-        //   return `
-        //   <select>
-        //     <option>{{country}}</option>
-        //   </select>
-        // `;
-        // }
-      },
-      { headerName: 'District', field: 'district', editable: true },
-      { headerName: 'State/Province', field: 'state', editable: true },
-      { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },
-      { headerName: 'SLIC Range High', field: 'slicHigh', editable: true },
-      { headerName: 'Business Unit', field: 'bu', editable: true },
-      { headerName: 'GND', field: 'gnd', editable: true },
-      { headerName: '3DS', field: 'three', editable: true },
-      { headerName: '2DS', field: 'two', editable: true },
-      { headerName: '1DA', field: 'one', editable: true },
-    ];*/
-
+    this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
+    
+    // Get community types
+    this._communityService.getCommunityTypes()
+      .subscribe(types => {
+        this.communityTypes = types;
+    });
 
   }
-
-  formIsValid: EventEmitter<boolean>;
-
-  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
 
@@ -97,19 +76,10 @@ export class CommunityAttributesComponent implements OnInit {
 
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
-    this.getCommunityType();
   }
 
   changeName() {
     this.store.dispatch(new CommunityAttributesActions.ChangeName('Thoooo'));
-  }
-
-  getCommunityType() {
-    this._communityService.getCountries()
-      .subscribe(data => {
-        this.countries = data;
-        console.log(this.countries);
-    });
   }
 
   /* AG-Grid */
@@ -150,7 +120,7 @@ export class CommunityAttributesComponent implements OnInit {
     this.formIsValid.emit(true);
   }
 
-  checkLength($event){
+  checkLength($event) {
     this.isInputFilled.emit($event.target);
   }
 

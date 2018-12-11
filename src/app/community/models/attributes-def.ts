@@ -1,25 +1,29 @@
-export const columnDef = [
+export const attributesDef = [
     {
         headerName: 'Country',
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-            params: { field: 'country' }
+        params: { field: 'country' }
     }, {
         headerName: 'District',
         field: 'district',
-        cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'customizedCountryCell',
+        params: { field: 'district' }
     }, {
         headerName: 'State/Province',
         field: 'state',
-        cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'customizedCountryCell',
+        params: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        cellRenderer: 'customizedCountryCell'
+        // cellRenderer: 'customizedCountryCell'
+        editable: true
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        cellRenderer: 'customizedCountryCell'
+        // cellRenderer: 'customizedCountryCell'
+        editable: true
     }, {
         headerName: 'Business Unit',
         field: 'bu',
