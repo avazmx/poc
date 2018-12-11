@@ -112,9 +112,9 @@ export class MultiSelectComponent implements OnInit {
   }
 
   toggleTree(num, $evt, side, c_id, d_id) {
-    if (this.toggles2.length == 0) {
+    //if (this.toggles2.length == 0) {
       this.setToggles();
-    }
+    //}
     if ($evt.target.nodeName !== 'INPUT') {
       if (side === 'first') {
         this.toggles[num] = !this.toggles[num];
