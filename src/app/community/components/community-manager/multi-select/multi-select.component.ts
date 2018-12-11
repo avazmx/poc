@@ -18,6 +18,7 @@ export class MultiSelectComponent implements OnInit {
   constructor() { }
 
   setToggles() {
+    this.toggles2 = [];
     for (const element of this.list) {
       const country = {
         value: true,
