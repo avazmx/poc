@@ -18,6 +18,7 @@ export class CommunityService {
   
   private url = 'http://22HW020536:8080/';
   private localUrl = 'http://10.101.170.1:8080/';
+  private homeUrl = 'http://192.168.100.130:8080/';
 
   // private communityTypes: CommunityType[] = [{ community_type_id: 1, name: 'Community type 1' }, { community_type_id: 2, name: 'Community type 2' }];
 
@@ -30,6 +31,11 @@ export class CommunityService {
   getCommunityTypes() {
     // return this.http.get(this.url + 'governance/level');
     return this.http.get(this.url + 'countries');
+  }
+
+
+  getGovernanceLevel() {
+    return this.http.get(this.homeUrl + 'governance/level');
   }
 
   setCommunityAttributes(communityTipe: CommunityType, name: string, description: string) {

@@ -89,7 +89,6 @@ export class CommunityManageMembersComponent implements OnInit {
     console.log(res);
   }
 
-
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;

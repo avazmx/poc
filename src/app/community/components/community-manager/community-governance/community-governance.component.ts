@@ -1,16 +1,19 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
+import { CommunityService } from 'src/app/community/services/community.service';
 
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
   styleUrls: ['./community-governance.component.scss']
 })
+
 export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   private rowData;
   private gridApi;
   private gridColumnApi;
   private governanceGrid;
+  governanceLevels: any;
 
   secondData = [];
   data: any = [
@@ -80,13 +83,19 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-
+    private _communityService: CommunityService,
   ) {
     this.rowData = [
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
     ];
+
+    this._communityService.getGovernanceLevel()
+      .subscribe(governance => {
+        this.governanceLevels = governance;
+        console.log(this.governanceLevels);
+    });
 
   }
 
@@ -95,7 +104,6 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
   }
 
   onSelected(selected) {
