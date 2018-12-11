@@ -20,13 +20,6 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     private _communityService: CommunityService,
   ) {
     this.attributesDef = attributesDef;
-
-    this._communityService.getStates()
-      .subscribe(states => {
-        this.states = states;
-        console.log(this.states);
-    });
-
     // console.log(this.columnDefs);
   }
 
@@ -38,7 +31,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     this.altData = params.value;
     // console.log(this.altData);
     
-    if(this.altData == 'country' ) {
+    if(this.altData == 'country') {
       this._communityService.getCountries()
         .subscribe(countries => {
           this.countries = countries;
@@ -46,7 +39,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
       });
     }
 
-    if(this.altData == 'district' ) {
+    if(this.altData == 'district') {
       this._communityService.getDistricts()
         .subscribe(districts => {
           this.districts = districts;
@@ -54,7 +47,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
       });
     }
 
-    if(this.altData == 'state' ) {
+    if(this.altData == 'state') {
       this._communityService.getStates()
         .subscribe(states => {
           this.states = states;

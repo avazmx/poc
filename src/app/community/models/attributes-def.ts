@@ -17,18 +17,12 @@ export const attributesDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-<<<<<<< HEAD:src/app/community/models/attributes-def.ts
         // cellRenderer: 'customizedCountryCell'
-=======
->>>>>>> c1db2c205f1b47b525f52e1bf850fe5b5226ab1c:src/app/community/models/column-def.ts
         editable: true
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-<<<<<<< HEAD:src/app/community/models/attributes-def.ts
         // cellRenderer: 'customizedCountryCell'
-=======
->>>>>>> c1db2c205f1b47b525f52e1bf850fe5b5226ab1c:src/app/community/models/column-def.ts
         editable: true
     }, {
         headerName: 'Business Unit',
