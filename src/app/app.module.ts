@@ -7,6 +7,10 @@ import { LayoutModule } from './layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AgGridModule } from 'ag-grid-angular';
+import { StoreModule } from '@ngrx/store';
+
+import { communityAttributesReducer } from 'src/app/community/store/reducers/community-attributes.reducers';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +22,9 @@ import { AgGridModule } from 'ag-grid-angular';
     LayoutModule,
     HttpClientModule,
     AgGridModule.withComponents([]),
+    StoreModule.forRoot({
+      community: communityAttributesReducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

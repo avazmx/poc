@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, fromEventPattern } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class CommunityService {
 
   private members: Member[] = [];
   private membersUpdated = new Subject<{ members: Member[] }>();
-  
+
   private url = 'http://22HW020536:8080/';
   private localUrl = 'http://10.101.170.1:8080/';
 
