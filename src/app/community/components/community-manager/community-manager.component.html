@@ -3,12 +3,17 @@
   <div class="row">
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }">
       <div class="row">
-        <ups-community-attributes (formIsValid)="onChangeFormValidity($event)"></ups-community-attributes>
+        <ups-community-attributes 
+          [communityObject]="communityObject"
+          (selectedAttributes)="selectedAttributes($event)"
+          (formIsValid)="onChangeFormValidity($event)">
+        </ups-community-attributes>
       </div>
       <br>
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
-        <button type="button" class="btn btn-primary" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary"
+          (ngOnChanges)="selectedAttributes($event)" awNextStep>Next</button>
       </div>
     </aw-wizard-step>
   </div>
@@ -19,7 +24,8 @@
 
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary end-btn" 
+          (selectedMembers)="selectedMembers($event)" awNextStep>Next</button>
       </div>
     </aw-wizard-step>
   </div>

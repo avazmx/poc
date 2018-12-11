@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 })
 export class CommunityService {
 
+  subject: Subject<Object>;
   private community: Community;
   private communityUpdated = new Subject<{ community: Community }>();
 

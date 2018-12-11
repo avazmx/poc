@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { NgOption } from '@ng-select/ng-select';
@@ -10,12 +10,20 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
   templateUrl: './community-attributes.component.html',
   styleUrls: ['./community-attributes.component.scss']
 })
-export class CommunityAttributesComponent implements OnInit {
+
+export class CommunityAttributesComponent implements OnInit, OnChanges {
+  @Output() attributesData = new EventEmitter();
+  @Input() communityObject;
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
   communityTypes: any;
   newRow: boolean;
+  attributesObject: any;
+
+  example = [
+    { name: 'hi' }
+  ];
 
   private gridApi;
   private gridColumnApi;
@@ -31,6 +39,7 @@ export class CommunityAttributesComponent implements OnInit {
     private _communityService: CommunityService,
     private _countriesService: CountryService
     ) {
+
     this.newRow = false;
     this.rowData = [
       { country: 'Toyota', district: 'Celica', state: 35000 },
@@ -73,7 +82,15 @@ export class CommunityAttributesComponent implements OnInit {
   // communityTypes: NgOption[] = [];
   formIsValid: EventEmitter<boolean>;
 
+  ngOnChanges() {
+    this._communityService.subject
+      .subscribe( data => {
+        this.communityObject = data;
+    });
+  }
+
   ngOnInit() {
+    console.log(this.communityObject);
 
     // We create the form.
     this.form = this._formBuilder.group({
@@ -129,6 +146,9 @@ export class CommunityAttributesComponent implements OnInit {
     };
     var res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
+
+    this.communityObject.push(this.example);
+    this.attributesData.emit(this.communityObject);
   }
 
   onSubmit() {

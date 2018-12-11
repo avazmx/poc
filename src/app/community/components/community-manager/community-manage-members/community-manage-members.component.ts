@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -69,9 +69,7 @@ export class CommunityManageMembersComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
-
 
   createNewRowData() {
     console.log(this.rowData);
