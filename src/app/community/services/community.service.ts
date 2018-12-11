@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+
+import { Subject, fromEventPattern } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
+
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -16,6 +19,7 @@ export class CommunityService {
 
   private members: Member[] = [];
   private membersUpdated = new Subject<{ members: Member[] }>();
+
   
   private url = environment.apiUrl;
 
