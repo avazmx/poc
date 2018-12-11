@@ -1,8 +1,13 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { columnDef } from '../../../models/column-def';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Community } from 'src/app/community/models/community.model';
+import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -26,10 +31,17 @@ export class CommunityAttributesComponent implements OnInit {
   private attributesGrid;
   newCount = 1;
 
+  community$: Observable<Community>;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _communityService: CommunityService,
+    private store: Store<Community>
     ) {
+    this.community$ = this.store.select('community');
+    this.community$.subscribe((obj) => {
+      console.log('subscription ', obj);
+    });
     this.newRow = false;
     this.rowData = [
       // { country: 'Toyota', district: 'Celica', state: 35000 },
@@ -72,6 +84,8 @@ export class CommunityAttributesComponent implements OnInit {
 
   formIsValid: EventEmitter<boolean>;
 
+  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
+
   ngOnInit() {
 
     // We create the form.
@@ -84,6 +98,10 @@ export class CommunityAttributesComponent implements OnInit {
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
     this.getCommunityType();
+  }
+
+  changeName() {
+    this.store.dispatch(new CommunityAttributesActions.ChangeName('Thoooo'));
   }
 
   getCommunityType() {
@@ -132,6 +150,9 @@ export class CommunityAttributesComponent implements OnInit {
     this.formIsValid.emit(true);
   }
 
+  checkLength($event){
+    this.isInputFilled.emit($event.target);
+  }
 
 }
 

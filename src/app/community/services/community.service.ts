@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+
+import { Subject, fromEventPattern } from 'rxjs';
+import { Community } from '../models/community.model';
+
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +20,10 @@ export class CommunityService {
   private members: Member[] = [];
   private membersUpdated = new Subject<{ members: Member[] }>();
 
-  private url = 'http://22HW020536:8080/';
-  private localUrl = 'http://10.101.170.1:8080/';
+  // private url = 'http://22HW020536:8080/';
+  // private localUrl = 'http://10.101.170.1:8080/';
+
+  private url = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
@@ -42,6 +48,11 @@ export class CommunityService {
 
   getSlicHigh() {
     return this.http.get(this.url + 'geo/service');
+  }
+
+
+  getGovernanceLevel() {
+    return this.http.get(this.url + 'governance/level');
   }
 
   setCommunityAttributes(communityTipe: CommunityType, name: string, description: string) {

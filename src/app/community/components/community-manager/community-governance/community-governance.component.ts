@@ -1,16 +1,73 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
+import { CommunityService } from 'src/app/community/services/community.service';
 
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
   styleUrls: ['./community-governance.component.scss']
 })
+
 export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   private rowData;
   private gridApi;
   private gridColumnApi;
   private governanceGrid;
+  governanceLevels: any;
+
+  secondData = [];
+  data: any = [
+    {
+      country: {
+        id: 1,
+        name: "one",
+        districts: [
+          {
+            id: 1,
+            name: "dist one",
+            states: [
+              {
+                id: 1,
+                name:"state one"
+              },
+              {
+                id: 11,
+                name:"state one one"
+              }
+            ]
+          },
+          {
+            id: 2,
+            name: "dist two",
+            states: [
+              {
+                id: 2,
+                name:"state two"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      country: {
+        id: 2,
+        name: "two",
+        districts: [
+          {
+            id: 3,
+            name: "dist three",
+            states: [
+              {
+                id: 3,
+                name:"state three"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ];
 
   headerHeight = 38;
   columnDefs = [
@@ -26,13 +83,19 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-
+    private _communityService: CommunityService,
   ) {
     this.rowData = [
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
     ];
+
+    this._communityService.getGovernanceLevel()
+      .subscribe(governance => {
+        this.governanceLevels = governance;
+        console.log(this.governanceLevels);
+    });
 
   }
 
@@ -41,7 +104,10 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+  }
 
+  onSelected(selected) {
+    this.secondData = selected;
   }
 
   /* AG-Grid */

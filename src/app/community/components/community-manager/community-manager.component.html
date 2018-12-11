@@ -3,12 +3,14 @@
   <div class="row">
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }">
       <div class="row">
-        <ups-community-attributes (formIsValid)="onChangeFormValidity($event)"></ups-community-attributes>
+        <ups-community-attributes (formIsValid)="onChangeFormValidity($event)"
+          (isInputFilled)="onInputChange($event)"></ups-community-attributes>
       </div>
       <br>
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
-        <button type="button" class="btn btn-primary" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary" awNextStep
+          [attr.disabled]="isFormFilled ? null : ''">Next</button>
       </div>
     </aw-wizard-step>
   </div>

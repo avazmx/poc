@@ -1,0 +1,116 @@
+
+    body {
+        color:yellow;
+    }
+
+    input {
+      width: auto;
+    }
+
+    div {
+        background: white;
+        width: 250px;
+        height: 250px;
+        display: inline-block;
+    }
+    div.left{
+      float: left;
+    }
+    div.container{
+      height: 300px;
+      background: #ccc;
+      width: 500px;
+    }
+
+    p {
+        color: #ccc;
+    }
+    .transfer-select {
+        min-height: 200px;
+        width: 250px;
+    }
+    ul.tree {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      ul.tree ul {
+        margin-left: 10px;
+      }
+    
+      ul.tree li {
+        margin: 0;
+        padding: 0 12px;
+        line-height: 20px;
+        /* color: #369; */
+        /* font-weight: bold; */
+     
+      }
+
+      ul.tree li.parent::before {
+        content: "\f105";
+        font-family: FontAwesome;
+        margin-left: -15px;
+        padding-right: 5px;
+        padding-left: 5px;
+        font-weight: bold;
+        float: left;
+
+      }     
+
+      ul.tree ul.show {
+        //animation: hideTree 2s forwards;
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+      }
+
+      ul.tree ul.hide {
+        //animation: hideTree 2s forwards;
+        display: -webkit-box !important;
+        opacity: 0 !important;
+        height: 0px;
+      }
+
+      ul.tree li.parent.show::before{
+        animation: hidekk .5s forwards;
+      }
+
+      @keyframes hideTree {
+          100% {
+            visibility: visible !important;
+            opacity: 1 !important;
+            height: auto;
+          }
+      }
+
+      @keyframes hidekk {
+        100% {
+            transform: rotate(90deg);
+        }
+      }
+      .gridsearch {
+        height: auto;
+        width: auto;
+        display: grid;
+        grid-template-columns: auto 25px;
+        background-color: #f2f2f2;
+    }
+    
+    .gridsearch input[type="text"]{
+        background-color: transparent;
+        border-color: transparent;
+        height: 35px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .gridsearch input:focus {
+      outline: none;
+    }
+    
+    .gridsearch img{
+        margin-top: 7px;
+        margin-left: -8px;
+    }
