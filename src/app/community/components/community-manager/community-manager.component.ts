@@ -12,7 +12,13 @@ export class CommunityManagerComponent implements OnInit {
    */
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
-  constructor() { }
+
+  arrayFilled: Array<any>;
+  isFormFilled: boolean;
+  constructor() {
+    this.arrayFilled = new Array();
+    this.isFormFilled = false;
+  }
 
   ngOnInit() {
   }
@@ -21,6 +27,29 @@ export class CommunityManagerComponent implements OnInit {
     if (event === true) {
       this.formNotValid = false;
     }
+  }
+
+  onInputChange($event){
+    let isInside: boolean = false;
+    for(let x=0; x<this.arrayFilled.length; x++){
+      if(this.arrayFilled[x] === $event){
+        isInside = true;
+        break;
+      }
+    }
+    if(!isInside){
+      this.arrayFilled.push($event);
+    }
+    let countBooleans: number = 0;
+    for(let y=0; y<this.arrayFilled.length; y++){
+      if(this.arrayFilled[y].value.length > 0)
+        countBooleans++;
+    }
+    console.log(this.arrayFilled);
+    if(countBooleans == 2)
+      this.isFormFilled = true;
+    else
+      this.isFormFilled = false;
   }
 
 }

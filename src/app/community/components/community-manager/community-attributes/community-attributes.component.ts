@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { NgOption } from '@ng-select/ng-select';
@@ -73,6 +73,8 @@ export class CommunityAttributesComponent implements OnInit {
   // communityTypes: NgOption[] = [];
   formIsValid: EventEmitter<boolean>;
 
+  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
+
   ngOnInit() {
 
     // We create the form.
@@ -145,6 +147,9 @@ export class CommunityAttributesComponent implements OnInit {
     this.formIsValid.emit(true);
   }
 
+  checkLength($event){
+    this.isInputFilled.emit($event.target);
+  }
 
 }
 

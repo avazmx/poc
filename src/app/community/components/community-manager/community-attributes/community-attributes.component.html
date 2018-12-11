@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <label> COMMUNITY TYPE*</label>
-      <!-- <ng-select formControlName="community_type" 
+      <!-- <ng-select formControlName="community_type"
         bindLabel="name" bindValue="id"
         class="selectInput"
         [items]="communityTypes"
@@ -17,12 +17,14 @@
     <div class="col">
       <label> NAME*</label>
       <div class="form-group">
-        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
+        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name"
+          (keyup)="checkLength($event)">
       </div>
     </div>
     <div class="col">
       <label> DESCRIPTION*</label>
-      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
+      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description"
+        (keyup)="checkLength($event)">
     </div>
     <div class="col">
     </div>
@@ -39,7 +41,7 @@
 <ag-grid-angular #attributesGrid
   class="ag-theme-bootstrap"
   [enableColResize]="true"
-  [rowData]="rowData" 
+  [rowData]="rowData"
   [columnDefs]="columnDefs"
   [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)">
