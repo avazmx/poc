@@ -5,6 +5,11 @@ import { NgOption } from '@ng-select/ng-select';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Community } from 'src/app/community/models/community.model';
+import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+
 @Component({
   selector: 'ups-community-attributes',
   templateUrl: './community-attributes.component.html',
@@ -26,18 +31,24 @@ export class CommunityAttributesComponent implements OnInit {
   private attributesGrid;
   newCount = 1;
 
+  community$: Observable<Community>;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _communityService: CommunityService,
-    private _countriesService: CountryService
+    private _countriesService: CountryService,
+    private store: Store<Community>
     ) {
+    this.community$ = this.store.select('community');
+    this.community$.subscribe((obj) => {
+      console.log("subscription ",obj);
+    })
     this.newRow = false;
     this.rowData = [
       { country: 'Toyota', district: 'Celica', state: 35000 },
       { country: 'Ford', district: 'Mondeo', state: 32000 },
       { country: 'Porsche', district: 'Boxter', state: 72000 }
     ];
-
     this.columnDefs = [
       {
         headerName: 'Country',
@@ -99,6 +110,10 @@ export class CommunityAttributesComponent implements OnInit {
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
     this.getCommunityType();
+  }
+
+  changeName() {
+    this.store.dispatch(new CommunityAttributesActions.ChangeName('Thoooo'));
   }
 
   getCommunityType() {

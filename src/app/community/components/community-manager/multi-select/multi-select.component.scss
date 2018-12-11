@@ -49,7 +49,8 @@
       }
 
       ul.tree li.parent::before {
-        content: ">";
+        content: "\f105";
+        font-family: FontAwesome;
         margin-left: -15px;
         padding-right: 5px;
         padding-left: 5px;
@@ -88,4 +89,28 @@
         100% {
             transform: rotate(90deg);
         }
+      }
+      .gridsearch {
+        height: auto;
+        width: auto;
+        display: grid;
+        grid-template-columns: auto 25px;
+        background-color: #f2f2f2;
+    }
+    
+    .gridsearch input[type="text"]{
+        background-color: transparent;
+        border-color: transparent;
+        height: 35px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .gridsearch input:focus {
+      outline: none;
+    }
+    
+    .gridsearch img{
+        margin-top: 7px;
+        margin-left: -8px;
     }

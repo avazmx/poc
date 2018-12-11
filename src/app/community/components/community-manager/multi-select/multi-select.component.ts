@@ -1,15 +1,15 @@
-import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, Input, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-multi-select',
   templateUrl: './multi-select.component.html',
   styleUrls: ['./multi-select.component.scss']
 })
-export class MultiSelectComponent implements OnInit {
+export class MultiSelectComponent implements OnInit, OnChanges {
   @Input() list: any;
   @Input() active: boolean;
   @Output() selectedList = new EventEmitter<any>();
-  // @Input() selectValues = new EventEmitter<any>();
+  @Input() updatedItems = new EventEmitter<any>();
   toggles = [false, true];
   toggles2 = [];
   selectedItems = [];
@@ -17,7 +17,13 @@ export class MultiSelectComponent implements OnInit {
 
   constructor() { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    //if ()
+    this.setToggles();
+  }
+
   setToggles() {
+    this.toggles2 = [];
     for (const element of this.list) {
       const country = {
         value: true,
@@ -112,9 +118,9 @@ export class MultiSelectComponent implements OnInit {
   }
 
   toggleTree(num, $evt, side, c_id, d_id) {
-    if (this.toggles2.length == 0) {
-      this.setToggles();
-    }
+    //if (this.toggles2.length == 0) {
+    //  this.setToggles();
+    //}
     if ($evt.target.nodeName !== 'INPUT') {
       if (side === 'first') {
         this.toggles[num] = !this.toggles[num];
@@ -126,6 +132,10 @@ export class MultiSelectComponent implements OnInit {
         }
       }
     }
+  }
+
+  filter($evt) {
+    console.log($evt);
   }
 
 }
