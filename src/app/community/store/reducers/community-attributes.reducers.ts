@@ -7,8 +7,8 @@ export type Action = CommunityAttributesActions.All;
 const defaultState: Community = {
     community_id: 0,
     community_type: {} as CommunityType ,
-    name: 'US',
-    description: 'very good country',
+    name: '',
+    description: '',
     geo_services: {} as GeoService[],
     members: {} as Member[],
     governance: {} as GovernanceLevel[]
@@ -26,6 +26,25 @@ export function communityAttributesReducer(state: Community = defaultState, acti
             return newState(state, { text: action.payload });*/
         case CommunityAttributesActions.CHANGE_NAME:
             return newState(state, { name: action.payload });
+
+        case CommunityAttributesActions.COMMUNITY_INITIALIZE:
+        console.log("new payload ", action.payload);
+            return newState(state, { community_id: action.payload.community_id,
+                                     name: action.payload.name,
+                                     description: action.payload.description})
+            //const newState = Object.assign({}, state);
+            //newState.community_id = 5;
+            //return newState;
+
+        case CommunityAttributesActions.COMMUNITY_ADD:
+            return newState(state, {});
+
+        case CommunityAttributesActions.COMMUNITY_EDIT:
+            return newState(state, {});
+
+        case CommunityAttributesActions.COMMUNITY_DELETE:
+            return newState(state, {});
+
         default:
             return state;
     }

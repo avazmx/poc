@@ -3,10 +3,25 @@
 //     // height: 10px;
 //     position: absolute;
 // }
+
 select {
     padding: 0 0 0 0.25rem;
     margin: -1rem 0 0 -0.7rem;
     width: 6.6rem !important;
     border-radius: 0;
     border: 0;
+}
+
+button {
+    background: transparent;
+    border: 0;
+    width: 40px;
+}
+
+.unselected {
+    color: #999;
+}
+
+.selected {
+    color: #351C15;
 }

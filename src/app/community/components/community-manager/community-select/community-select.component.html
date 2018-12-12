@@ -13,26 +13,63 @@
   <!-- <option value="" disabled selected>Select your option</option> -->
 
   <select *ngSwitchCase="'country'">
-    <option *ngFor="let country of countries">{{country.name}}</option>
+    <option value="" disabled selected>Select</option>
+    <option *ngFor="let country of countries"
+      [(ngModel)]="country.name" (ngModelChange)="onChange($event)">
+      {{country.name}}
+    </option>
   </select>
   
   <select *ngSwitchCase="'district'">
-    <option>data.district}}</option>
+    <option value="" disabled selected>Select</option>
+    <option *ngFor="let district of districts">{{district.name}}</option>
   </select>
 
   <select *ngSwitchCase="'state'">
-    <option>data.state}}</option>
+    <option value="" disabled selected>Select</option>
+    <option *ngFor="let state of states">{{state.name}}</option>
   </select>
     
   <select *ngSwitchCase="'slicLow'">
-    <option>data.slicLow}}</option>
+    <option value="" disabled selected>Select</option>
+    <option>slicLow</option>
   </select>
-    
+  
   <select *ngSwitchCase="'slicHigh'">
+    <option value="" disabled selected>Select</option>
     <option>data.slicHigh}}</option>
   </select>
 
+  <span *ngSwitchCase="'gnd'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+  
+  <span *ngSwitchCase="'threeDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+  
+  <span *ngSwitchCase="'twoDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+
+  <span *ngSwitchCase="'oneDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+
   <select *ngSwitchDefault>
+    <option value="" disabled selected>Select</option>
     <option>default</option>
   </select>
 

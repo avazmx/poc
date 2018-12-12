@@ -1,4 +1,4 @@
-<button (click)="changeName()">Change Name bitch</button>
+<button (click)="changeName()">Change Name</button>
 <form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
   <h3>Community Structure</h3>
   <div class="row">
@@ -43,7 +43,7 @@
   class="ag-theme-bootstrap"
   [enableColResize]="true"
   [rowData]="rowData"
-  [columnDefs]="columnDefs"
+  [columnDefs]="attributesDef"
   [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)">
 </ag-grid-angular>

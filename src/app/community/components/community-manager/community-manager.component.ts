@@ -46,8 +46,8 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   selectedAttributes(e) {
-    this.attributesObject = e;
-    console.log(this.attributesObject);
+    this.communityObject = e;
+    console.log(this.communityObject);
   }
 
   selectedMembers(e) {
