@@ -21,7 +21,8 @@ export class CommunityService {
   private membersUpdated = new Subject<{ members: Member[] }>();
 
   // private url = 'http://22HW020536:8080/';
-  // private localUrl = 'http://10.101.170.1:8080/';
+  //private localUrl = 'http://10.101.170.1:8080/';
+  //private localUrl = 'http://92.168.1.108:8080/';
 
   private url = environment.apiUrl;
 
