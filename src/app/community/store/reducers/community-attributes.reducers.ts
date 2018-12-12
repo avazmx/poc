@@ -28,8 +28,13 @@ export function communityAttributesReducer(state: Community = defaultState, acti
             return newState(state, { name: action.payload });
 
         case CommunityAttributesActions.COMMUNITY_INITIALIZE:
-            return newState(state, {
-                community_type: action.payload.community_type });
+        console.log("new payload ", action.payload);
+            return newState(state, { community_id: action.payload.community_id,
+                                     name: action.payload.name,
+                                     description: action.payload.description})
+            //const newState = Object.assign({}, state);
+            //newState.community_id = 5;
+            //return newState;
 
         case CommunityAttributesActions.COMMUNITY_ADD:
             return newState(state, {});

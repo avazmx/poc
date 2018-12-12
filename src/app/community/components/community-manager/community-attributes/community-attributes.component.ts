@@ -31,6 +31,8 @@ export class CommunityAttributesComponent implements OnInit {
   private attributesGrid;
   newCount = 1;
 
+  CommunityObject: Community;
+
   community$: Observable<Community>;
 
   constructor(
@@ -38,10 +40,10 @@ export class CommunityAttributesComponent implements OnInit {
     private _communityService: CommunityService,
     private store: Store<Community>
     ) {
-    this.community$ = this.store.select('community');
+    /*this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
       console.log('subscription ', obj);
-    });
+    });*/
     this.newRow = false;
     this.rowData = [
       // { country: 'Toyota', district: 'Celica', state: 35000 },
@@ -50,7 +52,17 @@ export class CommunityAttributesComponent implements OnInit {
     ];
 
     this.columnDefs = columnDef;
-/*
+
+    this.CommunityObject = {
+      community_id: 100,
+      community_type: {} as CommunityType ,
+      name: 'Mexico',
+      description: 'very good place',
+      geo_services: {} as GeoService[],
+      members: {} as Member[],
+      governance: {} as GovernanceLevel[]
+  }
+    /*
     this.columnDefs = [
       {
         headerName: 'Country',
@@ -79,7 +91,6 @@ export class CommunityAttributesComponent implements OnInit {
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
-
   }
 
   formIsValid: EventEmitter<boolean>;
@@ -87,19 +98,27 @@ export class CommunityAttributesComponent implements OnInit {
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
-
     // We create the form.
     this.form = this._formBuilder.group({
       community_type: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required]
     });
-
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
-    this.getCommunityType();
+    //console.log("ahh: " , this.store.select('community'));
+    //let comOb: Community = {}
+    this.community$ = this.store.select('community');
+    this.community$.subscribe((obj) => {
+      console.log('subscription ', obj);
+    });
+    //console.log("component payload ahh ",this.CommunityObject)
+    //this.getCommunityType();
+    //console.log("yeees: " + this.store.s
+    //this.store.dispatch();
+    //this.store.select('community');
+    //this.store.dispatch(new CommunityAttributesActions.CommunityInitialize());
     //console.log("yees: " , type);
-    //this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(type));
   }
 
   changeName() {
@@ -107,10 +126,12 @@ export class CommunityAttributesComponent implements OnInit {
   }
 
   getCommunityType() {
-    this._communityService.getCountries()
+      this._communityService.getCountries()
       .subscribe(data => {
-        this.countries = data;
-        console.log(this.countries);
+      this.countries = data;
+      return this.countries;
+        //console.log(this.countries);
+
     });
   }
 
@@ -143,23 +164,21 @@ export class CommunityAttributesComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    const communityType: CommunityType = {
+    console.log('ahh');
+    this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(this.CommunityObject));
+    /*const communityType: CommunityType = {
       community_type_id: this.form.controls['community_type'].value,
       name: this.form.controls['community_type'].value,
       description: this.form.controls['description'].value
-    };
-
-    this._communityService.setCommunityAttributes(communityType, this.form.get('name').value, this.form.get('description').value);
+    };*/
+   // this._communityService.setCommunityAttributes(communityType, this.form.get('name').value, this.form.get('description').value);
     this.formIsValid.emit(true);
   }
-
   checkLength($event){
     this.isInputFilled.emit($event.target);
   }
 
 }
-
-
 /**
  *
  *
