@@ -3,19 +3,19 @@ export const governanceDef = [
         headerName: 'Country', 
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'country' },
+        cellRendererParams: { field: 'country' },
         width: 120
     }, {
         headerName: 'District', 
         field: 'district',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'district' },
+        cellRendererParams: { field: 'district' },
         width: 120
     }, {
         headerName: 'State', 
         field: 'state',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'state' },
+        cellRendererParams: { field: 'state' },
         width: 120
     }, {
         headerName: 'SLIC Range Low', 

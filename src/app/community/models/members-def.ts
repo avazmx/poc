@@ -3,19 +3,19 @@ export const membersDef = [
         headerName: 'Member Name', 
         field: 'member_name',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'member_name' },
+        cellRendererParams: { field: 'member_name' },
         width: 170,
     }, {
         headerName: 'Access Level', 
         field: 'access_level',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'access_level' },
+        cellRendererParams: { field: 'access_level' },
         width: 150,
     }, {
         headerName: 'Country', 
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'country' },
+        cellRendererParams: { field: 'country' },
         width: 120,
     }, {
         headerName: 'District', 

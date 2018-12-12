@@ -134,8 +134,8 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     this.gridApi.setDomLayout('autoHeight');
     this.governanceGrid = document.querySelector('#governanceGrid');
 
-    params.api.sizeColumnsToFit();
-    this.gridApi.sizeColumnsToFit();
+    // params.api.sizeColumnsToFit();
+    // this.gridApi.sizeColumnsToFit();
   }
 
 }

@@ -9,6 +9,7 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 })
 
 export class CommunityManageMembersComponent implements OnInit {
+  // @Input() step2: boolean;
   private defaultColDef;
   private gridApi;
   private gridColumnApi;
@@ -67,7 +68,7 @@ export class CommunityManageMembersComponent implements OnInit {
       this.gridApi.setDomLayout('autoHeight');
       this.membersGrid = document.querySelector('#membersGrid');
   
-      params.api.sizeColumnsToFit();
+      // params.api.sizeColumnsToFit();
     // }
   }
   

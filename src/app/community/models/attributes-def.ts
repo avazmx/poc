@@ -3,19 +3,19 @@ export const attributesDef = [
         headerName: 'Country',
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'country' },
+        cellRendererParams: { field: 'country' },
         width: 170,
     }, {
         headerName: 'District',
         field: 'district',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'district' },
+        cellRendererParams: { field: 'district' },
         width: 170,
     }, {
         headerName: 'State/Province',
         field: 'state',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'state' }
+        cellRendererParams: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
@@ -29,30 +29,30 @@ export const attributesDef = [
     }, {
         headerName: 'Business Unit',
         field: 'bu',
-        cellRenderer: 'customizedCountryCell'
+        // cellRenderer: 'customizedCountryCell'
     }, {
         headerName: 'GND',
         field: 'gnd',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'gnd' },
+        cellRendererParams: { field: 'gnd' },
         width: 100,
     }, {
         headerName: '3DS',
         field: 'threeDs',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'threeDs' },
+        cellRendererParams: { field: 'threeDs' },
         width: 100,
     }, {
         headerName: '2DS',
         field: 'twoDs',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'twoDs' },
+        cellRendererParams: { field: 'twoDs' },
         width: 100,
     }, {
         headerName: '1DA',
         field: 'oneDs',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'oneDs' },
+        cellRendererParams: { field: 'oneDs' },
         width: 100,
         // editable: true
     }
