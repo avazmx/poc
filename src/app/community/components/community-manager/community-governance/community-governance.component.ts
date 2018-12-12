@@ -3,6 +3,11 @@ import { CommunityService } from 'src/app/community/services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { governanceDef } from '../../../models/governance-def';
 
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Community } from 'src/app/community/models/community.model';
+import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
@@ -88,6 +93,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _communityService: CommunityService,
+    private store: Store<Community>
   ) {
     this.rowData = [
       { 

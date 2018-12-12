@@ -11,7 +11,8 @@ const defaultState: Community = {
     description: '',
     geo_services: {} as GeoService[],
     members: {} as Member[],
-    governance: {} as GovernanceLevel[]
+    governance: {} as GovernanceLevel[],
+    attributes: {}
 }
 
 const newState = (state, newDate) => {
@@ -22,8 +23,25 @@ export function communityAttributesReducer(state: Community = defaultState, acti
     console.log(action.type, state)
 
     switch(action.type){
-        /*case CommunityAttributesActions.SHOW_VARIABLES:
-            return newState(state, { text: action.payload });*/
+        //MAIN CASES
+       case CommunityAttributesActions.ADD_ATTRIBUTES:
+            return newState(state, { community_id: action.payload.community_id,
+                                     name: action.payload.name,
+                                     description: action.payload.description,
+                                     geo_services: action.payload.geo_services,
+                                     community_type: action.payload.community_type})
+
+        case CommunityAttributesActions.ADD_MEMBERS:
+            return newState(state, { members: action.payload.members})
+
+        case CommunityAttributesActions.ADD_GOVERNANCE:
+            return newState(state, { governance: action.payload.members})
+
+        case CommunityAttributesActions.ADD_COMMUNITY_OBJECT_ATTRIBUTES:
+            return newState(state, { attributes: action.payload.attributes})
+
+        //EXTRA CASES
+
         case CommunityAttributesActions.CHANGE_NAME:
             return newState(state, { name: action.payload });
 

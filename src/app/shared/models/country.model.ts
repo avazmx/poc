@@ -1,4 +1,4 @@
 interface Country {
-    country_id: number;
+    id: number;
     name: string;
 }

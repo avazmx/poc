@@ -19,6 +19,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
   @Output() attributesData = new EventEmitter();
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
   @Input() communityObject;
+  @Output() dataReady: EventEmitter<Community> = new EventEmitter();
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
@@ -39,6 +40,8 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
 
   formIsValid: EventEmitter<boolean>;
   CommunityObject: Community;
+
+
   community$: Observable<Community>;
 
   constructor(
@@ -64,14 +67,18 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
       description: 'very good place',
       geo_services: {} as GeoService[],
       members: {} as Member[],
-      governance: {} as GovernanceLevel[]
+      governance: {} as GovernanceLevel[],
+      attributes: {
+        state: {} as State,
+        district: {} as District,
+        country: {} as Country
+      }
     };
 
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
-
     // Get community types
     this._communityService.getCommunityTypes()
       .subscribe(types => {
@@ -80,10 +87,10 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this._communityService.subject
+    /* this._communityService.subject
       .subscribe( data => {
         this.communityObject = data;
-    });
+    }); */
   }
 
   ngOnInit() {
@@ -116,7 +123,6 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
   changeName() {
     this.store.dispatch(new CommunityAttributesActions.ChangeName('Thor'));
   }
-
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;
