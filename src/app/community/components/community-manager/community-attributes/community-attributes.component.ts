@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
@@ -31,11 +31,13 @@ export class CommunityAttributesComponent implements OnInit {
   private attributesGrid;
   private countries;
   newCount = 1;
-  
+
   formIsValid: EventEmitter<boolean>;
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
-  CommunityObject: Community;
+  @Input() CommunityObject: Community;
+
+  @Output() dataReady: EventEmitter<Community> = new EventEmitter();
 
   community$: Observable<Community>;
 
@@ -100,14 +102,11 @@ export class CommunityAttributesComponent implements OnInit {
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
-    
     // Get community types
     this._communityService.getCommunityTypes()
       .subscribe(types => {
         this.communityTypes = types;
     });
-
-
   }
 
   ngOnInit() {
@@ -148,8 +147,6 @@ export class CommunityAttributesComponent implements OnInit {
 
     });
   }
-
-
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;

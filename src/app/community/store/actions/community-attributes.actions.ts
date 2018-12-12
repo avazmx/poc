@@ -10,8 +10,35 @@ export const COMMUNITY_ADD = '[CommunityAttributes]COMMUNITY_ADD';
 export const COMMUNITY_EDIT = '[CommunityAttributes]COMMUNITY_EDIT';
 export const COMMUNITY_DELETE = '[CommunityAttributes]COMMUNITY_DELETE';
 
+export const ADD_ATTRIBUTES = '[CommunityAttributes]ADD_ATTRIBUTES';
+export const ADD_MEMBERS = '[CommunityAttributes]ADD_MEMBERS';
+export const ADD_GOVERNANCE = '[CommunityAttributes]ADD_GOVERNANCE';
+export const ADD_COMMUNITY_OBJECT_ATTRIBUTES = '[CommunityAttributes]ADD_COMMUNITY_OBJECT_ATTRIBUTES';
+
+// MAIN ACTIONS
+export class AddAttributes implements Action {
+    readonly type = ADD_ATTRIBUTES;
+    constructor(public payload: Community){}
+}
+
+export class AddMembers implements Action {
+    readonly type = ADD_MEMBERS;
+    constructor(public payload: Community){}
+}
+
+export class AddGovernance implements Action {
+    readonly type = ADD_GOVERNANCE;
+    constructor(public payload: Community){}
+}
+
+export class AddCommunityObjectAttributes implements Action {
+    readonly type = ADD_COMMUNITY_OBJECT_ATTRIBUTES;
+    constructor(public payload: Community){}
+}
+
+//EXTRA ACTIONS
 export class ShowAttributes implements Action {
-    readonly type =SHOW_VARIABLES;
+    readonly type = SHOW_VARIABLES;
 }
 
 export class ChangeName implements Action {
@@ -45,4 +72,8 @@ ShowAttributes
 | CommunityInitialize
 | CommunityAdd
 | CommunityEdit
-| CommunityDelete;
+| CommunityDelete
+| AddAttributes
+| AddMembers
+| AddGovernance
+| AddCommunityObjectAttributes;

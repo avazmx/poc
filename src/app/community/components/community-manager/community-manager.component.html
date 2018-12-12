@@ -10,7 +10,8 @@
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
         <button type="button" class="btn btn-primary" awNextStep
-          [attr.disabled]="isFormFilled ? null : ''">Next</button>
+          [attr.disabled]="isFormFilled ? null : ''"
+          (click)="communityAttributesAction()">Next</button>
       </div>
     </aw-wizard-step>
   </div>
@@ -21,7 +22,8 @@
 
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary end-btn" awNextStep
+        (click)="communityMembersAction()">Next</button>
       </div>
     </aw-wizard-step>
   </div>
@@ -31,7 +33,7 @@
       <br>
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" (click)="finishFunction()">Save</button>
+        <button type="button" class="btn btn-primary end-btn" (click)="communityGovernanceAction()">Save</button>
       </div>
     </aw-wizard-step>
   </div>

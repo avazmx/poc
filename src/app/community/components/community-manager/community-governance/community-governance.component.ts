@@ -1,6 +1,11 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { CommunityService } from 'src/app/community/services/community.service';
 
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Community } from 'src/app/community/models/community.model';
+import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
@@ -84,6 +89,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _communityService: CommunityService,
+    private store: Store<Community>
   ) {
     this.rowData = [
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }

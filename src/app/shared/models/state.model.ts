@@ -1,5 +1,4 @@
 interface State {
-    state_id: number;
+    id: number;
     name: string;
-    district_id: number;
 }

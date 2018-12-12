@@ -6,4 +6,5 @@ export interface Community {
     geo_services?: GeoService[];
     members: Member[];
     governance: GovernanceLevel[];
+    attributes: {};
 }
