@@ -29,6 +29,7 @@ export class CommunityAttributesComponent implements OnInit {
   altData: any;
   private attributesDef;
   private attributesGrid;
+  private countries;
   newCount = 1;
   
   formIsValid: EventEmitter<boolean>;
@@ -54,7 +55,7 @@ export class CommunityAttributesComponent implements OnInit {
       // { country: 'Porsche', district: 'Boxter', state: 72000 }
     ];
 
-    this.columnDefs = columnDef;
+    //this.columnDefs = columnDef;
 
     this.CommunityObject = {
       community_id: 100,
