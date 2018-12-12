@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { columnDef } from '../../../models/column-def';
+import { attributesDef } from '../../../models/attributes-def';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ export class CommunityAttributesComponent implements OnInit {
   @ViewChild('localForm') formFromLocal;
   form: FormGroup;
   headerHeight = 38;
-  countries: any;
+  communityTypes: any;
   newRow: boolean;
 
   private gridApi;
@@ -27,9 +27,12 @@ export class CommunityAttributesComponent implements OnInit {
   private frameworkComponents;
   rowData: any;
   altData: any;
-  private columnDefs;
+  private attributesDef;
   private attributesGrid;
   newCount = 1;
+  
+  formIsValid: EventEmitter<boolean>;
+  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   CommunityObject: Community;
 
@@ -91,11 +94,20 @@ export class CommunityAttributesComponent implements OnInit {
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
+
+    this.attributesDef = attributesDef;
+    this.frameworkComponents = {
+      customizedCountryCell: CommunitySelectComponent,
+    };
+    
+    // Get community types
+    this._communityService.getCommunityTypes()
+      .subscribe(types => {
+        this.communityTypes = types;
+    });
+
+
   }
-
-  formIsValid: EventEmitter<boolean>;
-
-  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
     // We create the form.
@@ -106,6 +118,7 @@ export class CommunityAttributesComponent implements OnInit {
     });
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
+
     //console.log("ahh: " , this.store.select('community'));
     //let comOb: Community = {}
     this.community$ = this.store.select('community');
@@ -134,6 +147,7 @@ export class CommunityAttributesComponent implements OnInit {
 
     });
   }
+
 
   /* AG-Grid */
   onGridReady(params) {
@@ -174,7 +188,8 @@ export class CommunityAttributesComponent implements OnInit {
    // this._communityService.setCommunityAttributes(communityType, this.form.get('name').value, this.form.get('description').value);
     this.formIsValid.emit(true);
   }
-  checkLength($event){
+
+  checkLength($event) {
     this.isInputFilled.emit($event.target);
   }
 

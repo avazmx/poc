@@ -20,29 +20,29 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     {
       country: {
         id: 1,
-        name: "one",
+        name: "US",
         districts: [
           {
             id: 1,
-            name: "dist one",
+            name: "District 76 - Northwest",
             states: [
               {
                 id: 1,
-                name:"state one"
+                name:"Washington"
               },
               {
                 id: 11,
-                name:"state one one"
+                name:"Oregon"
               }
             ]
           },
           {
             id: 2,
-            name: "dist two",
+            name: "District 89 - East",
             states: [
               {
                 id: 2,
-                name:"state two"
+                name:"Texas"
               }
             ]
           }
@@ -52,15 +52,15 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     {
       country: {
         id: 2,
-        name: "two",
+        name: "MX",
         districts: [
           {
             id: 3,
-            name: "dist three",
+            name: "District 115 - Southwest",
             states: [
               {
                 id: 3,
-                name:"state three"
+                name:"Jalisco"
               }
             ]
           }
@@ -86,8 +86,6 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     private _communityService: CommunityService,
   ) {
     this.rowData = [
-      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
-      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' },
       { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
     ];
 

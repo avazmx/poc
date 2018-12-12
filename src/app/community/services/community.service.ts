@@ -31,6 +31,10 @@ export class CommunityService {
     ) {
   }
 
+  getCommunityTypes() {
+    return this.http.get(this.url + 'community/type');
+  }
+
   getCountries() {
     return this.http.get(this.url + 'countries');
   }
@@ -49,6 +53,10 @@ export class CommunityService {
 
   getSlicHigh() {
     return this.http.get(this.url + 'geo/service');
+  }
+
+  getCommunityType() {
+    return this.http.get(this.url + 'community/type');
   }
 
 
