@@ -10,12 +10,18 @@ select {
     width: 6.6rem !important;
     border-radius: 0;
     border: 0;
+    &:focus {
+        outline: none;
+    }
 }
 
 button {
     background: transparent;
     border: 0;
     width: 40px;
+    &:focus {
+        outline: none;
+    }
 }
 
 .unselected {

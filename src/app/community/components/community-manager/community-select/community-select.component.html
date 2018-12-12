@@ -7,7 +7,6 @@
   <option *ngFor="let data of rowData">{{data.country}}</option>
 </select> -->
 
-
 <span [ngSwitch]="altData">
   
   <!-- <option value="" disabled selected>Select your option</option> -->
@@ -20,18 +19,18 @@
     </option>
   </select>
   
-  <select *ngSwitchCase="'district'">
+  <select class="attr-dist-agselect" *ngSwitchCase="'district'" (change)="changeDistrict($event)">
     <option value="" disabled selected>Select</option>
-    <option *ngFor="let district of districts">{{district.name}}</option>
+    <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
   </select>
 
-  <select *ngSwitchCase="'state'">
+  <select class="attr-state-agselect" *ngSwitchCase="'state'">
     <option value="" disabled selected>Select</option>
-    <option *ngFor="let state of states">{{state.name}}</option>
+    <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
   </select>
     
   <select *ngSwitchCase="'slicLow'">
-    <option value="" disabled selected>Select</option>
+    <option value=""  selected>Select</option>
     <option>slicLow</option>
   </select>
   

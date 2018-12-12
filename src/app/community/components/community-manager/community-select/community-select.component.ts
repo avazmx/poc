@@ -32,11 +32,20 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   ) {
     this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
+      this.CommunityObject = obj;
       console.log('select subscription ', obj.attributes);
+      this.districts = this.allDistricts.filter(district => {
+        return district.country.id == obj.attributes.country;
+      });
+
+      this.states = this.allStates.filter(state => {
+        return state.district.id == obj.attributes.state;
+      });
+
     });
 
     this.attributesDef = attributesDef;
-    this.CommunityObject = {
+    /*this.CommunityObject = {
       community_id: 0,
       community_type: {} as CommunityType ,
       name: '',
@@ -49,44 +58,52 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
         district: {} as District,
         country: 0 as number
       } as any
-    };
+    };*/
     // console.log(this.columnDefs);
   }
 
   ngOnInit() {
   }
-  
+
   changeCtry($evt) {
     this.CommunityObject.attributes.country = $evt.srcElement.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
+    document.querySelectorAll('.attr-dist-agselect')[0].value = "";
+  }
 
+  changeDistrict($evt) {
+    this.CommunityObject.attributes.state = $evt.srcElement.value;
+    this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
+    document.querySelectorAll('.attr-state-agselect')[0].value = "";
   }
 
   agInit(params: any) {
     this.altData = params.value;
     // console.log(this.altData);
-    
-    if (this.altData == 'country') {
-      this.countries = [{id:1, name:'MX'}, {id:2, name:'US'}];
-      /* this._communityService.getCountries()
+
+    if (this.altData === 'country') {
+      // this.countries = [{id:1, name:'MX'}, {id:2, name:'US'}];
+      this._communityService.getCountries()
         .subscribe(countries => {
           this.countries = countries;
           console.log(this.countries);
-      }); */
+      });
     }
 
-    if(this.altData == 'district') {
+    if (this.altData === 'district') {
       this._communityService.getDistricts()
         .subscribe(districts => {
           this.allDistricts = districts;
+          this.districts = districts;
           console.log(this.districts);
       });
     }
 
-    if(this.altData == 'state') {
+    if (this.altData === 'state') {
       this._communityService.getStates()
         .subscribe(states => {
           this.allStates = states;
+          this.states = states;
           console.log(this.states);
       });
     }

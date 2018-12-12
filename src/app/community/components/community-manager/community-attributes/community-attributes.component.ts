@@ -120,9 +120,6 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
     //console.log("yees: " , type);
   }
 
-  changeName() {
-    this.store.dispatch(new CommunityAttributesActions.ChangeName('Thor'));
-  }
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;
@@ -152,7 +149,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
 
     this.communityObject.push(this.example);
     this.attributesData.emit(this.communityObject);
-    console.log(this.communityObject);
+    // console.log(this.communityObject);
   }
 
   onSubmit() {
