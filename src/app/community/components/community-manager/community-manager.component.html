@@ -6,14 +6,16 @@
         <ups-community-attributes 
           [communityObject]="communityObject"
           (selectedAttributes)="selectedAttributes($event)"
-          (formIsValid)="onChangeFormValidity($event)">
+          (formIsValid)="onChangeFormValidity($event)"
+          (isInputFilled)="onInputChange($event)">
         </ups-community-attributes>
       </div>
       <br>
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
-        <button type="button" class="btn btn-primary"
-          (ngOnChanges)="selectedAttributes($event)" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary" awNextStep
+          [attr.disabled]="isFormFilled ? null : ''"
+          (ngOnChanges)="selectedAttributes($event)">Next</button>
       </div>
     </aw-wizard-step>
   </div>

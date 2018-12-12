@@ -11,13 +11,9 @@ $secondary-foreground-color: white;
 $font-size: 16px;
 $button-blue: #1D79D1;
 
-
-
-// // // // // //
-// Default Elements
-// // // // // //
-
-
+// // // // // // // //
+// Default Elements  //
+// // // // // // // //
 
 * {
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
@@ -180,20 +176,3 @@ aw-wizard-navigation-bar.horizontal ul.steps-indicator li.done div a {
         border-right: 0;
     }
 }
-
-
-/*
-
-ul.steps-indicator {
-
-    li::before {
-        background-color: red !important;
-    }
-
-    li:first-child::before {
-        background-color: green !important;
-    }
-
-}
-
-*/
