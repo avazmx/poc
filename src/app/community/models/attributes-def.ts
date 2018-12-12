@@ -34,18 +34,25 @@ export const attributesDef = [
         headerName: 'GND',
         field: 'gnd',
         cellRenderer: 'customizedCountryCell',
+        params: { field: 'gnd' },
         width: 100,
     }, {
         headerName: '3DS',
-        field: 'three',
+        field: 'threeDs',
+        cellRenderer: 'customizedCountryCell',
+        params: { field: 'threeDs' },
         width: 100,
     }, {
         headerName: '2DS',
-        field: 'two',
+        field: 'twoDs',
+        cellRenderer: 'customizedCountryCell',
+        params: { field: 'twoDs' },
         width: 100,
     }, {
         headerName: '1DA',
-        field: 'one',
+        field: 'oneDs',
+        cellRenderer: 'customizedCountryCell',
+        params: { field: 'oneDs' },
         width: 100,
         // editable: true
     }

@@ -15,6 +15,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   countries: any;
   districts: any;
   states: any;
+  checkmark: any;
 
   constructor(
     private _communityService: CommunityService,
@@ -60,6 +61,10 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   refresh(params: any): boolean {
     this.altData = params.value;
     return true;
+  }
+
+  selected() {
+    this.checkmark = !this.checkmark;
   }
 
 }

@@ -32,11 +32,44 @@
     <option value="" disabled selected>Select</option>
     <option>slicLow</option>
   </select>
-    
+  
   <select *ngSwitchCase="'slicHigh'">
     <option value="" disabled selected>Select</option>
     <option>data.slicHigh}}</option>
   </select>
+
+  <select *ngSwitchCase="'slicHigh'">
+    <option value="" disabled selected>Select</option>
+    <option>data.slicHigh}}</option>
+  </select>
+
+  <span *ngSwitchCase="'gnd'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+  
+  <span *ngSwitchCase="'threeDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+  
+  <span *ngSwitchCase="'twoDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
+
+  <span *ngSwitchCase="'oneDs'">
+    <button (click)="selected()" 
+      [ngClass]="checkmark ? 'selected' : 'unselected'">
+      <fa name="check"></fa>
+    </button>
+  </span>
 
   <select *ngSwitchDefault>
     <option value="" disabled selected>Select</option>

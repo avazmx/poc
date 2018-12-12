@@ -36,7 +36,6 @@ export class CommunityAttributesComponent implements OnInit {
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
 
   CommunityObject: Community;
-
   community$: Observable<Community>;
 
   constructor(
@@ -55,7 +54,7 @@ export class CommunityAttributesComponent implements OnInit {
       // { country: 'Porsche', district: 'Boxter', state: 72000 }
     ];
 
-    //this.columnDefs = columnDef;
+    // this.columnDefs = columnDef;
 
     this.CommunityObject = {
       community_id: 100,
@@ -65,7 +64,7 @@ export class CommunityAttributesComponent implements OnInit {
       geo_services: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[]
-  }
+    }
     /*
     this.columnDefs = [
       {
@@ -91,10 +90,6 @@ export class CommunityAttributesComponent implements OnInit {
       { headerName: '2DS', field: 'two', editable: true },
       { headerName: '1DA', field: 'one', editable: true },
     ];*/
-
-    this.frameworkComponents = {
-      customizedCountryCell: CommunitySelectComponent,
-    };
 
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
@@ -139,17 +134,6 @@ export class CommunityAttributesComponent implements OnInit {
     this.store.dispatch(new CommunityAttributesActions.ChangeName('Thoooo'));
   }
 
-  getCommunityType() {
-      this._communityService.getCountries()
-      .subscribe(data => {
-      this.countries = data;
-      return this.countries;
-        //console.log(this.countries);
-
-    });
-  }
-
-
   /* AG-Grid */
   onGridReady(params) {
     this.gridApi = params.api;
@@ -168,7 +152,11 @@ export class CommunityAttributesComponent implements OnInit {
       state: 'state',
       slicLow: 'slicLow',
       slicHigh: 'slicHigh',
-      bu: 'bu'
+      bu: 'bu',
+      gnd: 'gnd',
+      threeDs: 'threeDs',
+      twoDs: 'twoDs',
+      oneDs: 'oneDs'
     };
     var res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
