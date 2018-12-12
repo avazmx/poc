@@ -12,10 +12,10 @@
   
   <!-- <option value="" disabled selected>Select your option</option> -->
 
-  <select *ngSwitchCase="'country'">
+  <select *ngSwitchCase="'country'" (change)="changeCtry($event)">
     <option value="" disabled selected>Select</option>
     <option *ngFor="let country of countries"
-      [(ngModel)]="country.name" (ngModelChange)="onChange($event)">
+      [value]="country.id" (change)="onChange($event)">
       {{country.name}}
     </option>
   </select>
