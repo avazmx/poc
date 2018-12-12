@@ -10,7 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { MultiSelectComponent } from './components/community-manager/multi-select/multi-select.component';
+import { MultiSelectComponent } from './components/community-manager/community-governance/multi-select/multi-select.component';
 import { CommunityManageMembersComponent } from './components/community-manager/community-manage-members/community-manage-members.component';
 import { CommunityGovernanceComponent } from './components/community-manager/community-governance/community-governance.component';
 import { CommunitySelectComponent } from './components/community-manager/community-select/community-select.component';

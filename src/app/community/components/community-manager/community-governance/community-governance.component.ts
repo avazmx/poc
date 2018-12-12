@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { CommunityService } from 'src/app/community/services/community.service';
+import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { governanceDef } from '../../../models/governance-def';
 
 @Component({
   selector: 'ups-community-governance',
@@ -13,6 +15,8 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private gridApi;
   private gridColumnApi;
   private governanceGrid;
+  private governanceDef;
+  private frameworkComponents;
   governanceLevels: any;
 
   secondData = [];
@@ -86,7 +90,17 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     private _communityService: CommunityService,
   ) {
     this.rowData = [
-      { country: 'Toyota', district: 'Celica', state: 35000, slic_range_low: 123, slic_range_high: 456, level_one_approver: 'level one approver', alt_level_one_approver: 'Alt level two approver', level_two_approver: 'level one approver', alt_level_two_approver: 'Alt level two approver' }
+      { 
+        country: 'Toyota', 
+        district: 'Celica', 
+        state: 35000, 
+        slic_range_low: 123, 
+        slic_range_high: 456, 
+        level_one_approver: 'level one approver', 
+        alt_level_one_approver: 'Alt level two approver', 
+        level_two_approver: 'level one approver', 
+        alt_level_two_approver: 'Alt level two approver' 
+      }
     ];
 
     this._communityService.getGovernanceLevel()
@@ -94,9 +108,13 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
     });
+    
+    this.governanceDef = governanceDef;
+    this.frameworkComponents = {
+      customizedCountryCell: CommunitySelectComponent,
+    };
 
   }
-
 
   ngAfterViewInit(): void {
   }

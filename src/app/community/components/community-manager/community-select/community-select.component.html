@@ -13,33 +13,33 @@
   <!-- <option value="" disabled selected>Select your option</option> -->
 
   <select *ngSwitchCase="'country'">
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option *ngFor="let country of countries">{{country.name}}</option>
   </select>
   
   <select *ngSwitchCase="'district'">
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option *ngFor="let district of districts">{{district.name}}</option>
     <!-- <option [(ngModel)]="">district</option> -->
   </select>
 
   <select *ngSwitchCase="'state'">
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option *ngFor="let state of states">{{state.name}}</option>
   </select>
     
   <select *ngSwitchCase="'slicLow'">
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option>slicLow</option>
   </select>
     
   <select *ngSwitchCase="'slicHigh'">
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option>data.slicHigh}}</option>
   </select>
 
   <select *ngSwitchDefault>
-    <option value="" disabled selected>Select your option</option>
+    <option value="" disabled selected>Select</option>
     <option>default</option>
   </select>
 

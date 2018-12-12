@@ -15,6 +15,7 @@ export class CommunityManagerComponent implements OnInit {
 
   arrayFilled: Array<any>;
   isFormFilled: boolean;
+
   constructor() {
     this.arrayFilled = new Array();
     this.isFormFilled = false;
@@ -29,7 +30,7 @@ export class CommunityManagerComponent implements OnInit {
     }
   }
 
-  onInputChange($event){
+  onInputChange($event) {
     let isInside: boolean = false;
     for(let x=0; x<this.arrayFilled.length; x++){
       if(this.arrayFilled[x] === $event){
@@ -45,7 +46,7 @@ export class CommunityManagerComponent implements OnInit {
       if(this.arrayFilled[y].value.length > 0)
         countBooleans++;
     }
-    console.log(this.arrayFilled);
+    // console.log(this.arrayFilled);
     if(countBooleans == 2)
       this.isFormFilled = true;
     else

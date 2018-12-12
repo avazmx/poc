@@ -1,21 +1,25 @@
 <div id="members">
   <h3>East Region Small Package Community - Manage Members</h3>
   <div class="end">
-    <button (click)="createNewRowData()" class="emptyBtn">
+    <button (click)="createNewRowMembersData()" class="emptyBtn">
       <fa name="plus-circle"></fa>&nbsp; Add Row
     </button>
   </div>
 </div>
 
 <ag-grid-angular #membersGrid
-  class="ag-theme-bootstrap" 
-  [animateRows]="true"
-  [enableColResize]="true"
-  [enableFilter]="true"
-  [defaultColDef]="defaultColDef" 
-  [headerHeight]="headerHeight"
-  [rowDragManaged]="true"
+  class="ag-theme-bootstrap"
   [rowData]="rowData" 
   [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)">
 </ag-grid-angular>
+
+<!-- 
+  [animateRows]="true"
+  [enableFilter]="true"
+  [enableColResize]="true"
+  [rowDragManaged]="true"
+  [defaultColDef]="defaultColDef" 
+  [headerHeight]="headerHeight"
+-->

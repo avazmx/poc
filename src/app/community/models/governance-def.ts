@@ -3,27 +3,32 @@ export const governanceDef = [
         headerName: 'Country', 
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'country' }
+        params: { field: 'country' },
+        width: 120
     }, {
         headerName: 'District', 
         field: 'district',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'district' }
+        params: { field: 'district' },
+        width: 120
     }, {
         headerName: 'State', 
         field: 'state',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'state' }
+        params: { field: 'state' },
+        width: 120
     }, {
         headerName: 'SLIC Range Low', 
         field: 'slicLow',
-        // cellRenderer: 'customizedCountryCell'
-        editable: true
+        // cellRenderer: 'customizedCountryCell',
+        editable: true,
+        width: 170
     }, {
         headerName: 'SLIC Range High', 
         field: 'slicHigh',
         // cellRenderer: 'customizedCountryCell'
-        editable: true
+        editable: true,
+        width: 170,
     }, {
         headerName: 'Level 1 Approver', 
         field: 'lvl1approver',

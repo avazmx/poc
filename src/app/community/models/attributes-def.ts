@@ -3,12 +3,14 @@ export const attributesDef = [
         headerName: 'Country',
         field: 'country',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'country' }
+        params: { field: 'country' },
+        width: 170,
     }, {
         headerName: 'District',
         field: 'district',
         cellRenderer: 'customizedCountryCell',
-        params: { field: 'district' }
+        params: { field: 'district' },
+        width: 170,
     }, {
         headerName: 'State/Province',
         field: 'state',
@@ -31,16 +33,20 @@ export const attributesDef = [
     }, {
         headerName: 'GND',
         field: 'gnd',
-        cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'customizedCountryCell',
+        width: 100,
     }, {
         headerName: '3DS',
-        field: 'three'
+        field: 'three',
+        width: 100,
     }, {
         headerName: '2DS',
-        field: 'two'
+        field: 'two',
+        width: 100,
     }, {
         headerName: '1DA',
         field: 'one',
+        width: 100,
         // editable: true
     }
 ];
