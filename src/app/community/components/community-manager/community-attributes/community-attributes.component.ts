@@ -1,13 +1,22 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input, OnChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { CommunityType } from 'src/app/community/models/community-type.model';
+import { Community } from 'src/app/community/models/community.model';
+import { GeoService } from 'src/app/community/models/geo-services.model';
+import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
+import { Member } from 'src/app/community/models/member.model';
+import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+import { Country } from 'src/app/shared/models/country.model';
+import { District } from 'src/app/shared/models/district.model';
+import { State } from 'src/app/shared/models/state.model';
+
+import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { attributesDef } from '../../../models/attributes-def';
-
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Community } from 'src/app/community/models/community.model';
-import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -15,12 +24,13 @@ import * as CommunityAttributesActions from 'src/app/community/store/actions/com
   styleUrls: ['./community-attributes.component.scss']
 })
 
-export class CommunityAttributesComponent implements OnInit, OnChanges {
+export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestroy {
   @Output() attributesData = new EventEmitter();
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
   @Input() communityObject;
   @Output() dataReady: EventEmitter<Community> = new EventEmitter();
   @ViewChild('localForm') formFromLocal;
+
   form: FormGroup;
   headerHeight = 38;
   communityTypes: any;
@@ -43,26 +53,20 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
 
 
   community$: Observable<Community>;
+  communitySubscription: Subscription;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private _communityService: CommunityService,
-    private store: Store<Community>
-    ) {
-    /*this.community$ = this.store.select('community');
-    this.community$.subscribe((obj) => {
-      console.log('subscription ', obj);
-    });*/
+
+
+  loading = true;
+
+  constructor(private _formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
     this.newRow = false;
     this.rowData = [
-      // { country: 'Toyota', district: 'Celica', state: 35000 },
-      // { country: 'Ford', district: 'Mondeo', state: 32000 },
-      // { country: 'Porsche', district: 'Boxter', state: 72000 }
     ];
 
     this.CommunityObject = {
       community_id: 100,
-      community_type: {} as CommunityType ,
+      community_type: {} as CommunityType,
       name: 'Mexico',
       description: 'very good place',
       geo_services: {} as GeoService[],
@@ -79,11 +83,6 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
-    // Get community types
-    this._communityService.getCommunityTypes()
-      .subscribe(types => {
-        this.communityTypes = types;
-    });
   }
 
   ngOnChanges() {
@@ -94,30 +93,33 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log(this.communityObject);
-
-    // We create the form.
     this.form = this._formBuilder.group({
-      community_type: ['', Validators.required],
+      community_type: [null, Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required]
     });
+
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
 
-    //console.log("ahh: " , this.store.select('community'));
-    //let comOb: Community = {}
     this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
       console.log('subscription ', obj);
     });
-    //console.log("component payload ahh ",this.CommunityObject)
-    //this.getCommunityType();
-    //console.log("yeees: " + this.store.s
-    //this.store.dispatch();
-    //this.store.select('community');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityInitialize());
-    //console.log("yees: " , type);
+
+    this.communitySubscription = this.store.select('community').subscribe((obj) => {
+      console.log('Subscription => ', obj);
+    });
+
+    this.communityService.getCommunityTypes()
+      .subscribe(types => {
+        this.communityTypes = types;
+        this.loading = false;
+      }, (error: HttpErrorResponse) => {
+        console.log('Error trying to lad the community type list, I will load hardcoded data');
+        this.communityTypes = this.communityService.getHardCodedCommunityTypes();
+        this.loading = false;
+      });
   }
 
   /* AG-Grid */
@@ -144,32 +146,27 @@ export class CommunityAttributesComponent implements OnInit, OnChanges {
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-    var res = this.gridApi.updateRowData({ add: [newData] });
+    const res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
 
     this.communityObject.push(this.example);
     this.attributesData.emit(this.communityObject);
-    // console.log(this.communityObject);
   }
 
   onSubmit() {
-    debugger;
     if (this.form.invalid) {
       return;
     }
-    console.log('ahh');
     this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(this.CommunityObject));
-    /*const communityType: CommunityType = {
-      community_type_id: this.form.controls['community_type'].value,
-      name: this.form.controls['community_type'].value,
-      description: this.form.controls['description'].value
-    };*/
-   // this._communityService.setCommunityAttributes(communityType, this.form.get('name').value, this.form.get('description').value);
-    this.formIsValid.emit(true);
   }
 
   checkLength($event) {
     this.isInputFilled.emit($event.target);
+  }
+
+
+  ngOnDestroy() {
+    this.communitySubscription.unsubscribe();
   }
 
 }

@@ -1,11 +1,17 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { CommunityModule } from '../../community.module';
-import { CommunityService } from '../../services/community.service';
-
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { Community } from 'src/app/community/models/community.model';
-import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+import { Country } from 'src/app/shared/models/country.model';
+import { District } from 'src/app/shared/models/district.model';
+import { State } from 'src/app/shared/models/state.model';
+
+import { AccessLevel } from '../../models/access-level.model';
+import { BussinesUnit } from '../../models/bussines-unit.model';
+import { CommunityType } from '../../models/community-type.model';
+import { GeoService } from '../../models/geo-services.model';
+import { GovernanceLevel } from '../../models/governance-level.model';
+import { Member } from '../../models/member.model';
+import { CommunityService } from '../../services/community.service';
 
 @Component({
   selector: 'ups-community-manager',
@@ -49,7 +55,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
     this.CommunityObject = {
       community_id: 0,
-      community_type: {} as CommunityType ,
+      community_type: {} as CommunityType,
       name: '',
       description: '',
       geo_services: {} as GeoService[],
@@ -77,7 +83,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       name: ''
     }
 
-    this.AccessLevelObject ={
+    this.AccessLevelObject = {
       access_level_id: 0,
       name: '',
       description: ''
@@ -142,22 +148,27 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   communityAttributesAction() {
     console.log('Attributes');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddAttributes(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddAttributes(this.CommunityObject));
   }
 
   communityMembersAction() {
     console.log('Members');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddMembers(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddMembers(this.CommunityObject));
   }
 
   communityGovernanceAction() {
     console.log('Governance');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
   }
 
-  onInputChange($event){
-    let isInside: boolean = false;
-    for (let x=0; x<this.arrayFilled.length; x++) {
+
+  /**
+   * OscarFix
+   * @param $event add description
+   */
+  onInputChange($event) {
+    let isInside = false;
+    for (let x = 0; x < this.arrayFilled.length; x++) {
       if (this.arrayFilled[x] === $event) {
         isInside = true;
         break;
@@ -166,16 +177,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     if (!isInside) {
       this.arrayFilled.push($event);
     }
-    let countBooleans: number = 0;
-    for(let y=0; y<this.arrayFilled.length; y++){
-      if(this.arrayFilled[y].value.length > 0)
+    let countBooleans = 0;
+    for (let y = 0; y < this.arrayFilled.length; y++) {
+      if (this.arrayFilled[y].value.length > 0) {
         countBooleans++;
+      }
     }
-    // console.log(this.arrayFilled);
-    if(countBooleans == 2)
-      this.isFormFilled = true;
-    else
-      this.isFormFilled = false;
+    this.isFormFilled = countBooleans === 2 ? true : false;
   }
 
 }

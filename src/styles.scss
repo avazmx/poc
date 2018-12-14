@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap/dist/css/bootstrap-grid.css";
 @import "~font-awesome/css/font-awesome.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -20,7 +21,16 @@ $button-blue: #1D79D1;
     margin: 0;
 }
 
-input, select {
+.inputElement {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    width: 150px;
+}
+
+.selectElement {
+    
     padding: 0.5rem;
     margin: 0.5rem 0;
     border-radius: 5px;
