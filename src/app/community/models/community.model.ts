@@ -1,9 +1,9 @@
 export interface Community {
-    community_id: number;
-    community_type: CommunityType;
+    communityId: number;
+    communityType: CommunityType;
     name: string;
     description: string;
-    geo_services?: GeoService[];
+    geoServices?: GeoService[];
     members: Member[];
     governance: GovernanceLevel[];
     attributes?: any;

@@ -9,20 +9,14 @@ export class CountryService {
   private countries: Country[] = [{ id: 1, name: 'Unated States Of America' }, { id: 2, name: 'México' }];
   carUrl = 'http://22HW020536:8080/governance/level';
 
-  constructor(
-    private http: HttpClient
-    ) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * Return the list of countries.
    */
   getCountries() {
-
     // return this.http.get('whatever the url is/countries');
     return this.countries;
-
   }
 
   getInfo() {

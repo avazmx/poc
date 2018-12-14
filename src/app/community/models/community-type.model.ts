@@ -1,5 +1,5 @@
 interface CommunityType {
-    community_type_id: number;
+    id: number;
     name: string;
     description: string;
 }

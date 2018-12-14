@@ -19,12 +19,12 @@
     </option>
   </select>
   
-  <select class="attr-dist-agselect" *ngSwitchCase="'district'" (change)="changeDistrict($event)">
+  <select #ddlDistrict class="attr-dist-agselect" *ngSwitchCase="'district'" (change)="changeDistrict($event.srcElement)">
     <option value="" disabled selected>Select</option>
     <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
   </select>
 
-  <select class="attr-state-agselect" *ngSwitchCase="'state'">
+  <select #ddlState class="attr-state-agselect" *ngSwitchCase="'state'">
     <option value="" disabled selected>Select</option>
     <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
   </select>

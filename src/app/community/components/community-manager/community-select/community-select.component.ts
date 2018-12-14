@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from 'src/app/community/services/community.service';
@@ -25,6 +25,8 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   allStates: any = [];
   community$: Observable<Community>;
   CommunityObject: Community;
+  @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
+  @ViewChild('ddlState') ddlState: ElementRef;
 
   constructor(
     private _communityService: CommunityService,
@@ -35,51 +37,41 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
       this.CommunityObject = obj;
       console.log('select subscription ', obj.attributes);
       this.districts = this.allDistricts.filter(district => {
-        return district.country.id == obj.attributes.country;
+        return district.country.id === obj.attributes.country;
       });
 
       this.states = this.allStates.filter(state => {
-        return state.district.id == obj.attributes.state;
+        return state.district.id === obj.attributes.state;
       });
 
     });
 
     this.attributesDef = attributesDef;
-    /*this.CommunityObject = {
-      community_id: 0,
-      community_type: {} as CommunityType ,
-      name: '',
-      description: '',
-      geo_services: {} as GeoService[],
-      members: {} as Member[],
-      governance: {} as GovernanceLevel[],
-      attributes: {
-        state: {} as State,
-        district: {} as District,
-        country: 0 as number
-      } as any
-    };*/
-    // console.log(this.columnDefs);
   }
 
   ngOnInit() {
+
   }
 
   changeCtry($evt) {
     this.CommunityObject.attributes.country = $evt.srcElement.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
-    document.querySelectorAll('.attr-dist-agselect')[0].value = "";
+    if (this.ddlDistrict) {
+      this.ddlDistrict.nativeElement.value = '';
+      this.changeDistrict(this.ddlDistrict.nativeElement);
+    }
   }
 
   changeDistrict($evt) {
-    this.CommunityObject.attributes.state = $evt.srcElement.value;
+    this.CommunityObject.attributes.state = $evt.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
-    document.querySelectorAll('.attr-state-agselect')[0].value = "";
+    if (this.ddlState) {
+      this.ddlState.nativeElement.value = '';
+    }
   }
 
   agInit(params: any) {
     this.altData = params.value;
-    // console.log(this.altData);
 
     if (this.altData === 'country') {
       // this.countries = [{id:1, name:'MX'}, {id:2, name:'US'}];
@@ -87,25 +79,21 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
         .subscribe(countries => {
           this.countries = countries;
           console.log(this.countries);
-      });
-    }
-
-    if (this.altData === 'district') {
-      this._communityService.getDistricts()
-        .subscribe(districts => {
-          this.allDistricts = districts;
-          this.districts = districts;
-          console.log(this.districts);
-      });
-    }
-
-    if (this.altData === 'state') {
-      this._communityService.getStates()
-        .subscribe(states => {
-          this.allStates = states;
-          this.states = states;
-          console.log(this.states);
-      });
+        });
+    } else if (this.altData === 'district') {
+        this._communityService.getDistricts()
+          .subscribe(districts => {
+            this.allDistricts = districts;
+            this.districts = districts;
+            console.log(this.districts);
+          });
+    } else if (this.altData === 'state') {
+        this._communityService.getStates()
+          .subscribe(states => {
+            this.allStates = states;
+            this.states = states;
+            console.log(this.states);
+          });
     }
 
   }

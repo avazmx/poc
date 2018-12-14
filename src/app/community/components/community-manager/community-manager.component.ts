@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { CommunityModule } from '../../community.module';
 import { CommunityService } from '../../services/community.service';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { Community } from 'src/app/community/models/community.model';
-import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-community-manager',
@@ -36,7 +33,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   isFormFilled: boolean;
 
   constructor(
-    private _communityService: CommunityService,
+    private communityService: CommunityService,
     private store: Store<Community>
   ) {
     this.communityObject.push(
@@ -44,15 +41,15 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     );
     console.log(this.communityObject);
 
-    this.arrayFilled = new Array();
+    this.arrayFilled = [];
     this.isFormFilled = false;
 
     this.CommunityObject = {
-      community_id: 0,
-      community_type: {} as CommunityType ,
+      communityId: 0,
+      communityType: {} as CommunityType,
       name: '',
       description: '',
-      geo_services: {} as GeoService[],
+      geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -77,36 +74,36 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       name: ''
     }
 
-    this.AccessLevelObject ={
-      access_level_id: 0,
+    this.AccessLevelObject = {
+      accessLevelId: 0,
       name: '',
       description: ''
     }
 
     this.GovernanceLevelObject = {
-      governance_level_id: 0,
+      governanceLevelId: 0,
       name: ''
     }
 
     this.MembersObject = {
-      member_id: 0,
+      memberId: 0,
       name: '',
       lastname: '',
       email: '',
-      access_level: {} as AccessLevel,
+      accessLevel: {} as AccessLevel,
       country: {} as Country,
       district: {} as District,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0
+      slicRangeLow: 0,
+      slicRangeHigh: 0
     }
 
     this.GeoServiceObject = {
-      geo_service_id: 0,
+      geoServiceId: 0,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0,
-      bussines_unit: {} as BussinesUnit,
+      slicRangeLow: 0,
+      slicRangeHigh: 0,
+      bussinesUnit: {} as BussinesUnit,
       ground: 0,
       treeds: 0,
       twods: 0,
@@ -114,13 +111,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     }
 
     this.BussinessUnitObject = {
-      bussines_unit_id: 0,
+      bussinesUnitId: 0,
       name: ''
     }
   }
 
   ngOnChanges() {
-    this._communityService.subject.next(this.communityObject);
+    this.communityService.subject.next(this.communityObject);
   }
 
   ngOnInit() {
@@ -142,22 +139,22 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   communityAttributesAction() {
     console.log('Attributes');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddAttributes(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddAttributes(this.CommunityObject));
   }
 
   communityMembersAction() {
     console.log('Members');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddMembers(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddMembers(this.CommunityObject));
   }
 
   communityGovernanceAction() {
     console.log('Governance');
-    //this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
+    // this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
   }
 
-  onInputChange($event){
-    let isInside: boolean = false;
-    for (let x=0; x<this.arrayFilled.length; x++) {
+  onInputChange($event) {
+    let isInside = false;
+    for (let x = 0; x < this.arrayFilled.length; x++) {
       if (this.arrayFilled[x] === $event) {
         isInside = true;
         break;
@@ -166,16 +163,20 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     if (!isInside) {
       this.arrayFilled.push($event);
     }
-    let countBooleans: number = 0;
-    for(let y=0; y<this.arrayFilled.length; y++){
-      if(this.arrayFilled[y].value.length > 0)
+    let countBooleans: number;
+    for (let y = 0; y < this.arrayFilled.length; y++) {
+      if (this.arrayFilled[y].value.length > 0) {
         countBooleans++;
+      }
     }
     // console.log(this.arrayFilled);
-    if(countBooleans == 2)
+    if (countBooleans === 2) {
       this.isFormFilled = true;
-    else
+    } else {
       this.isFormFilled = false;
+    }
+
+
   }
 
 }
