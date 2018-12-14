@@ -20,7 +20,6 @@ import { CommunityService } from '../../services/community.service';
 })
 
 export class CommunityManagerComponent implements OnInit, OnChanges {
-  // communityObject = [];
 
   /**
    * 	small | large-filled | large-empty | large-filled-symbols | large-empty-symbols

@@ -65,11 +65,11 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.rowData = [];
 
     this.CommunityObject = {
-      community_id: 100,
-      community_type: {} as CommunityType,
+      communityId: 100,
+      communityType: {} as CommunityType,
       name: 'Mexico',
       description: 'very good place',
-      geo_services: {} as GeoService[],
+      geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -154,8 +154,8 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     const res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
 
-    this.communityObject.push(this.example);
-    this.attributesData.emit(this.communityObject);
+    // this.communityObject.push(this.example);
+    // this.attributesData.emit(this.communityObject);
   }
 
   onSubmit() {
