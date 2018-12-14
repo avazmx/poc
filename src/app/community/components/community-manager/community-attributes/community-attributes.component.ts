@@ -55,7 +55,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
   communitySubscription: Subscription;
 
   loading = true;
-      
+
   constructor(
     private _formBuilder: FormBuilder,
     private communityService: CommunityService,
@@ -65,11 +65,11 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.rowData = [];
 
     this.CommunityObject = {
-      communityId: 100,
-      communityType: {} as CommunityType,
+      community_id: 100,
+      community_type: {} as CommunityType,
       name: 'Mexico',
       description: 'very good place',
-      geoServices: {} as GeoService[],
+      geo_services: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -85,7 +85,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     };
 
     // Get community types
-    this._communityService.getCommunityTypes()
+    this.communityService.getCommunityTypes()
       .subscribe(types => {
         this.communityTypes = types;
       });
@@ -105,7 +105,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.formIsValid = new EventEmitter();
 
     console.log(this.communityObject);
-    
+
     this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
       console.log('subscription ', obj);

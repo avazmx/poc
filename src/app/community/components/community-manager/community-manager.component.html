@@ -4,7 +4,7 @@
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }">
       <div class="row">
         <ups-community-attributes 
-          [communityObject]="communityObject"
+          [communityObject]="CommunityObject"
           (selectedAttributes)="selectedAttributes($event)"
           (formIsValid)="onChangeFormValidity($event)"
           (isInputFilled)="onInputChange($event)">
