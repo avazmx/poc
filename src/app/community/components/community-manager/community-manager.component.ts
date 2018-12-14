@@ -162,19 +162,15 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   /**
-   * OscarFix
-   * Every time the inputs from the child component trigger the (keyup) angular 2 listener this method will be
-   * triggered
-   * line 1 checks if the element it's already filtering into another array
-   * line 2 if there's no duplicate found then the element will be pushed into the array
-   * line 3 filters the inputs into another array if they're not empty
-   * line 4 checks if the previous filtered array length equals the array with all the inputs length
+   * It get the inputs and push them if they're not into the array then filters if the inputs are not empty
    * @param $event it's the param that EventEmitter sent from the child component which in this case send the
    * input component to check it's length
    */
-  onInputChange($event){
-    let result = this.arrayFilled.filter(element => element === $event);
-    if (result.length == 0) this.arrayFilled.push($event);
+  onInputChange(event: HTMLInputElement){
+    let result = this.arrayFilled.filter(element => element === event);
+    if (result.length == 0){
+      this.arrayFilled.push(event);
+    }
     let result2 = this.arrayFilled.filter(element => element.value.length > 0);
     result2.length == this.arrayFilled.length ? this.isFormFilled = true : this.isFormFilled = false;
   }
