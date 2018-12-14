@@ -6,7 +6,7 @@ import { GovernanceLevel } from '../models/governance-level.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DistrictService {
+export class GovernanceService {
   private url = environment.apiUrl;
   constructor(private http: HttpClient) { }
 

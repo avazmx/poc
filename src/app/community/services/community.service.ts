@@ -25,7 +25,6 @@ export class CommunityService {
   private membersUpdated = new Subject<{ members: Member[] }>();
 
   private harcodedCommunityTypes: CommunityType[] = [];
-
   private url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }

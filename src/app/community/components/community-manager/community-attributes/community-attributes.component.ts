@@ -55,7 +55,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
   communitySubscription: Subscription;
 
   loading = true;
-      
+
   constructor(
     private _formBuilder: FormBuilder,
     private communityService: CommunityService,
@@ -79,16 +79,17 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
       }
     };
 
+    // AG Grid framework info
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
 
     // Get community types
-    this._communityService.getCommunityTypes()
+    this.communityService.getCommunityTypes()
       .subscribe(types => {
         this.communityTypes = types;
-      });
+    });
   }
 
   ngOnChanges() {
@@ -105,7 +106,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.formIsValid = new EventEmitter();
 
     console.log(this.communityObject);
-    
+
     this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
       console.log('subscription ', obj);

@@ -38,19 +38,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   @Input() StateObject: State;
 
   attributesObject: any;
-  arrayFilled: Array<any>;
+  arrayFilled = [];
   isFormFilled: boolean;
 
   constructor(
     private communityService: CommunityService,
     private store: Store<Community>
   ) {
-    this.communityObject.push(
-      { name: 'hi' }
-    );
-    console.log(this.communityObject);
-
-    this.arrayFilled = [];
     this.isFormFilled = false;
 
     this.CommunityObject = {
