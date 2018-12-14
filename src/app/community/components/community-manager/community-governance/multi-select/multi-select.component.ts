@@ -1,7 +1,7 @@
 import { Component, Output, Input, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-multi-select',
+  selector: 'ups-multi-select',
   templateUrl: './multi-select.component.html',
   styleUrls: ['./multi-select.component.scss']
 })
@@ -18,7 +18,7 @@ export class MultiSelectComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    //if ()
+    // if ()
     this.setToggles();
   }
 
@@ -118,9 +118,9 @@ export class MultiSelectComponent implements OnInit, OnChanges {
   }
 
   toggleTree(num, $evt, side, c_id, d_id) {
-    //if (this.toggles2.length == 0) {
+    // if (this.toggles2.length == 0) {
     //  this.setToggles();
-    //}
+    // }
     if ($evt.target.nodeName !== 'INPUT') {
       if (side === 'first') {
         this.toggles[num] = !this.toggles[num];

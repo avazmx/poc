@@ -8,9 +8,6 @@ import { environment } from '../../../environments/environment';
 import { Member } from '../models/member.model';
 import { GeoService } from '../models/geo-services.model';
 import { CommunityType } from '../models/community-type.model';
-import { District } from 'src/app/shared/models/district.model';
-import { State } from 'src/app/shared/models/state.model';
-import { GovernanceLevel } from '../models/governance-level.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,15 +36,15 @@ export class CommunityService {
 
   getHardCodedCommunityTypes() {
     const comm1 = new CommunityType();
-    comm1.community_type_id = 1;
+    comm1.communityTypeId = 1;
     comm1.description = 'HardCoded value 1';
     comm1.name = 'HardCoded value 1';
     const comm2 = new CommunityType();
-    comm2.community_type_id = 1;
+    comm2.communityTypeId = 1;
     comm2.description = 'HardCoded value 1';
     comm2.name = 'HardCoded value 1';
     const comm3 = new CommunityType();
-    comm3.community_type_id = 1;
+    comm3.communityTypeId = 1;
     comm3.description = 'HardCoded value 1';
     comm3.name = 'HardCoded value 1';
     this.harcodedCommunityTypes.push(comm1);
@@ -57,24 +54,4 @@ export class CommunityService {
     return this.harcodedCommunityTypes;
   }
 
-
-  getDistricts() {
-    return this.http.get<District[]>(this.url + 'district');
-  }
-
-  getStates() {
-    return this.http.get<State[]>(this.url + 'state/province');
-  }
-
-  getSlicLow() {
-    return this.http.get<GeoService>(this.url + 'geo/service');
-  }
-
-  getSlicHigh() {
-    return this.http.get<GeoService>(this.url + 'geo/service');
-  }
-
-  getGovernanceLevel() {
-    return this.http.get<GovernanceLevel>(this.url + 'governance/level');
-  }
 }

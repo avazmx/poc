@@ -45,13 +45,13 @@ export class CommunityManageMembersComponent implements OnInit {
 
   createNewRowMembersData() {
     const newData = {
-      member_name: 'member_name',
-      access_level: 'access_level',
+      memberName: 'memberName',
+      accessLevel: 'accessLevel',
       country: 'country',
       district: 'district',
       state: 'state',
-      slic_range_low: 'slic_range_low',
-      slic_range_high: 'slic_range_high'
+      slicRangeLow: 'slicRangeLow',
+      slicRangeHigh: 'slicRangeHigh'
     };
     const res = this.gridApi.updateRowData({ add: [newData] });
     console.log(newData);

@@ -47,12 +47,12 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
         country: 'Toyota',
         district: 'Celica',
         state: 35000,
-        slic_range_low: 123,
-        slic_range_high: 456,
-        level_one_approver: 'level one approver',
-        alt_level_one_approver: 'Alt level two approver',
-        level_two_approver: 'level one approver',
-        alt_level_two_approver: 'Alt level two approver'
+        slicRangeLow: 123,
+        slicRangeHigh: 456,
+        levelOneApprover: 'level one approver',
+        altLevelOneApprover: 'Alt level two approver',
+        levelTwoApprover: 'level one approver',
+        altLevelTwoApprover: 'Alt level two approver'
       }
     ];
 

@@ -31,9 +31,6 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
   @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;
-  @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
-  @ViewChild('ddlState') ddlState: ElementRef;
-
 
   constructor(private communityService: CommunityService, private countryService: CountryService, private store: Store<Community>) {
     this.community$ = this.store.select('community');

@@ -66,38 +66,38 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
         district: {} as District,
         country: {} as Country
       }
-    }
+    };
 
     this.CountryObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.DistrictObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.StateObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.AccessLevelObject = {
       accessLevelId: 0,
       name: '',
       description: ''
-    }
+    };
 
     this.GovernanceLevelObject = {
-      governanceLevelId: 0,
+      id: 0,
       name: ''
-    }
+    };
 
     this.MembersObject = {
       memberId: 0,
       name: '',
-      lastname: '',
+      lastName: '',
       email: '',
       accessLevel: {} as AccessLevel,
       country: {} as Country,
@@ -105,24 +105,24 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       state: {} as State,
       slicRangeLow: 0,
       slicRangeHigh: 0
-    }
+    };
 
     this.GeoServiceObject = {
-      geoServiceId: 0,
+      id: 0,
       state: {} as State,
       slicRangeLow: 0,
       slicRangeHigh: 0,
       bussinesUnit: {} as BussinesUnit,
       ground: 0,
-      treeds: 0,
-      twods: 0,
-      oneds: 0
-    }
+      treeDs: 0,
+      twoDs: 0,
+      oneDs: 0
+    };
 
     this.BussinessUnitObject = {
-      bussinesUnitId: 0,
+      id: 0,
       name: ''
-    }
+    };
   }
 
   ngOnChanges() {
@@ -182,7 +182,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
         countBooleans++;
       }
     }
-    
+
     this.isFormFilled = countBooleans === 2 ? true : false;
   }
 

@@ -1,15 +1,15 @@
 export const membersDef = [
     {
         headerName: 'Member Name',
-        field: 'member_name',
+        field: 'memberName',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'member_name' },
+        cellRendererParams: { field: 'memberName' },
         width: 170,
     }, {
         headerName: 'Access Level',
-        field: 'access_level',
+        field: 'accessLevel',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'access_level' },
+        cellRendererParams: { field: 'accessLevel' },
         width: 150,
     }, {
         headerName: 'Country',
@@ -31,12 +31,12 @@ export const membersDef = [
         width: 160,
     }, {
         headerName: 'SLIC Range Low',
-        field: 'slic_range_low',
+        field: 'slicRangeLow',
         cellRenderer: 'customizedCountryCell',
         width: 170,
     }, {
         headerName: 'SLIC Range High',
-        field: 'slic_range_high',
+        field: 'slicRangeHigh',
         cellRenderer: 'customizedCountryCell'
         // editable: true
     }
