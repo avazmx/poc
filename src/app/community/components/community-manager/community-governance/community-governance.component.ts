@@ -15,13 +15,15 @@ import { GovernanceLevel } from 'src/app/community/models/governance-level.model
 })
 
 export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
-  private rowData;
+
+  rowData;
   private gridApi;
   private gridColumnApi;
   private governanceGrid;
   private governanceDef;
   private frameworkComponents;
   governanceLevels: GovernanceLevel;
+  data = [];
 
   secondData = [];
   headerHeight = 38;

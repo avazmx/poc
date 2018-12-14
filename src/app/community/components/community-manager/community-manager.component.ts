@@ -20,7 +20,7 @@ import { CommunityService } from '../../services/community.service';
 })
 
 export class CommunityManagerComponent implements OnInit, OnChanges {
-  communityObject = [];
+  // communityObject = [];
 
   /**
    * 	small | large-filled | large-empty | large-filled-symbols | large-empty-symbols
@@ -41,10 +41,9 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   arrayFilled = [];
   isFormFilled: boolean;
 
-  constructor(
-    private communityService: CommunityService,
-    private store: Store<Community>
-  ) {
+  constructor(private communityService: CommunityService, private store: Store<Community>) {
+
+    this.arrayFilled = [];
     this.isFormFilled = false;
 
     this.CommunityObject = {
@@ -78,7 +77,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     };
 
     this.AccessLevelObject = {
-      accessLevelId: 0,
+      id: 0,
       name: '',
       description: ''
     };
@@ -89,7 +88,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     };
 
     this.MembersObject = {
-      memberId: 0,
+      id: 0,
       name: '',
       lastName: '',
       email: '',
@@ -120,7 +119,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.communityService.subject.next(this.communityObject);
+    this.communityService.subject.next(this.CommunityObject);
   }
 
   ngOnInit() {
@@ -133,8 +132,8 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   selectedAttributes(e) {
-    this.communityObject = e;
-    console.log(this.communityObject);
+    this.CommunityObject = e;
+    console.log(this.CommunityObject);
   }
 
   selectedMembers(e) {

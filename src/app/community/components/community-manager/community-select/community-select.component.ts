@@ -29,6 +29,7 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   checkmark: any;
   community$: Observable<Community>;
   CommunityObject: Community;
+  
   @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
   @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;

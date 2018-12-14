@@ -5,7 +5,7 @@ import { State } from 'src/app/shared/models/state.model';
 import { AccessLevel } from './access-level.model';
 
 export class Member {
-    public memberId: number;
+    public id: number;
     public name: string;
     public lastName: string;
     public email: string;

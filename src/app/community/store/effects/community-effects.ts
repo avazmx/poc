@@ -19,7 +19,6 @@ export interface State {
     community: Community;
 }
 
-
 @Injectable()
 export class CommunityEffects {
     @Effect()

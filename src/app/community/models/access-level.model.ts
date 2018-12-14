@@ -1,5 +1,5 @@
 export class AccessLevel {
-    public accessLevelId: number;
+    public id: number;
     public name: string;
     public description: string;
 }
