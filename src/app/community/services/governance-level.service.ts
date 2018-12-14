@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { State } from '../models/state.model';
+import { GovernanceLevel } from '../models/governance-level.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StateService {
+export class GovernanceService {
   private url = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   /**
-   * Return the list of states.
+   * Return the list of governance level.
    */
-  getStates() {
-    return this.http.get<State>(this.url + 'state/province');
+  getGovernanceLevel() {
+    return this.http.get<GovernanceLevel>(this.url + 'governance/level');
   }
 }

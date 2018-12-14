@@ -1,4 +1,4 @@
 export class GovernanceLevel {
-    public governance_level_id: number;
+    public id: number;
     public name: string;
 }

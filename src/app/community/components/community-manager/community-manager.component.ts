@@ -38,7 +38,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   @Input() StateObject: State;
 
   attributesObject: any;
-  arrayFilled: Array<any>;
+  arrayFilled = [];
   isFormFilled: boolean;
 
   constructor(private communityService: CommunityService, private store: Store<Community>) {
@@ -47,11 +47,11 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     this.isFormFilled = false;
 
     this.CommunityObject = {
-      community_id: 0,
-      community_type: {} as CommunityType,
+      communityId: 0,
+      communityType: {} as CommunityType,
       name: '',
       description: '',
-      geo_services: {} as GeoService[],
+      geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -77,43 +77,43 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     };
 
     this.AccessLevelObject = {
-      access_level_id: 0,
+      id: 0,
       name: '',
       description: ''
     };
 
     this.GovernanceLevelObject = {
-      governance_level_id: 0,
+      id: 0,
       name: ''
     };
 
     this.MembersObject = {
-      member_id: 0,
+      id: 0,
       name: '',
-      lastname: '',
+      lastName: '',
       email: '',
-      access_level: {} as AccessLevel,
+      accessLevel: {} as AccessLevel,
       country: {} as Country,
       district: {} as District,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0
+      slicRangeLow: 0,
+      slicRangeHigh: 0
     };
 
     this.GeoServiceObject = {
-      geo_service_id: 0,
+      id: 0,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0,
-      bussines_unit: {} as BussinesUnit,
+      slicRangeLow: 0,
+      slicRangeHigh: 0,
+      bussinesUnit: {} as BussinesUnit,
       ground: 0,
-      treeds: 0,
-      twods: 0,
-      oneds: 0
+      treeDs: 0,
+      twoDs: 0,
+      oneDs: 0
     };
 
     this.BussinessUnitObject = {
-      bussines_unit_id: 0,
+      id: 0,
       name: ''
     };
   }

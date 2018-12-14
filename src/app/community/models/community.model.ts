@@ -4,11 +4,11 @@ import { GovernanceLevel } from './governance-level.model';
 import { Member } from './member.model';
 
 export class Community {
-    public community_id: number;
-    public community_type: CommunityType;
+    public communityId: number;
+    public communityType: CommunityType;
     public name: string;
     public description: string;
-    public geo_services?: GeoService[];
+    public geoServices?: GeoService[];
     public members: Member[];
     public governance: GovernanceLevel[];
     public attributes?: any;

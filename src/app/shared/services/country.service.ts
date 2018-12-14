@@ -8,15 +8,14 @@ import { Country } from '../models/country.model';
   providedIn: 'root'
 })
 export class CountryService {
+  // countries: Country[] = [{ id: 1, name: 'Unated States Of America' }, { id: 2, name: 'México' }];
   private url = environment.apiUrl;
-  countries: Country[] = [{ id: 1, name: 'Unated States Of America' }, { id: 2, name: 'México' }];
-
   constructor(private http: HttpClient) { }
 
   /**
    * Return the list of countries.
    */
   getCountries() {
-    return this.http.get(this.url + 'countries');
+    return this.http.get<Country>(this.url + 'country');
   }
 }

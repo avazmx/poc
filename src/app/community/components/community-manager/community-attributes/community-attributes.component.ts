@@ -79,6 +79,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
       }
     };
 
+    // AG Grid framework info
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
@@ -88,7 +89,7 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.communityService.getCommunityTypes()
       .subscribe(types => {
         this.communityTypes = types;
-      });
+    });
   }
 
   ngOnChanges() {

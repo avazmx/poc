@@ -14,7 +14,7 @@
     <div class="transferBox">
       <div class="boxTitle">Comunity Geography</div>
       <div class="insideBox">
-        <app-multi-select [active]="true" [list]="data" (selectedList)="onSelected($event)"></app-multi-select>
+        <ups-multi-select [active]="true" [list]="data" (selectedList)="onSelected($event)"></ups-multi-select>
       </div>
     </div>
     <div class="btnsContainer">
@@ -24,7 +24,7 @@
     <div class="transferBox">
       <div class="boxTitle">Selected Geography</div>
       <div class="insideBox">
-        <app-multi-select [active]="false" [list]="secondData" (selectedList)="onSelected($event)"></app-multi-select>
+        <ups-multi-select [active]="false" [list]="secondData" (selectedList)="onSelected($event)"></ups-multi-select>
       </div>
     </div>
   </div>

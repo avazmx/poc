@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Observable } from 'rxjs/Observable';
 import { Community } from 'src/app/community/models/community.model';
-import { CommunityService } from 'src/app/community/services/community.service';
 import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { attributesDef } from '../../../models/attributes-def';
+import { StateService } from 'src/app/shared/services/state.service';
+import { DistrictService } from 'src/app/shared/services/district.service';
 
 @Component({
   selector: 'ups-community-select',
@@ -20,12 +21,12 @@ import { attributesDef } from '../../../models/attributes-def';
 export class CommunitySelectComponent implements OnInit, ICellRendererAngularComp {
   altData;
   attributesDef;
-  countries: Country[];
-  districts: District[];
-  states: State[];
-  checkmark: any;
-  allDistricts: District[] = [];
+  countries: Country;
+  districts: District;
+  allDistricts: any = [];
+  states: State;
   allStates: any = [];
+  checkmark: any;
   community$: Observable<Community>;
   CommunityObject: Community;
   
@@ -33,8 +34,12 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;
 
-
-  constructor(private communityService: CommunityService, private countryService: CountryService, private store: Store<Community>) {
+  constructor(
+    private countryService: CountryService,
+    private districtService: DistrictService,
+    private stateService: StateService,
+    private store: Store<Community>
+  ) {
     this.community$ = this.store.select('community');
     this.community$.subscribe((currentCommunty: Community) => {
       this.CommunityObject = currentCommunty;
@@ -72,24 +77,27 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     this.altData = params.value;
 
     if (this.altData === 'country') {
-      // this.countries = [{id:1, name:'MX'}, {id:2, name:'US'}];
       this.countryService.getCountries()
-        .subscribe((countries: Country[]) => {
+        .subscribe((countries: Country) => {
           this.countries = countries;
-        }, (error: any) => {
-
+        }, (err: any) => {
+          console.log('No database found... ' + err);
         });
     } else if (this.altData === 'district') {
-      this.communityService.getDistricts()
-        .subscribe((districts: District[]) => {
+      this.districtService.getDistricts()
+        .subscribe((districts: District) => {
           this.allDistricts = districts;
           this.districts = districts;
+        }, (err: any) => {
+          console.log('No database found... ' + err);
         });
     } else if (this.altData === 'state') {
-      this.communityService.getStates()
-        .subscribe((states: State[]) => {
+      this.stateService.getStates()
+        .subscribe((states: State) => {
           this.allStates = states;
           this.states = states;
+        }, (err: any) => {
+          console.log('No database found... ' + err);
         });
     }
 
@@ -102,10 +110,6 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
 
   selected() {
     this.checkmark = !this.checkmark;
-  }
-
-  onChange(e) {
-    console.log(e);
   }
 
 }

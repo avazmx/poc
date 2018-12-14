@@ -1,12 +1,12 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
-import { CommunityService } from 'src/app/community/services/community.service';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { governanceDef } from '../../../models/governance-def';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { Community } from 'src/app/community/models/community.model';
 import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
+import { GovernanceService } from 'src/app/community/services/governance-level.service';
+import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 
 @Component({
   selector: 'ups-community-governance',
@@ -22,7 +22,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private governanceGrid;
   private governanceDef;
   private frameworkComponents;
-  governanceLevels: any;
+  governanceLevels: GovernanceLevel;
   data = [];
 
   secondData = [];
@@ -40,7 +40,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-    private _communityService: CommunityService,
+    private governanceService: GovernanceService,
     private store: Store<Community>
   ) {
     this.rowData = [
@@ -48,17 +48,17 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
         country: 'Toyota',
         district: 'Celica',
         state: 35000,
-        slic_range_low: 123,
-        slic_range_high: 456,
-        level_one_approver: 'level one approver',
-        alt_level_one_approver: 'Alt level two approver',
-        level_two_approver: 'level one approver',
-        alt_level_two_approver: 'Alt level two approver'
+        slicRangeLow: 123,
+        slicRangeHigh: 456,
+        levelOneApprover: 'level one approver',
+        altLevelOneApprover: 'Alt level two approver',
+        levelTwoApprover: 'level one approver',
+        altLevelTwoApprover: 'Alt level two approver'
       }
     ];
 
-    this._communityService.getGovernanceLevel()
-      .subscribe(governance => {
+    this.governanceService.getGovernanceLevel()
+      .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
     }, error => {
