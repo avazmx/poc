@@ -18,7 +18,7 @@ const initialState: State = {
     community: new Community()
 };
 
-export function communityAttributesReducer(state = initialState, action: CommunityAttributesActions.CommunityActions) {
+export function communityReducer(state = initialState, action: CommunityAttributesActions.CommunityActions) {
     switch (action.type) {
         // MAIN CASES
         case CommunityAttributesActions.ADD_ATTRIBUTES:

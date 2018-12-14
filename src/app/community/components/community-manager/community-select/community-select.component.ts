@@ -28,11 +28,10 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   allStates: any = [];
   community$: Observable<Community>;
   CommunityObject: Community;
+  
   @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
   @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;
-  @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
-  @ViewChild('ddlState') ddlState: ElementRef;
 
 
   constructor(private communityService: CommunityService, private countryService: CountryService, private store: Store<Community>) {

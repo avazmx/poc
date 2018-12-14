@@ -20,7 +20,7 @@ import { CommunityService } from '../../services/community.service';
 })
 
 export class CommunityManagerComponent implements OnInit, OnChanges {
-  communityObject = [];
+  // communityObject = [];
 
   /**
    * 	small | large-filled | large-empty | large-filled-symbols | large-empty-symbols
@@ -41,24 +41,17 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   arrayFilled: Array<any>;
   isFormFilled: boolean;
 
-  constructor(
-    private communityService: CommunityService,
-    private store: Store<Community>
-  ) {
-    this.communityObject.push(
-      { name: 'hi' }
-    );
-    console.log(this.communityObject);
+  constructor(private communityService: CommunityService, private store: Store<Community>) {
 
     this.arrayFilled = [];
     this.isFormFilled = false;
 
     this.CommunityObject = {
-      communityId: 0,
-      communityType: {} as CommunityType,
+      community_id: 0,
+      community_type: {} as CommunityType,
       name: '',
       description: '',
-      geoServices: {} as GeoService[],
+      geo_services: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -66,67 +59,67 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
         district: {} as District,
         country: {} as Country
       }
-    }
+    };
 
     this.CountryObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.DistrictObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.StateObject = {
       id: 0,
       name: ''
-    }
+    };
 
     this.AccessLevelObject = {
-      accessLevelId: 0,
+      access_level_id: 0,
       name: '',
       description: ''
-    }
+    };
 
     this.GovernanceLevelObject = {
-      governanceLevelId: 0,
+      governance_level_id: 0,
       name: ''
-    }
+    };
 
     this.MembersObject = {
-      memberId: 0,
+      member_id: 0,
       name: '',
       lastname: '',
       email: '',
-      accessLevel: {} as AccessLevel,
+      access_level: {} as AccessLevel,
       country: {} as Country,
       district: {} as District,
       state: {} as State,
-      slicRangeLow: 0,
-      slicRangeHigh: 0
-    }
+      slic_range_low: 0,
+      slic_range_high: 0
+    };
 
     this.GeoServiceObject = {
-      geoServiceId: 0,
+      geo_service_id: 0,
       state: {} as State,
-      slicRangeLow: 0,
-      slicRangeHigh: 0,
-      bussinesUnit: {} as BussinesUnit,
+      slic_range_low: 0,
+      slic_range_high: 0,
+      bussines_unit: {} as BussinesUnit,
       ground: 0,
       treeds: 0,
       twods: 0,
       oneds: 0
-    }
+    };
 
     this.BussinessUnitObject = {
-      bussinesUnitId: 0,
+      bussines_unit_id: 0,
       name: ''
-    }
+    };
   }
 
   ngOnChanges() {
-    this.communityService.subject.next(this.communityObject);
+    this.communityService.subject.next(this.CommunityObject);
   }
 
   ngOnInit() {
@@ -139,8 +132,8 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   selectedAttributes(e) {
-    this.communityObject = e;
-    console.log(this.communityObject);
+    this.CommunityObject = e;
+    console.log(this.CommunityObject);
   }
 
   selectedMembers(e) {
@@ -182,7 +175,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
         countBooleans++;
       }
     }
-    
+
     this.isFormFilled = countBooleans === 2 ? true : false;
   }
 

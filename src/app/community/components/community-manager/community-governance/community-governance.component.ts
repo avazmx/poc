@@ -16,13 +16,14 @@ import * as CommunityAttributesActions from 'src/app/community/store/actions/com
 
 export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
-  private rowData;
+  rowData;
   private gridApi;
   private gridColumnApi;
   private governanceGrid;
   private governanceDef;
   private frameworkComponents;
   governanceLevels: any;
+  data = [];
 
   secondData = [];
   headerHeight = 38;

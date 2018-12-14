@@ -20,44 +20,47 @@ export interface State {
 }
 
 
-@Injectable()
+
+@Injectable({
+    providedIn: 'root'
+  })
 export class CommunityEffects {
-    @Effect()
-    recipeFetch = this.actions$
-        .ofType(communityActions.FETCH_COMMUNITIES)
-        .pipe(switchMap((action: communityActions.FetchCommunities) => {
-            return this.httpClient.get<Community[]>('https://ng-recipe-book-3adbb.firebaseio.com/recipes.json', {
-                observe: 'body',
-                responseType: 'json'
-            });
-        })).pipe(
-            map(
-                (recipes) => {
+    // @Effect()
+    // recipeFetch = this.actions$
+    //     .ofType(communityActions.FETCH_COMMUNITIES)
+    //     .pipe(switchMap((action: communityActions.FetchCommunities) => {
+    //         return this.httpClient.get<Community[]>('https://ng-recipe-book-3adbb.firebaseio.com/recipes.json', {
+    //             observe: 'body',
+    //             responseType: 'json'
+    //         });
+    //     })).pipe(
+    //         map(
+    //             (recipes) => {
 
-                    for (const recipe of recipes) {
-                        if (!recipe['ingredients']) {
-                            recipe['ingredients'] = [];
-                        }
-                    }
-                    return {
-                        type: communityActions.SET_COMMUNITIES,
-                        payload: recipes
-                    };
-                }
-            )
-        );
+    //                 for (const recipe of recipes) {
+    //                     if (!recipe['ingredients']) {
+    //                         recipe['ingredients'] = [];
+    //                     }
+    //                 }
+    //                 return {
+    //                     type: communityActions.SET_COMMUNITIES,
+    //                     payload: recipes
+    //                 };
+    //             }
+    //         )
+    //     );
 
-    @Effect({ dispatch: false })
-    recipeStore = this.actions$
-        .ofType(communityActions.STORE_COMMUNITIES)
-        .pipe(withLatestFrom(this.store.select('recipes')))
-        .pipe(switchMap(([action, state]) => {
-            const req = new HttpRequest('PUT', 'https://ng-recipe-book-3adbb.firebaseio.com/recipes.json', state.community,
-                { reportProgress: true });
-            return this.httpClient.request(req);
-        }));
+    // @Effect({ dispatch: false })
+    // recipeStore = this.actions$
+    //     .ofType(communityActions.STORE_COMMUNITIES)
+    //     .pipe(withLatestFrom(this.store.select('recipes')))
+    //     .pipe(switchMap(([action, state]) => {
+    //         const req = new HttpRequest('PUT', 'https://ng-recipe-book-3adbb.firebaseio.com/recipes.json', state.community,
+    //             { reportProgress: true });
+    //         return this.httpClient.request(req);
+    //     }));
 
-    constructor(private actions$: Actions,
-        private httpClient: HttpClient,
-        private store: Store<fromCommunityReducer.FeatureState>) { }
+    // constructor(private actions$: Actions,
+    //     private httpClient: HttpClient,
+    //     private store: Store<fromCommunityReducer.FeatureState>) { }
 }
