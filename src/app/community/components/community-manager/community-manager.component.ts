@@ -50,7 +50,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     );
     console.log(this.communityObject);
 
-    this.arrayFilled = [];
+    this.arrayFilled = []
     this.isFormFilled = false;
 
     this.CommunityObject = {
@@ -163,27 +163,20 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   /**
    * OscarFix
-   * @param $event add description
+   * Every time the inputs from the child component trigger the (keyup) angular 2 listener this method will be
+   * triggered
+   * line 1 checks if the element it's already filtering into another array
+   * line 2 if there's no duplicate found then the element will be pushed into the array
+   * line 3 filters the inputs into another array if they're not empty
+   * line 4 checks if the previous filtered array length equals the array with all the inputs length
+   * @param $event it's the param that EventEmitter sent from the child component which in this case send the
+   * input component to check it's length
    */
-  onInputChange($event) {
-    let isInside = false;
-    for (let x = 0; x < this.arrayFilled.length; x++) {
-      if (this.arrayFilled[x] === $event) {
-        isInside = true;
-        break;
-      }
-    }
-    if (!isInside) {
-      this.arrayFilled.push($event);
-    }
-    let countBooleans: number;
-    for (let y = 0; y < this.arrayFilled.length; y++) {
-      if (this.arrayFilled[y].value.length > 0) {
-        countBooleans++;
-      }
-    }
-    
-    this.isFormFilled = countBooleans === 2 ? true : false;
+  onInputChange($event){
+    let result = this.arrayFilled.filter(element => element === $event);
+    if (result.length == 0) this.arrayFilled.push($event);
+    let result2 = this.arrayFilled.filter(element => element.value.length > 0);
+    result2.length == this.arrayFilled.length ? this.isFormFilled = true : this.isFormFilled = false;
   }
 
 }

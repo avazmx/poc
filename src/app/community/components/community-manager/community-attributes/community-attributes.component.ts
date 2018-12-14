@@ -164,6 +164,11 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(this.CommunityObject));
   }
 
+  /**
+   * It will be triggered every time the input triggers the (keyup) event and then it will send the html target to
+   * the parent from the param $event
+   * @param $event it's the Event object sent from (keyup) angular 2 listener
+   */
   checkLength($event) {
     this.isInputFilled.emit($event.target);
   }
