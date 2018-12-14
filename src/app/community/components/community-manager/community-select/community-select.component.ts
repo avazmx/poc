@@ -29,21 +29,16 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   checkmark: any;
   community$: Observable<Community>;
   CommunityObject: Community;
-  
+
   @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
   @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;
 
-  constructor(
-    private countryService: CountryService,
-    private districtService: DistrictService,
-    private stateService: StateService,
-    private store: Store<Community>
-  ) {
+  constructor(private countryService: CountryService, private districtService: DistrictService, private stateService: StateService,
+    private store: Store<Community>) {
     this.community$ = this.store.select('community');
     this.community$.subscribe((currentCommunty: Community) => {
       this.CommunityObject = currentCommunty;
-
       this.districts = this.allDistricts.filter(district => {
         return district.country.id == currentCommunty.attributes.country;
       });
@@ -61,21 +56,27 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
 
   }
 
-  changeCtry($evt) {
-    this.CommunityObject.attributes.country = $evt.srcElement.value;
+  // Country select
+  changeCtry(e) {
+    // debugger;
+    this.CommunityObject.attributes.country = e.srcElement.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
     this.ddlCountry.nativeElement.value = '';
   }
 
-  changeDistrict($evt) {
-    this.CommunityObject.attributes.state = $evt.value;
+  // District select
+  changeDistrict(e) {
+    // debugger;
+    this.CommunityObject.attributes.state = e.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
     this.ddlState.nativeElement.value = '';
   }
 
+  // AG Grid Initialize
   agInit(params: any) {
     this.altData = params.value;
 
+    // Conditionals to prevent multiple service loading
     if (this.altData === 'country') {
       this.countryService.getCountries()
         .subscribe((countries: Country) => {
@@ -103,11 +104,13 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
 
   }
 
+  // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
     return true;
   }
 
+  // Boolean checkmark
   selected() {
     this.checkmark = !this.checkmark;
   }

@@ -23,11 +23,11 @@ export function communityReducer(state = initialState, action: CommunityAttribut
         // MAIN CASES
         case CommunityAttributesActions.ADD_ATTRIBUTES:
             return newState(state, {
-                community_id: action.payload.community_id,
+                communityId: action.payload.communityId,
                 name: action.payload.name,
                 description: action.payload.description,
-                geo_services: action.payload.geo_services,
-                community_type: action.payload.community_type
+                geoServices: action.payload.geoServices,
+                communityType: action.payload.communityType
             });
 
         case CommunityAttributesActions.ADD_MEMBERS:
@@ -45,7 +45,7 @@ export function communityReducer(state = initialState, action: CommunityAttribut
 
         case CommunityAttributesActions.COMMUNITY_INITIALIZE:
             return newState(state, {
-                community_id: action.payload.community_id,
+                communityId: action.payload.communityId,
                 name: action.payload.name,
                 description: action.payload.description
             });

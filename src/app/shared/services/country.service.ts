@@ -16,6 +16,7 @@ export class CountryService {
    * Return the list of countries.
    */
   getCountries() {
-    return this.http.get<Country>(this.url + 'country');
+    return this.http.get<Country>(this.url + 'countries');
   }
+
 }

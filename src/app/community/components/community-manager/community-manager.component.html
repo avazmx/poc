@@ -14,9 +14,11 @@
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
         <button type="button" class="btn btn-primary" awNextStep
-          [attr.disabled]="isFormFilled ? null : ''"
           (ngOnChanges)="selectedAttributes($event)">Next</button>
-          <!-- (click)="communityAttributesAction()">Next</button> -->
+          <!-- 
+            (click)="communityAttributesAction()">Next</button> 
+            [attr.disabled]="isFormFilled ? null : ''"
+          -->
       </div>
     </aw-wizard-step>
   </div>
