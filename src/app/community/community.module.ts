@@ -38,7 +38,7 @@ import { communityReducer } from './store/reducers/community-attributes.reducers
   imports: [
     CommonModule,
     StoreModule.forFeature('communityes', communityReducer),
-    // EffectsModule.forFeature([CommunityEffects]),
+    EffectsModule.forFeature([CommunityEffects]),
     CommunityRoutingModule,
     ArchwizardModule,
     ReactiveFormsModule,
