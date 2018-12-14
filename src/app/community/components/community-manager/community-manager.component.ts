@@ -1,8 +1,17 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { CommunityService } from '../../services/community.service';
-
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
+import { Country } from 'src/app/shared/models/country.model';
+import { District } from 'src/app/shared/models/district.model';
+import { State } from 'src/app/shared/models/state.model';
+
+import { AccessLevel } from '../../models/access-level.model';
+import { BussinesUnit } from '../../models/bussines-unit.model';
+import { CommunityType } from '../../models/community-type.model';
+import { GeoService } from '../../models/geo-services.model';
+import { GovernanceLevel } from '../../models/governance-level.model';
+import { Member } from '../../models/member.model';
+import { CommunityService } from '../../services/community.service';
 
 @Component({
   selector: 'ups-community-manager',
@@ -152,6 +161,10 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     // this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
   }
 
+  /**
+   * OscarFix
+   * @param $event add description
+   */
   onInputChange($event) {
     let isInside = false;
     for (let x = 0; x < this.arrayFilled.length; x++) {
@@ -169,14 +182,8 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
         countBooleans++;
       }
     }
-    // console.log(this.arrayFilled);
-    if (countBooleans === 2) {
-      this.isFormFilled = true;
-    } else {
-      this.isFormFilled = false;
-    }
-
-
+    
+    this.isFormFilled = countBooleans === 2 ? true : false;
   }
 
 }

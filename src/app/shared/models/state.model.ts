@@ -1,4 +1,4 @@
-interface State {
-    id: number;
-    name: string;
+export class State {
+    public id: number;
+    public name: string;
 }

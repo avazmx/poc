@@ -1,4 +1,4 @@
-interface GovernanceLevel {
-    governance_level_id: number;
-    name: string;
+export class GovernanceLevel {
+    public governance_level_id: number;
+    public name: string;
 }

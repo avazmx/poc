@@ -1,5 +1,5 @@
-interface AccessLevel {
-    access_level_id: number;
-    name: string;
-    description: string;
+export class AccessLevel {
+    public access_level_id: number;
+    public name: string;
+    public description: string;
 }
