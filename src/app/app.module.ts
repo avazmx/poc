@@ -13,7 +13,7 @@ import { LayoutModule } from './layout/layout.module';
 import { HttpAuthInterceptor } from './shared/interceptors/http-auth-interceptor';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error-interceptor';
 import { reducers } from './store/reducers/app.reducers';
-
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { reducers } from './store/reducers/app.reducers';
     HttpClientModule,
     AgGridModule.withComponents([]),
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
