@@ -38,38 +38,38 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
   attributesObject: any;
   example = { name: 'ho' };
 
-  private gridApi;
-  private gridColumnApi;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  frameworkComponents;
   rowData: any;
   altData: any;
-  private attributesDef;
-  private attributesGrid;
-  private countries;
+  attributesDef;
+  attributesGrid;
+  countries;
   newCount = 1;
 
   formIsValid: EventEmitter<boolean>;
   CommunityObject: Community;
 
-
   community$: Observable<Community>;
   communitySubscription: Subscription;
 
-
-
   loading = true;
-
-  constructor(private _formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
+      
+  constructor(
+    private _formBuilder: FormBuilder,
+    private communityService: CommunityService,
+    private store: Store<Community>
+  ) {
     this.newRow = false;
-    this.rowData = [
-    ];
+    this.rowData = [];
 
     this.CommunityObject = {
-      community_id: 100,
-      community_type: {} as CommunityType,
+      communityId: 100,
+      communityType: {} as CommunityType,
       name: 'Mexico',
       description: 'very good place',
-      geo_services: {} as GeoService[],
+      geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -83,13 +83,15 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
+
+    // Get community types
+    this._communityService.getCommunityTypes()
+      .subscribe(types => {
+        this.communityTypes = types;
+      });
   }
 
   ngOnChanges() {
-    /* this._communityService.subject
-      .subscribe( data => {
-        this.communityObject = data;
-    }); */
   }
 
   ngOnInit() {
@@ -102,6 +104,8 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     // We emit an event if the form changes.
     this.formIsValid = new EventEmitter();
 
+    console.log(this.communityObject);
+    
     this.community$ = this.store.select('community');
     this.community$.subscribe((obj) => {
       console.log('subscription ', obj);
@@ -138,8 +142,8 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
       country: 'country',
       district: 'district',
       state: 'state',
-      slicLow: 'slicLow',
-      slicHigh: 'slicHigh',
+      slicLow: '1000',
+      slicHigh: '6000',
       bu: 'bu',
       gnd: 'gnd',
       threeDs: 'threeDs',
@@ -164,23 +168,8 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.isInputFilled.emit($event.target);
   }
 
-
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
 
 }
-
-/**
- *
- *
- * interface Community {
-    community_id: number;
-    community_type: CommunityType;
-    name: string;
-    description: string;
-    geo_services: GeoService[];
-    members: Member[];
-    governance: GovernanceLevel[];
-  }
- */

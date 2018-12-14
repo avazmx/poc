@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Observable } from 'rxjs/Observable';
@@ -9,7 +9,6 @@ import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
 import { CountryService } from 'src/app/shared/services/country.service';
-
 import { attributesDef } from '../../../models/attributes-def';
 
 @Component({
@@ -17,6 +16,7 @@ import { attributesDef } from '../../../models/attributes-def';
   templateUrl: './community-select.component.html',
   styleUrls: ['./community-select.component.scss']
 })
+
 export class CommunitySelectComponent implements OnInit, ICellRendererAngularComp {
   altData;
   attributesDef;
@@ -28,8 +28,8 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   allStates: any = [];
   community$: Observable<Community>;
   CommunityObject: Community;
-
-
+  @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
+  @ViewChild('ddlState') ddlState: ElementRef;
   @ViewChild('ddlCountry') ddlCountry: ElementRef;
   @ViewChild('ddlDistrict') ddlDistrict: ElementRef;
   @ViewChild('ddlState') ddlState: ElementRef;
@@ -54,25 +54,23 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   }
 
   ngOnInit() {
+
   }
 
   changeCtry($evt) {
     this.CommunityObject.attributes.country = $evt.srcElement.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
-
     this.ddlCountry.nativeElement.value = '';
   }
 
   changeDistrict($evt) {
-    this.CommunityObject.attributes.state = $evt.srcElement.value;
+    this.CommunityObject.attributes.state = $evt.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
-
     this.ddlState.nativeElement.value = '';
   }
 
   agInit(params: any) {
     this.altData = params.value;
-    // console.log(this.altData);
 
     if (this.altData === 'country') {
       // this.countries = [{id:1, name:'MX'}, {id:2, name:'US'}];
@@ -82,17 +80,13 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
         }, (error: any) => {
 
         });
-    }
-
-    if (this.altData === 'district') {
+    } else if (this.altData === 'district') {
       this.communityService.getDistricts()
         .subscribe((districts: District[]) => {
           this.allDistricts = districts;
           this.districts = districts;
         });
-    }
-
-    if (this.altData === 'state') {
+    } else if (this.altData === 'state') {
       this.communityService.getStates()
         .subscribe((states: State[]) => {
           this.allStates = states;

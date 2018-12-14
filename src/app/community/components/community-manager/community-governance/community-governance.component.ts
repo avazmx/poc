@@ -25,59 +25,6 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   governanceLevels: any;
 
   secondData = [];
-  data: any = [
-    {
-      country: {
-        id: 1,
-        name: "US",
-        districts: [
-          {
-            id: 1,
-            name: "District 76 - Northwest",
-            states: [
-              {
-                id: 1,
-                name:"Washington"
-              },
-              {
-                id: 11,
-                name:"Oregon"
-              }
-            ]
-          },
-          {
-            id: 2,
-            name: "District 89 - East",
-            states: [
-              {
-                id: 2,
-                name:"Texas"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      country: {
-        id: 2,
-        name: "MX",
-        districts: [
-          {
-            id: 3,
-            name: "District 115 - Southwest",
-            states: [
-              {
-                id: 3,
-                name:"Jalisco"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ];
-
   headerHeight = 38;
   columnDefs = [
     { headerName: 'Country', field: 'country', editable: true },
@@ -96,16 +43,16 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     private store: Store<Community>
   ) {
     this.rowData = [
-      { 
-        country: 'Toyota', 
-        district: 'Celica', 
-        state: 35000, 
-        slic_range_low: 123, 
-        slic_range_high: 456, 
-        level_one_approver: 'level one approver', 
-        alt_level_one_approver: 'Alt level two approver', 
-        level_two_approver: 'level one approver', 
-        alt_level_two_approver: 'Alt level two approver' 
+      {
+        country: 'Toyota',
+        district: 'Celica',
+        state: 35000,
+        slic_range_low: 123,
+        slic_range_high: 456,
+        level_one_approver: 'level one approver',
+        alt_level_one_approver: 'Alt level two approver',
+        level_two_approver: 'level one approver',
+        alt_level_two_approver: 'Alt level two approver'
       }
     ];
 
@@ -113,8 +60,10 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       .subscribe(governance => {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
+    }, error => {
+      console.log('backend is not working');
     });
-    
+
     this.governanceDef = governanceDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
@@ -139,9 +88,6 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
     this.gridApi.setDomLayout('autoHeight');
     this.governanceGrid = document.querySelector('#governanceGrid');
-
-    // params.api.sizeColumnsToFit();
-    // this.gridApi.sizeColumnsToFit();
   }
 
 }

@@ -9,43 +9,16 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 })
 
 export class CommunityManageMembersComponent implements OnInit {
-  // @Input() step2: boolean;
-  private defaultColDef;
-  private gridApi;
-  private gridColumnApi;
-  private frameworkComponents;
-  private membersGrid;
+  defaultColDef;
+  gridApi;
+  gridColumnApi;
+  frameworkComponents;
+  membersGrid;
   headerHeight = 38;
   newCount = 1;
 
   columnDefs = membersDef;
   rowData: any;
-
-  /*
-  rowData = [
-    {
-      member_name: 'Toyota',
-      access_level: 'Celica',
-      country: 'USA',
-      district: 'District 1',
-      state: 'Chicago',
-      slic_range_low: 123,
-      slic_range_high: 456
-    }
-  ];
- */
-
-  /*
-  columnDefs = [
-    { headerName: 'Member Name', field: 'member_name', editable: true, },
-    { headerName: 'Access Level', field: 'access_level', editable: true, },
-    { headerName: 'Country', field: 'country', editable: true },
-    { headerName: 'District', field: 'district', editable: true },
-    { headerName: 'State/Province', field: 'state', editable: true, },
-    { headerName: 'SLIC Range Low', field: 'slic_range_low', editable: true, },
-    { headerName: 'SLIC Range High', field: 'slic_range_high', editable: true, },
-  ];
-  */
 
   constructor() {
     this.rowData = [];
@@ -66,7 +39,6 @@ export class CommunityManageMembersComponent implements OnInit {
 
       this.gridApi.setDomLayout('autoHeight');
       this.membersGrid = document.querySelector('#membersGrid');
-
       // params.api.sizeColumnsToFit();
     // }
   }
@@ -81,8 +53,7 @@ export class CommunityManageMembersComponent implements OnInit {
       slic_range_low: 'slic_range_low',
       slic_range_high: 'slic_range_high'
     };
-    // const newData = this.columnDefs;
-    let res = this.gridApi.updateRowData({ add: [newData] });
+    const res = this.gridApi.updateRowData({ add: [newData] });
     console.log(newData);
   }
 

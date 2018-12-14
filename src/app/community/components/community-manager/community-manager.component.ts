@@ -42,7 +42,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   isFormFilled: boolean;
 
   constructor(
-    private _communityService: CommunityService,
+    private communityService: CommunityService,
     private store: Store<Community>
   ) {
     this.communityObject.push(
@@ -50,15 +50,15 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     );
     console.log(this.communityObject);
 
-    this.arrayFilled = new Array();
+    this.arrayFilled = [];
     this.isFormFilled = false;
 
     this.CommunityObject = {
-      community_id: 0,
-      community_type: {} as CommunityType,
+      communityId: 0,
+      communityType: {} as CommunityType,
       name: '',
       description: '',
-      geo_services: {} as GeoService[],
+      geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
       attributes: {
@@ -84,35 +84,35 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     }
 
     this.AccessLevelObject = {
-      access_level_id: 0,
+      accessLevelId: 0,
       name: '',
       description: ''
     }
 
     this.GovernanceLevelObject = {
-      governance_level_id: 0,
+      governanceLevelId: 0,
       name: ''
     }
 
     this.MembersObject = {
-      member_id: 0,
+      memberId: 0,
       name: '',
       lastname: '',
       email: '',
-      access_level: {} as AccessLevel,
+      accessLevel: {} as AccessLevel,
       country: {} as Country,
       district: {} as District,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0
+      slicRangeLow: 0,
+      slicRangeHigh: 0
     }
 
     this.GeoServiceObject = {
-      geo_service_id: 0,
+      geoServiceId: 0,
       state: {} as State,
-      slic_range_low: 0,
-      slic_range_high: 0,
-      bussines_unit: {} as BussinesUnit,
+      slicRangeLow: 0,
+      slicRangeHigh: 0,
+      bussinesUnit: {} as BussinesUnit,
       ground: 0,
       treeds: 0,
       twods: 0,
@@ -120,13 +120,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     }
 
     this.BussinessUnitObject = {
-      bussines_unit_id: 0,
+      bussinesUnitId: 0,
       name: ''
     }
   }
 
   ngOnChanges() {
-    this._communityService.subject.next(this.communityObject);
+    this.communityService.subject.next(this.communityObject);
   }
 
   ngOnInit() {
@@ -161,7 +161,6 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     // this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
   }
 
-
   /**
    * OscarFix
    * @param $event add description
@@ -177,12 +176,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
     if (!isInside) {
       this.arrayFilled.push($event);
     }
-    let countBooleans = 0;
+    let countBooleans: number;
     for (let y = 0; y < this.arrayFilled.length; y++) {
       if (this.arrayFilled[y].value.length > 0) {
         countBooleans++;
       }
     }
+    
     this.isFormFilled = countBooleans === 2 ? true : false;
   }
 
