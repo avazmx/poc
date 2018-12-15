@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { membersDef } from '../../../models/members-def';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { Store } from '@ngrx/store';
+import { Community } from 'src/app/community/models/community.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -8,7 +11,7 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
   styleUrls: ['./community-manage-members.component.scss']
 })
 
-export class CommunityManageMembersComponent implements OnInit {
+export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   defaultColDef;
   gridApi;
   gridColumnApi;
@@ -20,7 +23,10 @@ export class CommunityManageMembersComponent implements OnInit {
   columnDefs = membersDef;
   rowData: any;
 
-  constructor() {
+  // Hectorf
+  communitySubscription: Subscription;
+
+  constructor(private store: Store<Community>) {
     this.rowData = [];
     this.defaultColDef = { width: 200 };
     this.frameworkComponents = {
@@ -29,17 +35,21 @@ export class CommunityManageMembersComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Subscribe to the store in order to get the updated object.
+    this.communitySubscription = this.store.select('community').subscribe((obj) => {
+      console.log('community store Subscription => ', obj);
+    });
   }
 
   /* AG-Grid */
   onGridReady(params) {
     // if(!this.step2) {
-      this.gridApi = params.api;
-      this.gridColumnApi = params.columnApi;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
-      this.gridApi.setDomLayout('autoHeight');
-      this.membersGrid = document.querySelector('#membersGrid');
-      // params.api.sizeColumnsToFit();
+    this.gridApi.setDomLayout('autoHeight');
+    this.membersGrid = document.querySelector('#membersGrid');
+    // params.api.sizeColumnsToFit();
     // }
   }
 
@@ -55,6 +65,11 @@ export class CommunityManageMembersComponent implements OnInit {
     };
     const res = this.gridApi.updateRowData({ add: [newData] });
     console.log(newData);
+  }
+
+
+  ngOnDestroy(): void {
+    this.communitySubscription.unsubscribe();
   }
 
 }

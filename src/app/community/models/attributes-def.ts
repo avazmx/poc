@@ -2,34 +2,32 @@ export const attributesDef = [
     {
         headerName: 'Country',
         field: 'country',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
         width: 170,
+        checkboxSelection: true
     }, {
         headerName: 'District',
         field: 'district',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectDistrictCell',
         cellRendererParams: { field: 'district' },
         width: 170,
     }, {
         headerName: 'State/Province',
         field: 'state',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectStateCell',
         cellRendererParams: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        // cellRenderer: 'customizedCountryCell'
         editable: true
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        // cellRenderer: 'customizedCountryCell'
         editable: true
     }, {
         headerName: 'Business Unit',
         field: 'bu',
-        // cellRenderer: 'customizedCountryCell'
     }, {
         headerName: 'GND',
         field: 'gnd',
@@ -54,6 +52,5 @@ export const attributesDef = [
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'oneDs' },
         width: 100,
-        // editable: true
     }
 ];

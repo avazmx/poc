@@ -14,6 +14,8 @@ import { HttpAuthInterceptor } from './shared/interceptors/http-auth-interceptor
 import { HttpErrorInterceptor } from './shared/interceptors/http-error-interceptor';
 import { reducers } from './store/reducers/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { CountrySelectComponent } from './shared/components/country-select/country-select.component';
+import { CommunitySelectComponent } from './community/components/community-manager/community-select/community-select.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,6 @@ import { EffectsModule } from '@ngrx/effects';
     AppRoutingModule,
     LayoutModule,
     HttpClientModule,
-    AgGridModule.withComponents([]),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule,

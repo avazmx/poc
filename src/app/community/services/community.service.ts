@@ -30,7 +30,7 @@ export class CommunityService {
   constructor(private http: HttpClient) { }
 
   getCommunityTypes() {
-    return this.http.get<CommunityType>(this.url + 'community/type');
+    return this.http.get<CommunityType[]>(this.url + 'community/type');
   }
 
   getHardCodedCommunityTypes() {
@@ -39,13 +39,13 @@ export class CommunityService {
     comm1.description = 'HardCoded value 1';
     comm1.name = 'HardCoded value 1';
     const comm2 = new CommunityType();
-    comm2.communityTypeId = 1;
-    comm2.description = 'HardCoded value 1';
-    comm2.name = 'HardCoded value 1';
+    comm2.communityTypeId = 2;
+    comm2.description = 'HardCoded value 2';
+    comm2.name = 'HardCoded value 2';
     const comm3 = new CommunityType();
-    comm3.communityTypeId = 1;
-    comm3.description = 'HardCoded value 1';
-    comm3.name = 'HardCoded value 1';
+    comm3.communityTypeId = 3;
+    comm3.description = 'HardCoded value 3';
+    comm3.name = 'HardCoded value 3';
     this.harcodedCommunityTypes.push(comm1);
     this.harcodedCommunityTypes.push(comm2);
     this.harcodedCommunityTypes.push(comm3);

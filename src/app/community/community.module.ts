@@ -25,6 +25,10 @@ import { CommunityManagerComponent } from './components/community-manager/commun
 import { CommunitySelectComponent } from './components/community-manager/community-select/community-select.component';
 import { CommunityEffects } from './store/effects/community-effects';
 import { communityReducer } from './store/reducers/community-attributes.reducers';
+import { CountrySelectComponent } from '../shared/components/country-select/country-select.component';
+import { SharedModule } from '../shared/shared.module';
+import { DistrictSelectComponent } from '../shared/components/district-select/district-select.component';
+import { StateSelectComponent } from '../shared/components/state-select/state-select.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ import { communityReducer } from './store/reducers/community-attributes.reducers
   ],
   imports: [
     CommonModule,
+    SharedModule,
     StoreModule.forFeature('communityes', communityReducer),
     EffectsModule.forFeature([CommunityEffects]),
     CommunityRoutingModule,
@@ -44,12 +49,20 @@ import { communityReducer } from './store/reducers/community-attributes.reducers
     ReactiveFormsModule,
     NgSelectModule,
     FormsModule,
-    AgGridModule.withComponents([
-      CommunitySelectComponent
-    ]),
     AngularFontAwesomeModule,
+    AgGridModule.withComponents([
+      CommunitySelectComponent,
+      CountrySelectComponent,
+      DistrictSelectComponent,
+      StateSelectComponent
+    ]),
   ],
-  entryComponents: [CommunitySelectComponent]
+  entryComponents: [
+    CommunitySelectComponent,
+    CountrySelectComponent,
+    DistrictSelectComponent,
+    StateSelectComponent
+  ]
 })
 
 export class CommunityModule { }

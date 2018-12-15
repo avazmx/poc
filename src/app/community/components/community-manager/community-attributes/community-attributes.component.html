@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <label> COMMUNITY TYPE*</label>
-      <ng-select formControlName="community_type" bindLabel="name" bindValue="id" [items]="communityTypes" class="inputBig"
+      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes" class="inputBig"
         placeholder="Select a type" [loading]="loading">
       </ng-select>
     </div>
@@ -24,11 +24,13 @@
 
 <h4>Geo/Service</h4>
 <div class="end">
-  <button (click)="createNewRowData()" class="emptyBtn">
+  <button (click)="createNewRowData()" class="emptyBtn" [disabled]="">
     <fa name="plus-circle"></fa>&nbsp; Add Row
   </button>
 </div>
 
-<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
+<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef" 
+(selectionChanged)="onSelectionChanged($event)"
+rowSelection="multiple"
   [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
 </ag-grid-angular>
