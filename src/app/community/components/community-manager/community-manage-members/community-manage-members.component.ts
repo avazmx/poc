@@ -37,7 +37,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      debugger;
       console.log('community store Subscription => ', obj);
     });
   }

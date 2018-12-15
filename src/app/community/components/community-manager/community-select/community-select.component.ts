@@ -11,6 +11,7 @@ import { CountryService } from 'src/app/shared/services/country.service';
 import { attributesDef } from '../../../models/attributes-def';
 import { StateService } from 'src/app/shared/services/state.service';
 import { DistrictService } from 'src/app/shared/services/district.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ups-community-select',
@@ -21,11 +22,11 @@ import { DistrictService } from 'src/app/shared/services/district.service';
 export class CommunitySelectComponent implements OnInit, ICellRendererAngularComp {
   altData;
   attributesDef;
-  countries: Country;
-  districts: District;
-  allDistricts: any = [];
-  states: State;
-  allStates: any = [];
+  countries: Country[];
+  districts: District[];
+  allDistricts: District[] = [];
+  states: State[];
+  allStates: State[] = [];
   checkmark: any;
   community$: Observable<Community>;
   CommunityObject: Community;
@@ -37,15 +38,18 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   constructor(private countryService: CountryService, private districtService: DistrictService, private stateService: StateService,
     private store: Store<Community>) {
     this.community$ = this.store.select('community');
+
     this.community$.subscribe((currentCommunty: Community) => {
       this.CommunityObject = currentCommunty;
+
+
       this.districts = this.allDistricts.filter(district => {
         return district.country.id == currentCommunty.attributes.country;
       });
 
-      this.states = this.allStates.filter(state => {
-        return state.district.id == currentCommunty.attributes.state;
-      });
+      // this.states = this.allStates.filter(state => {
+      //   return state.district.id == currentCommunty.attributes.state;
+      // });
 
     });
 
@@ -79,29 +83,64 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     // Conditionals to prevent multiple service loading
     if (this.altData === 'country') {
       this.countryService.getCountries()
-        .subscribe((countries: Country) => {
+        .subscribe((countries: Country[]) => {
           this.countries = countries;
-        }, (err: any) => {
-          console.log('No database found... ' + err);
+        }, (error: HttpErrorResponse) => {
+          console.log('Error trying to load the coutries list, I will load hardcoded data');
+          this.countries = this.countryService.getHardCodedCountries();
         });
     } else if (this.altData === 'district') {
+      // this.districtService.getDistricts()
+      //   .subscribe((districts: District[]) => {
+      //     this.allDistricts = districts;
+      //     this.districts = districts;
+      //   }, (error: HttpErrorResponse) => {
+      //     console.log('Error trying to load the districts list, I will load hardcoded data');
+      //     this.allDistricts = this.districtService.getHardCodedDistricts();
+      //   });
+    } else if (this.altData === 'state') {
+      // this.stateService.getStates()
+      //   .subscribe((states: State[]) => {
+      //     this.allStates = states;
+      //     this.states = states;
+      //   }, (error: HttpErrorResponse) => {
+      //     console.log('Error trying to load the states list, I will load hardcoded data');
+      //     this.allStates = this.stateService.getHardCodedStates();
+      //   });
+    }
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  onCountryChange(event: any) {
+    //if (this.altData === 'state') {
+    this.stateService.getStates()
+      .subscribe((states: State[]) => {
+        this.states = states;
+      }, (error: HttpErrorResponse) => {
+        console.log('Error trying to load the states list, I will load hardcoded data');
+        this.states = this.stateService.getHardCodedStates();
+      });
+    //}
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  onDistrictChange(event: any) {
+    if (this.altData === 'district') {
       this.districtService.getDistricts()
-        .subscribe((districts: District) => {
+        .subscribe((districts: District[]) => {
           this.allDistricts = districts;
           this.districts = districts;
-        }, (err: any) => {
-          console.log('No database found... ' + err);
-        });
-    } else if (this.altData === 'state') {
-      this.stateService.getStates()
-        .subscribe((states: State) => {
-          this.allStates = states;
-          this.states = states;
-        }, (err: any) => {
-          console.log('No database found... ' + err);
+        }, (error: HttpErrorResponse) => {
+          console.log('Error trying to load the districts list, I will load hardcoded data');
+          this.allDistricts = this.districtService.getHardCodedDistricts();
         });
     }
-
   }
 
   // AG Grid reload

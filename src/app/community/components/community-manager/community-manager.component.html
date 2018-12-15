@@ -4,8 +4,7 @@
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }" (stepEnter)="stepEnter($event)"
       (stepExit)="stepAtributesExit($event)" [canExit]="canExitAttributesComponent">
       <div class="row">
-        <ups-community-attributes [communityObject]="CommunityObject" (selectedAttributes)="selectedAttributes($event)"
-         (isFormValid)="checkFormValidity($event)">
+        <ups-community-attributes (selectedAttributes)="selectedAttributes($event)" (isFormValid)="checkFormValidity($event)">
         </ups-community-attributes>
       </div>
       <br>
@@ -23,7 +22,6 @@
 
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-
         <button type="button" class="btn btn-primary end-btn" (selectedMembers)="selectedMembers($event)" awNextStep>Next</button>
         <!-- <button type="button" class="btn btn-primary end-btn" awNextStep
         (click)="communityMembersAction()">Next</button> -->

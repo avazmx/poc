@@ -1,21 +1,24 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
 import { CommunityType } from 'src/app/community/models/community-type.model';
 import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 import { Member } from 'src/app/community/models/member.model';
+import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
+import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
 
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
+import * as communityActions from '../../../store/actions/community-attributes.actions';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -26,11 +29,12 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() attributesData = new EventEmitter();
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
-  @Input() communityObject;
   @Output() dataReady: EventEmitter<Community> = new EventEmitter();
 
   // Hectorf
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
+  CommunityObject: Community;
+  rowSelection;
 
   form: FormGroup;
   headerHeight = 38;
@@ -47,7 +51,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   attributesGrid;
   countries;
   newCount = 1;
-  CommunityObject: Community;
 
   // Hectorf
   communitySubscription: Subscription;
@@ -79,6 +82,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
+      selectCountryCell: CountrySelectComponent,
+      selectDistrictCell: DistrictSelectComponent,
+      selectStateCell: StateSelectComponent
     };
   }
 
@@ -100,7 +106,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      console.log('community store Subscription => ', obj);
+      this.CommunityObject = obj;
     });
 
     // Subscribe to the communitytype service.
@@ -128,6 +134,14 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     params.api.sizeColumnsToFit();
   }
 
+
+  getSelectedRows() {
+    const selectedNodes = this.gridApi.getSelectedNodes();
+    const selectedData = selectedNodes.map(node => node.data);
+    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
+    alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+
   createNewRowData() {
     const newData = {
       country: 'country',
@@ -143,6 +157,18 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     };
     const res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
+    const nodes = this.gridApi.getSelectedNodes();
+
+    this.communityGeoServices.push();
+  }
+
+  onSelectionChanged(event: any) {
+    if (event) {
+      const selectedNodes = this.gridApi.getSelectedNodes();
+      const selectedData: GeoService[] = selectedNodes.map(node => node.data);
+      this.CommunityObject.geoServices = selectedData;
+      this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
+    }
   }
 
   checkLength($event) {

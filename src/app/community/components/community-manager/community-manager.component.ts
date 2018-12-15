@@ -12,8 +12,9 @@ import { GeoService } from '../../models/geo-services.model';
 import { GovernanceLevel } from '../../models/governance-level.model';
 import { Member } from '../../models/member.model';
 import { CommunityService } from '../../services/community.service';
-import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 import * as communityActions from '../../store/actions/community-attributes.actions';
+import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ups-community-manager',
@@ -28,7 +29,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
    */
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
-  @Input() CommunityObject: Community;
+  CommunityObject: Community;
   @Input() GovernanceLevelObject: GovernanceLevel;
   @Input() MembersObject: Member;
   @Input() GeoServiceObject: GeoService;
@@ -38,8 +39,10 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   @Input() DistrictObject: District;
   @Input() StateObject: State;
 
+  // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
+  communitySubscription: Subscription;
 
 
 
@@ -129,6 +132,11 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // Subscribe to the store in order to get the updated object.
+    this.communitySubscription = this.store.select('community').subscribe((obj) => {
+      this.CommunityObject = obj;
+    });
+
   }
 
   onChangeFormValidity(event) {
@@ -146,7 +154,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   }
 
   communityAttributesAction() {
-    
+
     console.log(this.attributeComponent);
     console.log('Attributes');
     // this.store.dispatch(new CommunityAttributesActions.CommunityAddAttributes(this.CommunityObject));
@@ -154,13 +162,13 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   communityMembersAction() {
 
-    
+
     console.log('Members');
     // this.store.dispatch(new CommunityAttributesActions.CommunityAddMembers(this.CommunityObject));
   }
 
   communityGovernanceAction() {
-    
+
     console.log('Governance');
     // this.store.dispatch(new CommunityAttributesActions.CommunityAddGovernance(this.CommunityObject));
   }
@@ -168,13 +176,12 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   stepEnter(event: any) { }
 
   stepAtributesExit(event: number) {
-    debugger;
     if (this.attributeComponent.form.valid) {
       this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
 
-      const communityType = this.attributeComponent.communityTypes.filter(type => 
-        type.communityTypeId == this.attributeComponent.form.controls['community_type'].value
+      const communityType = this.attributeComponent.communityTypes.filter(type =>
+        type.communityTypeId === this.attributeComponent.form.controls['community_type'].value
       );
 
       this.CommunityObject.communityType = communityType[0];
@@ -214,4 +221,5 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   checkFormValidity(event: boolean) {
     this.canExitAttributesComponent = event;
   }
+
 }

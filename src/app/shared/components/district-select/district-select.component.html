@@ -1,0 +1,8 @@
+<span>
+  <select (change)="onDistrictChange($event)">
+    <option value="" disabled selected>Select</option>
+    <option *ngFor="let district of district" [value]="district.id">
+      {{district.name}}
+    </option>
+  </select>
+</span>
