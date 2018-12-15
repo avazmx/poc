@@ -111,19 +111,19 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   }
 
   /**
-   * 
-   * @param event 
+   * test
+   * @param event test
    */
   onCountryChange(event: any) {
-    //if (this.altData === 'state') {
-    this.stateService.getStates()
-      .subscribe((states: State[]) => {
-        this.states = states;
-      }, (error: HttpErrorResponse) => {
-        console.log('Error trying to load the states list, I will load hardcoded data');
-        this.states = this.stateService.getHardCodedStates();
-      });
-    //}
+    // //if (this.altData === 'state') {
+    // this.stateService.getStates()
+    //   .subscribe((states: State[]) => {
+    //     this.states = states;
+    //   }, (error: HttpErrorResponse) => {
+    //     console.log('Error trying to load the states list, I will load hardcoded data');
+    //     this.states = this.stateService.getHardCodedStates();
+    //   });
+    // //}
   }
 
   /**
@@ -131,16 +131,16 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
    * @param event 
    */
   onDistrictChange(event: any) {
-    if (this.altData === 'district') {
-      this.districtService.getDistricts()
-        .subscribe((districts: District[]) => {
-          this.allDistricts = districts;
-          this.districts = districts;
-        }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the districts list, I will load hardcoded data');
-          this.allDistricts = this.districtService.getHardCodedDistricts();
-        });
-    }
+    // if (this.altData === 'district') {
+    //   this.districtService.getDistricts()
+    //     .subscribe((districts: District[]) => {
+    //       this.allDistricts = districts;
+    //       this.districts = districts;
+    //     }, (error: HttpErrorResponse) => {
+    //       console.log('Error trying to load the districts list, I will load hardcoded data');
+    //       this.allDistricts = this.districtService.getHardCodedDistricts();
+    //     });
+    // }
   }
 
   // AG Grid reload
