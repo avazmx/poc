@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,6 @@ import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 import { Member } from 'src/app/community/models/member.model';
-import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
@@ -24,19 +23,20 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
   styleUrls: ['./community-attributes.component.scss']
 })
 
-export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestroy {
+export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() attributesData = new EventEmitter();
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
   @Input() communityObject;
   @Output() dataReady: EventEmitter<Community> = new EventEmitter();
-  @ViewChild('localForm') formFromLocal;
+
+  // Hectorf
+  @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
 
   form: FormGroup;
   headerHeight = 38;
-  communityTypes: any;
+  communityTypes: CommunityType[];
   newRow: boolean;
   attributesObject: any;
-  example = { name: 'ho' };
 
   gridApi;
   gridColumnApi;
@@ -47,28 +47,24 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
   attributesGrid;
   countries;
   newCount = 1;
-
-  formIsValid: EventEmitter<boolean>;
   CommunityObject: Community;
 
-  community$: Observable<Community>;
+  // Hectorf
   communitySubscription: Subscription;
+  communityGeoServices: GeoService[] = [];
 
   loading = true;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private communityService: CommunityService,
-    private store: Store<Community>
-  ) {
+  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
     this.newRow = false;
     this.rowData = [];
 
+
     this.CommunityObject = {
-      communityId: 100,
+      communityId: 0,
       communityType: {} as CommunityType,
-      name: 'Mexico',
-      description: 'very good place',
+      name: '',
+      description: '',
       geoServices: {} as GeoService[],
       members: {} as Member[],
       governance: {} as GovernanceLevel[],
@@ -84,50 +80,44 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
     };
-
-    // Get community types
-    this.communityService.getCommunityTypes()
-      .subscribe(types => {
-        this.communityTypes = types;
-    });
   }
 
-  ngOnChanges() {
-  }
-
+  /**
+   * Create the form and subscribe to the store so we can use the community object.
+   */
   ngOnInit() {
-    this.form = this._formBuilder.group({
+    // Build the form.
+    this.form = this.formBuilder.group({
       community_type: [null, Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required]
     });
 
-    // We emit an event if the form changes.
-    this.formIsValid = new EventEmitter();
-
-    console.log(this.communityObject);
-
-    this.community$ = this.store.select('community');
-    this.community$.subscribe((obj) => {
-      console.log('subscription ', obj);
+    // Subscribe to the form changes.
+    this.form.valueChanges.subscribe(() => {
+      this.isFormValid.emit(this.form.valid);
     });
 
+    // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      console.log('Subscription => ', obj);
+      console.log('community store Subscription => ', obj);
     });
 
-    this.communityService.getCommunityTypes()
-      .subscribe(types => {
-        this.communityTypes = types;
-        this.loading = false;
-      }, (error: HttpErrorResponse) => {
-        console.log('Error trying to lad the community type list, I will load hardcoded data');
-        this.communityTypes = this.communityService.getHardCodedCommunityTypes();
-        this.loading = false;
-      });
+    // Subscribe to the communitytype service.
+    this.communityService.getCommunityTypes().subscribe(types => {
+      this.communityTypes = types;
+      this.loading = false;
+    }, (error: HttpErrorResponse) => {
+      console.log('Error trying to lad the community type list, I will load hardcoded data');
+      this.communityTypes = this.communityService.getHardCodedCommunityTypes();
+      this.loading = false;
+    });
   }
 
-  /* AG-Grid */
+  /**
+   * When the grid is loaded this method is executed
+   * @param params object recived when the grid is ready.
+   */
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -153,16 +143,6 @@ export class CommunityAttributesComponent implements OnInit, OnChanges, OnDestro
     };
     const res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
-
-    // this.communityObject.push(this.example);
-    // this.attributesData.emit(this.communityObject);
-  }
-
-  onSubmit() {
-    if (this.form.invalid) {
-      return;
-    }
-    this.store.dispatch(new CommunityAttributesActions.CommunityInitialize(this.CommunityObject));
   }
 
   checkLength($event) {
