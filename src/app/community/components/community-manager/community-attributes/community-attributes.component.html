@@ -3,21 +3,31 @@
   <div class="row">
     <div class="col">
       <label> COMMUNITY TYPE*</label>
-      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes" class="inputBig"
-        placeholder="Select a type" [loading]="loading">
+      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes"
+        class="inputBig" placeholder="Select a type" [loading]="loading">
       </ng-select>
+      <span style="color: red;" *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
+        The name is required
+      </span>
     </div>
 
     <div class="col">
       <label> NAME*</label>
       <div class="form-group">
-        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name" (keyup)="checkLength($event)">
+        <input type="text" [ngStyle]="{'border-color': form.get('name').hasError('required') && form.get('name').touched ? 'red' : '#ced4da' }"
+          class="form-control inputBig" placeholder="Enter Name..." formControlName="name" (keyup)="checkLength($event)">
+        <span style="color: red;" *ngIf="form.get('name').hasError('required') && form.get('name').touched">
+          The name is required
+        </span>
       </div>
     </div>
     <div class="col">
       <label> DESCRIPTION*</label>
-      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description"
-        (keyup)="checkLength($event)">
+      <input type="text" [ngStyle]="{'border-color': form.get('description').hasError('required') && form.get('description').touched ? 'red' : '#ced4da' }"
+        class="form-control inputBig" placeholder="Enter Description..." formControlName="description" (keyup)="checkLength($event)">
+      <span style="color: red;" *ngIf="form.get('description').hasError('required') && form.get('description').touched">
+        The name is required
+      </span>
     </div>
   </div>
 </form>
@@ -29,8 +39,7 @@
   </button>
 </div>
 
-<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef" 
-(selectionChanged)="onSelectionChanged($event)"
-rowSelection="multiple"
-  [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
+<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
+  (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents"
+  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true">
 </ag-grid-angular>

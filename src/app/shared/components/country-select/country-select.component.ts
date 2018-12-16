@@ -14,7 +14,8 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   public altData;
   public params: any;
   public cell: any;
-  countries: Country[];
+  public countries: Country[];
+  public selectedCountry: Country;
   constructor(private countryService: CountryService) { }
 
   ngOnInit() {
@@ -41,7 +42,10 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   }
 
   onCountryChange(selectedCountry: string) {
-    this.countryService.setCountryId(+selectedCountry);
+    if (+selectedCountry > 0) {
+      this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
+      this.countryService.setCountryId(+selectedCountry);
+    }
   }
 
 }

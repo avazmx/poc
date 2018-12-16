@@ -109,18 +109,6 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       slicRangeHigh: 0
     };
 
-    this.GeoServiceObject = {
-      id: 0,
-      state: {} as State,
-      slicRangeLow: 0,
-      slicRangeHigh: 0,
-      bussinesUnit: {} as BussinesUnit,
-      ground: 0,
-      treeDs: 0,
-      twoDs: 0,
-      oneDs: 0
-    };
-
     this.BussinessUnitObject = {
       id: 0,
       name: ''
