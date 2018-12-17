@@ -55,7 +55,7 @@ export class CommunityManagerComponent implements OnInit {
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
 
       const communityType = this.attributeComponent.communityTypes.filter(type =>
-        type.communityTypeId === this.attributeComponent.form.controls['community_type'].value
+        type.id === this.attributeComponent.form.controls['community_type'].value
       );
 
       this.CommunityObject.communityType = communityType[0];
