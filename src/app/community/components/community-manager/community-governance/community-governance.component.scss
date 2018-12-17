@@ -1,3 +1,5 @@
+$button-blue: #1D79D1;
+
 #governance {
     margin-top: 2rem;
 
@@ -38,12 +40,33 @@
                 transition: all .17s;
                 cursor: pointer;
                 &:hover {
-                    color: #999;
+                    color: #351c15;
                 }
                 fa {
                     font-size: 24px;
                 }
             }
+        }
+    }
+
+    .last {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -6rem;
+        padding: 2rem 1rem;
+        button {
+            &:hover {
+                fa {
+                    color: #351c15;
+                }
+            }
+        }
+        fa {
+            font-size: 24px;
+            font-weight: 900;
+            color: #CCC;
+            transition: all .17s;
+            cursor: pointer;
         }
     }
 }

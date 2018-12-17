@@ -5,7 +5,12 @@ export const attributesDef = [
         cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
         width: 200,
-        checkboxSelection: true
+        checkboxSelection: true,
+        checkbox: true,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: '<span class="far fa-square"/>',
+        }
     }, {
         headerName: 'District',
         field: 'district',

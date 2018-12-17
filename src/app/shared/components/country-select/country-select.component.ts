@@ -39,7 +39,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
   // AG Grid Initialize
   agInit(params: any) {
-    debugger;
+    // debugger;
     const nodes = params.api.getSelectedNodes();
     const selectedData: GeoService[] = params.api.getSelectedNodes().map(node => node.data);
     this.altData = params.value;
@@ -55,12 +55,11 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
       }
     });
 
-
   }
 
   // AG Grid reload
   refresh(params: any): boolean {
-    debugger;
+    // debugger;
     this.altData = params.value;
     return true;
   }

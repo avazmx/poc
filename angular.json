@@ -28,6 +28,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/assets/balloon.css",
               "./node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
