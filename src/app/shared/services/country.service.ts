@@ -9,9 +9,10 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CountryService {
-  // countries: Country[] = [{ id: 1, name: 'Unated States Of America' }, { id: 2, name: 'México' }];
   private url = environment.apiUrl;
   private harcodedCountries: Country[] = [];
+  public membersCountries: Country[] = [];
+
   constructor(private http: HttpClient) {
     const comm1 = new Country();
     comm1.id = 1;
@@ -28,6 +29,7 @@ export class CountryService {
   }
 
   private countryIdState = new Subject<number>();
+  private memberCountriesState = new Subject<Country[]>();
 
   setCountryId(id: number) {
     this.countryIdState.next(id);
@@ -35,6 +37,15 @@ export class CountryService {
 
   getCountryId() {
     return this.countryIdState.asObservable();
+  }
+
+  addMembersCounties(country: Country) {
+    this.membersCountries.push(country);
+    this.memberCountriesState.next(this.membersCountries);
+  }
+
+  getMembersCountries() {
+    return this.memberCountriesState.asObservable();
   }
 
   /**

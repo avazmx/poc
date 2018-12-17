@@ -107,6 +107,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
+
+      console.log(this.CommunityObject);
     });
 
     // Subscribe to the communitytype service.
@@ -176,6 +178,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
   onSelectionChanged(event: any) {
     if (event) {
+
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
