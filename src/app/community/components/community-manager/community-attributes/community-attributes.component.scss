@@ -65,9 +65,15 @@ ag-grid-angular {
 
 .colorError {
     label { color: #D11D1F }
-    input, ng-select { 
-        border-color: #D11D1F !important;
+    input {
+        border-color: #D11D1F;
         &::placeholder {
+            color: #D11D1F;
+        }
+    }
+    .ng-select.custom ::ng-deep .ng-select-container {
+        border-color: #D11D1F !important;
+        .ng-placeholder {
             color: #D11D1F !important;
         }
     }
@@ -76,8 +82,4 @@ ag-grid-angular {
 
 h6 {
     padding: 0.25rem
-}
-
-.ng-invalid:not(form)  {
-//   border: 1px solid red;
 }
