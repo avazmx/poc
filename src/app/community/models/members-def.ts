@@ -14,19 +14,19 @@ export const membersDef = [
     }, {
         headerName: 'Country',
         field: 'country',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
         width: 120,
     }, {
         headerName: 'District',
         field: 'district',
-        // cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'selectDistrictCell',
         editable: true,
         width: 120,
     }, {
         headerName: 'State/Province',
         field: 'state',
-        // cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'selectStateCell',
         editable: true,
         width: 160,
     }, {
