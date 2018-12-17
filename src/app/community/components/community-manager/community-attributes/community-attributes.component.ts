@@ -8,8 +8,12 @@ import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 import { Member } from 'src/app/community/models/member.model';
+// Components
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
+import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
+import { CommunitySelectComponent } from '../community-select/community-select.component';
+// Models
 import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
@@ -17,8 +21,6 @@ import { State } from 'src/app/shared/models/state.model';
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 
 @Component({
   selector: 'ups-community-attributes',

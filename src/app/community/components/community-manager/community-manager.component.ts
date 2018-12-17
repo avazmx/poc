@@ -44,11 +44,10 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   canExitAttributesComponent = false;
   communitySubscription: Subscription;
 
-
-
   attributesObject: any;
   arrayFilled = [];
   isFormFilled: boolean;
+  step2: boolean;
 
   constructor(private communityService: CommunityService, private store: Store<Community>) {
 
@@ -136,6 +135,11 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
   selectedAttributes(e) {
     this.CommunityObject = e;
     console.log('community object: ' + this.CommunityObject);
+  }
+
+  goToMembers() {
+    this.step2 = true;
+    console.log(this.step2);
   }
 
   selectedMembers(e) {

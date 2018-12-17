@@ -14,21 +14,20 @@ export const membersDef = [
     }, {
         headerName: 'Country',
         field: 'country',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
-        width: 120,
+        width: 200,
     }, {
         headerName: 'District',
         field: 'district',
-        // cellRenderer: 'customizedCountryCell'
-        editable: true,
-        width: 120,
+        cellRenderer: 'selectDistrictCell',
+        cellRendererParams: { field: 'district' },
+        width: 170,
     }, {
         headerName: 'State/Province',
         field: 'state',
-        // cellRenderer: 'customizedCountryCell'
-        editable: true,
-        width: 160,
+        cellRenderer: 'selectStateCell',
+        cellRendererParams: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicRangeLow',
