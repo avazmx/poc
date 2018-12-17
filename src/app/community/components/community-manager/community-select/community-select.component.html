@@ -39,28 +39,28 @@
     <option>data.slicHigh}}</option>
   </select>
 
-  <span *ngSwitchCase="'gnd'">
+  <span *ngSwitchCase="'gnd'" class="pulse animated">
     <button (click)="selected()" 
       [ngClass]="checkmark ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
-  <span *ngSwitchCase="'threeDs'">
+  <span *ngSwitchCase="'threeDs'" class="pulse animated">
     <button (click)="selected()" 
       [ngClass]="checkmark ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
-  <span *ngSwitchCase="'twoDs'">
+  <span *ngSwitchCase="'twoDs'" class="pulse animated">
     <button (click)="selected()" 
       [ngClass]="checkmark ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
-  <span *ngSwitchCase="'oneDs'">
+  <span *ngSwitchCase="'oneDs'" class="pulse animated">
     <button (click)="selected()" 
       [ngClass]="checkmark ? 'selected' : 'unselected'">
       <fa name="check"></fa>

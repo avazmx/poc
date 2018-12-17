@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './country-select.component.html',
   styleUrls: ['./country-select.component.scss']
 })
+
 export class CountrySelectComponent implements OnInit, ICellRendererAngularComp {
   public altData;
   public params: any;
@@ -25,8 +26,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   constructor(private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() {
-
-
+    // Get countries
     this.countryService.getCountries()
       .subscribe((countries: Country[]) => {
         this.countries = countries;
@@ -65,6 +65,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     return true;
   }
 
+  // Country selection
   onCountryChange(selectedCountry: string) {
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];

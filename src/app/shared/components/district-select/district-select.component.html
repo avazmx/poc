@@ -1,5 +1,5 @@
 <span>
-  <select (change)="onDistrictChange($event.target.value)">
+  <select (change)="onDistrictChange($event.target.value)" class="agSelect">
     <option value="" disabled selected>Select</option>
     <option *ngFor="let district of district" [value]="district.id">
       {{district.name}}

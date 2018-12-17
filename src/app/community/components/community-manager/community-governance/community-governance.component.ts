@@ -24,9 +24,10 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private frameworkComponents;
   governanceLevels: GovernanceLevel;
   data = [];
-
   secondData = [];
   headerHeight = 38;
+
+  // AG Grid Header
   columnDefs = [
     { headerName: 'Country', field: 'country', editable: true },
     { headerName: 'District', field: 'district', editable: true },
@@ -43,6 +44,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     private governanceService: GovernanceService,
     private store: Store<Community>
   ) {
+    // Row Sample
     this.rowData = [
       {
         country: 'Toyota',
@@ -57,6 +59,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       }
     ];
 
+    // Get governance level
     this.governanceService.getGovernanceLevel()
       .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
@@ -65,6 +68,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       console.log('backend is not working');
     });
 
+    // AG Grid Component Info
     this.governanceDef = governanceDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
@@ -78,11 +82,13 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+  // Selected Community Geography
   onSelected(selected) {
     this.secondData = selected;
+    console.log(this.secondData);    
   }
 
-  /* AG-Grid */
+  // AG-Grid
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

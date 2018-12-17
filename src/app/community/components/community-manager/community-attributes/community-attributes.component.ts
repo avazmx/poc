@@ -51,6 +51,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   attributesGrid;
   countries;
   newCount = 1;
+  colorError: string;
 
   // Hectorf
   communitySubscription: Subscription;
@@ -61,7 +62,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
     this.newRow = false;
     this.rowData = [];
-
 
     this.CommunityObject = {
       communityId: 0,
@@ -120,6 +120,17 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       this.communityTypes = this.communityService.getHardCodedCommunityTypes();
       this.loading = false;
     });
+
+  }
+
+  changeColor() {
+    // If form is invalid (red)
+    this.colorError = 'colorError';
+    // if (this.form.get('community_type').hasError('required') && this.form.get('community_type').touched) {
+    //   this.colorError = 'colorError';
+    // } else {
+    //   this.colorError = '';
+    // }
   }
 
   /**
@@ -144,6 +155,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
+  // Add Row Button
   createNewRowData() {
     const newData = {
       country: 'country',

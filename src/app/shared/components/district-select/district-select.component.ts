@@ -24,6 +24,7 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   constructor(private districtService: DistrictService, private countryService: CountryService) { }
 
   ngOnInit() {
+    // get Districts
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {

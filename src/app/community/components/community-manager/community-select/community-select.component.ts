@@ -127,8 +127,8 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   }
 
   /**
-   * 
-   * @param event 
+   *
+   * @param event
    */
   onDistrictChange(event: any) {
     // if (this.altData === 'district') {
