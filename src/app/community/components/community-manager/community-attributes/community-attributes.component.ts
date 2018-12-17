@@ -51,6 +51,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   attributesGrid;
   countries;
   newCount = 1;
+  colorError: string;
 
   // Hectorf
   communitySubscription: Subscription;
@@ -61,7 +62,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
     this.newRow = false;
     this.rowData = [];
-
 
     this.CommunityObject = {
       communityId: 0,
@@ -118,6 +118,17 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       this.communityTypes = this.communityService.getHardCodedCommunityTypes();
       this.loading = false;
     });
+
+  }
+
+  changeColor() {
+    // If form is invalid (red)
+    this.colorError = 'colorError';
+    // if (this.form.get('community_type').hasError('required') && this.form.get('community_type').touched) {
+    //   this.colorError = 'colorError';
+    // } else {
+    //   this.colorError = '';
+    // }
   }
 
   /**
@@ -142,6 +153,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
+  // Add Row Button
   createNewRowData() {
     const newData = {
       country: 'country',
@@ -164,8 +176,40 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
   onSelectionChanged(event: any) {
     if (event) {
-      const selectedNodes = this.gridApi.getSelectedNodes();
-      const selectedData: GeoService[] = selectedNodes.map(node => node.data);
+      const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
+      // Get the nodes of the grid.
+      const renderedNodes: any[] = this.gridApi.getRenderedNodes();
+
+      if (renderedNodes.length > 0) {
+        for (let index = 0; index < selectedData.length; index++) {
+          const node = renderedNodes[index];
+          const countryParams = { columns: ['country'], rowNodes: [node] };
+          const districtParams = { columns: ['district'], rowNodes: [node] };
+          const stateParams = { columns: ['state'], rowNodes: [node] };
+
+          const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
+          const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
+          const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
+
+          if (countryInstance.length > 0) {
+            const wapperCountryInstance = countryInstance[0];
+            const frameworkCountryInstance = wapperCountryInstance.getFrameworkComponentInstance();
+            selectedData[index].country = frameworkCountryInstance.selectedCountry;
+          }
+
+          if (districtInstance.length > 0) {
+            const wapperDistrictInstance = districtInstance[0];
+            const frameworkDistrictInstance = wapperDistrictInstance.getFrameworkComponentInstance();
+            selectedData[index].district = frameworkDistrictInstance.selectedDistrict;
+          }
+
+          if (stateInstance.length > 0) {
+            const wrapperStateInstance = stateInstance[0];
+            const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
+            selectedData[index].state = frameworkStateInstance.selectedState;
+          }
+        }
+      }
       this.CommunityObject.geoServices = selectedData;
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
     }

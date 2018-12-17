@@ -26,11 +26,11 @@ export const attributesDef = [
         headerName: 'SLIC Range High',
         field: 'slicHigh',
         editable: true,
-        width: 210,
+        width: 205,
     }, {
         headerName: 'Business Unit',
         field: 'bu',
-        width: 190,
+        width: 175,
     }, {
         headerName: 'GND',
         field: 'gnd',
@@ -42,18 +42,18 @@ export const attributesDef = [
         field: 'threeDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'threeDs' },
-        width: 100,
+        width: 90,
     }, {
         headerName: '2DS',
         field: 'twoDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'twoDs' },
-        width: 100,
+        width: 90,
     }, {
         headerName: '1DA',
         field: 'oneDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'oneDs' },
-        width: 100,
+        width: 90,
     }
 ];

@@ -7,7 +7,7 @@ import { State } from '../models/state.model';
   providedIn: 'root'
 })
 export class StateService {
-  private url = environment.apiUrl;
+  private url = environment.apiUrl + 'state';
   private harcodedStates: State[] = [];
   constructor(private http: HttpClient) {
     const comm1 = new State();
@@ -27,12 +27,11 @@ export class StateService {
   /**
    * Return the list of states.
    */
-  getStates() {
-    return this.http.get<State[]>(this.url + 'state/province');
+  getStates(districtId: number) {
+    return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
   }
 
-  getHardCodedStates() {
-
-    return this.harcodedStates;
+  getHardCodedStates(districtId: number) {
+    return this.harcodedStates.filter(district => district.id === districtId);
   }
 }

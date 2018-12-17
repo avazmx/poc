@@ -4,7 +4,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { District } from '../../models/district.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CountryService } from '../../services/country.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { map, switchMap, tap, concatMap } from 'rxjs/operators';
 
 @Component({
@@ -17,15 +17,17 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   public params: any;
   public cell: any;
   district: District[];
+  selectedDistrict: District;
   countryIdSubscription: Subscription;
   countryId: number;
+
   constructor(private districtService: DistrictService, private countryService: CountryService) { }
 
   ngOnInit() {
     // get Districts
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
-        this.districtService.getDistricts(countryId).subscribe((districts: District[]) => {
+        this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
           this.district = districts;
         }, (error: HttpErrorResponse) => {
           console.log('Error trying to load the coutries list, I will load hardcoded data');
@@ -48,11 +50,12 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
     return true;
   }
 
-  // District selection
-  onDistrictChange(selectedCountry: District) {
-
+  onDistrictChange(selectedDistrict: string) {
+    if (+selectedDistrict > 0) {
+      this.selectedDistrict = this.district.filter(state => state.id === +selectedDistrict)[0];
+      this.districtService.setDistrictId(+selectedDistrict);
+    }
   }
-
 
   ngOnDestroy(): void {
     this.countryIdSubscription.unsubscribe();

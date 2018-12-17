@@ -2,13 +2,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { District } from '../models/district.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DistrictService {
-  private url = environment.apiUrl;
+  private url = environment.apiUrl + 'district';
   private harcodedDistricts: District[] = [];
+
+
+  private districtIdState = new Subject<number>();
+
   constructor(private http: HttpClient) {
 
     const comm1 = new District();
@@ -25,12 +30,21 @@ export class DistrictService {
     this.harcodedDistricts.push(comm3);
   }
 
+
+  setDistrictId(id: number) {
+    this.districtIdState.next(id);
+  }
+
+  getDistrictId() {
+    return this.districtIdState.asObservable();
+  }
+
+
   /**
    * Return the list of districts.
    */
-  getDistricts(countryId: number) {
-    const params = new HttpParams().set('id', countryId.toString());
-    return this.http.get<District[]>(this.url + 'district', { params: params });
+  getDistrictsByCountryId(countryId: number) {
+    return this.http.get<District[]>(this.url + '/country/' + countryId.toString());
   }
 
   getHardCodedDistricts(countryId: number) {

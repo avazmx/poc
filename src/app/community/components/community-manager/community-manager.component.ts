@@ -109,18 +109,6 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       slicRangeHigh: 0
     };
 
-    this.GeoServiceObject = {
-      id: 0,
-      state: {} as State,
-      slicRangeLow: 0,
-      slicRangeHigh: 0,
-      bussinesUnit: {} as BussinesUnit,
-      ground: 0,
-      treeDs: 0,
-      twoDs: 0,
-      oneDs: 0
-    };
-
     this.BussinessUnitObject = {
       id: 0,
       name: ''
@@ -147,7 +135,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   selectedAttributes(e) {
     this.CommunityObject = e;
-    console.log(this.CommunityObject);
+    console.log('community object: ' + this.CommunityObject);
   }
 
   selectedMembers(e) {
@@ -187,7 +175,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       this.CommunityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
     } else {
-      alert('The form is not valid');
+      alert(`Please fill out the details mark with * to continue`);
     }
 
   }
