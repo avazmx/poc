@@ -8,7 +8,9 @@ describe('MultiSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiSelectComponent ]
+      declarations: [
+        MultiSelectComponent
+      ]
     })
     .compileComponents();
   }));
@@ -22,4 +24,8 @@ describe('MultiSelectComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should pass the param -list', () => {
+    expect(component.list).toBeDefined();
+  })
 });

@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http'; 
 
-import { GovernanceLevelService } from './governance-level.service';
+import { GovernanceService } from './governance-level.service';
 
 describe('GovernanceLevelService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientModule]
+  }));
 
   it('should be created', () => {
-    const service: GovernanceLevelService = TestBed.get(GovernanceLevelService);
+    const service: GovernanceService = TestBed.get(GovernanceService);
     expect(service).toBeTruthy();
   });
 });

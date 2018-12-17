@@ -7,7 +7,6 @@ import { NgSelectConfig } from '@ng-select/ng-select';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-pocs';
 
   constructor(private config: NgSelectConfig) {
     this.config.notFoundText = 'Custom not found';

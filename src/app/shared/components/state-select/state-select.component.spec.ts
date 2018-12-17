@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { StateSelectComponent } from './state-select.component';
 
@@ -8,7 +9,8 @@ describe('StateSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StateSelectComponent ]
+      declarations: [ StateSelectComponent ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   }));
@@ -22,4 +24,8 @@ describe('StateSelectComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be able to unsuscribe district change on destroy', () => {
+    expect(component.districtIdSubscription).toBeDefined();
+  })
 });

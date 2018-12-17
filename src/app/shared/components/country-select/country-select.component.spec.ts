@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CountrySelectComponent } from './country-select.component';
 
@@ -8,7 +9,8 @@ describe('CountrySelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CountrySelectComponent ]
+      declarations: [ CountrySelectComponent ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   }));

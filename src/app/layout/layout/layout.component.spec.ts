@@ -1,6 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutComponent } from './layout.component';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'community',
+    loadChildren: './community/community.module#CommunityModule'
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
+
+];
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -8,7 +24,12 @@ describe('LayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayoutComponent ]
+      declarations: [
+        LayoutComponent,
+        HeaderComponent,
+        FooterComponent
+      ],
+      imports: [RouterModule.forRoot(routes)]
     })
     .compileComponents();
   }));
