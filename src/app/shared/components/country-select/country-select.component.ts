@@ -29,7 +29,6 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
   // AG Grid Initialize
   agInit(params: any) {
-    debugger;
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
