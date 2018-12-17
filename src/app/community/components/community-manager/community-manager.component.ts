@@ -163,7 +163,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   stepEnter(event: any) { }
 
-  stepAtributesExit(event: number) {
+  stepAtributesExit(event: any) {
     if (this.attributeComponent.form.valid) {
       this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
@@ -174,6 +174,9 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
       this.CommunityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
+
+      console.log(event);
+      this.store.dispatch(new communityActions.ActiveTab(event));
     } else {
       alert('The form is not valid');
     }

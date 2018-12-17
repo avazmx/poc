@@ -59,6 +59,9 @@ export function communityReducer(state = initialState, action: CommunityAttribut
         case CommunityAttributesActions.COMMUNITY_DELETE:
             return newState(state, {});
 
+        case CommunityAttributesActions.ACTIVE_TAB:
+            return newState(state, { activeTab: action.payload });
+
         default:
             return state;
     }

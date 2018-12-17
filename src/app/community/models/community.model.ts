@@ -12,4 +12,9 @@ export class Community {
     public members: Member[];
     public governance: GovernanceLevel[];
     public attributes?: any;
+    public activeTab?: number;
+
+    constructor() {
+        this.activeTab = 1;
+    }
 }

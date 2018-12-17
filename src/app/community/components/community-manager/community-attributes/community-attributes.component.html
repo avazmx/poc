@@ -6,9 +6,9 @@
       <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes"
         class="inputBig" placeholder="Select a type" [loading]="loading">
       </ng-select>
-      <span style="color: red;" *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
+      <!-- <span style="color: red;" *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
         The name is required
-      </span>
+      </span> -->
     </div>
 
     <div class="col">

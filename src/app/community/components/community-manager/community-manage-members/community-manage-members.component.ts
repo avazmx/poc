@@ -4,6 +4,9 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/shared/models/country.model';
+import { District } from 'src/app/shared/models/district.model';
+import { State } from 'src/app/shared/models/state.model';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -25,6 +28,10 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   // Hectorf
   communitySubscription: Subscription;
+  CommunityObject: Community;
+  countries: Country[] = [];
+  districts: District[] = [];
+  states: State[] = [];
 
   constructor(private store: Store<Community>) {
     this.rowData = [];
@@ -37,7 +44,16 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      console.log('community store Subscription => ', obj);
+      this.CommunityObject = obj;
+      debugger;
+      if (this.CommunityObject.geoServices) {
+        if (this.CommunityObject.geoServices.length > 0) {
+          this.CommunityObject.geoServices.forEach(geoService => {
+            this.countries.push(geoService.country);
+            console.log('Countries from members => ' + this.countries.length);
+          });
+        }
+      }
     });
   }
 
@@ -51,6 +67,13 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.membersGrid = document.querySelector('#membersGrid');
     // params.api.sizeColumnsToFit();
     // }
+
+
+    // Subscribe to the store in order to get the updated object.
+    this.communitySubscription = this.store.select('community').subscribe((obj) => {
+      this.CommunityObject = obj;
+    });
+
   }
 
   createNewRowMembersData() {
