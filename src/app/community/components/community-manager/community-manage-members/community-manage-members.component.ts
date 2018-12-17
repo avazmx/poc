@@ -1,12 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { membersDef } from '../../../models/members-def';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Community } from 'src/app/community/models/community.model';
 import { Subscription } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
+import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
+import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
+import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
+
+import { membersDef } from '../../../models/members-def';
+import { CommunitySelectComponent } from '../community-select/community-select.component';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -38,6 +42,9 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.defaultColDef = { width: 200 };
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
+      selectCountryCell: CountrySelectComponent,
+      selectDistrictCell: DistrictSelectComponent,
+      selectStateCell: StateSelectComponent
     };
   }
 
@@ -45,6 +52,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
+      console.log(this.CommunityObject);
       // debugger;
       if (this.CommunityObject.geoServices) {
         if (this.CommunityObject.geoServices.length > 0) {
