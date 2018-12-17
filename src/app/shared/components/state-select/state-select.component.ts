@@ -17,6 +17,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
   constructor(private stateService: StateService) { }
 
   ngOnInit() {
+    // Get states
     this.stateService.getStates()
       .subscribe((countries: State[]) => {
         this.states = countries;
@@ -39,6 +40,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     return true;
   }
 
+  // District selection
   onDistrictChange(selectedCountry: State) {
 
   }

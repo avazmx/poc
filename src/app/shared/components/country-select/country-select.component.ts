@@ -10,6 +10,7 @@ import { CountryService } from '../../services/country.service';
   templateUrl: './country-select.component.html',
   styleUrls: ['./country-select.component.scss']
 })
+
 export class CountrySelectComponent implements OnInit, ICellRendererAngularComp {
   public altData;
   public params: any;
@@ -18,6 +19,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   constructor(private countryService: CountryService) { }
 
   ngOnInit() {
+    // Get countries
     this.countryService.getCountries()
       .subscribe((countries: Country[]) => {
         this.countries = countries;
@@ -40,6 +42,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     return true;
   }
 
+  // Country selection
   onCountryChange(selectedCountry: string) {
     this.countryService.setCountryId(+selectedCountry);
   }

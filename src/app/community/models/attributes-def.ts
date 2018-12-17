@@ -4,7 +4,7 @@ export const attributesDef = [
         field: 'country',
         cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
-        width: 170,
+        width: 200,
         checkboxSelection: true
     }, {
         headerName: 'District',
@@ -20,14 +20,17 @@ export const attributesDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        editable: true
+        editable: true,
+        width: 200,
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        editable: true
+        editable: true,
+        width: 210,
     }, {
         headerName: 'Business Unit',
         field: 'bu',
+        width: 190,
     }, {
         headerName: 'GND',
         field: 'gnd',
