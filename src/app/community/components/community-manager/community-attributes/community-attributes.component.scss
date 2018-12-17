@@ -1,3 +1,6 @@
+
+$dark-blue: #0E2554;
+
 form {
     margin: 2rem 0;
 }
@@ -11,15 +14,19 @@ h3 {
     justify-content: flex-end;
     font-size: .90rem;
     padding: 0.5rem 0;
-    margin-right: 2rem;
+    // margin-right: 0;
     .emptyBtn {
         background: transparent;
         font-weight: 500;
+        color: #666;
         border: 0;
         cursor: pointer;
         transition: all .17s;
         &:hover {
-            color: #666;
+            color: $dark-blue;
+            fa {
+                color: $dark-blue;
+            }
         }
     }
 }
@@ -33,6 +40,7 @@ fa {
     font-size: 16px;
     vertical-align: -2px;
     color: #999;
+    transition: all .17s;
 }
 
 ag-grid-angular {
@@ -49,4 +57,27 @@ ag-grid-angular {
     
     padding: 0.2rem;
     margin: 0.2rem 0;
+}
+
+.borderError {
+    border-color: #D11D1F;
+}
+
+.colorError {
+    label { color: #D11D1F }
+    input, ng-select { 
+        border-color: #D11D1F !important;
+        &::placeholder {
+            color: #D11D1F !important;
+        }
+    }
+    h6 { color: #D11D1F }
+}
+
+h6 {
+    padding: 0.25rem
+}
+
+.ng-invalid:not(form)  {
+//   border: 1px solid red;
 }

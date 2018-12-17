@@ -1,33 +1,31 @@
 <form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
   <h3>Community Structure</h3>
   <div class="row">
-    <div class="col">
+    <div class="col" [ngClass]="form.get('community_type').hasError('required') && form.get('community_type').touched ? 'colorError' : ''">
       <label> COMMUNITY TYPE*</label>
-      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes"
+      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes" 
         class="inputBig" placeholder="Select a type" [loading]="loading">
       </ng-select>
-      <span style="color: red;" *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
-        The name is required
-      </span>
+      <h6 *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
+        Community type is required*
+      </h6>
     </div>
 
-    <div class="col">
+    <div class="col" [ngClass]="form.get('name').hasError('required') && form.get('name').touched ? 'colorError' : ''">
       <label> NAME*</label>
       <div class="form-group">
-        <input type="text" [ngStyle]="{'border-color': form.get('name').hasError('required') && form.get('name').touched ? 'red' : '#ced4da' }"
-          class="form-control inputBig" placeholder="Enter Name..." formControlName="name" (keyup)="checkLength($event)">
-        <span style="color: red;" *ngIf="form.get('name').hasError('required') && form.get('name').touched">
-          The name is required
-        </span>
+        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name" (keyup)="checkLength($event)">
+        <h6 *ngIf="form.get('name').hasError('required') && form.get('name').touched">
+          Name is required*
+        </h6>
       </div>
     </div>
-    <div class="col">
+    <div class="col" [ngClass]="form.get('description').hasError('required') && form.get('description').touched ? 'colorError' : ''">
       <label> DESCRIPTION*</label>
-      <input type="text" [ngStyle]="{'border-color': form.get('description').hasError('required') && form.get('description').touched ? 'red' : '#ced4da' }"
-        class="form-control inputBig" placeholder="Enter Description..." formControlName="description" (keyup)="checkLength($event)">
-      <span style="color: red;" *ngIf="form.get('description').hasError('required') && form.get('description').touched">
-        The name is required
-      </span>
+      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description" (keyup)="checkLength($event)">
+      <h6 *ngIf="form.get('description').hasError('required') && form.get('description').touched">
+        Description is required*
+      </h6>
     </div>
   </div>
 </form>

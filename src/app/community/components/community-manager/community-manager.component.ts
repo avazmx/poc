@@ -135,7 +135,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   selectedAttributes(e) {
     this.CommunityObject = e;
-    console.log(this.CommunityObject);
+    console.log('community object: ' + this.CommunityObject);
   }
 
   selectedMembers(e) {
@@ -175,7 +175,7 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
       this.CommunityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
     } else {
-      alert('The form is not valid');
+      alert(`Please fill out the details mark with * to continue`);
     }
 
   }
