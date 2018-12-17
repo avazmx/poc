@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Community } from 'src/app/community/models/community.model';
 import { Subscription } from 'rxjs';
 
 // Components
@@ -13,7 +12,7 @@ import { Country } from 'src/app/shared/models/country.model';
 import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
 import { membersDef } from '../../../models/members-def';
-
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -57,6 +56,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
+      console.log(this.CommunityObject);
       // debugger;
       if (this.CommunityObject.geoServices) {
         if (this.CommunityObject.geoServices.length > 0) {

@@ -18,7 +18,7 @@ export class StateSelectComponent implements OnDestroy, ICellRendererAngularComp
   public params: any;
   public cell: any;
 
-  states: State[];
+  states: State[] = [];
   selectedState: State;
 
   districtIdSubscription: Subscription;
@@ -36,6 +36,7 @@ export class StateSelectComponent implements OnDestroy, ICellRendererAngularComp
     // We Subscribe to the district change and we get all the filtered states.
     this.districtIdSubscription = this.districtService.getDistrictId().subscribe(
       (districtId: number) => {
+        debugger;
         this.stateService.getStates(districtId).subscribe((states: State[]) => {
           this.states = states;
         }, (error: HttpErrorResponse) => {

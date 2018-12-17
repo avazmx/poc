@@ -1,10 +1,10 @@
 <aw-wizard [navBarLayout]="wizzardLayout" class="wizard">
 
   <div class="row">
-    <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }" (stepEnter)="stepEnter($event)"
-      (stepExit)="stepAtributesExit($event)" [canExit]="canExitAttributesComponent">
+    <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }" (stepEnter)="stepEnterTab1($event)"
+      (stepExit)="stepExitTab1($event)" [canExit]="canExitAttributesComponent" [stepId]="1">
       <div class="row">
-        <ups-community-attributes (selectedAttributes)="selectedAttributes($event)" (isFormValid)="checkFormValidity($event)">
+        <ups-community-attributes (isFormValid)="checkFormValidity($event)">
         </ups-community-attributes>
       </div>
       <br>
@@ -16,13 +16,13 @@
   </div>
 
   <div class="row">
-    <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepExit)="stepAtributesExit($event)">
+    <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepEnter)="stepEnterTab2($event)"
+      (stepExit)="stepExitTab2($event)" [stepId]="2">
       <ups-community-manage-members *ngIf="step2" [step2]="step2"></ups-community-manage-members>
       <br>
-
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" (selectedMembers)="selectedMembers($event)" awNextStep>Next</button>
+        <button type="button" class="btn btn-primary end-btn"  awNextStep>Next</button>
         <!-- <button type="button" class="btn btn-primary end-btn" awNextStep
         (click)="communityMembersAction()">Next</button> -->
 
@@ -31,7 +31,8 @@
   </div>
 
   <div class="row governance">
-    <aw-wizard-step stepTitle="Community Governance" [navigationSymbol]="{ symbol: '3' }" (stepExit)="stepAtributesExit($event)">
+    <aw-wizard-step stepTitle="Community Governance" [navigationSymbol]="{ symbol: '3' }" (stepEnter)="stepEnterTab3($event)"
+      (stepExit)="stepExitTab3($event)" [stepId]="3">
       <ups-community-governance></ups-community-governance>
       <br>
       <div class="menu-btns step2">

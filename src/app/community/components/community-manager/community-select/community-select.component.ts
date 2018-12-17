@@ -62,7 +62,6 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
 
   // Country select
   changeCtry(e) {
-    // debugger;
     this.CommunityObject.attributes.country = e.srcElement.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
     this.ddlCountry.nativeElement.value = '';
@@ -70,7 +69,6 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
 
   // District select
   changeDistrict(e) {
-    // debugger;
     this.CommunityObject.attributes.state = e.value;
     this.store.dispatch(new CommunityAttributesActions.AddCommunityObjectAttributes(this.CommunityObject));
     this.ddlState.nativeElement.value = '';

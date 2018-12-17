@@ -35,15 +35,15 @@ export class CommunityService {
 
   getHardCodedCommunityTypes() {
     const comm1 = new CommunityType();
-    comm1.communityTypeId = 1;
+    comm1.id = 1;
     comm1.description = 'HardCoded value 1';
     comm1.name = 'HardCoded value 1';
     const comm2 = new CommunityType();
-    comm2.communityTypeId = 2;
+    comm2.id = 2;
     comm2.description = 'HardCoded value 2';
     comm2.name = 'HardCoded value 2';
     const comm3 = new CommunityType();
-    comm3.communityTypeId = 3;
+    comm3.id = 3;
     comm3.description = 'HardCoded value 3';
     comm3.name = 'HardCoded value 3';
     this.harcodedCommunityTypes.push(comm1);

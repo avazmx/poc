@@ -65,21 +65,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.newRow = false;
     this.rowData = [];
 
-    this.CommunityObject = {
-      communityId: 0,
-      communityType: {} as CommunityType,
-      name: '',
-      description: '',
-      geoServices: {} as GeoService[],
-      members: {} as Member[],
-      governance: {} as GovernanceLevel[],
-      attributes: {
-        state: {} as State,
-        district: {} as District,
-        country: {} as Country
-      }
-    };
-
     // AG Grid framework info
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
@@ -122,17 +107,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       this.communityTypes = this.communityService.getHardCodedCommunityTypes();
       this.loading = false;
     });
-
-  }
-
-  changeColor() {
-    // If form is invalid (red)
-    this.colorError = 'colorError';
-    // if (this.form.get('community_type').hasError('required') && this.form.get('community_type').touched) {
-    //   this.colorError = 'colorError';
-    // } else {
-    //   this.colorError = '';
-    // }
   }
 
   /**
@@ -149,7 +123,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     params.api.sizeColumnsToFit();
   }
 
-
   getSelectedRows() {
     const selectedNodes = this.gridApi.getSelectedNodes();
     const selectedData = selectedNodes.map(node => node.data);
@@ -160,22 +133,19 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   // Add Row Button
   createNewRowData() {
     const newData = {
-      country: 'country',
-      district: 'district',
-      state: 'state',
-      slicLow: '1000',
-      slicHigh: '6000',
-      bu: 'bu',
-      gnd: 'gnd',
-      threeDs: 'threeDs',
-      twoDs: 'twoDs',
-      oneDs: 'oneDs'
+      country: '',
+      district: '',
+      state: '',
+      slicLow: '',
+      slicHigh: '',
+      bu: '',
+      gnd: '',
+      threeDs: '',
+      twoDs: '',
+      oneDs: ''
     };
     const res = this.gridApi.updateRowData({ add: [newData] });
     this.newRow = true;
-    const nodes = this.gridApi.getSelectedNodes();
-
-    this.communityGeoServices.push();
   }
 
   onSelectionChanged(event: any) {
