@@ -32,12 +32,12 @@ export const membersDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicRangeLow',
-        cellRenderer: 'customizedCountryCell',
-        width: 170,
+        editable: true,
+        width: 200,
     }, {
         headerName: 'SLIC Range High',
         field: 'slicRangeHigh',
-        cellRenderer: 'customizedCountryCell'
-        // editable: true
+        editable: true,
+        width: 205,
     }
 ];
