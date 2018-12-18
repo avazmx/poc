@@ -39,15 +39,18 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepEnterTab1(event: any) {
-    this.store.dispatch(new communityActions.ActiveTab(1));
+    this.CommunityObject.activeTab = 1;
+    this.store.dispatch(new communityActions.ActiveTab( this.CommunityObject));
   }
 
   stepEnterTab2(event: any) {
-    this.store.dispatch(new communityActions.ActiveTab(2));
+    this.CommunityObject.activeTab = 2;
+    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
   }
 
   stepEnterTab3(event: any) {
-    this.store.dispatch(new communityActions.ActiveTab(3));
+    this.CommunityObject.activeTab = 3;
+    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
   }
 
   stepExitTab1(event: any) {
@@ -104,5 +107,9 @@ export class CommunityManagerComponent implements OnInit {
 
   checkFormValidity(event: boolean) {
     this.canExitAttributesComponent = event;
+  }
+
+  onDataChange(event: any) {
+    debugger;
   }
 }

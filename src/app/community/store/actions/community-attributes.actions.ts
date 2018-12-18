@@ -17,7 +17,8 @@ export const ADD_COMMUNITY_OBJECT_ATTRIBUTES = '[CommunityAttributes]ADD_COMMUNI
 export const FETCH_COMMUNITIES = '[CommunityAttributes]FETCH_COMMUNITIES';
 export const SET_COMMUNITIES = 'SET_COMMUNITIES';
 export const STORE_COMMUNITIES = 'STORE_COMMUNITIES';
-export const ACTIVE_TAB = 'ACTIVE_TAB';
+export const ACTIVE_TAB = '[activeTab]ACTIVE_TAB';
+export const ACTIVE_ROW = '[activeRow]ACTIVE_ROW';
 
 
 
@@ -89,7 +90,12 @@ export class StoreCommunities implements Action {
 
 export class ActiveTab implements Action {
     readonly type = ACTIVE_TAB;
-    constructor(public payload: number) { }
+    constructor(public payload: Community) { }
+}
+
+export class ActiveRow implements Action {
+    readonly type = ACTIVE_ROW;
+    constructor(public payload: Community) { }
 }
 
 export type CommunityActions = ShowAttributes
@@ -105,4 +111,5 @@ export type CommunityActions = ShowAttributes
     | FetchCommunities
     | SetCommunities
     | StoreCommunities
-    | ActiveTab;
+    | ActiveTab
+    | ActiveRow;

@@ -15,7 +15,18 @@ export interface State {
 }
 
 const initialState: State = {
-    community: new Community()
+    community: {
+        communityId: 0,
+        communityType: null,
+        name: '',
+        description: '',
+        geoServices: null,
+        members: null,
+        governance: null,
+        attributes: null,
+        activeTab: 1,
+        activeRow: -1
+    }
 };
 
 export function communityReducer(state = initialState, action: CommunityAttributesActions.CommunityActions) {
@@ -60,7 +71,10 @@ export function communityReducer(state = initialState, action: CommunityAttribut
             return newState(state, {});
 
         case CommunityAttributesActions.ACTIVE_TAB:
-            return newState(state, { activeTab: action.payload });
+            return newState(state, { activeTab: action.payload.activeTab });
+
+        case CommunityAttributesActions.ACTIVE_ROW:
+            return newState(state, { activeRow: action.payload.activeRow });
 
         default:
             return state;
