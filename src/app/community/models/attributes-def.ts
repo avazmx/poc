@@ -40,7 +40,6 @@ export const attributesDef = [
         field: 'bu',
         cellRenderer: 'selectBusinessUnitCell',
         cellRendererParams: { field: 'bu' },
-        // editable: true,
         width: 175,
     }, {
         headerName: 'GND',

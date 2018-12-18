@@ -38,29 +38,29 @@
   </span>
 
   <span *ngSwitchCase="'gnd'" class="pulse animated">
-    <button (click)="selected()" 
-      [ngClass]="checkmark ? 'selected' : 'unselected'">
+    <button (click)="groundCheckedSelected()" 
+      [ngClass]="groundChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
   <span *ngSwitchCase="'threeDs'" class="pulse animated">
-    <button (click)="selected()" 
-      [ngClass]="checkmark ? 'selected' : 'unselected'">
+    <button (click)="threeDsCheckedSelected()" 
+      [ngClass]="threeDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
   <span *ngSwitchCase="'twoDs'" class="pulse animated">
-    <button (click)="selected()" 
-      [ngClass]="checkmark ? 'selected' : 'unselected'">
+    <button (click)="twoDsCheckedSelected()" 
+      [ngClass]="twoDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
   <span *ngSwitchCase="'oneDs'" class="pulse animated">
-    <button (click)="selected()" 
-      [ngClass]="checkmark ? 'selected' : 'unselected'">
+    <button (click)="oneDsCheckedSelected()" 
+      [ngClass]="oneDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>

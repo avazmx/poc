@@ -13,7 +13,7 @@ export class GeoService {
     public slicRangeHigh: number;
     public bussinesUnit: BussinesUnit;
     public ground: number;
-    public treeDs: number;
+    public threeDs: number;
     public twoDs: number;
     public oneDs: number;
 }
