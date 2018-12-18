@@ -14,9 +14,4 @@ export class Community {
         public attributes?: any;
         public activeTab?: number;
         public activeRow?: number;
-
-    constructor() {
-        // this.activeTab = 1;
-        // this.activeRow = -1;
-    }
 }
