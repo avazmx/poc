@@ -5,7 +5,7 @@ import { governanceDef } from '../../../models/governance-def';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
 import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
-import { GovernanceService } from 'src/app/community/services/governance-level.service';
+import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 
 @Component({
@@ -41,7 +41,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(
-    private governanceService: GovernanceService,
+    private governanceService: GovernanceLevelService,
     private store: Store<Community>
   ) {
     // Row Sample
@@ -85,7 +85,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   // Selected Community Geography
   onSelected(selected) {
     this.secondData = selected;
-    console.log(this.secondData);    
+    console.log(this.secondData);
   }
 
   // AG-Grid
