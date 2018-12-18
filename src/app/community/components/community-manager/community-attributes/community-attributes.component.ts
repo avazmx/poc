@@ -129,12 +129,12 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   // Add Row Button
   createNewRowData() {
     const newData = {
-      country: '',
-      district: '',
-      state: '',
+      country: 'country',
+      district: 'district',
+      state: 'state',
       slicLow: 'slicLow',
       slicHigh: 'slicHigh',
-      bu: '',
+      bu: 'bu',
       gnd: 'gnd',
       threeDs: 'threeDs',
       twoDs: 'twoDs',

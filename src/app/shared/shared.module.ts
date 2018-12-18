@@ -22,7 +22,10 @@ import { BusinessUnitSelectComponent } from './components/business-unit-select/b
   exports: [
     CountrySelectComponent,
     DistrictSelectComponent,
-    StateSelectComponent
+    StateSelectComponent,
+    MemberNameSelectComponent,
+    AccessLevelSelectComponent,
+    BusinessUnitSelectComponent,
   ]
 })
 export class SharedModule { }

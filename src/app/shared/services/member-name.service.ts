@@ -29,7 +29,8 @@ export class MemberNameService {
    * Return the list of member names.
    */
   getMemberNames() {
-    return this.http.get<MemberName[]>(this.url + 'members/v1/list');
+    // return this.http.get<MemberName[]>(this.url + 'members/v1/list');
+    return this.http.get<MemberName[]>(this.url + 'members');
   }
 
   getHardCodedMemberNames() {

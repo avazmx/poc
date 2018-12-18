@@ -29,6 +29,9 @@ import { CountrySelectComponent } from '../shared/components/country-select/coun
 import { SharedModule } from '../shared/shared.module';
 import { DistrictSelectComponent } from '../shared/components/district-select/district-select.component';
 import { StateSelectComponent } from '../shared/components/state-select/state-select.component';
+import { BusinessUnitSelectComponent } from '../shared/components/business-unit-select/business-unit-select.component';
+import { MemberNameSelectComponent } from '../shared/components/member-name-select/member-name-select.component';
+import { AccessLevelSelectComponent } from '../shared/components/access-level-select/access-level-select.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +57,20 @@ import { StateSelectComponent } from '../shared/components/state-select/state-se
       CommunitySelectComponent,
       CountrySelectComponent,
       DistrictSelectComponent,
-      StateSelectComponent
+      StateSelectComponent,
+      BusinessUnitSelectComponent,
+      MemberNameSelectComponent,
+      AccessLevelSelectComponent
     ]),
   ],
   entryComponents: [
     CommunitySelectComponent,
     CountrySelectComponent,
     DistrictSelectComponent,
-    StateSelectComponent
+    StateSelectComponent,
+    BusinessUnitSelectComponent,
+    MemberNameSelectComponent,
+    AccessLevelSelectComponent
   ]
 })
 

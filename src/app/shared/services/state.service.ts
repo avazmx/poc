@@ -28,7 +28,8 @@ export class StateService {
    * Return the list of states.
    */
   getStates(districtId: number) {
-    return this.http.get<State[]>(this.url + '/district/v1/list/' + districtId.toString());
+    // return this.http.get<State[]>(this.url + '/district/v1/list/' + districtId.toString());
+    return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
   }
 
   getHardCodedStates(districtId: number) {
