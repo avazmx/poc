@@ -29,15 +29,13 @@
     <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
   </select>
     
-  <select *ngSwitchCase="'slicLow'">
-    <option value=""  selected>Select</option>
-    <option>slicLow</option>
-  </select>
+  <span *ngSwitchCase="'slicLow'">
+    <input type="number" placeholder="" min="1000" max="6000" step="50" />
+  </span>
   
-  <select *ngSwitchCase="'slicHigh'">
-    <option value="" disabled selected>Select</option>
-    <option>data.slicHigh}}</option>
-  </select>
+  <span *ngSwitchCase="'slicHigh'">
+    <input type="number" placeholder="" min="1000" max="6000" step="50" />
+  </span>
 
   <span *ngSwitchCase="'gnd'" class="pulse animated">
     <button (click)="selected()" 

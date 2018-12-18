@@ -52,7 +52,7 @@ export class CountryService {
    * Return the list of countries.
    */
   getCountries() {
-    return this.http.get<Country[]>(this.url + 'countries');
+    return this.http.get<Country[]>(this.url + 'countries/v1/list');
   }
 
   getHardCodedCountries() {

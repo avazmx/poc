@@ -2,13 +2,13 @@ export const membersDef = [
     {
         headerName: 'Member Name',
         field: 'memberName',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectMemberNameCell',
         cellRendererParams: { field: 'memberName' },
         width: 170,
     }, {
         headerName: 'Access Level',
         field: 'accessLevel',
-        cellRenderer: 'customizedCountryCell',
+        cellRenderer: 'selectAccessLevelCell',
         cellRendererParams: { field: 'accessLevel' },
         width: 150,
     }, {
