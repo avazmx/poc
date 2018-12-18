@@ -18,25 +18,28 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   public altData;
   public params: any;
   public cell: any;
-  district: District[];
+  districts: District[] = [];
   selectedDistrict: District;
   countryIdSubscription: Subscription;
   countryId: number;
   communityObject: Community;
+  currentRow: number;
 
   constructor(private districtService: DistrictService, private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() {
 
-    
+    this.currentRow = +this.params.node.id;
     // get Districts
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
-          this.district = districts;
+          if (this.communityObject.activeRow === this.currentRow || this.districts.length === 0) {
+            this.districts = districts;
+          }
         }, (error: HttpErrorResponse) => {
           console.log('Error trying to load the coutries list, I will load hardcoded data');
-          this.district = this.districtService.getHardCodedDistricts(countryId);
+          this.districts = this.districtService.getHardCodedDistricts(countryId);
         });
       }
     );
@@ -62,7 +65,7 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
 
   onDistrictChange(selectedDistrict: string) {
     if (+selectedDistrict > 0) {
-      this.selectedDistrict = this.district.filter(state => state.id === +selectedDistrict)[0];
+      this.selectedDistrict = this.districts.filter(state => state.id === +selectedDistrict)[0];
       this.districtService.setDistrictId(+selectedDistrict);
     }
   }

@@ -20,27 +20,30 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   public altData;
   public params: any;
   public cell: any;
-  public countries: Country[];
+  public countries: Country[] = [];
   public membersCounties: Country[];
   public selectedCountry: Country;
   public communitySubscription: Subscription;
   public selectedTab: number;
+  public currentRow: number;
+  public CommunityObject: Community;
   constructor(private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() { }
 
   // AG Grid Initialize
   agInit(params: any) {
-    debugger;
     this.altData = params.value;
     this.params = params;
+    this.currentRow = +this.params.node.id;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
 
     // Subscribe to the store in order to get the updated object for the countries.
-    this.communitySubscription = this.store.select('community').subscribe((obj: Community) => {
-      this.countries = [];
-      if (obj.activeTab === 1) {
+    this.store.select('community').subscribe((obj: Community) => {
+
+      this.CommunityObject = obj;
+      if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
         this.countryService.getCountries()
           .subscribe((countries: Country[]) => {
@@ -48,12 +51,11 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
           }, (error: HttpErrorResponse) => {
             this.countries = this.countryService.getHardCodedCountries();
           });
-      } else if (obj.activeTab === 2) {
+      } else if (obj.activeTab === 2 && this.countries.length === 0) {
         if (obj.geoServices && obj.geoServices.length > 0) {
           obj.geoServices.forEach(element => {
             this.countries.push(element.country);
           });
-          console.log(this.countries);
         }
       }
     });
@@ -70,7 +72,8 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.store.dispatch(new communityActions.ActiveRow(this.params.node.id));
+      this.CommunityObject.activeRow = +this.params.node.id;
+      this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
     }
   }
 
