@@ -146,9 +146,14 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.newRow = true;
   }
 
+  onDataChange(event: any) {
+    debugger;
+    console.log(event);
+  }
+
   onSelectionChanged(event: any) {
     if (event) {
-
+      debugger;
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();

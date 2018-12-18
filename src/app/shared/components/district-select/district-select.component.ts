@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CountryService } from '../../services/country.service';
 import { Subscription, Subject } from 'rxjs';
 import { map, switchMap, tap, concatMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-district-select',
@@ -20,10 +22,13 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   selectedDistrict: District;
   countryIdSubscription: Subscription;
   countryId: number;
+  communityObject: Community;
 
-  constructor(private districtService: DistrictService, private countryService: CountryService) { }
+  constructor(private districtService: DistrictService, private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() {
+
+    
     // get Districts
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
@@ -35,6 +40,11 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
         });
       }
     );
+
+    this.store.select('community').subscribe((obj: Community) => {
+      this.communityObject = obj;
+
+    });
   }
 
   // AG Grid Initialize

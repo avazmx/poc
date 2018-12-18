@@ -1,7 +1,7 @@
 export const attributesDef = [
     {
         headerName: 'Country',
-        field: 'country',
+        field: 'value',
         cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
         width: 200,

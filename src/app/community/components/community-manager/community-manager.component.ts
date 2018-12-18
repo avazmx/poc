@@ -106,4 +106,8 @@ export class CommunityManagerComponent implements OnInit {
   checkFormValidity(event: boolean) {
     this.canExitAttributesComponent = event;
   }
+
+  onDataChange(event: any) {
+    debugger;
+  }
 }

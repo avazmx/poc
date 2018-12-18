@@ -7,6 +7,8 @@ import { Community } from 'src/app/community/models/community.model';
 
 import { Country } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
+import * as communityActions from '../../../community/store/actions/community-attributes.actions';
+
 
 @Component({
   selector: 'ups-country-select',
@@ -29,6 +31,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
   // AG Grid Initialize
   agInit(params: any) {
+    debugger;
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
@@ -36,7 +39,6 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
     // Subscribe to the store in order to get the updated object for the countries.
     this.communitySubscription = this.store.select('community').subscribe((obj: Community) => {
-      debugger;
       this.countries = [];
       if (obj.activeTab === 1) {
         // Get countries
@@ -60,7 +62,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   // Country selection
@@ -68,6 +70,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
+      this.store.dispatch(new communityActions.ActiveRow(this.params.node.id));
     }
   }
 
