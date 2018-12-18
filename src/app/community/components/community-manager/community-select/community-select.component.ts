@@ -64,25 +64,21 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   // groundCheckedSelected checkmark boolean
   groundCheckedSelected() {
     this.groundChecked = !this.groundChecked;
-    console.log(this.groundChecked);
   }
 
   // threeDsCheckedSelected checkmark boolean
   threeDsCheckedSelected() {
     this.threeDsChecked = !this.threeDsChecked;
-    console.log(this.threeDsChecked);
   }
 
   // twoDsCheckedSelected checkmark boolean
   twoDsCheckedSelected() {
     this.twoDsChecked = !this.twoDsChecked;
-    console.log(this.twoDsChecked);
   }
 
   // oneDsCheckedSelected checkmark boolean
   oneDsCheckedSelected() {
     this.oneDsChecked = !this.oneDsChecked;
-    console.log(this.oneDsChecked);
   }
 
 }

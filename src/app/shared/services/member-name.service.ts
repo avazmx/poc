@@ -30,7 +30,7 @@ export class MemberNameService {
    */
   getMemberNames() {
     // return this.http.get<MemberName[]>(this.url + 'members/v1/list');
-    return this.http.get<MemberName[]>(this.url + 'members');
+    return this.http.get<MemberName[]>(this.url + 'member');
   }
 
   getHardCodedMemberNames() {

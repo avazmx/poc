@@ -1,0 +1,513 @@
+[33mcommit ea1fe5502383a9282d069ecb824493d87f28aba6[m[33m ([m[1;36mHEAD -> [m[1;32mbooleans-ag-grid[m[33m)[m
+Merge: e6d7706 1d207e7
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 18 12:40:06 2018 -0600
+
+    Merge branch 'develop' of https://github.com/avazmx/poc into booleans-ag-grid
+
+[33mcommit e6d7706c7aba501a5f78e7ca24309e29fb895046[m[33m ([m[1;31morigin/booleans-ag-grid[m[33m)[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 18 12:38:37 2018 -0600
+
+    sending the boolean values to the object
+
+[33mcommit 1d207e7982de5c402304df0f5419348bb560246b[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Tue Dec 18 12:31:41 2018 -0600
+
+    Avoid new row change country selects reset in attributes
+
+[33mcommit fc15a1bb44fbac15a9fff9c761b3dc3357f716a5[m
+Merge: 97321e7 c91b0fb
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Tue Dec 18 12:11:42 2018 -0600
+
+    merge select block with develop
+
+[33mcommit c91b0fba5e4caa68d449c1869470ccce241e4f47[m
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Tue Dec 18 12:04:30 2018 -0600
+
+    block selects to update different row selects
+
+[33mcommit 97321e7febfd6dd0087a1e85db5c3092cfd8c2c7[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 18 11:32:05 2018 -0600
+
+    resolving merging conflicts with ag grid
+
+[33mcommit ce2b8ae0b5ac727e4dee31c3ef9a6061833eb94d[m
+Merge: 5cc10f5 c55b51d
+Author: avazmx <32458112+avazmx@users.noreply.github.com>
+Date:   Tue Dec 18 10:35:43 2018 -0600
+
+    Merge pull request #19 from avazmx/members-tab
+    
+    Members tab
+
+[33mcommit c55b51dac423e4b5b04126d6e50aac57f944b0aa[m[33m ([m[1;31morigin/members-tab[m[33m, [m[1;32mmembers-tab[m[33m)[m
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Tue Dec 18 09:33:29 2018 -0600
+
+    adding api convention to services
+
+[33mcommit b7e942a656d9245572f01b49dbd9a289030c5bdb[m
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Tue Dec 18 09:25:36 2018 -0600
+
+    member name, business unit and access level
+
+[33mcommit fbd33ba5fd2877ecae85f37646bcee64c8c8fae9[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 18 08:41:38 2018 -0600
+
+    incomplete progress for step 1 and 2
+
+[33mcommit f8844b30d8782e4d547cbbe3b321ed648260a532[m[33m ([m[1;31morigin/members-section[m[33m)[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Mon Dec 17 22:18:25 2018 -0600
+
+    We fix the actions on the comunity actions
+
+[33mcommit a98f0b542978cd73151d0f1fb423f1b2b83855d0[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Mon Dec 17 22:07:00 2018 -0600
+
+    we add the dispatch for the editing row functionality
+
+[33mcommit 5cc10f57a2dea04d8a6d26fe51a8f80fd16bd906[m
+Merge: 319a7cb b32c995
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 16:24:16 2018 -0600
+
+    merge
+
+[33mcommit 319a7cb253c13498c3215750e5ef8c3b64941d3d[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 16:15:33 2018 -0600
+
+    progress on members tab
+
+[33mcommit b32c995ec6e15ef147cd090a6d677ce511ef936e[m
+Merge: 1afeb06 34d8a84
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Mon Dec 17 16:03:05 2018 -0600
+
+    Merge pull request #18 from avazmx/members-section
+    
+    Fix the third tab and the community type service
+
+[33mcommit 34d8a8427fe2866809483cb629312b24a14df73e[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Mon Dec 17 16:01:08 2018 -0600
+
+    Fix the third tab and the community type service
+
+[33mcommit 1afeb06a9ce7799a8a49cf98bdd8a85f3de53101[m
+Merge: f857ce3 0f25297
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Mon Dec 17 15:51:17 2018 -0600
+
+    Merge pull request #17 from avazmx/members-section
+    
+    Second tab members
+
+[33mcommit 0f25297e5051fb0304f90f4ecc595b68fe37d6b0[m
+Merge: 68542df f857ce3
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Mon Dec 17 15:51:08 2018 -0600
+
+    Merge branch 'develop' into members-section
+
+[33mcommit 68542df0111d97ef1788122fe06a477144f88821[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Mon Dec 17 15:47:52 2018 -0600
+
+    Second tab members
+
+[33mcommit f857ce37bc7b9c4b783931cbcfec3ffbfe85db20[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 15:26:34 2018 -0600
+
+    update
+
+[33mcommit 3a5243a63236adf3af97bd652476d28d5da5e81f[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 14:40:59 2018 -0600
+
+    tooltip
+
+[33mcommit 253327cd710098e113567848d01fbf232a7ca64d[m
+Merge: 8aaa1a2 2dba364
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Mon Dec 17 12:07:52 2018 -0600
+
+    Merge pull request #16 from avazmx/members-section
+    
+    comunication between components and fixing bugs
+
+[33mcommit 2dba36444787366533ea8ea8399607e8a44d5600[m
+Merge: 31c813c 8aaa1a2
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Mon Dec 17 12:07:32 2018 -0600
+
+    Merge branch 'develop' into members-section
+
+[33mcommit 31c813ce7529429be336ce2d032738949d2446f2[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Mon Dec 17 12:04:05 2018 -0600
+
+    comunication between components
+
+[33mcommit 8aaa1a2cea44209f872e338486312e5691df41eb[m
+Merge: a8c0c65 bef9299
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 11:02:59 2018 -0600
+
+    merge
+
+[33mcommit a8c0c6556ef1e23ad6855525b46bd53edb26c2cd[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Mon Dec 17 10:38:22 2018 -0600
+
+    documentation
+
+[33mcommit bef929963112e82b88862460f233944450728f3b[m
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Sun Dec 16 20:18:44 2018 -0600
+
+    red color for ng select
+
+[33mcommit b671a895aebe2813223da905139f8d4c2993e4c3[m
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Sun Dec 16 19:54:30 2018 -0600
+
+    styling changes for step 1
+
+[33mcommit 6ede994b0944a71235d871a56e0905e94e21a9c8[m
+Merge: 466b3b6 6fea636
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Sun Dec 16 00:57:23 2018 -0600
+
+    Merge pull request #15 from avazmx/services-integration
+    
+    Services integration
+
+[33mcommit 6fea6365127a93fef410f226302e55da78949552[m[33m ([m[1;31morigin/services-integration[m[33m)[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Sun Dec 16 00:55:38 2018 -0600
+
+    Services integration and fill first tab object
+
+[33mcommit 466b3b6aea78da427252deb3c834bccf445b2919[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Sat Dec 15 11:59:31 2018 -0600
+
+    Fixing code errors
+
+[33mcommit de6875456be2b47fb37e89865de855597d647247[m
+Merge: 3c2c6c3 f5a9a91
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Sat Dec 15 02:43:06 2018 -0600
+
+    Merge pull request #14 from avazmx/adjustments-hf
+    
+    Adjustments
+    
+    Please guys pull this changes
+
+[33mcommit f5a9a912c2b1c4806cac66051f128d7958f6dc9b[m[33m ([m[1;31morigin/adjustments-hf[m[33m)[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Sat Dec 15 02:34:42 2018 -0600
+
+    working with store and fetching the community object
+
+[33mcommit 82c9441bd133880e39bb5c0b80f4e0dbafbfdeec[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Fri Dec 14 21:38:26 2018 -0600
+
+    Se agrega funcionalidad a primer tab
+
+[33mcommit 3c2c6c3c6187e53fa6564ea4baf784f520f0f9bf[m
+Merge: a030ca1 8c306f0
+Author: avazmx <32458112+avazmx@users.noreply.github.com>
+Date:   Fri Dec 14 16:29:46 2018 -0600
+
+    Merge pull request #13 from avazmx/documentation-alfred
+    
+    corrections and documentation
+
+[33mcommit 8c306f057b4093571947aa9aa527b913731a32be[m[33m ([m[1;31morigin/documentation-alfred[m[33m)[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Fri Dec 14 16:28:02 2018 -0600
+
+    corrections and documentation
+
+[33mcommit a030ca14ff5fb0c6fde9bd3cf04da3ce3adee4c0[m
+Merge: 7ff3b9d 4e82c34
+Author: avazmx <32458112+avazmx@users.noreply.github.com>
+Date:   Fri Dec 14 15:33:05 2018 -0600
+
+    Merge pull request #11 from avazmx/correction-documentation-Alfred
+    
+    updating camelCase on the whole project
+
+[33mcommit 4e82c3480f2cd88de5db6df772250777f38375fa[m[33m ([m[1;31morigin/correction-documentation-Alfred[m[33m)[m
+Merge: 5de8b0f 7ff3b9d
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Fri Dec 14 15:31:40 2018 -0600
+
+    merge conflicts
+
+[33mcommit 5de8b0fb6e9197248078a7ade279a5d8b73f5110[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Fri Dec 14 15:19:47 2018 -0600
+
+    updates on services
+
+[33mcommit 7ff3b9d95281b60d84de2270b65bb3462e8bed6f[m
+Merge: c6a9186 8daf691
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Fri Dec 14 14:47:58 2018 -0600
+
+    Merge pull request #10 from avazmx/ngrx-effects-hf
+    
+    fix effects issue
+
+[33mcommit 8daf691991915e71db87d7e1d2f8fc3c94ea8d8d[m[33m ([m[1;31morigin/ngrx-effects-hf[m[33m)[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Fri Dec 14 14:46:52 2018 -0600
+
+    fix effects issue
+
+[33mcommit c6a91868dc61a06c2776ae4e8fa0d4437a261ee9[m
+Merge: 15bdd71 11584b0
+Author: hectorfrancot <37666706+hectorfrancot@users.noreply.github.com>
+Date:   Fri Dec 14 14:31:54 2018 -0600
+
+    Merge pull request #9 from avazmx/ngrx-effects-hf
+    
+    Corrections
+
+[33mcommit 11584b002e9cc53e1bcbb8f4cd0a7c723ce16087[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Fri Dec 14 14:30:08 2018 -0600
+
+    Corrections
+
+[33mcommit f1abe931366133c56c257c5610736ee2ecb50ba1[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Fri Dec 14 13:45:27 2018 -0600
+
+    updating camelCase on the whole project
+
+[33mcommit 15bdd71c47b6f25b15856994e265d6a6e601c25d[m
+Merge: 619b81c 4da3d95
+Author: avazmx <32458112+avazmx@users.noreply.github.com>
+Date:   Fri Dec 14 12:34:17 2018 -0600
+
+    Merge pull request #7 from avazmx/general-corrections
+    
+    We make code corrections and we add effects to the store
+
+[33mcommit 4da3d95e860bfb52216777c291cbbdd1c8fd67ab[m[33m ([m[1;31morigin/general-corrections[m[33m)[m
+Merge: 345f993 619b81c
+Author: avazmx <32458112+avazmx@users.noreply.github.com>
+Date:   Fri Dec 14 12:16:39 2018 -0600
+
+    Merge branch 'develop' into general-corrections
+
+[33mcommit 619b81c92a0ba373151110be972cfda2214b20c5[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Fri Dec 14 11:35:01 2018 -0600
+
+    Rafael corrections made on training room
+
+[33mcommit 345f99321691848e468b17c6ba5e376bfcd463fe[m
+Author: Hector Franco <hectorft.hf@gmail.com>
+Date:   Fri Dec 14 10:25:23 2018 -0600
+
+    We make code corrections and we add effects to the store
+
+[33mcommit c4e9fc560c301bf5e942ed2fc9130be41e10218e[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Wed Dec 12 16:55:21 2018 -0600
+
+    filters on selects
+
+[33mcommit 0128b70f544ebe861428207db0678176e9faf04f[m
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Wed Dec 12 08:58:04 2018 -0600
+
+    select store values
+
+[33mcommit 286daa864432b32a6f80cd794c31d00572c40176[m
+Merge: 318ad02 13948e8
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Wed Dec 12 02:17:39 2018 -0600
+
+    Merge ngrx manager object
+
+[33mcommit 318ad02da1761d11631f262238863412be9decaa[m
+Merge: bfad0e2 e018df4
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Wed Dec 12 00:23:39 2018 -0600
+
+    adelanto para sacar info del select
+
+[33mcommit bfad0e257b042e6c872d37b70f952d083c965575[m
+Merge: 5f36cee a5c017a
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Tue Dec 11 23:28:31 2018 -0600
+
+    unmerged files from computer
+
+[33mcommit 13948e8568160a96ab4868841c76979e69f9e405[m[33m ([m[1;31morigin/ngrxManagerObjects[m[33m)[m
+Author: Jose Galdino Ramirez Alvarez <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 21:30:28 2018 -0600
+
+    Added objects to ManagerComponent
+
+[33mcommit e018df46f4985988615b98700174e4095776986a[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 21:03:34 2018 -0600
+
+    ag grid console comments removed
+
+[33mcommit db90eb30aad6471ff0e6695b6cb38b36a9775f39[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 20:48:17 2018 -0600
+
+    booleans for ag grid attributes
+
+[33mcommit 182aaa844f620baa3fe3ea4f27b265af2d639387[m
+Merge: 7d97077 e9d17cd
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 19:42:21 2018 -0600
+
+    merge
+
+[33mcommit 7d97077d858de606d55b2be90fcaf196f8010979[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 19:35:52 2018 -0600
+
+    selects on members
+
+[33mcommit e9d17cd5a52025c199c4c2b2bb95d87b59f28fee[m
+Author: Jose Galdino Ramirez Alvarez <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 18:55:30 2018 -0600
+
+    ngrx conflict solved
+
+[33mcommit d26e8bd9287aec0f0f1f091520144f922ec0b73a[m
+Merge: 503668d 172203c
+Author: JGaldinoR <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 18:49:34 2018 -0600
+
+    Merge pull request #6 from avazmx/ngrxActionsSetup
+    
+    Ngrx actions setup
+
+[33mcommit 172203cbcd47d34b2040787452fa54d9157478f4[m[33m ([m[1;31morigin/ngrxActionsSetup[m[33m)[m
+Merge: 8f80b74 503668d
+Author: JGaldinoR <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 18:48:56 2018 -0600
+
+    Merge branch 'develop' into ngrxActionsSetup
+
+[33mcommit 8f80b743066d2cad5c607105245598dff8d8cfb3[m
+Author: Jose Galdino Ramirez Alvarez <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 18:39:19 2018 -0600
+
+    CommunityAction dispatch
+
+[33mcommit 503668d0d8518ac03e5b1c1e52b80b8c85e26616[m[33m ([m[1;31morigin/testBranch[m[33m, [m[1;31morigin/prueba-maquina-3[m[33m, [m[1;31morigin/prueba-maquina-2[m[33m, [m[1;31morigin/prueba-maquina-1[m[33m)[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 15:53:18 2018 -0600
+
+    merge conflicts
+
+[33mcommit 052aba3ac41d816174f628f0324c1b85c4abfb50[m
+Merge: 9890c31 c1db2c2
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 15:46:10 2018 -0600
+
+    merge
+
+[33mcommit 9890c3143d9d97669a60ec746905e31754531e3e[m
+Author: FredJrdn <avazquez2289@gmail.com>
+Date:   Tue Dec 11 15:42:43 2018 -0600
+
+    selects
+
+[33mcommit 0be0f1a45cbf750a35b7423f8835d95f57d37737[m
+Author: Jose Galdino Ramirez Alvarez <jgaldino_ramirez@hotmail.com>
+Date:   Tue Dec 11 14:22:21 2018 -0600
+
+    Actions added to .actions and .reducers to dispatch
+
+[33mcommit c1db2c205f1b47b525f52e1bf850fe5b5226ab1c[m
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Tue Dec 11 14:18:25 2018 -0600
+
+    Community select changes
+
+[33mcommit 5f36ceeffb315ef4d4338daebde0162bad6eaaa9[m
+Author: Alfredo Vazquez <avazquez2289@gmail.com>
+Date:   Tue Dec 11 12:28:06 2018 -0600
+
+    communication between components
+
+[33mcommit a5c017a003efc1b86f1b4a60a8635cb52339646e[m[33m ([m[1;31morigin/Transfer-prototype-1[m[33m)[m
+Merge: baf2af5 6ef0f89
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Tue Dec 11 10:24:17 2018 -0600
+
+    merge
+
+[33mcommit baf2af540db91a4feb4d2084a5857b79d17e3e6c[m
+Author: avazmx <avazquez2289@gmail.com>
+Date:   Tue Dec 11 10:03:29 2018 -0600
+
+    selects
+
+[33mcommit 6ef0f8935814e0adf5a76201946c8b8729690b63[m
+Merge: 5bcf9f8 b2a245c
+Author: PC_Master_Race <os1900.ovc@outlook.com>
+Date:   Mon Dec 10 22:10:19 2018 -0600
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 5bcf9f8e9dbaed24269c1e8afda4b1a854c22174[m
+Author: PC_Master_Race <os1900.ovc@outlook.com>
+Date:   Mon Dec 10 22:09:55 2018 -0600
+
+    Validation of the first screen
+
+[33mcommit b2a245cec54ecbc3bd49ad9bf242e8f0e19006fe[m
+Merge: e9e80fd 15d4f4f
+Author: JGaldinoR <jgaldino_ramirez@hotmail.com>
+Date:   Mon Dec 10 22:02:21 2018 -0600
+
+    Merge pull request #5 from avazmx/ngrxSetup
+    
+    Ngrx reducers, actions and store ready + example
+
+[33mcommit 15d4f4f13548224da99632ec367f1bf2e13cd260[m[33m ([m[1;31morigin/ngrxSetup[m[33m)[m
+Merge: cde3aef e9e80fd
+Author: JGaldinoR <jgaldino_ramirez@hotmail.com>
+Date:   Mon Dec 10 22:02:05 2018 -0600
+
+    Merge branch 'develop' into ngrxSetup
+
+[33mcommit cde3aefcec9f3a1f8b57059b5bcd7557407c82cd[m
+Author: Jose Galdino Ramirez Alvarez <jgaldino_ramirez@hotmail.com>
+Date:   Mon Dec 10 21:43:12 2018 -0600
+
+    Ngrx reducers, actions and store ready + example
+
+[33mcommit e9e80fd99a4eb80c096eae5921caa3c816c28b16[m
+Author: magnoou <mignime.dev@gmail.com>
+Date:   Mon Dec 10 21:21:58 2018 -0600
+
+    Setting api url in environment variable
