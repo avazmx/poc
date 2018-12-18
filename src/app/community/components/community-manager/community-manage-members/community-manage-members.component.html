@@ -12,7 +12,8 @@
   [rowData]="rowData" 
   [columnDefs]="columnDefs"
   [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)">
+  (gridReady)="onGridReady($event)"
+  (selectionChanged)="onSelectionChanged($event)">
 </ag-grid-angular>
 
 <!-- 

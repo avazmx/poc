@@ -1,6 +1,6 @@
 <span>
   <!-- (change)="onAccessLevelChange($event.target.value)" -->
-  <select class="agSelect">
+  <select (change)="onAccessLevelChange($event.target.value)" class="agSelect">
     <option value="" disabled selected>Select</option>
     <option *ngFor="let level of accessLevels" [value]="level.id">
       {{level.name}}

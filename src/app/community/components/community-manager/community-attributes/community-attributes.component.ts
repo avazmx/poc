@@ -127,6 +127,10 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
+    const res = this.gridApi.updateRowData({ add: [newData] });
+    this.communityObject.activeRow++;
+    this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
+    this.newRow = true;
 
     // We add the row to the ag-grid
     this.gridApi.updateRowData({ add: [newData] });

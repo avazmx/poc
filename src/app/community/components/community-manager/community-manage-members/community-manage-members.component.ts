@@ -15,6 +15,9 @@ import { membersDef } from '../../../models/members-def';
 import { Community } from 'src/app/community/models/community.model';
 import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from 'src/app/shared/components/access-level-select/access-level-select.component';
+import { Member } from 'src/app/shared/models/member.model';
+
+import * as communityActions from '../../../store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -42,7 +45,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<Community>) {
     this.rowData = [];
-    
     // AG Grid framework info
     this.columnDefs = membersDef;
     this.frameworkComponents = {
@@ -103,6 +105,85 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     console.log(newData);
   }
 
+  onSelectionChanged(event: any) {
+    if (event) {
+
+      const selectedData: Member[] = this.gridApi.getSelectedNodes().map(node => node.data);
+      // Get the nodes of the grid.
+      const renderedNodes: any[] = this.gridApi.getRenderedNodes();
+
+      if (renderedNodes.length > 0) {
+        for (let index = 0; index < selectedData.length; index++) {
+          const node = renderedNodes[index];
+          const memberNameParams = { columns: ['memberName'], rowNodes: [node] };
+          const accessLevelParams = { columns: ['accessLevel'], rowNodes: [node] };
+          const countryParams = { columns: ['country'], rowNodes: [node] };
+          const districtParams = { columns: ['district'], rowNode: [node] };
+          const stateParams = { columns: ['state'], rowNode: [node] };
+          const slicLowParams = { columns: ['slicRangeLow'], rowNode: [node] };
+          const slicHighParams = { columns: ['slicRangeHigh'], rowNode: [node] };
+
+          const memberNameInstance = this.gridApi.getCellRendererInstances(memberNameParams);
+          const accessLevelInstance = this.gridApi.getCellRendererInstances(accessLevelParams);
+          const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
+          const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
+          const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
+          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
+          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
+          console.log("Instances log: ");
+          console.log(memberNameInstance, accessLevelInstance, countryInstance, districtInstance, stateInstance,slicHighInstance);
+          console.log('slicLowInstance: ');
+          console.log(slicLowInstance);
+          console.log('slicHihg: ');
+          console.log(slicHighInstance);
+          if (memberNameInstance.length > 0) {
+            const wapperMemberNameInstance = memberNameInstance[0];
+            const frameworkMemberNameInstance = wapperMemberNameInstance.getFrameworkComponentInstance();
+            selectedData[index].name = frameworkMemberNameInstance.selectedMember;
+          }
+
+          if (accessLevelInstance.length > 0) {
+            const wapperAccessLevelInstance = accessLevelInstance[0];
+            const frameworkAccessLevelInstance = wapperAccessLevelInstance.getFrameworkComponentInstance();
+            selectedData[index].accessLevel = frameworkAccessLevelInstance.selectedAccessLevel;
+          }
+
+          if (countryInstance.length > 0) {
+            const wrapperCountryInstance = countryInstance[0];
+            const frameworkCountryInstance = wrapperCountryInstance.getFrameworkComponentInstance();
+            selectedData[index].country = frameworkCountryInstance.selectedCountry;
+          }
+
+          if(districtInstance.length > 0) {
+            const wrapperDistrictInstance = districtInstance[0];
+            const frameworkDistrictInstance = wrapperDistrictInstance.getFrameworkComponentInstance();
+            selectedData[index].district = frameworkDistrictInstance.selectedDistrict;
+          }
+
+          if(stateInstance.length > 0) {
+            const wrapperStateInstance = stateInstance[0];
+            const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
+            selectedData[index].state = frameworkStateInstance.selectedState;
+          }
+
+          if(slicLowInstance.length > 0) {
+            const wrapperSlicLowInstance = slicLowInstance[0];
+            const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeLow = frameworkSlicLowInstance.selectedSlicLow;
+          }
+
+          if(slicHighInstance.length > 0) {
+            const wrapperSlicHighInstance = slicHighInstance[0];
+            const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.selectedSlicHigh;
+          }
+        }
+      }
+      console.log('selected data' , selectedData);
+      this.CommunityObject.members = selectedData;
+      this.store.dispatch(new communityActions.AddMembers(this.CommunityObject));
+    }
+  }
 
   ngOnDestroy(): void {
     this.communitySubscription.unsubscribe();

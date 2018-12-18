@@ -5,6 +5,12 @@ export const membersDef = [
         cellRenderer: 'selectMemberNameCell',
         cellRendererParams: { field: 'memberName' },
         width: 170,
+        checkboxSelection: true,
+        checkbox: true,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: '<span class="far fa-square"/>',
+        }
     }, {
         headerName: 'Access Level',
         field: 'accessLevel',
