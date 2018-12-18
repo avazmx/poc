@@ -22,8 +22,7 @@
     </div>
     <div class="col" [ngClass]="form.get('description').hasError('required') && form.get('description').touched ? 'colorError' : ''">
       <label> DESCRIPTION*</label>
-      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description"
-        (keyup)="checkLength($event)">
+      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
       <h6 *ngIf="form.get('description').hasError('required') && form.get('description').touched">
         Description is required*
       </h6>
@@ -40,6 +39,5 @@
 
 <ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
   (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true" (cellValueChanged)="onDataChange($event)"
-  (rowValueChanged)="onDataChange($event)">
+  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true">
 </ag-grid-angular>
