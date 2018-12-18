@@ -1,3 +1,9 @@
 <span>
-  <input (change)="onStateChange($event.target.value)" placeholder="Access Level..." class="agSelect" />
+  <!-- (change)="onAccessLevelChange($event.target.value)" -->
+  <select class="agSelect">
+    <option value="" disabled selected>Select</option>
+    <option *ngFor="let level of accessLevels" [value]="level.id">
+      {{level.name}}
+    </option>
+  </select>
 </span>

@@ -8,15 +8,32 @@ import { environment } from 'src/environments/environment';
 })
 export class AccessLevelService {
   private url = environment.apiUrl;
-  public membersCountries: AccessLevel[] = [];
+  public harcodedAccessLevels: AccessLevel[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const comm1 = new AccessLevel();
+    comm1.id = 1;
+    comm1.name = 'HardCoded value 1';
+    const comm2 = new AccessLevel();
+    comm2.id = 2;
+    comm2.name = 'HardCoded value 2';
+    const comm3 = new AccessLevel();
+    comm3.id = 3;
+    comm3.name = 'HardCoded value 3';
+    this.harcodedAccessLevels.push(comm1);
+    this.harcodedAccessLevels.push(comm2);
+    this.harcodedAccessLevels.push(comm3);
+  }
 
   /**
-   * Return the list of countries.
+   * Return the list of access levels.
    */
-  getBusinessUnit() {
+  getAccessLevels() {
     return this.http.get<AccessLevel[]>(this.url + 'accesslevels/v1/list');
+  }
+
+  getHardCodedAccessLevels() {
+    return this.harcodedAccessLevels;
   }
 
 }
