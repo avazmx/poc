@@ -4,17 +4,14 @@ import { GovernanceLevel } from './governance-level.model';
 import { Member } from './member.model';
 
 export class Community {
-    public communityId: number;
-    public communityType: CommunityType;
-    public name: string;
-    public description: string;
-    public geoServices?: GeoService[];
-    public members: Member[];
-    public governance: GovernanceLevel[];
-    public attributes?: any;
-    public activeTab?: number;
-
-    constructor() {
-        this.activeTab = 1;
-    }
+        public communityId: number;
+        public communityType: CommunityType;
+        public name: string;
+        public description: string;
+        public geoServices?: GeoService[];
+        public members: Member[];
+        public governance: GovernanceLevel[];
+        public attributes?: any;
+        public activeTab?: number;
+        public activeRow?: number;
 }
