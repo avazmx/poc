@@ -33,7 +33,6 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
-
     // Subscribe to the store in order to get the updated object for the countries.
     this.communitySubscription = this.store.select('community').subscribe((obj: Community) => {
       // debugger;

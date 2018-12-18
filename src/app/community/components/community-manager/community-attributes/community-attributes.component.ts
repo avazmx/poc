@@ -157,10 +157,18 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const countryParams = { columns: ['country'], rowNodes: [node] };
           const districtParams = { columns: ['district'], rowNodes: [node] };
           const stateParams = { columns: ['state'], rowNodes: [node] };
+          const groundParams = { columns: ['gnd'], rowNodes: [node] };
+          const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
+          const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
+          const oneDsParams = { columns: ['oneDs'], rowNodes: [node] };
 
           const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
           const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
           const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
+          const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
+          const threeDsInstance = this.gridApi.getCellRendererInstances(threeDsParams);
+          const twoDsInstance = this.gridApi.getCellRendererInstances(twoDsParams);
+          const oneDsInstance = this.gridApi.getCellRendererInstances(oneDsParams);
 
           if (countryInstance.length > 0) {
             const wapperCountryInstance = countryInstance[0];
@@ -179,6 +187,31 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
           }
+
+          if (groundInstance.length > 0) {
+            const wrapperGroundInstance = groundInstance[0];
+            const frameworkGroundInstance = wrapperGroundInstance.getFrameworkComponentInstance();
+            selectedData[index].ground = frameworkGroundInstance.groundChecked;
+          }
+
+          if (threeDsInstance.length > 0) {
+            const wrapperThreeDsInstance = threeDsInstance[0];
+            const frameworkThreeDsInstance = wrapperThreeDsInstance.getFrameworkComponentInstance();
+            selectedData[index].threeDs = frameworkThreeDsInstance.threeDsChecked;
+          }
+
+          if (twoDsInstance.length > 0) {
+            const wrapperTwoDsInstance = twoDsInstance[0];
+            const frameworkTwoDsInstance = wrapperTwoDsInstance.getFrameworkComponentInstance();
+            selectedData[index].twoDs = frameworkTwoDsInstance.twoDsChecked;
+          }
+
+          if (oneDsInstance.length > 0) {
+            const wrapperOneDsInstance = oneDsInstance[0];
+            const frameworkOneDsInstance = wrapperOneDsInstance.getFrameworkComponentInstance();
+            selectedData[index].oneDs = frameworkOneDsInstance.oneDsChecked;
+          }
+
         }
       }
       this.CommunityObject.geoServices = selectedData;
