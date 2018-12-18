@@ -42,11 +42,6 @@ export class CommunityManagerComponent implements OnInit {
     this.store.dispatch(new communityActions.ActiveTab(1));
   }
 
-  goToMembers() {
-    this.step2 = true;
-    console.log(this.step2);
-  }
-
   stepEnterTab2(event: any) {
     this.store.dispatch(new communityActions.ActiveTab(2));
   }
@@ -66,12 +61,10 @@ export class CommunityManagerComponent implements OnInit {
 
       this.CommunityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
-
     } else {
       alert(`Please fill out the details mark with * to continue`);
     }
   }
-
 
 
   stepExitTab2(event: any) {

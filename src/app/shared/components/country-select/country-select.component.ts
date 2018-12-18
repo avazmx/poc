@@ -36,7 +36,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
     // Subscribe to the store in order to get the updated object for the countries.
     this.communitySubscription = this.store.select('community').subscribe((obj: Community) => {
-      debugger;
+      // debugger;
       this.countries = [];
       if (obj.activeTab === 1) {
         // Get countries

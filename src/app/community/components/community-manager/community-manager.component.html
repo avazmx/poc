@@ -10,7 +10,7 @@
       <br>
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
-        <button type="button" class="btn btn-primary" awNextStep (ngOnChanges)="selectedAttributes($event)" (click)="goToMembers()">Next</button>
+        <button type="button" class="btn btn-primary" awNextStep (ngOnChanges)="selectedAttributes($event)">Next</button>
       </div>
     </aw-wizard-step>
   </div>
@@ -18,7 +18,7 @@
   <div class="row">
     <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepEnter)="stepEnterTab2($event)"
       (stepExit)="stepExitTab2($event)" [stepId]="2">
-      <ups-community-manage-members *ngIf="step2" [step2]="step2"></ups-community-manage-members>
+      <ups-community-manage-members></ups-community-manage-members>
       <br>
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>

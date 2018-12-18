@@ -25,16 +25,22 @@ export const attributesDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        editable: true,
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicLow' },
         width: 200,
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        editable: true,
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicLow' },
+        // editable: true,
         width: 205,
     }, {
         headerName: 'Business Unit',
         field: 'bu',
+        cellRenderer: 'selectBusinessUnitCell',
+        cellRendererParams: { field: 'bu' },
+        // editable: true,
         width: 175,
     }, {
         headerName: 'GND',

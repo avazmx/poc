@@ -13,6 +13,8 @@ import { District } from 'src/app/shared/models/district.model';
 import { State } from 'src/app/shared/models/state.model';
 import { membersDef } from '../../../models/members-def';
 import { Community } from 'src/app/community/models/community.model';
+import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
+import { AccessLevelSelectComponent } from 'src/app/shared/components/access-level-select/access-level-select.component';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -21,7 +23,6 @@ import { Community } from 'src/app/community/models/community.model';
 })
 
 export class CommunityManageMembersComponent implements OnInit, OnDestroy {
-  defaultColDef;
   gridApi;
   gridColumnApi;
   frameworkComponents;
@@ -48,7 +49,9 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       customizedCountryCell: CommunitySelectComponent,
       selectCountryCell: CountrySelectComponent,
       selectDistrictCell: DistrictSelectComponent,
-      selectStateCell: StateSelectComponent
+      selectStateCell: StateSelectComponent,
+      selectMemberNameCell: MemberNameSelectComponent,
+      selectAccessLevelCell: AccessLevelSelectComponent,
     };
   }
 
@@ -71,14 +74,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   /* AG-Grid */
   onGridReady(params) {
-    if(this.step2) {
+    // if(this.CommunityObject.activeTab == 2) {
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
 
       this.gridApi.setDomLayout('autoHeight');
       this.membersGrid = document.querySelector('#membersGrid');
       params.api.sizeColumnsToFit();
-    }
+    // }
 
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
