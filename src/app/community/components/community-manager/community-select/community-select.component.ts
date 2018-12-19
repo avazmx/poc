@@ -34,11 +34,11 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     this.twoDsChecked = false;
     this.oneDsChecked = false;
     this.attributesDef = attributesDef;
+    this.slicLow = 1000;
+    this.slicHigh = 6000;
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   // AG Grid Initialize
   agInit(params: any) {
@@ -69,6 +69,24 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   // oneDsCheckedSelected checkmark boolean
   oneDsCheckedSelected() {
     this.oneDsChecked = !this.oneDsChecked;
+  }
+
+  slicLowChange(event) {
+    this.slicLow = event;
+    console.log(this.slicLow);
+    console.log(this.slicHigh);
+    if (this.slicLow > this.slicHigh) {
+      return this.slicHigh;
+    }
+  }
+
+  slicHighChange(event) {
+    this.slicHigh = event;
+    console.log(this.slicHigh);
+    console.log(this.slicLow);
+    if (this.slicHigh < this.slicLow) {
+      return this.slicLow;
+    }
   }
 
 }

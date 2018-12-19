@@ -19,6 +19,8 @@ export class CommunityManagerComponent implements OnInit {
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
   CommunityObject: Community;
+  gridApi;
+  gridColumnApi;
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;

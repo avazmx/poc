@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeoService } from 'src/app/community/models/geo-services.model';
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-business-unit-select',
@@ -19,13 +20,18 @@ export class BusinessUnitSelectComponent implements OnInit {
   public businessUnitSubscription: Subscription;
   public businessUnits: BusinessUnit[];
   public businessUnit;
-  public selectedBusinessUnit: BusinessUnit;
+  public selectedBusinessUnit;
+  public CommunityObject: Community;
+  gridApi;
+  gridColumnApi;
 
   constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>) { }
   ngOnInit() { }
 
   // AG Grid Initialize
   agInit(params: any) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
@@ -48,6 +54,12 @@ export class BusinessUnitSelectComponent implements OnInit {
   refresh(params: any): boolean {
     this.altData = params.value;
     return true;
+  }
+
+  onBusinessUnitChange(selectedBusinessUnit: string) {
+    this.selectedBusinessUnit = selectedBusinessUnit;
+    this.gridColumnApi.setColumnVisible('checkbox', true);
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

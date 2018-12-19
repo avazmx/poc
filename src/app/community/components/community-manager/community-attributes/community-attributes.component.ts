@@ -110,6 +110,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.gridColumnApi.setColumnVisible('checkbox', false);
 
     this.gridApi.setDomLayout('autoHeight');
     this.attributesGrid = document.querySelector('#attributesGrid');
@@ -139,7 +140,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       oneDs: 'oneDs'
     };
 
-    const res = this.gridApi.updateRowData({ add: [newData] });
+    this.gridApi.updateRowData({ add: [newData] });
     this.CommunityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
     this.newRow = true;
@@ -212,7 +213,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           if (businessUnitInstance.length > 0) {
             const wrapperBusinessUnitInstance = businessUnitInstance[0];
             const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
-            selectedData[index].businessUnit = frameworkBusinessUnitInstance.businessUnit;
+            selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
 
           if (groundInstance.length > 0) {
