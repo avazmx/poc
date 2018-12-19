@@ -4,10 +4,10 @@
 //     position: absolute;
 // }
 
-select {
-    padding: 0 0 0 0.25rem;
+select, input {
+    padding: 0 0 0 0.25rem !important;
     margin: -1rem 0 0 -0.7rem !important;
-    width: 6.6rem !important;
+    width: 100% !important;
     border-radius: 0;
     border: 0 !important;
     &:focus {

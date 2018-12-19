@@ -7,6 +7,7 @@ import { Community } from 'src/app/community/models/community.model';
 import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
 import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ups-community-governance',
@@ -26,6 +27,8 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   data = [];
   secondData = [];
   headerHeight = 38;
+  communitySubscription: Subscription;
+  CommunityObject: Community;
 
   // AG Grid Header
   columnDefs = [
@@ -95,6 +98,17 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
     this.gridApi.setDomLayout('autoHeight');
     this.governanceGrid = document.querySelector('#governanceGrid');
+
+
+
+    // Subscribe to the store in order to get the updated object.
+    this.communitySubscription = this.store.select('community').subscribe((obj) => {
+      this.CommunityObject = obj;
+
+      if (this.CommunityObject.activeTab == 3) {
+        this.gridApi.sizeColumnsToFit();
+      }
+    });
   }
 
 }

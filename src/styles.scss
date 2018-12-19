@@ -13,6 +13,7 @@ $font-size: 16px;
 $button-blue: #1D79D1;
 $dark-blue: #0E2554;
 $menu-option-active-color: rgba(53, 28, 21, 0.15);
+$hover-color: rgba(255, 255, 255, 0.27);
 
 // // // // // // // //
 // Default Elements  //
@@ -192,10 +193,3 @@ aw-wizard-navigation-bar.horizontal ul.steps-indicator li.done div a {
         outline: none;
     }
 }
-
-.ag-selection-checkbox span {
-    // border: 2px solid #333 !important;
-    // padding: 1px !important;
-    // border-radius: 3px !important;
-}
-

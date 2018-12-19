@@ -76,18 +76,19 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   /* AG-Grid */
   onGridReady(params) {
-    // if(this.CommunityObject.activeTab == 2) {
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
 
       this.gridApi.setDomLayout('autoHeight');
       this.membersGrid = document.querySelector('#membersGrid');
-      params.api.sizeColumnsToFit();
-    // }
 
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
+
+      if (this.CommunityObject.activeTab == 2) {
+        this.gridApi.sizeColumnsToFit();
+      }
     });
   }
 
@@ -101,8 +102,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       slicRangeLow: 'slicRangeLow',
       slicRangeHigh: 'slicRangeHigh'
     };
-    const res = this.gridApi.updateRowData({ add: [newData] });
-    console.log(newData);
+    this.gridApi.updateRowData({ add: [newData] });
   }
 
   onSelectionChanged(event: any) {

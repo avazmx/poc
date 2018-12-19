@@ -4,43 +4,37 @@ export const attributesDef = [
         field: 'country',
         cellRenderer: 'selectCountryCell',
         cellRendererParams: { field: 'country' },
-        width: 200,
-        checkboxSelection: true,
-        checkbox: true,
-        icons: {
-            checkboxChecked: '<span class="far fa-check-square"/>',
-            checkboxUnchecked: '<span class="far fa-square"/>',
-        }
+        width: 190,
     }, {
         headerName: 'District',
         field: 'district',
         cellRenderer: 'selectDistrictCell',
         cellRendererParams: { field: 'district' },
-        width: 170,
+        width: 160,
     }, {
         headerName: 'State/Province',
         field: 'state',
         cellRenderer: 'selectStateCell',
-        cellRendererParams: { field: 'state' }
+        cellRendererParams: { field: 'state' },
+        width: 190,
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'slicLow' },
-        width: 200,
+        width: 210,
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'slicLow' },
-        // editable: true,
-        width: 205,
+        width: 215,
     }, {
         headerName: 'Business Unit',
-        field: 'bu',
+        field: 'businessUnit',
         cellRenderer: 'selectBusinessUnitCell',
-        cellRendererParams: { field: 'bu' },
-        width: 175,
+        cellRendererParams: { field: 'businessUnit' },
+        width: 180,
     }, {
         headerName: 'GND',
         field: 'gnd',
@@ -52,18 +46,27 @@ export const attributesDef = [
         field: 'threeDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'threeDs' },
-        width: 90,
+        width: 100,
     }, {
         headerName: '2DS',
         field: 'twoDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'twoDs' },
-        width: 90,
+        width: 100,
     }, {
         headerName: '1DA',
         field: 'oneDs',
         cellRenderer: 'customizedCountryCell',
         cellRendererParams: { field: 'oneDs' },
-        width: 90,
-    }
+        width: 93,
+    }, {
+        headerName: '',
+        field: 'checkbox',
+        checkboxSelection: true,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: `<span class="far fa-square"></span>`,
+        },
+        width: 55
+    },
 ];

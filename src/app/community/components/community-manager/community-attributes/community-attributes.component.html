@@ -37,7 +37,12 @@
   </button>
 </div>
 
-<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
+<ag-grid-angular #attributesGrid class="ag-theme-bootstrap agHide" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
   (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true">
 </ag-grid-angular>
+
+<!-- <span class="end">
+  <span data-balloon-length="medium" data-balloon="Remember to check this box when you finish your selections"
+    data-balloon-pos="right" class="emptyBtn tooltipHover">&nbsp;&nbsp;&nbsp;</span>
+</span> -->

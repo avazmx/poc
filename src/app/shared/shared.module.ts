@@ -6,6 +6,7 @@ import { StateSelectComponent } from './components/state-select/state-select.com
 import { MemberNameSelectComponent } from './components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from './components/access-level-select/access-level-select.component';
 import { BusinessUnitSelectComponent } from './components/business-unit-select/business-unit-select.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { BusinessUnitSelectComponent } from './components/business-unit-select/b
   ],
   imports: [
     CommonModule,
+    FormsModule,
   ],
   exports: [
     CountrySelectComponent,

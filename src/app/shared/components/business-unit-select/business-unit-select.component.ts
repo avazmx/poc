@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GeoService } from 'src/app/community/models/geo-services.model';
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-business-unit-select',
@@ -18,20 +19,25 @@ export class BusinessUnitSelectComponent implements OnInit {
   public cell: any;
   public businessUnitSubscription: Subscription;
   public businessUnits: BusinessUnit[];
-  public selectedBusinessUnit: BusinessUnit;
+  public businessUnit;
+  public selectedBusinessUnit;
+  public CommunityObject: Community;
+  gridApi;
+  gridColumnApi;
 
   constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>) { }
   ngOnInit() { }
 
   // AG Grid Initialize
   agInit(params: any) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
-
     // Subscribe to the store in order to get the updated object for the countries.
-    this.businessUnitSubscription = this.store.select('business').subscribe((obj: GeoService) => {
+    this.businessUnitSubscription = this.store.select('businessUnits').subscribe((obj: GeoService) => {
       this.businessUnits = [];
 
       // Get Business units
@@ -48,6 +54,12 @@ export class BusinessUnitSelectComponent implements OnInit {
   refresh(params: any): boolean {
     this.altData = params.value;
     return true;
+  }
+
+  onBusinessUnitChange(selectedBusinessUnit: string) {
+    this.selectedBusinessUnit = selectedBusinessUnit;
+    this.gridColumnApi.setColumnVisible('checkbox', true);
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

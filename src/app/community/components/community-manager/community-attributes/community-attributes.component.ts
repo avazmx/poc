@@ -103,6 +103,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     // Fill the api properties.
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.gridColumnApi.setColumnVisible('checkbox', false);
 
     // Renderize the ag-grid size.
     this.gridApi.setDomLayout('autoHeight');
@@ -121,25 +122,20 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       state: 'state',
       slicLow: 'slicLow',
       slicHigh: 'slicHigh',
-      bu: 'bu',
+      businessUnit: 'businessUnit',
       gnd: 'gnd',
       threeDs: 'threeDs',
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-    //Fixes for the double row creation
+
     // We update the activate row in order to fill and change the new row selects.
-    //const res = this.gridApi.updateRowData({ add: [newData] });
     this.communityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     this.newRow = true;
 
     // We add the row to the ag-grid
     this.gridApi.updateRowData({ add: [newData] });
-
-   // this.communityObject.activeRow++;
-    //this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
-    //this.newRow = true;
   }
 
   /**
@@ -163,6 +159,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const countryParams = { columns: ['country'], rowNodes: [node] };
           const districtParams = { columns: ['district'], rowNodes: [node] };
           const stateParams = { columns: ['state'], rowNodes: [node] };
+          const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
+          const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
+          const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
           const groundParams = { columns: ['gnd'], rowNodes: [node] };
           const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
           const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
@@ -172,6 +171,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
           const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
           const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
+          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
+          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
+          const businessUnitInstance = this.gridApi.getCellRendererInstances(businessUnitParams);
           const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
           const threeDsInstance = this.gridApi.getCellRendererInstances(threeDsParams);
           const twoDsInstance = this.gridApi.getCellRendererInstances(twoDsParams);
@@ -194,6 +196,24 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const wrapperStateInstance = stateInstance[0];
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
+          }
+
+          if (slicLowInstance.length > 0) {
+            const wrapperSlicLowInstance = slicLowInstance[0];
+            const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeLow = frameworkSlicLowInstance.slicLow;
+          }
+
+          if (slicHighInstance.length > 0) {
+            const wrapperSlicHighInstance = slicHighInstance[0];
+            const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
+          }
+
+          if (businessUnitInstance.length > 0) {
+            const wrapperBusinessUnitInstance = businessUnitInstance[0];
+            const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
+            selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
 
           if (groundInstance.length > 0) {

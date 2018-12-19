@@ -54,7 +54,6 @@ ag-grid-angular {
 }
 
 .selectElement {
-    
     padding: 0.2rem;
     margin: 0.2rem 0;
 }
@@ -82,4 +81,15 @@ ag-grid-angular {
 
 h6 {
     padding: 0.25rem
+}
+
+.tooltipHover {
+    margin: -5rem 0 0 -6rem;
+    cursor: default;
+    &:hover {
+        cursor: default;
+    }
+    &:focus {
+        outline: none;
+    }
 }
