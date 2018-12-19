@@ -13,7 +13,7 @@ describe('CommunityService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have 1 or more results from the server',(done: DoneFn) => {
+  it('should have 1 or more community types results from the server', (done: DoneFn) => {
       const service: CommunityService = TestBed.get(CommunityService);
       service.getCommunityTypes().subscribe(value => {
       expect(value.length).toBeGreaterThan(0);

@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, AfterViewInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CommunityType } from 'src/app/community/models/community-type.model';
 import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
@@ -20,13 +20,23 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { AgGridNg2 } from 'ag-grid-angular';
+import { FunctionExpr } from '@angular/compiler';
+
 @Component({
   selector: 'ups-community-attributes',
   templateUrl: './community-attributes.component.html',
   styleUrls: ['./community-attributes.component.scss']
 })
 
-export class CommunityAttributesComponent implements OnInit, OnDestroy {
+export class CommunityAttributesComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('h3Title') h3Title: HTMLHeadingElement;
+  @ViewChild('lblCommunityType') lblCommunityType: HTMLLabelElement;
+  @ViewChild(NgSelectComponent) ngselect: NgSelectComponent;
+  @ViewChild('btnAddRow') btnAddRow: HTMLButtonElement;
+  @ViewChild(AgGridNg2) aggrid: AgGridNg2;
+
   @Output() attributesData = new EventEmitter();
   @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
   @Output() dataReady: EventEmitter<Community> = new EventEmitter();
@@ -59,7 +69,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
   loading = true;
 
-  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
+  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>,
+    private elementRef: ElementRef) {
     this.newRow = false;
     this.rowData = [];
 
@@ -121,6 +132,10 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
   }
 
+  ngAfterViewInit(){
+    console.log(this.ngselect);
+  }
+
   changeColor() {
     // If form is invalid (red)
     this.colorError = 'colorError';
@@ -167,14 +182,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-    const res = this.gridApi.updateRowData({ add: [newData] });
+    const res = this.aggrid.api.updateRowData({ add: [newData] });
     this.newRow = true;
-    const nodes = this.gridApi.getSelectedNodes();
+    const nodes = this.aggrid.api.getSelectedNodes();
 
     this.communityGeoServices.push();
   }
 
   onSelectionChanged(event: any) {
+    console.log(this);
     if (event) {
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
