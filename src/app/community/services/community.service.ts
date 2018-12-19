@@ -5,7 +5,7 @@ import { Subject, fromEventPattern } from 'rxjs';
 import { Community } from '../models/community.model';
 
 import { environment } from '../../../environments/environment';
-import { Member } from '../models/member.model';
+import { Member } from '../../shared/models/member.model';
 import { GeoService } from '../models/geo-services.model';
 import { CommunityType } from '../models/community-type.model';
 

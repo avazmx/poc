@@ -1,7 +1,7 @@
 import { CommunityType } from './community-type.model';
 import { GeoService } from './geo-services.model';
 import { GovernanceLevel } from './governance-level.model';
-import { Member } from './member.model';
+import { Member } from '../../shared/models/member.model';
 
 export class Community {
         public communityId: number;

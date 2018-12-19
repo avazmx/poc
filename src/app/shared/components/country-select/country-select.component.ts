@@ -44,20 +44,27 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
       this.CommunityObject = obj;
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
-        this.countryService.getCountries()
-          .subscribe((countries: Country[]) => {
-            this.countries = countries;
-          }, (error: HttpErrorResponse) => {
-            this.countries = this.countryService.getHardCodedCountries();
-          });
+        this.fetchCountries();
       } else if (obj.activeTab === 2 && this.countries.length === 0) {
         if (obj.geoServices && obj.geoServices.length > 0) {
           obj.geoServices.forEach(element => {
             this.countries.push(element.country);
           });
         }
+        else{
+          this.fetchCountries();
+        }
       }
     });
+  }
+
+  fetchCountries() {
+    this.countryService.getCountries()
+          .subscribe((countries: Country[]) => {
+            this.countries = countries;
+          }, (error: HttpErrorResponse) => {
+            this.countries = this.countryService.getHardCodedCountries();
+          });
   }
 
   // AG Grid reload

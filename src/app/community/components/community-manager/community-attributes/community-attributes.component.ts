@@ -6,16 +6,15 @@ import { Subscription } from 'rxjs';
 import { CommunityType } from 'src/app/community/models/community-type.model';
 import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
-// Components
+import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
 
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
+import { CommunitySelectComponent } from '../community-select/community-select.component';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -24,14 +23,10 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 })
 
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
-  @Output() attributesData = new EventEmitter();
-  @Output() isInputFilled: EventEmitter<any> = new EventEmitter();
-  @Output() dataReady: EventEmitter<Community> = new EventEmitter();
-
-  // Hectorf
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
-  CommunityObject: Community;
-  rowSelection;
+  communityObject: Community;
+  communitySubscription: Subscription;
+  loading = true;
 
   form: FormGroup;
   headerHeight = 38;
@@ -50,17 +45,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   newCount = 1;
   colorError: string;
 
-  // Hectorf
-  communitySubscription: Subscription;
-  communityGeoServices: GeoService[] = [];
-
-  loading = true;
-
+  /**
+   * Constructor of the component we initialize the framework components.
+   * @param formBuilder formBuilder instance to get the form initialization.
+   * @param communityService Exposes the methods to load the community types.
+   * @param store Ngrx store to get the community object.
+   */
   constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
     this.newRow = false;
     this.rowData = [];
-
-    // AG Grid framework info
     this.attributesDef = attributesDef;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
@@ -88,8 +81,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to the store in order to get the updated object.
-    this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      this.CommunityObject = obj;
+    this.communitySubscription = this.store.select('community').subscribe((communityUpdated) => {
+      this.communityObject = communityUpdated;
     });
 
     // Subscribe to the communitytype service.
@@ -97,7 +90,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       this.communityTypes = types;
       this.loading = false;
     }, (error: HttpErrorResponse) => {
-      console.log('Error trying to lad the community type list, I will load hardcoded data');
       this.communityTypes = this.communityService.getHardCodedCommunityTypes();
       this.loading = false;
     });
@@ -108,25 +100,22 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    * @param params object recived when the grid is ready.
    */
   onGridReady(params) {
+    // Fill the api properties.
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridColumnApi.setColumnVisible('checkbox', false);
 
+    // Renderize the ag-grid size.
     this.gridApi.setDomLayout('autoHeight');
     this.attributesGrid = document.querySelector('#attributesGrid');
-
     params.api.sizeColumnsToFit();
   }
 
-  getSelectedRows() {
-    const selectedNodes = this.gridApi.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data);
-    const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-    alert(`Selected nodes: ${selectedDataStringPresentation}`);
-  }
-
-  // Add Row Button
+  /**
+   * Creates a new row in the ag-grid.
+   */
   createNewRowData() {
+    // Initial row status.
     const newData = {
       country: 'country',
       district: 'district',
@@ -140,23 +129,32 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       oneDs: 'oneDs'
     };
 
-    this.gridApi.updateRowData({ add: [newData] });
-    this.CommunityObject.activeRow++;
-    this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
+    // We update the activate row in order to fill and change the new row selects.
+    this.communityObject.activeRow++;
+    this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     this.newRow = true;
+
+    // We add the row to the ag-grid
+    this.gridApi.updateRowData({ add: [newData] });
   }
 
-  onDataChange(event: any) {
-  }
-
+  /**
+   * This method gets all the row data in order to send it to the geoservice store.
+   * @param event the ag-grid api.
+   */
   onSelectionChanged(event: any) {
     if (event) {
+      // Getting the selected rows of the grid, rows that are checked.
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
-      // Get the nodes of the grid.
+
+      // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
+      // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
         for (let index = 0; index < selectedData.length; index++) {
+
+          // Get the node parameters.
           const node = renderedNodes[index];
           const countryParams = { columns: ['country'], rowNodes: [node] };
           const districtParams = { columns: ['district'], rowNodes: [node] };
@@ -169,6 +167,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
           const oneDsParams = { columns: ['oneDs'], rowNodes: [node] };
 
+          // Get the instance from the node parameters.
           const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
           const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
           const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
@@ -180,6 +179,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const twoDsInstance = this.gridApi.getCellRendererInstances(twoDsParams);
           const oneDsInstance = this.gridApi.getCellRendererInstances(oneDsParams);
 
+          // Validate if we get the instances and fetch the geoservice object.
           if (countryInstance.length > 0) {
             const wapperCountryInstance = countryInstance[0];
             const frameworkCountryInstance = wapperCountryInstance.getFrameworkComponentInstance();
@@ -239,20 +239,19 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const frameworkOneDsInstance = wrapperOneDsInstance.getFrameworkComponentInstance();
             selectedData[index].oneDs = frameworkOneDsInstance.oneDsChecked;
           }
-
         }
       }
-      this.CommunityObject.geoServices = selectedData;
-      this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
+
+      // We asign the selected data to the gioservice object in the community and dispatch the action.
+      this.communityObject.geoServices = selectedData;
+      this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     }
   }
 
-  checkLength($event) {
-    this.isInputFilled.emit($event.target);
-  }
-
+  /**
+   * When the component is destroyed then we unsubscribe to the community subscription.
+   */
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
-
 }
