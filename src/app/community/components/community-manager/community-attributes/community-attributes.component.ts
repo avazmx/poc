@@ -21,8 +21,8 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 import { AgGridNg2 } from 'ag-grid-angular';
-import { FunctionExpr } from '@angular/compiler';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -31,12 +31,19 @@ import { FunctionExpr } from '@angular/compiler';
 })
 
 export class CommunityAttributesComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('h3Title') h3Title: HTMLHeadingElement;
-  @ViewChild('lblCommunityType') lblCommunityType: HTMLLabelElement;
-  @ViewChild('h6CommunityRequired') h6CommunityRequired: HTMLHeadingElement;
-  @ViewChild('lblName') lblName: HTMLLabelElement;
+  @ViewChild('h3Title') h3Title: ElementRef;
+  @ViewChild('lblCommunityType') lblCommunityType: ElementRef;
   @ViewChild(NgSelectComponent) ngselect: NgSelectComponent;
-  @ViewChild('btnAddRow') btnAddRow: HTMLButtonElement;
+  @ViewChild('h6CommunityRequired') h6CommunityRequired: ElementRef;
+  @ViewChild('lblName') lblName: ElementRef;
+  @ViewChild('inputName') inputName: ElementRef;
+  @ViewChild('h6NameRequired') h6NameRequired: ElementRef;
+  @ViewChild('lblDescription') lblDescription: ElementRef;
+  @ViewChild('inputDescription') inputDescription: ElementRef;
+  @ViewChild('h6DescriptionRequired') h6DescriptionRequired: ElementRef;
+  @ViewChild('btnAddRow') btnAddRow: ElementRef;
+  @ViewChild('fontPlusCircle') fontPlusCircle: AngularFontAwesomeComponent;
+  @ViewChild('spanAddRow') spanAddRow: ElementRef;
   @ViewChild(AgGridNg2) aggrid: AgGridNg2;
 
   @Output() attributesData = new EventEmitter();
@@ -135,7 +142,7 @@ export class CommunityAttributesComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit(){
-    console.log(this.ngselect);
+    console.log(this.fontPlusCircle);
   }
 
   changeColor() {

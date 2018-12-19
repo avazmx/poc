@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AgGridModule } from 'ag-grid-angular';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AngularFontAwesomeModule, AngularFontAwesomeComponent } from 'angular-font-awesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -128,6 +128,62 @@ describe('CommunityAttributesComponent', () => {
     expect(component.lblName.nativeElement.innerText).toEqual('NAME*');
   });
 
+  it('inputName should be an input tag', () => {
+    expect(component.inputName.nativeElement.tagName).toEqual('INPUT');
+  });
+
+  it('inputName should have these attributes', () => {
+    expect(component.inputName.nativeElement.getAttribute('type') === 'text' &&
+      component.inputName.nativeElement.classList.contains('form-control') &&
+      component.inputName.nativeElement.classList.contains('inputBig') &&
+      component.inputName.nativeElement.getAttribute('placeholder') === 'Enter Name...' &&
+      component.inputName.nativeElement.getAttribute('formControlName') === 'name').toBeTruthy();
+  });
+
+  it('h6NameRequired should be a h6 tag', () => {
+    expect(component.h6NameRequired.nativeElement.tagName).toEqual('H6');
+  });
+
+  it('h6NameRequired innerText should be equal to Name is required*', () => {
+    expect(component.h6NameRequired.nativeElement.innerText).toEqual('Name is required*');
+  });
+
+  it('lblDescription should be a label tag', () => {
+    expect(component.lblDescription.nativeElement.tagName).toEqual('LABEL');
+  });
+
+  it('lblDescription innerText should be equal to DESCRIPTION*', () => {
+    expect(component.lblDescription.nativeElement.innerText).toEqual('DESCRIPTION*');
+  });
+
+  it('inputDescription should be an input tag', () => {
+    expect(component.inputDescription.nativeElement.tagName).toEqual('INPUT');
+  });
+
+  it('inputDescription should have this attributes', () => {
+    expect(component.inputDescription.nativeElement.getAttribute('type') === 'text' &&
+      component.inputDescription.nativeElement.classList.contains('form-control') &&
+      component.inputDescription.nativeElement.classList.contains('inputBig') &&
+      component.inputDescription.nativeElement.getAttribute('placeholder') === 'Enter Description...' &&
+      component.inputDescription.nativeElement.getAttribute('formControlName') === 'description').toBeTruthy();
+  });
+
+  it('h6DescriptionRequired should be a h6 tag', () => {
+    expect(component.h6NameRequired.nativeElement.tagName).toEqual('H6');
+  });
+
+  it('h6DescriptionRequired innerText should be equal to Description is required*', () => {
+    expect(component.h6DescriptionRequired.nativeElement.innerText).toEqual('Description is required*');
+  });
+
+  it('btnAddRow should be a button tag', () => {
+    expect(component.btnAddRow.nativeElement.tagName).toEqual('BUTTON');
+  });
+
+  it('btnAddRow class attribute should be equal to emptyBtn', () => {
+    expect(component.btnAddRow.nativeElement.getAttribute('class')).toEqual('emptyBtn');
+  });
+
   it('btnAddRow click event should add a row', () => {
     const previosrowlength = component.aggrid.api.getRenderedNodes().length;
     component.btnAddRow.nativeElement.click();
@@ -136,11 +192,27 @@ describe('CommunityAttributesComponent', () => {
     expect(newrowslength).toBeGreaterThan(previosrowlength);
   });
 
+  it('fontPlusCircle should be a fa tag', () => {
+    expect(component.fontPlusCircle instanceof AngularFontAwesomeComponent).toBeTruthy();
+  });
+
+  it('fontPlusCircle attribute name should be equal to plus-circle', () => {
+    expect(component.fontPlusCircle.name).toEqual('plus-circle');
+  });
+
+  it('spanAddRow should be a span tag', () => {
+    expect(component.spanAddRow.nativeElement.tagName).toEqual('SPAN');
+  });
+
+  it('spanAddRow innerText should be equal to Add Row', () => {
+    expect(component.spanAddRow.nativeElement.innerText).toEqual('Add Row')
+  });
+
   it('ag-grid should not be empty', () => {
     expect(component.aggrid.api.getRenderedNodes().length).toBeGreaterThanOrEqual(1);
   });
 
-  it('should have headers rendered corrected', () => {
+  it('should have headers rendered correctly', () => {
     const columnsDef = component.aggrid.columnDefs;
     expect(columnsDef[0].headerName === 'Country' &&
     columnsDef[1].headerName === 'District' &&
@@ -152,14 +224,6 @@ describe('CommunityAttributesComponent', () => {
     columnsDef[7].headerName === '3DS' &&
     columnsDef[8].headerName === '2DS' &&
     columnsDef[9].headerName === '1DA').toBeTruthy();
-  });
-
-  it('btnAddRow click event should add a row', () => {
-    const previosrowlength = component.aggrid.api.getRenderedNodes().length;
-    component.btnAddRow.nativeElement.click();
-    fixture.detectChanges();
-    const newrowslength = component.aggrid.api.getRenderedNodes().length;
-    expect(newrowslength).toBeGreaterThan(previosrowlength);
   });
 
 });

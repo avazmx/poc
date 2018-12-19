@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { membersDef } from '../../../models/members-def';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import { Community } from 'src/app/community/models/community.model';
 import { Subscription } from 'rxjs';
 
 import { AgGridNg2 } from 'ag-grid-angular';
+import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -14,8 +15,11 @@ import { AgGridNg2 } from 'ag-grid-angular';
 })
 
 export class CommunityManageMembersComponent implements OnInit, OnDestroy {
+  @ViewChild('h3Title') h3Title: ElementRef;
   @ViewChild(AgGridNg2) aggrid: AgGridNg2;
-  @ViewChild('btnAddRow') btnAddRow: HTMLButtonElement;
+  @ViewChild('btnAddRow') btnAddRow: ElementRef;
+  @ViewChild('fontPlusCircle') fontPlusCircle: AngularFontAwesomeComponent;
+  @ViewChild('spanAddRow') spanAddRow: ElementRef;
 
   defaultColDef;
   gridApi;
@@ -30,9 +34,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   // Hectorf
   communitySubscription: Subscription;
-
-  title = 'East Region Small Package Community - Manage Members';
-  lblAddRow = 'Add Row';
 
   constructor(private store: Store<Community>) {
     this.rowData = [];

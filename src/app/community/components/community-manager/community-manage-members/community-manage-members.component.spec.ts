@@ -4,6 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 
 import { HttpAuthInterceptor } from '../../../../shared/interceptors/http-auth-interceptor';
 import { HttpErrorInterceptor } from '../../../../shared/interceptors/http-error-interceptor';
@@ -62,8 +63,48 @@ describe('ManageMembersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('title should be equal to East Region Small Package Community - Manage Members', () => {
-    expect(component.title).toEqual('East Region Small Package Community - Manage Members');
+  it('h3Title should be a h3 tag', () => {
+    expect(component.h3Title.nativeElement.tagName).toEqual('H3');
+  });
+
+  it('h3Title innerText shoud be equal to Community Structure', () => {
+    expect(component.h3Title.nativeElement.innerText).toEqual('East Region Small Package Community - Manage Members');
+  });
+
+  it('fontPlusCircle should be a fa tag', () => {
+    expect(component.fontPlusCircle instanceof AngularFontAwesomeComponent).toBeTruthy();
+  });
+
+  it('fontPlusCircle attribute name should be equal to plus-circle', () => {
+    expect(component.fontPlusCircle.name).toEqual('plus-circle');
+  });
+
+  it('spanAddRow should be a span tag', () => {
+    expect(component.spanAddRow.nativeElement.tagName).toEqual('SPAN');
+  });
+
+  it('spanAddRow should be equal to Add Row', () => {
+    expect(component.spanAddRow.nativeElement.innerText).toEqual('Add Row');
+  });
+
+  it('btnAddRow ashould be a button tag', () => {
+    expect(component.btnAddRow.nativeElement.tagName).toEqual('BUTTON');
+  });
+
+  it('btnAddRow attribute class should be equal to emptyBtn', () => {
+    expect(component.btnAddRow.nativeElement.getAttribute('class')).toEqual('emptyBtn');
+  });
+
+  it('btnAddRow click event should add a row', (done: DoneFn) => {
+    window.setTimeout(() => {
+      const previosrowlength = component.aggrid.api.getRenderedNodes().length;
+      component.btnAddRow.nativeElement.click();
+      fixture.detectChanges();
+      const newrowslength = component.aggrid.api.getRenderedNodes().length;
+      expect(newrowslength).toBeGreaterThan(previosrowlength);
+
+      done();
+    }, 0);
   });
 
   it('ag-grid should not be empty', () => {
@@ -79,18 +120,6 @@ describe('ManageMembersComponent', () => {
     columnsDef[4].headerName === 'State/Province' &&
     columnsDef[5].headerName === 'SLIC Range Low' &&
     columnsDef[6].headerName === 'SLIC Range High').toBeTruthy();
-  });
-
-  it('lblAddRow should be equal to Add Row', () => {
-    expect(component.lblAddRow).toEqual('Add Row');
-  });
-
-  it('btnAddRow click event should add a row', () => {
-    const previosrowlength = component.aggrid.api.getRenderedNodes().length;
-    component.btnAddRow.nativeElement.click();
-    fixture.detectChanges();
-    const newrowslength = component.aggrid.api.getRenderedNodes().length;
-    expect(newrowslength).toBeGreaterThan(previosrowlength);
   });
 
 });

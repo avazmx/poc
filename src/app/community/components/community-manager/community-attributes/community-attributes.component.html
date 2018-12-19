@@ -11,7 +11,7 @@
         <div class="col" [ngClass]="form.get('name').hasError('required') && form.get('name').touched ? 'colorError' : ''">
             <label #lblName>NAME*</label>
             <div class="form-group">
-                <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
+                <input #inputName type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
                 <h6 #h6NameRequired *ngIf="form.get('name').hasError('required') && form.get('name').touched">Name is required*</h6>
             </div>
         </div>
@@ -26,7 +26,7 @@
 <h4>Geo/Service</h4>
 <div class="end">
     <button #btnAddRow (click)="createNewRowData()" class="emptyBtn" [disabled]="">
-    <fa name="plus-circle"></fa>&nbsp; <span>Add Row</span>
+        <fa #fontPlusCircle name="plus-circle"></fa>&nbsp;<span #spanAddRow>Add Row</span>
   </button>
 </div>
 
