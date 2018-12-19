@@ -136,7 +136,11 @@ describe('CommunityAttributesComponent', () => {
     expect(newrowslength).toBeGreaterThan(previosrowlength);
   });
 
-  it('should have headers rendered correctly', () => {
+  it('ag-grid should not be empty', () => {
+    expect(component.aggrid.api.getRenderedNodes().length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should have headers rendered corrected', () => {
     const columnsDef = component.aggrid.columnDefs;
     expect(columnsDef[0].headerName === 'Country' &&
     columnsDef[1].headerName === 'District' &&
@@ -150,8 +154,12 @@ describe('CommunityAttributesComponent', () => {
     columnsDef[9].headerName === '1DA').toBeTruthy();
   });
 
-  it('ag-grid should not be empty', () => {
-    expect(component.aggrid.api.getRenderedNodes().length).toBeGreaterThanOrEqual(1);
+  it('btnAddRow click event should add a row', () => {
+    const previosrowlength = component.aggrid.api.getRenderedNodes().length;
+    component.btnAddRow.nativeElement.click();
+    fixture.detectChanges();
+    const newrowslength = component.aggrid.api.getRenderedNodes().length;
+    expect(newrowslength).toBeGreaterThan(previosrowlength);
   });
 
 });
