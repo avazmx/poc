@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { membersDef } from '../../../models/members-def';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
 import { Subscription } from 'rxjs';
+
+import { AgGridNg2 } from 'ag-grid-angular';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -12,6 +14,9 @@ import { Subscription } from 'rxjs';
 })
 
 export class CommunityManageMembersComponent implements OnInit, OnDestroy {
+  @ViewChild(AgGridNg2) aggrid: AgGridNg2;
+  @ViewChild('btnAddRow') btnAddRow: HTMLButtonElement;
+
   defaultColDef;
   gridApi;
   gridColumnApi;
@@ -25,6 +30,9 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   // Hectorf
   communitySubscription: Subscription;
+
+  title = 'East Region Small Package Community - Manage Members';
+  lblAddRow = 'Add Row';
 
   constructor(private store: Store<Community>) {
     this.rowData = [];

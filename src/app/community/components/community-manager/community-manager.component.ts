@@ -180,32 +180,6 @@ export class CommunityManagerComponent implements OnInit, OnChanges {
 
   }
 
-
-  /**
-   * OscarFix
-   * @param $event add description
-   */
-  onInputChange($event) {
-    let isInside = false;
-    for (let x = 0; x < this.arrayFilled.length; x++) {
-      if (this.arrayFilled[x] === $event) {
-        isInside = true;
-        break;
-      }
-    }
-    if (!isInside) {
-      this.arrayFilled.push($event);
-    }
-    let countBooleans: number;
-    for (let y = 0; y < this.arrayFilled.length; y++) {
-      if (this.arrayFilled[y].value.length > 0) {
-        countBooleans++;
-      }
-    }
-
-    this.isFormFilled = countBooleans === 2 ? true : false;
-  }
-
   checkFormValidity(event: boolean) {
     this.canExitAttributesComponent = event;
   }

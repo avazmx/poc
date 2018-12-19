@@ -1,43 +1,35 @@
 <form [formGroup]="form" #localForm="ngForm" (ngSubmit)="onSubmit()">
-  <h3>Community Structure</h3>
-  <div class="row">
-    <div class="col" [ngClass]="form.get('community_type').hasError('required') && form.get('community_type').touched ? 'colorError' : ''">
-      <label> COMMUNITY TYPE*</label>
-      <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes" 
-        class="custom" placeholder="Select a type" [loading]="loading">
-      </ng-select>
-      <h6 *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">
-        Community type is required*
-      </h6>
-    </div>
+    <h3 #h3Title>Community Structure</h3>
+    <div class="row">
+        <div class="col" [ngClass]="form.get('community_type').hasError('required') && form.get('community_type').touched ? 'colorError' : ''">
+            <label #lblCommunityType>COMMUNITY TYPE*</label>
+            <ng-select formControlName="community_type" bindLabel="name" bindValue="communityTypeId" [items]="communityTypes" class="custom" placeholder="Select a type" [loading]="loading">
+            </ng-select>
+            <h6 #h6CommunityRequired *ngIf="form.get('community_type').hasError('required') && form.get('community_type').touched">Community type is required*</h6>
+        </div>
 
-    <div class="col" [ngClass]="form.get('name').hasError('required') && form.get('name').touched ? 'colorError' : ''">
-      <label> NAME*</label>
-      <div class="form-group">
-        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name" (keyup)="checkLength($event)">
-        <h6 *ngIf="form.get('name').hasError('required') && form.get('name').touched">
-          Name is required*
-        </h6>
-      </div>
+        <div class="col" [ngClass]="form.get('name').hasError('required') && form.get('name').touched ? 'colorError' : ''">
+            <label #lblName>NAME*</label>
+            <div class="form-group">
+                <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
+                <h6 #h6NameRequired *ngIf="form.get('name').hasError('required') && form.get('name').touched">Name is required*</h6>
+            </div>
+        </div>
+        <div class="col" [ngClass]="form.get('description').hasError('required') && form.get('description').touched ? 'colorError' : ''">
+            <label #lblDescription>DESCRIPTION*</label>
+            <input #inputDescription type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
+            <h6 #h6DescriptionRequired *ngIf="form.get('description').hasError('required') && form.get('description').touched">Description is required*</h6>
+        </div>
     </div>
-    <div class="col" [ngClass]="form.get('description').hasError('required') && form.get('description').touched ? 'colorError' : ''">
-      <label> DESCRIPTION*</label>
-      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description" (keyup)="checkLength($event)">
-      <h6 *ngIf="form.get('description').hasError('required') && form.get('description').touched">
-        Description is required*
-      </h6>
-    </div>
-  </div>
 </form>
 
 <h4>Geo/Service</h4>
 <div class="end">
-  <button (click)="createNewRowData()" class="emptyBtn" [disabled]="">
-    <fa name="plus-circle"></fa>&nbsp; Add Row
+    <button #btnAddRow (click)="createNewRowData()" class="emptyBtn" [disabled]="">
+    <fa name="plus-circle"></fa>&nbsp; <span>Add Row</span>
   </button>
 </div>
 
-<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
-  (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true">
+<ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef" (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)"
+    [animateRows]="true" [suppressRowClickSelection]="true">
 </ag-grid-angular>

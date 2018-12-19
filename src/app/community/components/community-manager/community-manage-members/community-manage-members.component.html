@@ -1,18 +1,13 @@
 <div id="members">
-  <h3>East Region Small Package Community - Manage Members</h3>
-  <div class="end">
-    <button (click)="createNewRowMembersData()" class="emptyBtn">
-      <fa name="plus-circle"></fa>&nbsp; Add Row
+    <h3>{{title}}</h3>
+    <div class="end">
+        <button #btnAddRow (click)="createNewRowMembersData()" class="emptyBtn">
+      <fa name="plus-circle"></fa>&nbsp; {{lblAddRow}}
     </button>
-  </div>
+    </div>
 </div>
 
-<ag-grid-angular #membersGrid
-  class="ag-theme-bootstrap"
-  [rowData]="rowData" 
-  [columnDefs]="columnDefs"
-  [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)">
+<ag-grid-angular #membersGrid class="ag-theme-bootstrap" [rowData]="rowData" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
 </ag-grid-angular>
 
 <!-- 
