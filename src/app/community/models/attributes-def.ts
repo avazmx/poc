@@ -6,7 +6,6 @@ export const attributesDef = [
         cellRendererParams: { field: 'country' },
         width: 200,
         checkboxSelection: true,
-        checkbox: true,
         icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: '<span class="far fa-square"/>',
@@ -37,9 +36,9 @@ export const attributesDef = [
         width: 205,
     }, {
         headerName: 'Business Unit',
-        field: 'bu',
+        field: 'businessUnit',
         cellRenderer: 'selectBusinessUnitCell',
-        cellRendererParams: { field: 'bu' },
+        cellRendererParams: { field: 'businessUnit' },
         width: 175,
     }, {
         headerName: 'GND',

@@ -110,6 +110,6 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   onDataChange(event: any) {
-    debugger;
+    // debugger;
   }
 }

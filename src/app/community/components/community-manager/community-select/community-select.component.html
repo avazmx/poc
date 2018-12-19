@@ -1,40 +1,13 @@
-<!-- <ng-select 
-  id="gridSelect"
-  [items]="altData.country">
-</ng-select> -->
-
-<!-- <select>
-  <option *ngFor="let data of rowData">{{data.country}}</option>
-</select> -->
-
 <span [ngSwitch]="altData">
   
   <!-- <option value="" disabled selected>Select your option</option> -->
-
-  <select #ddlCountry *ngSwitchCase="'country'" (change)="onCountryChange($event)">
-    <option value="" disabled selected>Select</option>
-    <option *ngFor="let country of countries"
-      [value]="country.id">
-      {{country.name}}
-    </option>
-  </select>
-  
-  <select #ddlDistrict class="attr-dist-agselect" *ngSwitchCase="'district'" (change)="onDistrictChange($event)">
-    <option value="" disabled selected>Select</option>
-    <option [value]="district.id" *ngFor="let district of districts">{{district.name}}</option>
-  </select>
-
-  <select #ddlState class="attr-state-agselect" *ngSwitchCase="'state'">
-    <option value="" disabled selected>Select</option>
-    <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
-  </select>
     
   <span *ngSwitchCase="'slicLow'">
-    <input type="number" placeholder="" min="1000" max="6000" step="50" />
+    <input type="number" placeholder="" min="1000" max="6000" step="50" [(ngModel)]="slicLow" />
   </span>
   
   <span *ngSwitchCase="'slicHigh'">
-    <input type="number" placeholder="" min="1000" max="6000" step="50" />
+    <input type="number" placeholder="" min="1000" max="6000" step="50" [(ngModel)]="slicHigh" />
   </span>
 
   <span *ngSwitchCase="'gnd'" class="pulse animated">

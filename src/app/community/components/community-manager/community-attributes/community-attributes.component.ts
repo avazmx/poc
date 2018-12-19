@@ -90,7 +90,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
-
     });
 
     // Subscribe to the communitytype service.
@@ -133,13 +132,13 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       state: 'state',
       slicLow: 'slicLow',
       slicHigh: 'slicHigh',
-      bu: 'bu',
+      businessUnit: 'businessUnit',
       gnd: 'gnd',
       threeDs: 'threeDs',
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-    
+
     const res = this.gridApi.updateRowData({ add: [newData] });
     this.CommunityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
@@ -161,6 +160,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const countryParams = { columns: ['country'], rowNodes: [node] };
           const districtParams = { columns: ['district'], rowNodes: [node] };
           const stateParams = { columns: ['state'], rowNodes: [node] };
+          const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
+          const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
+          const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
           const groundParams = { columns: ['gnd'], rowNodes: [node] };
           const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
           const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
@@ -169,6 +171,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
           const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
           const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
+          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
+          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
+          const businessUnitInstance = this.gridApi.getCellRendererInstances(businessUnitParams);
           const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
           const threeDsInstance = this.gridApi.getCellRendererInstances(threeDsParams);
           const twoDsInstance = this.gridApi.getCellRendererInstances(twoDsParams);
@@ -190,6 +195,24 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const wrapperStateInstance = stateInstance[0];
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
+          }
+
+          if (slicLowInstance.length > 0) {
+            const wrapperSlicLowInstance = slicLowInstance[0];
+            const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeLow = frameworkSlicLowInstance.slicLow;
+          }
+
+          if (slicHighInstance.length > 0) {
+            const wrapperSlicHighInstance = slicHighInstance[0];
+            const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
+            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
+          }
+
+          if (businessUnitInstance.length > 0) {
+            const wrapperBusinessUnitInstance = businessUnitInstance[0];
+            const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
+            selectedData[index].businessUnit = frameworkBusinessUnitInstance.businessUnit;
           }
 
           if (groundInstance.length > 0) {

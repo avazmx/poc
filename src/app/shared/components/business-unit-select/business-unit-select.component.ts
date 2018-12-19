@@ -18,6 +18,7 @@ export class BusinessUnitSelectComponent implements OnInit {
   public cell: any;
   public businessUnitSubscription: Subscription;
   public businessUnits: BusinessUnit[];
+  public businessUnit;
   public selectedBusinessUnit: BusinessUnit;
 
   constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>) { }
@@ -29,9 +30,8 @@ export class BusinessUnitSelectComponent implements OnInit {
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
-
     // Subscribe to the store in order to get the updated object for the countries.
-    this.businessUnitSubscription = this.store.select('business').subscribe((obj: GeoService) => {
+    this.businessUnitSubscription = this.store.select('businessUnits').subscribe((obj: GeoService) => {
       this.businessUnits = [];
 
       // Get Business units

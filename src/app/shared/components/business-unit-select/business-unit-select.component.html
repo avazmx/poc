@@ -1,6 +1,5 @@
 <span>
-  <!-- (change)="onBusinessUnitChange($event.target.value)" -->
-  <select class="agSelect">
+  <select class="agSelect" [(ngModel)]="businessUnit">
     <option value="" disabled selected>Select</option>
     <option *ngFor="let unit of businessUnits" [value]="unit.id">
       {{unit.name}}
