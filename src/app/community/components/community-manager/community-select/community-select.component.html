@@ -10,7 +10,7 @@
     <input type="number" placeholder="" [min]="slicLow" max="10000" step="50" [(ngModel)]="slicHigh" (change)="slicHighChange($event.srcElement.value)" />
   </span>
 
-  <span *ngSwitchCase="'gnd'" class="pulse animated">
+  <span *ngSwitchCase="'ground'" class="pulse animated">
     <button (click)="groundCheckedSelected()" 
       [ngClass]="groundChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
