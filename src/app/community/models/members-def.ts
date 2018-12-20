@@ -36,14 +36,16 @@ export const membersDef = [
         cellRendererParams: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
-        field: 'slicRangeLow',
-        editable: true,
-        width: 200,
+        field: 'slicLow',
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicLow' },
+        width: 210,
     }, {
         headerName: 'SLIC Range High',
-        field: 'slicRangeHigh',
-        editable: true,
-        width: 205,
+        field: 'slicHigh',
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicHigh' },
+        width: 215,
     },
     {
         headerName: '',

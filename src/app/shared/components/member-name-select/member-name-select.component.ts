@@ -26,7 +26,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   gridApi;
   gridColumnApi;
 
-  constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
+  constructor(private memberNameService: MemberNameService, private store: Store<Community>) {}
   ngOnInit() {
      // Subscribe to the store in order to get the updated object for the members.
      //this.store.select('community').subscribe((obj: Community) => {
@@ -80,7 +80,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   }
 
   onMemberNameChange(selectedMemberName: string) {
-    debugger;
     this.selectedMemberName = selectedMemberName;
     this.gridColumnApi.setColumnVisible('checkbox', true);
     this.gridApi.sizeColumnsToFit();

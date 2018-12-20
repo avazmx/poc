@@ -27,7 +27,7 @@ export const attributesDef = [
         headerName: 'SLIC Range High',
         field: 'slicHigh',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'slicLow' },
+        cellRendererParams: { field: 'slicHigh' },
         width: 215,
     }, {
         headerName: 'Business Unit',

@@ -128,7 +128,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-    debugger;
     // We update the activate row in order to fill and change the new row selects.
     this.communityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
@@ -197,7 +196,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
           }
-          	debugger;
+
           if (slicLowInstance.length > 0) {
             const wrapperSlicLowInstance = slicLowInstance[0];
             const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
@@ -215,7 +214,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
             selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
-
+          debugger;
           if (groundInstance.length > 0) {
             const wrapperGroundInstance = groundInstance[0];
             const frameworkGroundInstance = wrapperGroundInstance.getFrameworkComponentInstance();
@@ -242,7 +241,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
         }
       }
 
-      // We asign the selected data to the gioservice object in the community and dispatch the action.
+      // We assign the selected data to the gioservice object in the community and dispatch the action.
       this.communityObject.geoServices = selectedData;
       this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     }

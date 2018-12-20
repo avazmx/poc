@@ -43,6 +43,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   countries: Country[] = [];
   districts: District[] = [];
   states: State[] = [];
+  CommunityTest: Community;
 
   constructor(private store: Store<Community>) {
     this.rowData = [];
@@ -100,9 +101,12 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       country: 'country',
       district: 'district',
       state: 'state',
-      slicRangeLow: 'slicRangeLow',
-      slicRangeHigh: 'slicRangeHigh'
+      slicLow: 'slicLow',
+      slicHigh: 'slicHigh'
+      //slicRangeLow: this.CommunityObject.geoServices[0].slicRangeLow,
+      //slicRangeHigh: this.CommunityObject.geoServices[0].slicRangeHigh
     };
+
     this.gridApi.updateRowData({ add: [newData] });
   }
 
@@ -121,8 +125,8 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           const countryParams = { columns: ['country'], rowNodes: [node] };
           const districtParams = { columns: ['district'], rowNode: [node] };
           const stateParams = { columns: ['state'], rowNode: [node] };
-          const slicLowParams = { columns: ['slicRangeLow'], rowNode: [node] };
-          const slicHighParams = { columns: ['slicRangeHigh'], rowNode: [node] };
+          const slicLowParams = { columns: ['slicLow'], rowNode: [node] };
+          const slicHighParams = { columns: ['slicHigh'], rowNode: [node] };
 
           const memberNameInstance = this.gridApi.getCellRendererInstances(memberNameParams);
           const accessLevelInstance = this.gridApi.getCellRendererInstances(accessLevelParams);
@@ -162,17 +166,17 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
           }
-
+          debugger;
           if(slicLowInstance.length > 0) {
             const wrapperSlicLowInstance = slicLowInstance[0];
             const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeLow = frameworkSlicLowInstance.selectedSlicLow;
+            selectedData[index].slicRangeLow = frameworkSlicLowInstance.slicLow;
           }
 
           if(slicHighInstance.length > 0) {
             const wrapperSlicHighInstance = slicHighInstance[0];
             const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.selectedSlicHigh;
+            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
           }
         }
       }

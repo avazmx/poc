@@ -57,7 +57,6 @@ export class BusinessUnitSelectComponent implements OnInit {
   }
 
   onBusinessUnitChange(selectedBusinessUnit: string) {
-    debugger;
     this.selectedBusinessUnit = selectedBusinessUnit;
     this.gridColumnApi.setColumnVisible('checkbox', true);
     this.gridApi.sizeColumnsToFit();
