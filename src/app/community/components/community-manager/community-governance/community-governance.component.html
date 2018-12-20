@@ -2,10 +2,9 @@
   <h3>East Region Small Package Community - Community Governance</h3>
   <hr>
   <label>GOVERNANCE LEVEL*</label>
-  <ng-select  bindLabel="name" bindValue="id" 
-    class="selectInput col-sm-3" [items]="governanceLevels" [placeholder]="'Select'">
+  <ng-select bindLabel="name" bindValue="id" class="selectInput col-sm-3" [items]="governanceLevels" [placeholder]="'Select'">
   </ng-select>
-  
+
   <!-- <select>
     <option *ngFor="let level of governanceLevels"> {{level.name}} </option>
   </select> -->
@@ -18,8 +17,12 @@
       </div>
     </div>
     <div class="btnsContainer">
-      <span> <fa name="arrow-right"></fa> </span>
-      <span> <fa name="arrow-left"></fa> </span>
+      <span>
+        <fa name="arrow-right"></fa>
+      </span>
+      <span>
+        <fa name="arrow-left"></fa>
+      </span>
     </div>
     <div class="transferBox">
       <div class="boxTitle">Selected Geography</div>
@@ -28,20 +31,17 @@
       </div>
     </div>
   </div>
-  
+
   <div class="last">
     <button data-balloon="Reset selection" data-balloon-pos="up">
       <fa name="reply"></fa>
     </button>
   </div>
-  
+
 </div>
 
-<ag-grid-angular #governanceGrid
-  class="ag-theme-bootstrap" 
-  [headerHeight]="headerHeight"
-  [enableColResize]="true"
-  [rowData]="rowData" 
-  [columnDefs]="columnDefs"
-  (gridReady)="onGridReady($event)">
+<ag-grid-angular #governanceGrid class="ag-theme-bootstrap" [headerHeight]="headerHeight" [enableColResize]="true"
+  [rowData]="rowData" [columnDefs]="governanceDef" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)"
+  rowSelection="multiple" [frameworkComponents]="frameworkComponents" [animateRows]="true" [suppressRowClickSelection]="true"
+  (rowSelected)="onRowSelected($event.node.selected)">
 </ag-grid-angular>

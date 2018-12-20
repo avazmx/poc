@@ -56,6 +56,10 @@ export class BusinessUnitSelectComponent implements OnInit {
     return true;
   }
 
+  /**
+   * 
+   * @param selectedBusinessUnit
+   */
   onBusinessUnitChange(selectedBusinessUnit: string) {
     this.selectedBusinessUnit = selectedBusinessUnit;
     this.gridColumnApi.setColumnVisible('checkbox', true);

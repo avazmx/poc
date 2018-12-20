@@ -18,7 +18,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public altData;
   public params: any;
   public cell: any;
-  public memberNameSubscription: Subscription;
   public memberNames: Member[];
   public selectedMemberName;
   public CommunityObject: Community;
@@ -26,35 +25,16 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   gridApi;
   gridColumnApi;
 
-  constructor(private memberNameService: MemberNameService, private store: Store<Community>) {}
-  ngOnInit() {
-     // Subscribe to the store in order to get the updated object for the members.
-     //this.store.select('community').subscribe((obj: Community) => {
-
-    //   this.CommunityObject = obj;
-    //   if (obj.activeTab === 1 && this.memberNames.length === 0) {
-    //     // Get members
-    //     this.fetchMembers();
-    //   } else if (obj.activeTab === 2 && obj.activeRow === 0) {
-    //     if (obj.members && obj.members.length > 0) {
-    //       obj.members.forEach(element => {
-    //         this.memberNames.push(element);
-    //       });
-    //     }
-    //     else{
-    //       this.fetchMembers();
-    //     }
-    //   }
-    // });
-  }
+  constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
+  ngOnInit() { }
 
   fetchMembers() {
     this.memberNameService.getMemberNames()
-          .subscribe((memberNames: Member[]) => {
-            this.memberNames = memberNames;
-          }, (error: HttpErrorResponse) => {
-            this.memberNames = this.memberNameService.getHardCodedMemberNames();
-          });
+      .subscribe((memberNames: Member[]) => {
+        this.memberNames = memberNames;
+      }, (error: HttpErrorResponse) => {
+        this.memberNames = this.memberNameService.getHardCodedMemberNames();
+      });
   }
 
   // AG Grid Initialize
@@ -64,13 +44,13 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
-      // Get Member units
-      this.memberNameService.getMemberNames()
-        .subscribe((memberNames: Member[]) => {
-          this.memberNames = memberNames;
-        }, (error: HttpErrorResponse) => {
-            this.memberNames = this.memberNameService.getHardCodedMemberNames();
-        });
+    // Get Member units
+    this.memberNameService.getMemberNames()
+      .subscribe((memberNames: Member[]) => {
+        this.memberNames = memberNames;
+      }, (error: HttpErrorResponse) => {
+        this.memberNames = this.memberNameService.getHardCodedMemberNames();
+      });
   }
 
   // AG Grid reload

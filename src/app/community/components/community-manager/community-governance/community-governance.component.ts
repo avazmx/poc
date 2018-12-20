@@ -1,13 +1,12 @@
-import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
-import { governanceDef } from '../../../models/governance-def';
-
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Community } from 'src/app/community/models/community.model';
-import * as CommunityAttributesActions from 'src/app/community/store/actions/community-attributes.actions';
-import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
-import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
 import { Subscription } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
+import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
+import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
+import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
+
+import { governanceDef } from '../../../models/governance-def';
 
 @Component({
   selector: 'ups-community-governance',
@@ -15,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./community-governance.component.scss']
 })
 
-export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
+export class CommunityGovernanceComponent implements OnInit {
 
   rowData;
   private gridApi;
@@ -31,37 +30,10 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   communitySubscription: Subscription;
   CommunityObject: Community;
 
-  // AG Grid Header
-  columnDefs = [
-    { headerName: 'Country', field: 'country', editable: true },
-    { headerName: 'District', field: 'district', editable: true },
-    { headerName: 'State', field: 'state', editable: true },
-    { headerName: 'SLIC Range Low', field: 'slicLow', editable: true },
-    { headerName: 'SLIC Range High', field: 'slicHigh', editable: true },
-    { headerName: 'Level 1 Approver', field: 'lvl1approver', editable: true },
-    { headerName: 'Alt Level 1 Approver', field: 'altlvl1approver', editable: true },
-    { headerName: 'Level 2 Approver', field: 'lvl2approver', editable: true },
-    { headerName: 'Alt Level 2 Approver', field: 'altlvl2approver', editable: true },
-  ];
 
-  constructor(
-    private governanceService: GovernanceLevelService,
-    private store: Store<Community>
-  ) {
+  constructor(private governanceService: GovernanceLevelService, private store: Store<Community>) {
     // Row Sample
-    this.rowData = [
-      {
-        country: 'Toyota',
-        district: 'Celica',
-        state: 35000,
-        slicRangeLow: 123,
-        slicRangeHigh: 456,
-        levelOneApprover: 'level one approver',
-        altLevelOneApprover: 'Alt level two approver',
-        levelTwoApprover: 'level one approver',
-        altLevelTwoApprover: 'Alt level two approver'
-      }
-    ];
+    this.rowData = [];
 
     // Get governance level
     this.governanceService.getGovernanceLevel()
@@ -75,14 +47,11 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     // AG Grid Component Info
     this.governanceDef = governanceDef;
     this.frameworkComponents = {
-      customizedCountryCell: CommunitySelectComponent,
+      selectMemberNameCell: MemberNameSelectComponent,
     };
 
     this.data = [];
 
-  }
-
-  ngAfterViewInit(): void {
   }
 
   ngOnInit() {
@@ -98,28 +67,28 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     const transferObject = [];
     let slicId = 1;
     for (const geo of this.communityObject.geoServices) {
-       const selectedCountry = transferObject.filter(countr => countr.country.id === geo.country.id);
+      const selectedCountry = transferObject.filter(countr => countr.country.id === geo.country.id);
       if (selectedCountry.length > 0) {
 
         const selectedDistrict = selectedCountry[0].country.districts.filter(dst => dst.id === geo.district.id);
-          if (selectedDistrict.length > 0) {
+        if (selectedDistrict.length > 0) {
 
-            const selectedState = selectedDistrict[0].states.filter(stat => stat.id === geo.state.id);
-            if (selectedState.length > 0) {
-              selectedState[0].slicks.push({id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh});
-            } else {
-
-            }
-
+          const selectedState = selectedDistrict[0].states.filter(stat => stat.id === geo.state.id);
+          if (selectedState.length > 0) {
+            selectedState[0].slicks.push({ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh });
           } else {
 
           }
-      } else {
-        const ctry = {"country": JSON.parse(JSON.stringify(geo.country))};
 
-        ctry.country["districts"] = [geo.district];
-        ctry.country.districts[0]["states"] = [geo.state];
-        ctry.country.districts[0].states[0]["slicks"] = [{id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh}];
+        } else {
+
+        }
+      } else {
+        const ctry = { 'country': JSON.parse(JSON.stringify(geo.country)) };
+
+        ctry.country['districts'] = [geo.district];
+        ctry.country.districts[0]['states'] = [geo.state];
+        ctry.country.districts[0].states[0]['slicks'] = [{ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh }];
         transferObject.push(ctry);
       }
     }
@@ -128,8 +97,9 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
 
   // Selected Community Geography
   onSelected(selected) {
+    console.log(selected);
     this.secondData = selected;
-    // console.log(this.secondData);
+
   }
 
   // AG-Grid
@@ -146,7 +116,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
 
-      if (this.CommunityObject.activeTab == 3) {
+      if (this.CommunityObject.activeTab === 3) {
         this.gridApi.sizeColumnsToFit();
       }
     });
