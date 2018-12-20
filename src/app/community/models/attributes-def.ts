@@ -43,21 +43,21 @@ export const attributesDef = [
         width: 100,
     }, {
         headerName: '3DS',
-        field: 'threeDs',
+        field: 'three',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'threeDs' },
+        cellRendererParams: { field: 'three' },
         width: 100,
     }, {
         headerName: '2DS',
-        field: 'twoDs',
+        field: 'two',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'twoDs' },
+        cellRendererParams: { field: 'two' },
         width: 100,
     }, {
         headerName: '1DA',
-        field: 'oneDs',
+        field: 'one',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'oneDs' },
+        cellRendererParams: { field: 'one' },
         width: 93,
     }, {
         headerName: 'Select',

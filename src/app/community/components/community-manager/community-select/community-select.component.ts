@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Observable } from 'rxjs/Observable';
 import { Community } from 'src/app/community/models/community.model';
-import { District } from 'src/app/shared/models/district.model';
-import { State } from 'src/app/shared/models/state.model';
-import { attributesDef } from '../../../models/attributes-def';
 
 @Component({
   selector: 'ups-community-select',
@@ -13,36 +10,34 @@ import { attributesDef } from '../../../models/attributes-def';
   styleUrls: ['./community-select.component.scss']
 })
 
-export class CommunitySelectComponent implements OnInit, ICellRendererAngularComp {
-  altData;
-  attributesDef;
-  allDistricts: District[] = [];
-  states: State[];
-  allStates: State[] = [];
+export class CommunitySelectComponent implements ICellRendererAngularComp {
+  public altData;
+  public params: any;
+  public cell: any;
+
   public slicLow: number;
   public slicHigh: number;
-  public groundChecked: boolean;
-  public threeDsChecked: boolean;
-  public twoDsChecked: boolean;
-  public oneDsChecked: boolean;
+  public groundChecked = false;
+  public threeChecked = false;
+  public twoChecked = false;
+  public oneChecked = false;
+
+  public currentRow: number;
   community$: Observable<Community>;
   CommunityObject: Community;
 
-  constructor(private store: Store<Community>) {
-    this.groundChecked = false;
-    this.threeDsChecked = false;
-    this.twoDsChecked = false;
-    this.oneDsChecked = false;
-    this.attributesDef = attributesDef;
-    this.slicLow = 1000;
-    this.slicHigh = 6000;
-  }
-
-  ngOnInit() { }
+  constructor(private store: Store<Community>) { }
 
   // AG Grid Initialize
   agInit(params: any) {
+    this.slicLow = 1000;
+    this.slicHigh = 10000;
+
     this.altData = params.value;
+    this.params = params;
+    this.cell = { row: params.value, col: params.colDef.headerName };
+
+    this.currentRow = +this.params.node.id;
   }
 
   // AG Grid reload
@@ -56,29 +51,30 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
     this.groundChecked = !this.groundChecked;
   }
 
-  // threeDsCheckedSelected checkmark boolean
-  threeDsCheckedSelected() {
-    this.threeDsChecked = !this.threeDsChecked;
+  // threeCheckedSelected checkmark boolean
+  threeCheckedSelected() {
+    this.threeChecked = !this.threeChecked;
   }
 
-  // twoDsCheckedSelected checkmark boolean
-  twoDsCheckedSelected() {
-    this.twoDsChecked = !this.twoDsChecked;
+  // twoCheckedSelected checkmark boolean
+  twoCheckedSelected() {
+    this.twoChecked = !this.twoChecked;
   }
 
-  // oneDsCheckedSelected checkmark boolean
-  oneDsCheckedSelected() {
-    this.oneDsChecked = !this.oneDsChecked;
+  // oneCheckedSelected checkmark boolean
+  oneCheckedSelected() {
+    this.oneChecked = !this.oneChecked;
   }
 
+  // Slic Low set event
   slicLowChange(event) {
-    debugger;
     this.slicLow = +event;
     if (this.slicLow > this.slicHigh) {
       return this.slicHigh;
     }
   }
 
+  // Slic High set event
   slicHighChange(event) {
     this.slicHigh = +event;
     if (this.slicHigh < this.slicLow) {

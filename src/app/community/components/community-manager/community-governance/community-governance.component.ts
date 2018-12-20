@@ -24,6 +24,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private governanceDef;
   private frameworkComponents;
   governanceLevels: GovernanceLevel;
+  communityObject: Community;
   data = [];
   secondData = [];
   headerHeight = 38;
@@ -67,9 +68,9 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
-    }, error => {
-      console.log('backend is not working');
-    });
+      }, error => {
+        console.log('backend is not working');
+      });
 
     // AG Grid Component Info
     this.governanceDef = governanceDef;
@@ -77,18 +78,58 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       customizedCountryCell: CommunitySelectComponent,
     };
 
+    this.data = [];
+
   }
 
   ngAfterViewInit(): void {
   }
 
   ngOnInit() {
+    this.store.select('community').subscribe((obj) => {
+      this.communityObject = obj;
+      if (this.communityObject.activeTab === 3) {
+        this.createObject();
+      }
+    });
+  }
+
+  createObject() {
+    const transferObject = [];
+    let slicId = 1;
+    for (const geo of this.communityObject.geoServices) {
+       const selectedCountry = transferObject.filter(countr => countr.country.id === geo.country.id);
+      if (selectedCountry.length > 0) {
+
+        const selectedDistrict = selectedCountry[0].country.districts.filter(dst => dst.id === geo.district.id);
+          if (selectedDistrict.length > 0) {
+
+            const selectedState = selectedDistrict[0].states.filter(stat => stat.id === geo.state.id);
+            if (selectedState.length > 0) {
+              selectedState[0].slicks.push({id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh});
+            } else {
+
+            }
+
+          } else {
+
+          }
+      } else {
+        const ctry = {"country": JSON.parse(JSON.stringify(geo.country))};
+
+        ctry.country["districts"] = [geo.district];
+        ctry.country.districts[0]["states"] = [geo.state];
+        ctry.country.districts[0].states[0]["slicks"] = [{id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh}];
+        transferObject.push(ctry);
+      }
+    }
+    this.data = transferObject;
   }
 
   // Selected Community Geography
   onSelected(selected) {
     this.secondData = selected;
-    console.log(this.secondData);
+    // console.log(this.secondData);
   }
 
   // AG-Grid

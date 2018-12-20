@@ -11,8 +11,8 @@ export class GeoService {
     public slicRangeLow: number;
     public slicRangeHigh: number;
     public businessUnit: BusinessUnit;
-    public ground: number;
-    public threeDs: number;
-    public twoDs: number;
-    public oneDs: number;
+    public ground: boolean;
+    public three: boolean;
+    public two: boolean;
+    public one: boolean;
 }

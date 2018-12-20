@@ -1,28 +1,51 @@
-  <div class="gridsearch">
-      <input type="text" placeholder="Country, District, State, Slick" (keyup)="filter($event)">
-      <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-128.png"
-          alt="search" width="25" height="25">
-  </div>
-  <ul class="tree">
-    <li *ngFor="let item of list;let ctr_idx=index"
-        (click)="toggleTree(ctr_idx, $event, 'second', ctr_idx); $event.stopPropagation();"
-        [ngClass]="{'parent': item.country.districts.length > 0, 'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].value}">
-      <input type="checkbox" *ngIf="active" (change)="selectedCheckbox($event.target); $event.stopPropagation();"/>
-      {{item.country.name}}
-      <ul class="tree" [ngClass]="{'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].value}">
-        <li *ngFor="let district of item.country.districts;let dst_idx=index"
-        (click)="toggleTree(ctr_idx, $event, 'second', ctr_idx, dst_idx); $event.stopPropagation();"
+
+<div class="gridsearch">
+  <input type="text" placeholder="Country, District, State, Slick" (keyup)="filter($event)">
+  <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-128.png" alt="search" width="25"
+    height="25">
+</div>
+<!--List of countries-->
+<ul class="tree">
+  <li *ngFor="let item of list;let ctr_idx=index" (click)="toggleTree(ctr_idx, $event, 'second', ctr_idx); $event.stopPropagation();"
+    [ngClass]="{'parent': item.country.districts.length > 0, 'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].value}">
+
+    <!--CheckBox Country-->
+    <input type="checkbox" *ngIf="active" (change)="selectedCheckbox($event.target); $event.stopPropagation();" />
+    {{item.country.name}}
+
+    <!--List of districts-->
+    <ul class="tree" [ngClass]="{'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].value}">
+      <li *ngFor="let district of item.country.districts;let dst_idx=index" (click)="toggleTree(ctr_idx, $event, 'second', ctr_idx, dst_idx); $event.stopPropagation();"
         [ngClass]="{'parent': district.states.length > 0, 'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].districts[dst_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].districts[dst_idx].value}">
-        <input type="checkbox" *ngIf="active" (change)="selectedCheckbox($event.target); $event.stopPropagation();"/>
+
+        <!--CheckBox District-->
+        <input type="checkbox" *ngIf="active" (change)="selectedCheckbox($event.target); $event.stopPropagation();" />
         {{district.name}}
+
+        <!--List of states-->
         <ul class="tree" [ngClass]="{'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].districts[dst_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].districts[dst_idx].value}">
-          <li *ngFor="let state of district.states;let st_idx=index">
-            <input type="checkbox" [value]="state.id" *ngIf="active" (change)="selectedCheckbox($event.target)"/>{{state.name}}
+
+          <li *ngFor="let state of district.states;let st_idx=index" [ngClass]="{'parent': state.slicks.length > 0, 'show':(!active && toggles2.length == 0)?true:toggles2[ctr_idx].districts[dst_idx].states[st_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].districts[dst_idx].states[st_idx].value}"
+              (click)="toggleTree(ctr_idx, $event, 'second', ctr_idx, dst_idx, st_idx); $event.stopPropagation();">
+            <input type="checkbox" [value]="state.id" *ngIf="active" (change)="selectedCheckbox($event.target)" />
+            {{state.name}}
+
+            <!--List of slicks-->
+            <ul class="tree" [ngClass]="{'show': (!active && toggles2.length == 0)?true:toggles2[ctr_idx].districts[dst_idx].states[st_idx].value, 'hide':(!active && toggles2.length == 0)?false:!toggles2[ctr_idx].districts[dst_idx].states[st_idx].value}">
+
+              <!-- (!active && toggles2.length == 0)?true:toggles2[ctr_idx].districts[dst_idx].states[st_idx].value,
+             'hide' : (!active && toggles2.length == 0) ? false: !toggles2[ctr_idx].districts[dst_idx].states[st_idx].value} -->
+              <li *ngFor="let slick of state.slicks;let slick_id=index">
+
+                <input type="checkbox" [value]="slick.id" *ngIf="active" (change)="selectedCheckbox($event.target)" />
+                {{slick.low}} - {{slick.high}}
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
     </ul>
-      <!--<ng-container *ngIf="item.country.districts.length > 1">-->
-      <!--</ng-container>-->
-    </li>
-  </ul>
+
+  </li>
+
+</ul>

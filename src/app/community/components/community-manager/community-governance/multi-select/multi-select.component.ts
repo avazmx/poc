@@ -34,10 +34,15 @@ export class MultiSelectComponent implements OnInit, OnChanges {
           value: true,
           states: []
         };
+        for (const state of distr.states) {
+          const state2 = {value: true, slicks: []};
+          district.states.push(state2);
+        }
         country.districts.push(district);
       }
       this.toggles2.push(country);
     }
+    console.log("TOGGLES ",this.toggles2);
   }
 
   ngOnInit() {
@@ -81,21 +86,38 @@ export class MultiSelectComponent implements OnInit, OnChanges {
 
     }
     this.data3 = JSON.parse(JSON.stringify(this.list));
-
     if (slickVals.length > 0) {
       let removedCtry = 0;
       this.list.forEach((countryObj, c_index) => {
         let removedDist = 0;
         countryObj.country.districts.forEach ((dstObj, d_index) => {
-          let removed = 0;
+          let removedState = 0;
           dstObj.states.forEach((stateObj, s_index) => {
-            if (!slickVals.includes(stateObj.id)) {
+            let removed = 0;
+            stateObj.slicks.forEach((slickObj, slick_index) => {
+              if (!slickVals.includes(slickObj.id)) {
+                if (this.data3[c_index] && 
+                  this.data3[c_index].country.districts[(d_index - removedDist)].states[(s_index - removedState)]) {
+                  this.data3[c_index].country.districts[(d_index - removedDist)]
+                  .states[(s_index - removedState)].slicks.splice((slick_index - removed), 1);
+                  removed++;
+                }
+              }
+            });
+            /* if (!slickVals.includes(stateObj.id)) {
               if (this.data3[c_index].country.districts[(d_index - removedDist)]) {
                 this.data3[c_index].country.districts[(d_index - removedDist)].states.splice((s_index - removed), 1);
                 removed++;
               }
-            }
-          });
+            } */
+
+            if (this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states[(s_index - removedState)] &&
+              this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states[(s_index - removedState)].slicks &&
+              this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states[(s_index - removedState)].slicks.length === 0) {
+                this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states.splice((s_index - removedState), 1);
+                removedState++;
+              }
+            });
           if (this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)] &&
             this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states &&
             this.data3[(c_index - removedCtry)].country.districts[(d_index - removedDist)].states.length === 0) {
@@ -114,22 +136,29 @@ export class MultiSelectComponent implements OnInit, OnChanges {
     } else {
       this.data3 = [];
     }
+    console.log("LIST DATA CLONE AFTER = ", this.data3);
     this.selectedList.emit(this.data3);
   }
 
-  toggleTree(num, $evt, side, c_id, d_id) {
+  toggleTree(num, $evt, side, c_id, d_id, st_id) {
     // if (this.toggles2.length == 0) {
     //  this.setToggles();
     // }
+    console.log("toggleTree mthd ",st_id);
     if ($evt.target.nodeName !== 'INPUT') {
       if (side === 'first') {
         this.toggles[num] = !this.toggles[num];
       } else {
         if (d_id !== undefined) {
-          this.toggles2[c_id].districts[d_id].value = !this.toggles2[c_id].districts[d_id].value;
+          if (st_id !== undefined) {
+            this.toggles2[c_id].districts[d_id].states[st_id].value = !this.toggles2[c_id].districts[d_id].states[st_id].value;
+          } else {
+            this.toggles2[c_id].districts[d_id].value = !this.toggles2[c_id].districts[d_id].value;
+          }
         } else {
           this.toggles2[c_id].value = !this.toggles2[c_id].value;
         }
+        console.log("TOGGLES2 == ",this.toggles2);
       }
     }
   }
