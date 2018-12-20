@@ -24,6 +24,9 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
+  @Output() agGridValidation: EventEmitter<boolean> = new EventEmitter();
+  agGridSelection: boolean;
+
   communityObject: Community;
   communitySubscription: Subscription;
   loading = true;
@@ -55,6 +58,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
+    this.agGridSelection = false;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
       selectCountryCell: CountrySelectComponent,
@@ -70,9 +74,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Build the form.
     this.form = this.formBuilder.group({
-      community_type: [null, Validators.required],
+      communityType: [null, Validators.required],
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
     });
 
     // Subscribe to the form changes.
@@ -126,7 +130,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       gnd: 'gnd',
       threeDs: 'threeDs',
       twoDs: 'twoDs',
-      oneDs: 'oneDs'
+      oneDs: 'oneDs',
+      checkbox: ''
     };
 
     // We update the activate row in order to fill and change the new row selects.
@@ -149,6 +154,10 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
       // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
+
+      // AG Grid Select
+      this.agGridSelectionToggle();
+      this.agGridValidation.emit(this.agGridSelection);
 
       // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
@@ -248,10 +257,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     }
   }
 
+  agGridSelectionToggle() {
+    this.agGridSelection = !this.agGridSelection;
+  }
+
   /**
    * When the component is destroyed then we unsubscribe to the community subscription.
    */
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
+
 }

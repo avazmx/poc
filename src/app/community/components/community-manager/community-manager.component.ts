@@ -26,10 +26,7 @@ export class CommunityManagerComponent implements OnInit {
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   communitySubscription: Subscription;
-
-  arrayFilled = [];
-  isFormFilled: boolean;
-  step2: boolean;
+  agGridFilled: boolean;
 
   constructor(private store: Store<Community>) { }
 
@@ -56,7 +53,7 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab1(event: any) {
-    if (this.attributeComponent.form.valid) {
+    if (this.attributeComponent.form.valid && this.agGridFilled) {
       this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
 
@@ -71,7 +68,6 @@ export class CommunityManagerComponent implements OnInit {
     }
   }
 
-
   stepExitTab2(event: any) {
     console.log('Step Enter', event);
     // Here we need to save the members that are added.
@@ -82,36 +78,12 @@ export class CommunityManagerComponent implements OnInit {
     // Here we need to save all the community object.
   }
 
-  /**
-   * OscarFix
-   * @param $event add description
-   */
-  onInputChange($event) {
-    let isInside = false;
-    for (let x = 0; x < this.arrayFilled.length; x++) {
-      if (this.arrayFilled[x] === $event) {
-        isInside = true;
-        break;
-      }
-    }
-    if (!isInside) {
-      this.arrayFilled.push($event);
-    }
-    let countBooleans: number;
-    for (let y = 0; y < this.arrayFilled.length; y++) {
-      if (this.arrayFilled[y].value.length > 0) {
-        countBooleans++;
-      }
-    }
-
-    this.isFormFilled = countBooleans === 2 ? true : false;
-  }
-
   checkFormValidity(event: boolean) {
     this.canExitAttributesComponent = event;
   }
 
-  onDataChange(event: any) {
-    // debugger;
+  checkAgGridValidation(event: boolean) {
+    this.agGridFilled = event;
   }
+
 }

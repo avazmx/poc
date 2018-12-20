@@ -27,7 +27,7 @@ export const attributesDef = [
         headerName: 'SLIC Range High',
         field: 'slicHigh',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'slicLow' },
+        cellRendererParams: { field: 'slicHigh' },
         width: 215,
     }, {
         headerName: 'Business Unit',
@@ -61,7 +61,7 @@ export const attributesDef = [
         width: 93,
     }, {
         headerName: '',
-        field: 'checkbox',
+        // field: 'checkbox',
         checkboxSelection: true,
         icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',

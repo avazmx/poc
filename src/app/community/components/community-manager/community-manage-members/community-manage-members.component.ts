@@ -76,17 +76,16 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   /* AG-Grid */
   onGridReady(params) {
-      this.gridApi = params.api;
-      this.gridColumnApi = params.columnApi;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
-      this.gridApi.setDomLayout('autoHeight');
-      this.membersGrid = document.querySelector('#membersGrid');
+    this.gridApi.setDomLayout('autoHeight');
+    this.membersGrid = document.querySelector('#membersGrid');
 
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
-
-      if (this.CommunityObject.activeTab == 2) {
+      if (this.CommunityObject.activeTab === 2) {
         this.gridApi.sizeColumnsToFit();
       }
     });
