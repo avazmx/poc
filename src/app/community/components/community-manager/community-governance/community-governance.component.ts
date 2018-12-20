@@ -23,6 +23,7 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
   private governanceDef;
   private frameworkComponents;
   governanceLevels: GovernanceLevel;
+  communityObject: Community;
   data = [];
   secondData = [];
   headerHeight = 38;
@@ -64,9 +65,9 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
-    }, error => {
-      console.log('backend is not working');
-    });
+      }, error => {
+        console.log('backend is not working');
+      });
 
     // AG Grid Component Info
     this.governanceDef = governanceDef;
@@ -74,12 +75,126 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
       customizedCountryCell: CommunitySelectComponent,
     };
 
+    this.data = [];
+    /* this.data = [
+      {
+        country: {
+          id: 1,
+          name: 'USA',
+          districts: [
+            {
+              id: 1,
+              name: 'dist one',
+              states: [
+                {
+                  id: 1,
+                  name: 'state one',
+                  slicks: [
+                    { id: 1, low: '1', high: '2' },
+                    { id: 2, low: '12', high: '22' }
+                  ]
+                },
+                {
+                  id: 11,
+                  name: 'state two',
+                  slicks: [
+                    { id: 3, low: '1', high: '2' },
+                    { id: 4, low: '1', high: '2' }
+                  ]
+                }
+              ]
+            },
+            {
+              id: 2,
+              name: 'dist two',
+              states: [
+                {
+                  id: 2,
+                  name: 'state one',
+                  slicks: [
+                    { id: 5, low: '1', high: '2' },
+                    { id: 6, low: '13', high: '23' }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        country: {
+          id: 2,
+          name: 'MEX',
+          districts: [
+            {
+              id: 3,
+              name: 'dist one',
+              states: [
+                {
+                  id: 3,
+                  name: 'state one',
+                  slicks: [
+                    { id: 7, low: '21', high: '22' },
+                    { id: 8, low: '31', high: '32' }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]; */
+
   }
 
   ngAfterViewInit(): void {
   }
 
   ngOnInit() {
+    this.store.select('community').subscribe((obj) => {
+      this.communityObject = obj;
+      console.log("STORE ",this.communityObject);
+      if (this.communityObject.activeTab === 3) {
+        this.createObject();
+      }
+    });
+  }
+
+  createObject() {
+    let transferObject = [];
+    let currentCtry;
+    for (const geo of this.communityObject.geoServices) {
+
+      /* let selectedCountry = transferObject.filter(countr => countr.country.id === geo.country.id);
+      if (selectedCountry.length > 0) {
+
+        let selectedDistrict = selectedCountry[0].districts.filter(dst => dst.id === geo.district.id);
+          if (selectedDistrict.length > 0) {
+
+            let selectedState = selectedDistrict[0].states.filter(stat => stat.id === geo.district.id);
+            if (selectedDistrict.length > 0) {
+              selectedState.slicks.push({id:1, low: geo.slicLow, high: geo.slicHigh});
+            } else {
+
+            }
+
+          } else {
+
+          }
+      } else { */
+
+
+        console.log("GEOSERVICE ",geo);
+        let ctry = {"country":JSON.parse(JSON.stringify(geo.country))};
+
+        ctry.country["districts"] = [geo.district];
+        ctry.country.districts[0]["states"] = [geo.state];
+        ctry.country.districts[0].states[0].slicks = [{id:1, low: geo.slicLow, high: geo.slicHigh}];
+        transferObject.push(ctry);
+      /*  }*/
+    }
+    console.log("TRANSFER OBJECT ",transferObject);
+    this.data = transferObject;
   }
 
   // Selected Community Geography
