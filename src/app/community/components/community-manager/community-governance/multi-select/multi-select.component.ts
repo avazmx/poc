@@ -42,7 +42,6 @@ export class MultiSelectComponent implements OnInit, OnChanges {
       }
       this.toggles2.push(country);
     }
-    console.log("TOGGLES ",this.toggles2);
   }
 
   ngOnInit() {
@@ -136,15 +135,11 @@ export class MultiSelectComponent implements OnInit, OnChanges {
     } else {
       this.data3 = [];
     }
-    console.log("LIST DATA CLONE AFTER = ", this.data3);
     this.selectedList.emit(this.data3);
   }
 
   toggleTree(num, $evt, side, c_id, d_id, st_id) {
-    // if (this.toggles2.length == 0) {
-    //  this.setToggles();
-    // }
-    console.log("toggleTree mthd ",st_id);
+
     if ($evt.target.nodeName !== 'INPUT') {
       if (side === 'first') {
         this.toggles[num] = !this.toggles[num];
@@ -158,7 +153,6 @@ export class MultiSelectComponent implements OnInit, OnChanges {
         } else {
           this.toggles2[c_id].value = !this.toggles2[c_id].value;
         }
-        console.log("TOGGLES2 == ",this.toggles2);
       }
     }
   }

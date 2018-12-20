@@ -108,11 +108,18 @@ export class CommunityGovernanceComponent implements OnInit, AfterViewInit {
             if (selectedState.length > 0) {
               selectedState[0].slicks.push({id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh});
             } else {
-
+              let newState = JSON.parse(JSON.stringify(geo.state));
+              newState.slicks.push({id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh});
+              selectedDistrict.states.push(newState);
             }
 
           } else {
-
+            let newDistrict = JSON.parse(JSON.stringify(geo.district));
+            newDistrict.states = [];
+            let newState = JSON.parse(JSON.stringify(geo.state));
+            newState["slicks"] = [{id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh}];
+            newDistrict.states.push(newState);
+            selectedCountry[0].country.districts.push(newDistrict);
           }
       } else {
         const ctry = {"country": JSON.parse(JSON.stringify(geo.country))};
