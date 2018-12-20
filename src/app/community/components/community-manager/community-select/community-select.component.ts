@@ -72,18 +72,15 @@ export class CommunitySelectComponent implements OnInit, ICellRendererAngularCom
   }
 
   slicLowChange(event) {
-    this.slicLow = event;
-    console.log(this.slicLow);
-    console.log(this.slicHigh);
+    debugger;
+    this.slicLow = +event;
     if (this.slicLow > this.slicHigh) {
       return this.slicHigh;
     }
   }
 
   slicHighChange(event) {
-    this.slicHigh = event;
-    console.log(this.slicHigh);
-    console.log(this.slicLow);
+    this.slicHigh = +event;
     if (this.slicHigh < this.slicLow) {
       return this.slicLow;
     }

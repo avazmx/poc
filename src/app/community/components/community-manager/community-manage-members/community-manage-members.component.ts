@@ -15,9 +15,10 @@ import { membersDef } from '../../../models/members-def';
 import { Community } from 'src/app/community/models/community.model';
 import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from 'src/app/shared/components/access-level-select/access-level-select.component';
-import { Member } from 'src/app/shared/models/member.model';
+import { ManageMember } from 'src/app/shared/models/manage-member.model';
 
 import * as communityActions from '../../../store/actions/community-attributes.actions';
+import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -53,7 +54,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       selectDistrictCell: DistrictSelectComponent,
       selectStateCell: StateSelectComponent,
       selectMemberNameCell: MemberNameSelectComponent,
-      selectAccessLevelCell: AccessLevelSelectComponent,
+      selectAccessLevelCell: AccessLevelSelectComponent
     };
   }
 
@@ -108,7 +109,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   onSelectionChanged(event: any) {
     if (event) {
 
-      const selectedData: Member[] = this.gridApi.getSelectedNodes().map(node => node.data);
+      const selectedData: ManageMember[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
@@ -130,16 +131,12 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
           const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
           const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
-          console.log("Instances log: ");
-          console.log(memberNameInstance, accessLevelInstance, countryInstance, districtInstance, stateInstance,slicHighInstance);
-          console.log('slicLowInstance: ');
-          console.log(slicLowInstance);
-          console.log('slicHihg: ');
-          console.log(slicHighInstance);
+
           if (memberNameInstance.length > 0) {
+            debugger;
             const wapperMemberNameInstance = memberNameInstance[0];
             const frameworkMemberNameInstance = wapperMemberNameInstance.getFrameworkComponentInstance();
-            selectedData[index].name = frameworkMemberNameInstance.selectedMember;
+            selectedData[index].name = frameworkMemberNameInstance.selectedMemberName;
           }
 
           if (accessLevelInstance.length > 0) {

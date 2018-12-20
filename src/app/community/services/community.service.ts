@@ -5,7 +5,7 @@ import { Subject, fromEventPattern } from 'rxjs';
 import { Community } from '../models/community.model';
 
 import { environment } from '../../../environments/environment';
-import { Member } from '../../shared/models/member.model';
+import { ManageMember } from '../../shared/models/manage-member.model';
 import { GeoService } from '../models/geo-services.model';
 import { CommunityType } from '../models/community-type.model';
 
@@ -21,8 +21,8 @@ export class CommunityService {
   private geoServices: GeoService[] = [];
   private geoServicesUpdated = new Subject<{ geoServices: GeoService[] }>();
 
-  private members: Member[] = [];
-  private membersUpdated = new Subject<{ members: Member[] }>();
+  private members: ManageMember[] = [];
+  private membersUpdated = new Subject<{ members: ManageMember[] }>();
 
   private harcodedCommunityTypes: CommunityType[] = [];
   private url = environment.apiUrl;

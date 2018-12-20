@@ -1,7 +1,7 @@
 import { CommunityType } from './community-type.model';
 import { GeoService } from './geo-services.model';
-import { GovernanceLevel } from './governance-level.model';
-import { Member } from '../../shared/models/member.model';
+import { ManageMember } from '../../shared/models/manage-member.model';
+import { Governance } from './governance.model';
 
 export class Community {
         public communityId: number;
@@ -9,8 +9,8 @@ export class Community {
         public name: string;
         public description: string;
         public geoServices?: GeoService[];
-        public members: Member[];
-        public governance: GovernanceLevel[];
+        public members: ManageMember[];
+        public governance: Governance[];
         public attributes?: any;
         public activeTab?: number;
         public activeRow?: number;

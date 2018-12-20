@@ -128,7 +128,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       twoDs: 'twoDs',
       oneDs: 'oneDs'
     };
-
+    debugger;
     // We update the activate row in order to fill and change the new row selects.
     this.communityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
@@ -197,7 +197,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
           }
-
+          	debugger;
           if (slicLowInstance.length > 0) {
             const wrapperSlicLowInstance = slicLowInstance[0];
             const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();

@@ -37,7 +37,7 @@ export class BusinessUnitSelectComponent implements OnInit {
     this.cell = { row: params.value, col: params.colDef.headerName };
 
     // Subscribe to the store in order to get the updated object for the countries.
-    this.businessUnitSubscription = this.store.select('businessUnits').subscribe((obj: GeoService) => {
+    this.businessUnitSubscription = this.store.select('community').subscribe((obj: any) => {
       this.businessUnits = [];
 
       // Get Business units
@@ -57,6 +57,7 @@ export class BusinessUnitSelectComponent implements OnInit {
   }
 
   onBusinessUnitChange(selectedBusinessUnit: string) {
+    debugger;
     this.selectedBusinessUnit = selectedBusinessUnit;
     this.gridColumnApi.setColumnVisible('checkbox', true);
     this.gridApi.sizeColumnsToFit();

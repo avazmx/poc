@@ -5,12 +5,12 @@ export const membersDef = [
         cellRenderer: 'selectMemberNameCell',
         cellRendererParams: { field: 'memberName' },
         width: 170,
-        checkboxSelection: true,
-        checkbox: true,
-        icons: {
+        //checkboxSelection: true,
+        //checkbox: true,
+        /*icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: '<span class="far fa-square"/>',
-        }
+        }*/
     }, {
         headerName: 'Access Level',
         field: 'accessLevel',
@@ -44,5 +44,15 @@ export const membersDef = [
         field: 'slicRangeHigh',
         editable: true,
         width: 205,
-    }
+    },
+    {
+        headerName: '',
+        field: 'checkbox',
+        checkboxSelection: true,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: `<span class="far fa-square"></span>`,
+        },
+        width: 70
+    },
 ];

@@ -26,10 +26,13 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   public communitySubscription: Subscription;
   public selectedTab: number;
   public currentRow: number;
-  public CommunityObject: Community;
+  public communityObject: Community;
+
   constructor(private countryService: CountryService, private store: Store<Community>) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.currentRow = +this.params.node.id;
+  }
 
   // AG Grid Initialize
   agInit(params: any) {
@@ -40,8 +43,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
-
-      this.CommunityObject = obj;
+      this.communityObject = obj;
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
         this.fetchCountries();
@@ -78,8 +80,8 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.CommunityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
+      this.communityObject.activeRow = +this.params.node.id;
+      this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     }
   }
 
