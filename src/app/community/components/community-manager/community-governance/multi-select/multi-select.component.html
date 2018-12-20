@@ -37,7 +37,7 @@
               <li *ngFor="let slick of state.slicks;let slick_id=index">
 
                 <input type="checkbox" [value]="slick.id" *ngIf="active" (change)="selectedCheckbox($event.target)" />
-                {{slick.low.trim()}} -- {{slick.high.trim()}}
+                {{slick.low}} - {{slick.high}}
               </li>
             </ul>
           </li>

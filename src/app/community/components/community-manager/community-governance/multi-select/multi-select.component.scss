@@ -36,10 +36,15 @@
       }
       
       ul.tree ul {
-        margin-left: 10px;
       }
     
+
+      ul.tree:first-child li {
+        padding: 0 3px;
+      }
+
       ul.tree li {
+        font-size: 12px;
         margin: 0;
         padding: 0 12px;
         line-height: 20px;
