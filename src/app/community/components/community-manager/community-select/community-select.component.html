@@ -17,21 +17,21 @@
     </button>
   </span>
   
-  <span *ngSwitchCase="'threeDs'" class="pulse animated">
+  <span *ngSwitchCase="'three'" class="pulse animated">
     <button (click)="threeDsCheckedSelected()" 
       [ngClass]="threeDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
-  <span *ngSwitchCase="'twoDs'" class="pulse animated">
+  <span *ngSwitchCase="'two'" class="pulse animated">
     <button (click)="twoDsCheckedSelected()" 
       [ngClass]="twoDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
-  <span *ngSwitchCase="'oneDs'" class="pulse animated">
+  <span *ngSwitchCase="'one'" class="pulse animated">
     <button (click)="oneDsCheckedSelected()" 
       [ngClass]="oneDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>

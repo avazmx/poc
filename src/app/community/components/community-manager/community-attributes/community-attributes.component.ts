@@ -128,10 +128,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       slicHigh: 'slicHigh',
       businessUnit: 'businessUnit',
       gnd: 'gnd',
-      threeDs: 'threeDs',
-      twoDs: 'twoDs',
-      oneDs: 'oneDs',
-      checkbox: ''
+      three: 'three',
+      two: 'two',
+      one: 'one',
     };
 
     // We update the activate row in order to fill and change the new row selects.
@@ -171,7 +170,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
           const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
           const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
-          const groundParams = { columns: ['gnd'], rowNodes: [node] };
+          const groundParams = { columns: ['ground'], rowNodes: [node] };
           const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
           const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
           const oneDsParams = { columns: ['oneDs'], rowNodes: [node] };
