@@ -17,10 +17,6 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
 
   public slicLow: number;
   public slicHigh: number;
-  // public groundChecked: boolean;
-  // public threeDsChecked: boolean;
-  // public twoDsChecked: boolean;
-  // public oneDsChecked: boolean;
   public groundChecked = false;
   public threeDsChecked = false;
   public twoDsChecked = false;
