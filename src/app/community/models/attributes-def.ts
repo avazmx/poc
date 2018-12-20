@@ -37,9 +37,9 @@ export const attributesDef = [
         width: 180,
     }, {
         headerName: 'GND',
-        field: 'gnd',
+        field: 'ground',
         cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'gnd' },
+        cellRendererParams: { field: 'ground' },
         width: 100,
     }, {
         headerName: '3DS',

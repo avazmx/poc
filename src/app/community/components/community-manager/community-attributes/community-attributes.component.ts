@@ -127,7 +127,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       slicLow: 'slicLow',
       slicHigh: 'slicHigh',
       businessUnit: 'businessUnit',
-      gnd: 'gnd',
+      ground: 'ground',
       three: 'three',
       two: 'two',
       one: 'one',
