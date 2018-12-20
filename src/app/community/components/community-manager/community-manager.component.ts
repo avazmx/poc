@@ -25,6 +25,7 @@ export class CommunityManagerComponent implements OnInit {
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
+  canExitAgGrid = false;
   communitySubscription: Subscription;
   agGridFilled: boolean;
 
@@ -39,7 +40,7 @@ export class CommunityManagerComponent implements OnInit {
 
   stepEnterTab1(event: any) {
     this.CommunityObject.activeTab = 1;
-    this.store.dispatch(new communityActions.ActiveTab( this.CommunityObject));
+    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
   }
 
   stepEnterTab2(event: any) {
@@ -53,7 +54,7 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab1(event: any) {
-    if (this.attributeComponent.form.valid && this.agGridFilled) {
+    if (this.attributeComponent.form.valid && this.canExitAgGrid && this.canExitAttributesComponent) {
       this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
 
@@ -78,12 +79,20 @@ export class CommunityManagerComponent implements OnInit {
     // Here we need to save all the community object.
   }
 
-  checkFormValidity(event: boolean) {
-    this.canExitAttributesComponent = event;
+  /**
+   * This method fires every time the form changes and gets the form validiy.
+   * @param isValidForm Emmited variable from community-attributes component.
+   */
+  checkFormValidity(isValidForm: boolean) {
+    this.canExitAttributesComponent = isValidForm;
   }
 
-  checkAgGridValidation(event: boolean) {
-    this.agGridFilled = event;
+  /**
+   * This method fires when the ag grid validation is emitted.
+   * @param isRowSelected Emitted variable from community-attributes component.
+   */
+  checkAgGridValidity(isRowSelected: boolean) {
+    this.canExitAgGrid = isRowSelected;
   }
 
 }
