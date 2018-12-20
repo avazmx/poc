@@ -9,11 +9,14 @@
 
 <ag-grid-angular #membersGrid
   class="ag-theme-bootstrap"
-  [rowData]="rowData" 
+  [rowData]="rowData"
   [columnDefs]="columnDefs"
   [frameworkComponents]="frameworkComponents"
   (gridReady)="onGridReady($event)"
-  (selectionChanged)="onSelectionChanged($event)">
+  (selectionChanged)="onSelectionChanged($event)"
+  [suppressRowClickSelection]="true"
+  [animateRows]="true"
+  rowSelection="multiple">
 </ag-grid-angular>
 
 <!-- 

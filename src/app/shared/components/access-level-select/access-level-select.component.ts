@@ -4,7 +4,7 @@ import { AccessLevelService } from '../../services/access-level.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Member } from 'src/app/shared/models/member.model';
+import { ManageMember } from 'src/app/shared/models/manage-member.model';
 import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Community } from 'src/app/community/models/community.model';
 
@@ -22,7 +22,7 @@ export class AccessLevelSelectComponent implements OnInit {
   public selectedAccessLevel: AccessLevel;
   public CommunityObject: Community;
 
-  constructor(private accessLevelService: AccessLevelService, private store: Store<Member>) { }
+  constructor(private accessLevelService: AccessLevelService, private store: Store<ManageMember>) { }
   ngOnInit() {
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
@@ -61,7 +61,7 @@ export class AccessLevelSelectComponent implements OnInit {
 
 
     // Subscribe to the store in order to get the updated object for the countries.
-    this.accessLevelSubscription = this.store.select('business').subscribe((obj: Member) => {
+    this.accessLevelSubscription = this.store.select('community').subscribe((obj: any) => {
       this.accessLevels = [];
 
       // Get Business units

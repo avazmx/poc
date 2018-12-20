@@ -7,7 +7,7 @@ export const environment = {
   // apiUrl: 'http://192.168.1.108:8080/'
   // apiUrl: 'http://192.168.100.130:8080/'
   // apiUrl: 'http://25.55.177.190/api/'
-  apiUrl: 'http://25.55.105.245:8080/'
+  apiUrl: 'http://25.55.105.245:80800/'
 };
 
 /*

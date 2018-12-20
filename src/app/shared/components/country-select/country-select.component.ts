@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import * as communityActions from '../../../community/store/actions/community-at
   styleUrls: ['./country-select.component.scss']
 })
 
-export class CountrySelectComponent implements ICellRendererAngularComp {
+export class CountrySelectComponent implements ICellRendererAngularComp, OnInit {
   public altData;
   public params: any;
   public cell: any;
@@ -26,8 +26,13 @@ export class CountrySelectComponent implements ICellRendererAngularComp {
   public communitySubscription: Subscription;
   public selectedTab: number;
   public currentRow: number;
-  public CommunityObject: Community;
+  public communityObject: Community;
+
   constructor(private countryService: CountryService, private store: Store<Community>) { }
+
+  ngOnInit() {
+    this.currentRow = +this.params.node.id;
+  }
 
   // AG Grid Initialize
   agInit(params: any) {
@@ -35,10 +40,10 @@ export class CountrySelectComponent implements ICellRendererAngularComp {
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
-    this.currentRow = +this.params.node.id;
+    // this.currentRow = +this.params.node.id;
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
-      this.CommunityObject = obj;
+      this.communityObject = obj;
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
         this.fetchCountries();
@@ -74,8 +79,8 @@ export class CountrySelectComponent implements ICellRendererAngularComp {
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.CommunityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
+      this.communityObject.activeRow = +this.params.node.id;
+      this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     }
   }
 

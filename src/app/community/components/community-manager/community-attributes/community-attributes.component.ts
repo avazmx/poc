@@ -132,7 +132,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       two: 'two',
       one: 'one',
     };
-
     // We update the activate row in order to fill and change the new row selects.
     this.communityObject.activeRow++;
     this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
@@ -168,9 +167,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
           const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
           const groundParams = { columns: ['ground'], rowNodes: [node] };
-          const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
-          const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
-          const oneDsParams = { columns: ['oneDs'], rowNodes: [node] };
+          const threeParams = { columns: ['three'], rowNodes: [node] };
+          const twoParams = { columns: ['two'], rowNodes: [node] };
+          const oneParams = { columns: ['one'], rowNodes: [node] };
 
           // Get the instance from the node parameters.
           const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
@@ -180,9 +179,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
           const businessUnitInstance = this.gridApi.getCellRendererInstances(businessUnitParams);
           const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
-          const threeDsInstance = this.gridApi.getCellRendererInstances(threeDsParams);
-          const twoDsInstance = this.gridApi.getCellRendererInstances(twoDsParams);
-          const oneDsInstance = this.gridApi.getCellRendererInstances(oneDsParams);
+          const threeInstance = this.gridApi.getCellRendererInstances(threeParams);
+          const twoInstance = this.gridApi.getCellRendererInstances(twoParams);
+          const oneInstance = this.gridApi.getCellRendererInstances(oneParams);
 
           // Validate if we get the instances and fetch the geoservice object.
           if (countryInstance.length > 0) {
@@ -227,27 +226,27 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             selectedData[index].ground = frameworkGroundInstance.groundChecked;
           }
 
-          if (threeDsInstance.length > 0) {
-            const wrapperThreeDsInstance = threeDsInstance[0];
+          if (threeInstance.length > 0) {
+            const wrapperThreeDsInstance = threeInstance[0];
             const frameworkThreeDsInstance = wrapperThreeDsInstance.getFrameworkComponentInstance();
-            selectedData[index].threeDs = frameworkThreeDsInstance.threeDsChecked;
+            selectedData[index].three = frameworkThreeDsInstance.threeChecked;
           }
 
-          if (twoDsInstance.length > 0) {
-            const wrapperTwoDsInstance = twoDsInstance[0];
+          if (twoInstance.length > 0) {
+            const wrapperTwoDsInstance = twoInstance[0];
             const frameworkTwoDsInstance = wrapperTwoDsInstance.getFrameworkComponentInstance();
-            selectedData[index].twoDs = frameworkTwoDsInstance.twoDsChecked;
+            selectedData[index].two = frameworkTwoDsInstance.twoChecked;
           }
 
-          if (oneDsInstance.length > 0) {
-            const wrapperOneDsInstance = oneDsInstance[0];
-            const frameworkOneDsInstance = wrapperOneDsInstance.getFrameworkComponentInstance();
-            selectedData[index].oneDs = frameworkOneDsInstance.oneDsChecked;
+          if (oneInstance.length > 0) {
+            const wrapperOneInstance = oneInstance[0];
+            const frameworkOneInstance = wrapperOneInstance.getFrameworkComponentInstance();
+            selectedData[index].one = frameworkOneInstance.oneChecked;
           }
         }
       }
 
-      // We asign the selected data to the gioservice object in the community and dispatch the action.
+      // We assign the selected data to the gioservice object in the community and dispatch the action.
       this.communityObject.geoServices = selectedData;
       this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     }

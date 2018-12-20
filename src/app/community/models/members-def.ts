@@ -5,12 +5,12 @@ export const membersDef = [
         cellRenderer: 'selectMemberNameCell',
         cellRendererParams: { field: 'memberName' },
         width: 170,
-        checkboxSelection: true,
-        checkbox: true,
-        icons: {
+        //checkboxSelection: true,
+        //checkbox: true,
+        /*icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: '<span class="far fa-square"/>',
-        }
+        }*/
     }, {
         headerName: 'Access Level',
         field: 'accessLevel',
@@ -36,13 +36,25 @@ export const membersDef = [
         cellRendererParams: { field: 'state' }
     }, {
         headerName: 'SLIC Range Low',
-        field: 'slicRangeLow',
-        editable: true,
-        width: 200,
+        field: 'slicLow',
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicLow' },
+        width: 210,
     }, {
         headerName: 'SLIC Range High',
-        field: 'slicRangeHigh',
-        editable: true,
-        width: 205,
-    }
+        field: 'slicHigh',
+        cellRenderer: 'customizedCountryCell',
+        cellRendererParams: { field: 'slicHigh' },
+        width: 215,
+    },
+    {
+        headerName: '',
+        field: 'checkbox',
+        checkboxSelection: true,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: `<span class="far fa-square"></span>`,
+        },
+        width: 70
+    },
 ];

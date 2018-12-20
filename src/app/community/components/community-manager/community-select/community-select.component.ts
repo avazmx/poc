@@ -18,9 +18,9 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
   public slicLow: number;
   public slicHigh: number;
   public groundChecked = false;
-  public threeDsChecked = false;
-  public twoDsChecked = false;
-  public oneDsChecked = false;
+  public threeChecked = false;
+  public twoChecked = false;
+  public oneChecked = false;
 
   public currentRow: number;
   community$: Observable<Community>;
@@ -51,24 +51,24 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
     this.groundChecked = !this.groundChecked;
   }
 
-  // threeDsCheckedSelected checkmark boolean
-  threeDsCheckedSelected() {
-    this.threeDsChecked = !this.threeDsChecked;
+  // threeCheckedSelected checkmark boolean
+  threeCheckedSelected() {
+    this.threeChecked = !this.threeChecked;
   }
 
-  // twoDsCheckedSelected checkmark boolean
-  twoDsCheckedSelected() {
-    this.twoDsChecked = !this.twoDsChecked;
+  // twoCheckedSelected checkmark boolean
+  twoCheckedSelected() {
+    this.twoChecked = !this.twoChecked;
   }
 
-  // oneDsCheckedSelected checkmark boolean
-  oneDsCheckedSelected() {
-    this.oneDsChecked = !this.oneDsChecked;
+  // oneCheckedSelected checkmark boolean
+  oneCheckedSelected() {
+    this.oneChecked = !this.oneChecked;
   }
 
   // Slic Low set event
   slicLowChange(event) {
-    this.slicLow = event;
+    this.slicLow = +event;
     if (this.slicLow > this.slicHigh) {
       return this.slicHigh;
     }
@@ -76,7 +76,7 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
 
   // Slic High set event
   slicHighChange(event) {
-    this.slicHigh = event;
+    this.slicHigh = +event;
     if (this.slicHigh < this.slicLow) {
       return this.slicLow;
     }

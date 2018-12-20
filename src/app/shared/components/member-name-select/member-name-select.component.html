@@ -1,6 +1,6 @@
 <span>
   <!-- (change)="onBusinessUnitChange($event.target.value)" -->
-  <select class="agSelect">
+  <select class="agSelect" (change)="onMemberNameChange($event.srcElement.selectedOptions[0].label)">
     <option value="" disabled selected>Select</option>
     <option *ngFor="let member of memberNames" [value]="member.id">
       {{member.name}}

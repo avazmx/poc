@@ -1,11 +1,11 @@
 <span [ngSwitch]="altData">
-  
+
   <!-- <option value="" disabled selected>Select your option</option> -->
-    
+
   <span *ngSwitchCase="'slicLow'">
     <input type="number" placeholder="" min="1000" [max]="slicHigh" step="50" [(ngModel)]="slicLow" (change)="slicLowChange($event.srcElement.value)" />
   </span>
-  
+
   <span *ngSwitchCase="'slicHigh'">
     <input type="number" placeholder="" [min]="slicLow" max="10000" step="50" [(ngModel)]="slicHigh" (change)="slicHighChange($event.srcElement.value)" />
   </span>
@@ -18,22 +18,22 @@
   </span>
   
   <span *ngSwitchCase="'three'" class="pulse animated">
-    <button (click)="threeDsCheckedSelected()" 
-      [ngClass]="threeDsChecked ? 'selected' : 'unselected'">
+    <button (click)="threeCheckedSelected()" 
+      [ngClass]="threeChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
   <span *ngSwitchCase="'two'" class="pulse animated">
-    <button (click)="twoDsCheckedSelected()" 
-      [ngClass]="twoDsChecked ? 'selected' : 'unselected'">
+    <button (click)="twoCheckedSelected()" 
+      [ngClass]="twoChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
   <span *ngSwitchCase="'one'" class="pulse animated">
-    <button (click)="oneDsCheckedSelected()" 
-      [ngClass]="oneDsChecked ? 'selected' : 'unselected'">
+    <button (click)="oneCheckedSelected()" 
+      [ngClass]="oneChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
