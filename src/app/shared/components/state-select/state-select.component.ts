@@ -12,6 +12,7 @@ import { StateService } from '../../services/state.service';
   templateUrl: './state-select.component.html',
   styleUrls: ['./state-select.component.scss']
 })
+
 export class StateSelectComponent implements OnDestroy, ICellRendererAngularComp {
 
   public cellValue: any;

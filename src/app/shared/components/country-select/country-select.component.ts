@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import * as communityActions from '../../../community/store/actions/community-at
   styleUrls: ['./country-select.component.scss']
 })
 
-export class CountrySelectComponent implements OnInit, ICellRendererAngularComp {
+export class CountrySelectComponent implements ICellRendererAngularComp {
   public altData;
   public params: any;
   public cell: any;
@@ -29,18 +29,15 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
   public CommunityObject: Community;
   constructor(private countryService: CountryService, private store: Store<Community>) { }
 
-  ngOnInit() { }
-
   // AG Grid Initialize
   agInit(params: any) {
     this.altData = params.value;
     this.params = params;
-    this.currentRow = +this.params.node.id;
     this.cell = { row: params.value, col: params.colDef.headerName };
 
+    this.currentRow = +this.params.node.id;
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
-
       this.CommunityObject = obj;
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
@@ -50,8 +47,7 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
           obj.geoServices.forEach(element => {
             this.countries.push(element.country);
           });
-        }
-        else{
+        } else {
           this.fetchCountries();
         }
       }
@@ -60,17 +56,17 @@ export class CountrySelectComponent implements OnInit, ICellRendererAngularComp 
 
   fetchCountries() {
     this.countryService.getCountries()
-          .subscribe((countries: Country[]) => {
-            this.countries = countries;
-          }, (error: HttpErrorResponse) => {
-            this.countries = this.countryService.getHardCodedCountries();
-          });
+      .subscribe((countries: Country[]) => {
+        this.countries = countries;
+      }, (error: HttpErrorResponse) => {
+        this.countries = this.countryService.getHardCodedCountries();
+    });
   }
 
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return false;
+    return true;
   }
 
   // Country selection

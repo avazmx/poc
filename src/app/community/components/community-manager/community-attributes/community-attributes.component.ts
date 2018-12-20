@@ -24,6 +24,9 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
+  @Output() isRowSelected: EventEmitter<boolean> = new EventEmitter();
+  agGridSelection: boolean;
+
   communityObject: Community;
   communitySubscription: Subscription;
   loading = true;
@@ -55,6 +58,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
+    this.agGridSelection = false;
     this.frameworkComponents = {
       customizedCountryCell: CommunitySelectComponent,
       selectCountryCell: CountrySelectComponent,
@@ -70,9 +74,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Build the form.
     this.form = this.formBuilder.group({
-      community_type: [null, Validators.required],
+      communityType: [null, Validators.required],
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
     });
 
     // Subscribe to the form changes.
@@ -124,9 +128,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       slicHigh: 'slicHigh',
       businessUnit: 'businessUnit',
       gnd: 'gnd',
-      threeDs: 'threeDs',
-      twoDs: 'twoDs',
-      oneDs: 'oneDs'
+      three: 'three',
+      two: 'two',
+      one: 'one',
     };
 
     // We update the activate row in order to fill and change the new row selects.
@@ -150,6 +154,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
+
       // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
         for (let index = 0; index < selectedData.length; index++) {
@@ -162,7 +167,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
           const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
           const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
-          const groundParams = { columns: ['gnd'], rowNodes: [node] };
+          const groundParams = { columns: ['ground'], rowNodes: [node] };
           const threeDsParams = { columns: ['threeDs'], rowNodes: [node] };
           const twoDsParams = { columns: ['twoDs'], rowNodes: [node] };
           const oneDsParams = { columns: ['oneDs'], rowNodes: [node] };
@@ -249,9 +254,18 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * This method fires when the user select or unselect a row.
+   * @param isSelected If the row is selected then the value is true else false,
+   */
+  onRowSelected(isSelected: boolean) {
+    this.isRowSelected.emit(isSelected);
+  }
+
+  /**
    * When the component is destroyed then we unsubscribe to the community subscription.
    */
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
+
 }

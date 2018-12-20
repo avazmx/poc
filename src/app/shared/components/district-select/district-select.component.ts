@@ -28,7 +28,6 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   constructor(private districtService: DistrictService, private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() {
-
     this.currentRow = +this.params.node.id;
     // get Districts
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
@@ -46,7 +45,6 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
 
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
-
     });
   }
 
@@ -73,4 +71,5 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   ngOnDestroy(): void {
     this.countryIdSubscription.unsubscribe();
   }
+
 }

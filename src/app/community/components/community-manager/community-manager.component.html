@@ -2,15 +2,15 @@
 
   <div class="row">
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }" (stepEnter)="stepEnterTab1($event)"
-      (stepExit)="stepExitTab1($event)" [canExit]="canExitAttributesComponent" [stepId]="1">
+      (stepExit)="stepExitTab1($event)" [canExit]="canExitAttributesComponent && canExitAgGrid" [stepId]="1">
       <div class="row">
-        <ups-community-attributes (isFormValid)="checkFormValidity($event)">
+        <ups-community-attributes (isFormValid)="checkFormValidity($event)" (isRowSelected)="checkAgGridValidity($event)">
         </ups-community-attributes>
       </div>
       <br>
       <div class="menu-btns step1">
         <button type="button" class="btn btn-secondary">Cancel</button>
-        <button type="button" class="btn btn-primary" awNextStep (ngOnChanges)="selectedAttributes($event)">Next</button>
+        <button type="button" class="btn btn-primary" awNextStep>Next</button>
       </div>
     </aw-wizard-step>
   </div>

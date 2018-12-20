@@ -25,11 +25,9 @@ export class CommunityManagerComponent implements OnInit {
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
+  canExitAgGrid = false;
   communitySubscription: Subscription;
-
-  arrayFilled = [];
-  isFormFilled: boolean;
-  step2: boolean;
+  agGridFilled: boolean;
 
   constructor(private store: Store<Community>) { }
 
@@ -42,7 +40,7 @@ export class CommunityManagerComponent implements OnInit {
 
   stepEnterTab1(event: any) {
     this.CommunityObject.activeTab = 1;
-    this.store.dispatch(new communityActions.ActiveTab( this.CommunityObject));
+    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
   }
 
   stepEnterTab2(event: any) {
@@ -56,7 +54,7 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab1(event: any) {
-    if (this.attributeComponent.form.valid) {
+    if (this.attributeComponent.form.valid && this.canExitAgGrid && this.canExitAttributesComponent) {
       this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
       this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
 
@@ -71,7 +69,6 @@ export class CommunityManagerComponent implements OnInit {
     }
   }
 
-
   stepExitTab2(event: any) {
     console.log('Step Enter', event);
     // Here we need to save the members that are added.
@@ -83,35 +80,19 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   /**
-   * OscarFix
-   * @param $event add description
+   * This method fires every time the form changes and gets the form validiy.
+   * @param isValidForm Emmited variable from community-attributes component.
    */
-  onInputChange($event) {
-    let isInside = false;
-    for (let x = 0; x < this.arrayFilled.length; x++) {
-      if (this.arrayFilled[x] === $event) {
-        isInside = true;
-        break;
-      }
-    }
-    if (!isInside) {
-      this.arrayFilled.push($event);
-    }
-    let countBooleans: number;
-    for (let y = 0; y < this.arrayFilled.length; y++) {
-      if (this.arrayFilled[y].value.length > 0) {
-        countBooleans++;
-      }
-    }
-
-    this.isFormFilled = countBooleans === 2 ? true : false;
+  checkFormValidity(isValidForm: boolean) {
+    this.canExitAttributesComponent = isValidForm;
   }
 
-  checkFormValidity(event: boolean) {
-    this.canExitAttributesComponent = event;
+  /**
+   * This method fires when the ag grid validation is emitted.
+   * @param isRowSelected Emitted variable from community-attributes component.
+   */
+  checkAgGridValidity(isRowSelected: boolean) {
+    this.canExitAgGrid = isRowSelected;
   }
 
-  onDataChange(event: any) {
-    // debugger;
-  }
 }

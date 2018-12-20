@@ -7,7 +7,7 @@
   </span>
   
   <span *ngSwitchCase="'slicHigh'">
-    <input type="number" placeholder="" [min]="slicLow" max="6000" step="50" [(ngModel)]="slicHigh" (change)="slicHighChange($event.srcElement.value)" />
+    <input type="number" placeholder="" [min]="slicLow" max="10000" step="50" [(ngModel)]="slicHigh" (change)="slicHighChange($event.srcElement.value)" />
   </span>
 
   <span *ngSwitchCase="'gnd'" class="pulse animated">
@@ -17,30 +17,30 @@
     </button>
   </span>
   
-  <span *ngSwitchCase="'threeDs'" class="pulse animated">
+  <span *ngSwitchCase="'three'" class="pulse animated">
     <button (click)="threeDsCheckedSelected()" 
       [ngClass]="threeDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
   
-  <span *ngSwitchCase="'twoDs'" class="pulse animated">
+  <span *ngSwitchCase="'two'" class="pulse animated">
     <button (click)="twoDsCheckedSelected()" 
       [ngClass]="twoDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
-  <span *ngSwitchCase="'oneDs'" class="pulse animated">
+  <span *ngSwitchCase="'one'" class="pulse animated">
     <button (click)="oneDsCheckedSelected()" 
       [ngClass]="oneDsChecked ? 'selected' : 'unselected'">
       <fa name="check"></fa>
     </button>
   </span>
 
-  <select *ngSwitchDefault>
+  <!-- <select *ngSwitchDefault>
     <option value="" disabled selected>Select</option>
     <option>default</option>
-  </select>
+  </select> -->
 
 </span>
