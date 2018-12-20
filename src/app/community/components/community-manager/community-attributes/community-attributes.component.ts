@@ -24,7 +24,7 @@ import { CommunitySelectComponent } from '../community-select/community-select.c
 
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
-  @Output() agGridValidation: EventEmitter<boolean> = new EventEmitter();
+  @Output() isRowSelected: EventEmitter<boolean> = new EventEmitter();
   agGridSelection: boolean;
 
   communityObject: Community;
@@ -154,9 +154,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
-      // AG Grid Select
-      this.agGridSelectionToggle();
-      this.agGridValidation.emit(this.agGridSelection);
 
       // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
@@ -256,8 +253,12 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     }
   }
 
-  agGridSelectionToggle() {
-    this.agGridSelection = !this.agGridSelection;
+  /**
+   * This method fires when the user select or unselect a row.
+   * @param isSelected If the row is selected then the value is true else false,
+   */
+  onRowSelected(isSelected: boolean) {
+    this.isRowSelected.emit(isSelected);
   }
 
   /**
