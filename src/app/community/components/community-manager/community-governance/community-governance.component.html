@@ -2,7 +2,8 @@
   <h3>East Region Small Package Community - Community Governance</h3>
   <hr>
   <label>GOVERNANCE LEVEL*</label>
-  <ng-select bindLabel="name" bindValue="id" class="selectInput col-sm-3" [items]="governanceLevels" [placeholder]="'Select'">
+  <ng-select  bindLabel="name" bindValue="id" class="custom selectInput" 
+    [items]="governanceLevels" placeholder="Select a level" [loading]="loading">
   </ng-select>
 
   <!-- <select>

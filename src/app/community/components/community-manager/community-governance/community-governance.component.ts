@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunitySelectComponent } from '../community-select/community-select.component';
+
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
@@ -9,6 +11,7 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 
 import { governanceDef } from '../../../models/governance-def';
 import { Governance } from 'src/app/community/models/governance.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ups-community-governance',
@@ -24,7 +27,7 @@ export class CommunityGovernanceComponent implements OnInit {
   private governanceGrid;
   private governanceDef;
   private frameworkComponents;
-  governanceLevels: GovernanceLevel;
+  governanceLevels;
   communityObject: Community;
   data = [];
   secondData = [];
@@ -32,6 +35,7 @@ export class CommunityGovernanceComponent implements OnInit {
   communitySubscription: Subscription;
   CommunityObject: Community;
   timesEmitted = 0;
+  loading = true;
 
 
   constructor(private governanceService: GovernanceLevelService, private store: Store<Community>) {
@@ -43,9 +47,12 @@ export class CommunityGovernanceComponent implements OnInit {
       .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
         console.log(this.governanceLevels);
-      }, error => {
-        console.log('backend is not working');
-      });
+        this.loading = false;
+      }, (error: HttpErrorResponse) => {
+        console.log('Backend service failed for Governance levels');
+        this.governanceLevels = this.governanceService.getHardCodedGovernanceLevels();
+        this.loading = false;
+    });
 
     // AG Grid Component Info
     this.governanceDef = governanceDef;
