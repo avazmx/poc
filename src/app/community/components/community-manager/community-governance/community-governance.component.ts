@@ -128,8 +128,10 @@ export class CommunityGovernanceComponent implements OnInit {
               slicRangeLow: slic.low,
               slicRangeHigh: slic.high,
               levelApproverOne: '',
+              atllevelApproverOne: '',
               levelApproverTwo: '',
-              AtllevelApproverTwo: ''
+              AtllevelApproverTwo: '',
+              checkbox: ''
             };
 
             // We add the row to the ag-grid
@@ -152,10 +154,12 @@ export class CommunityGovernanceComponent implements OnInit {
           const node = renderedNodes[index];
 
           const levelApproverOne = { columns: ['levelApproverOne'], rowNodes: [node] };
+          const atlLevelApproverOne = { columns: ['atllevelApproverOne'], rowNodes: [node] };
           const levelApproverTwo = { columns: ['levelApproverTwo'], rowNodes: [node] };
-          const atlLevelApproverTwo = { columns: ['AtlLevelApproverTwo'], rowNodes: [node] };
+          const atlLevelApproverTwo = { columns: ['atllevelApproverTwo'], rowNodes: [node] };
 
           const levelApproverOneInstance = this.gridApi.getCellRendererInstances(levelApproverOne);
+          const altlevelApproverOneInstance = this.gridApi.getCellRendererInstances(atlLevelApproverOne);
           const levelApproverTwoInstance = this.gridApi.getCellRendererInstances(levelApproverTwo);
           const atlLevelApproverTwoInstance = this.gridApi.getCellRendererInstances(atlLevelApproverTwo);
 
@@ -163,6 +167,12 @@ export class CommunityGovernanceComponent implements OnInit {
             const wrapperLevelOneApprover = levelApproverOneInstance[0];
             const frameworkLevelApproverOneInstance = wrapperLevelOneApprover.getFrameworkComponentInstance();
             selectedData[index].levelOneApprover = frameworkLevelApproverOneInstance.selectedLevelApproverOne;
+          }
+
+          if (altlevelApproverOneInstance.length > 0) {
+            const wrapperAltLevelOneApprover = altlevelApproverOneInstance[0];
+            const frameworkAtlLevelApproverOneInstance = wrapperAltLevelOneApprover.getFrameworkComponentInstance();
+            selectedData[index].altlevelOneApprover = frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne;
           }
 
           if (levelApproverTwoInstance.length > 0) {
@@ -180,7 +190,7 @@ export class CommunityGovernanceComponent implements OnInit {
       }
       console.log('selected data', selectedData);
       this.CommunityObject.governance = selectedData;
-      this.store.dispatch(new communityActions.AddMembers(this.CommunityObject));
+      this.store.dispatch(new communityActions.AddGovernance(this.CommunityObject));
     }
   }
 

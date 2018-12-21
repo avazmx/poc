@@ -24,6 +24,10 @@ export const governanceDef = [
         field: 'levelApproverOne',
         cellRenderer: 'selectMemberNameCell'
     }, {
+        headerName: 'Alt Level 1 Approver',
+        field: 'atllevelApproverOne',
+        cellRenderer: 'selectMemberNameCell'
+    }, {
         headerName: 'Level 2 Approver',
         field: 'levelApproverTwo',
         cellRenderer: 'selectMemberNameCell'
@@ -35,7 +39,7 @@ export const governanceDef = [
     }, {
         headerName: 'Select',
         field: 'checkbox',
-        checkboxSelection: false,
+        checkboxSelection: true,
         icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: `<span class="far fa-square"></span>`,

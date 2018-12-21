@@ -12,7 +12,8 @@ export class Governance {
     public slicRangeLow: number;
     public slicRangeHigh: number;
     public levelOneApprover: Member;
+    public altlevelOneApprover: Member;
     public levelOTwoApprover: Member;
-    public levelThreeApprover: Member;
+    public atlLevelTwoApprover: Member;
     public governanceLevel: GovernanceLevel;
 }

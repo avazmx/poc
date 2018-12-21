@@ -62,11 +62,11 @@ export const attributesDef = [
     }, {
         headerName: 'Select',
         field: 'checkbox',
-        checkboxSelection: false,
+        checkboxSelection: true,
         icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: `<span class="far fa-square"></span>`,
         },
-        width: 70
-    }
+        width: 80
+    },
 ];
