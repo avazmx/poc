@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Member } from 'src/app/shared/models/member.model';
-import { ManageMember } from 'src/app/shared/models/manage-member.model';
+//import { ManageMember } from 'src/app/shared/models/manage-member.model';
 import { MemberNameService } from '../../services/member-name.service';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
+//import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Community } from 'src/app/community/models/community.model';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
@@ -20,16 +20,21 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public cell: any;
   public memberNameSubscription: Subscription;
   public memberNames: Member[];
-  public selectedMemberName;
-  public CommunityObject: Community;
+  public selectedMember: Member;
+  public communityObject: Community;
   public currentRow: number;
+
+  @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
+
   gridApi;
   gridColumnApi;
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) {}
   ngOnInit() {
      // Subscribe to the store in order to get the updated object for the members.
-     //this.store.select('community').subscribe((obj: Community) => {
+     this.store.select('community').subscribe((obj: Community) => {
+       this.communityObject = obj;
+     });
 
     //   this.CommunityObject = obj;
     //   if (obj.activeTab === 1 && this.memberNames.length === 0) {
@@ -79,10 +84,14 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     return true;
   }
 
-  onMemberNameChange(selectedMemberName: string) {
-    this.selectedMemberName = selectedMemberName;
+  onMemberNameChange(selectedMemberName: any) {
+    this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
     this.gridColumnApi.setColumnVisible('checkbox', true);
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onMemberNameSet(isMemberNameSet: boolean) {
+    this.isMemberNameSet.emit(isMemberNameSet);
   }
 
 }

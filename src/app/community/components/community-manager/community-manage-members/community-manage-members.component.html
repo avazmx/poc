@@ -16,7 +16,8 @@
   (selectionChanged)="onSelectionChanged($event)"
   [suppressRowClickSelection]="true"
   [animateRows]="true"
-  rowSelection="multiple">
+  rowSelection="multiple"
+  (rowSelected)="onRowSelected($event.node.selected)">
 </ag-grid-angular>
 
 <!-- 

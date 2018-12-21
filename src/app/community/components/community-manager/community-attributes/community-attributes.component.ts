@@ -107,7 +107,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     // Fill the api properties.
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    // this.gridColumnApi.setColumnVisible('checkbox', false);
+    this.gridColumnApi.setColumnVisible('checkbox', false);
 
     // Renderize the ag-grid size.
     this.gridApi.setDomLayout('autoHeight');

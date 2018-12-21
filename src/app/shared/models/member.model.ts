@@ -1,4 +1,4 @@
-export class Member {
+export class   Member {
     public id: number;
     public name: string;
     public lastNameL: string;

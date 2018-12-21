@@ -25,7 +25,14 @@ const initialState: State = {
         governance: null,
         attributes: null,
         activeTab: 1,
-        activeRow: -1
+        activeRow: -1,
+        gridValidator: [
+            [
+                {},
+                {},
+                {}
+            ]
+        ]
     }
 };
 
@@ -40,6 +47,8 @@ export function communityReducer(state = initialState, action: CommunityAttribut
                 geoServices: action.payload.geoServices,
                 communityType: action.payload.communityType
             });
+        case CommunityAttributesActions.ADD_ROW_VALIDATORS:
+            return newState(state, { gridValidator: action.payload })
 
         case CommunityAttributesActions.ADD_MEMBERS:
             return newState(state, { members: action.payload.members });

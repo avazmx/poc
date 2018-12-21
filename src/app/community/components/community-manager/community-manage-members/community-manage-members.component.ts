@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { AccessLevelSelectComponent } from 'src/app/shared/components/access-lev
 import { ManageMember } from 'src/app/shared/models/manage-member.model';
 
 import * as communityActions from '../../../store/actions/community-attributes.actions';
-import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
+import { appInitializerFactory } from '@angular/platform-browser/src/browser/server-transition';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -35,15 +35,17 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   newCount = 1;
   columnDefs;
   rowData: any;
+  newRow: boolean;
   @Input() step2;
+  @Output() isRowSelected: EventEmitter<boolean> = new EventEmitter();
+  @Output() isMemberCheckBoxSet: EventEmitter<boolean> = new EventEmitter();
 
   // Hectorf
   communitySubscription: Subscription;
-  CommunityObject: Community;
+  communityObject: Community;
   countries: Country[] = [];
   districts: District[] = [];
   states: State[] = [];
-  CommunityTest: Community;
 
   constructor(private store: Store<Community>) {
     this.rowData = [];
@@ -62,12 +64,11 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      this.CommunityObject = obj;
-      console.log(this.CommunityObject);
-      // debugger;
-      if (this.CommunityObject.geoServices) {
-        if (this.CommunityObject.geoServices.length > 0) {
-          this.CommunityObject.geoServices.forEach(geoService => {
+      this.communityObject = obj;
+      console.log(this.communityObject);
+      if (this.communityObject.geoServices) {
+        if (this.communityObject.geoServices.length > 0) {
+          this.communityObject.geoServices.forEach(geoService => {
             this.countries.push(geoService.country);
             console.log('Countries from members => ' + this.countries.length);
           });
@@ -86,8 +87,8 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      this.CommunityObject = obj;
-      if (this.CommunityObject.activeTab === 2) {
+      this.communityObject = obj;
+      if (this.communityObject.activeTab === 2) {
         this.gridApi.sizeColumnsToFit();
       }
     });
@@ -105,6 +106,11 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       // slicRangeLow: this.CommunityObject.geoServices[0].slicRangeLow,
       // slicRangeHigh: this.CommunityObject.geoServices[0].slicRangeHigh
     };
+
+    // We update the activate row in order to fill and change the new row selects.
+    //this.communityObject.activeRow++;
+    //this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
+    //this.newRow = true;
 
     this.gridApi.updateRowData({ add: [newData] });
   }
@@ -138,7 +144,8 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           if (memberNameInstance.length > 0) {
             const wapperMemberNameInstance = memberNameInstance[0];
             const frameworkMemberNameInstance = wapperMemberNameInstance.getFrameworkComponentInstance();
-            selectedData[index].name = frameworkMemberNameInstance.selectedMemberName;
+            selectedData[index].id = frameworkMemberNameInstance.selectedMember.id;
+            selectedData[index].name = frameworkMemberNameInstance.selectedMember.name;
           }
 
           if (accessLevelInstance.length > 0) {
@@ -179,9 +186,17 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
         }
       }
       console.log('selected data' , selectedData);
-      this.CommunityObject.members = selectedData;
-      this.store.dispatch(new communityActions.AddMembers(this.CommunityObject));
+      this.communityObject.members = selectedData;
+      this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     }
+  }
+
+  onRowSelected(isSelected: boolean) {
+    this.isRowSelected.emit(isSelected);
+  }
+
+  onMemberNameSet(isMemberCheckBoxSet: boolean) {
+    this.isMemberCheckBoxSet.emit(isMemberCheckBoxSet);
   }
 
   ngOnDestroy(): void {

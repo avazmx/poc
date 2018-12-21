@@ -20,6 +20,8 @@ export const STORE_COMMUNITIES = 'STORE_COMMUNITIES';
 export const ACTIVE_TAB = '[activeTab]ACTIVE_TAB';
 export const ACTIVE_ROW = '[activeRow]ACTIVE_ROW';
 
+export const ADD_ROW_VALIDATORS = '[addRowValidators]ADD_ROW_VALIDATORS';
+
 
 
 // MAIN ACTIONS
@@ -40,6 +42,11 @@ export class AddGovernance implements Action {
 
 export class AddCommunityObjectAttributes implements Action {
     readonly type = ADD_COMMUNITY_OBJECT_ATTRIBUTES;
+    constructor(public payload: Community) { }
+}
+
+export class AddRowsValidators implements Action {
+    readonly type = ADD_ROW_VALIDATORS;
     constructor(public payload: Community) { }
 }
 
@@ -112,4 +119,5 @@ export type CommunityActions = ShowAttributes
     | SetCommunities
     | StoreCommunities
     | ActiveTab
-    | ActiveRow;
+    | ActiveRow
+    | AddRowsValidators;
