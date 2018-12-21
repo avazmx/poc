@@ -60,13 +60,13 @@ export const attributesDef = [
         cellRendererParams: { field: 'one' },
         width: 93,
     }, {
-        headerName: 'Select',
+        headerName: '*',
         field: 'checkbox',
         checkboxSelection: true,
         icons: {
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: `<span class="far fa-square"></span>`,
         },
-        width: 55
+        width: 80
     },
 ];
