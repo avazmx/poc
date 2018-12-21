@@ -5,6 +5,7 @@ import { Community } from 'src/app/community/models/community.model';
 
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+import { CommunityService } from '../../services/community.service';
 
 @Component({
   selector: 'ups-community-manager',
@@ -29,7 +30,7 @@ export class CommunityManagerComponent implements OnInit {
   communitySubscription: Subscription;
   agGridFilled: boolean;
 
-  constructor(private store: Store<Community>) { }
+  constructor(private store: Store<Community>, private communityService: CommunityService) { }
 
   ngOnInit() {
     // Subscribe to the store in order to get the updated object.
@@ -93,6 +94,14 @@ export class CommunityManagerComponent implements OnInit {
    */
   checkAgGridValidity(isRowSelected: boolean) {
     this.canExitAgGrid = isRowSelected;
+  }
+
+  onSave() {
+    if (this.CommunityObject.governance) {
+      this.communityService.addPost(this.CommunityObject).subscribe(data => {
+        alert('message' + data);
+      });
+    }
   }
 
 }

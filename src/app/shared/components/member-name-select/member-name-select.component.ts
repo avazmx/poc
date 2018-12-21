@@ -22,6 +22,13 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public selectedMemberName;
   public CommunityObject: Community;
   public currentRow: number;
+  public selectedLevelApproverOne: Member;
+  public selectedAltLevelApproverOne: Member;
+  public selectedLevelApproverTwo: Member;
+  public selectedAtlLevelApproverTwo: Member;
+
+  public tabTwoSelectedMembers: Member[] = [];
+  public communityObject: Community;
   gridApi;
   gridColumnApi;
 
@@ -44,13 +51,36 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
-    // Get Member units
-    this.memberNameService.getMemberNames()
-      .subscribe((memberNames: Member[]) => {
-        this.memberNames = memberNames;
-      }, (error: HttpErrorResponse) => {
-        this.memberNames = this.memberNameService.getHardCodedMemberNames();
-      });
+
+    this.store.select('community').subscribe(selectedCommunity => {
+      this.communityObject = selectedCommunity;
+
+      if (this.communityObject.activeTab === 3) {
+        for (let index = 0; index < this.communityObject.members.length; index++) {
+          const member = this.communityObject.members[index];
+
+          const memberTab2: Member = {
+            id: member.id,
+            email: member.email,
+            lastNameL: member.lastName,
+            name: member.name
+          };
+
+          this.tabTwoSelectedMembers.push(memberTab2);
+        }
+        this.memberNames = this.tabTwoSelectedMembers;
+      } else {
+        // Get Member units
+        this.memberNameService.getMemberNames()
+          .subscribe((memberNames: Member[]) => {
+            this.memberNames = memberNames;
+          }, (error: HttpErrorResponse) => {
+            this.memberNames = this.memberNameService.getHardCodedMemberNames();
+          });
+      }
+    });
+
+
   }
 
   // AG Grid reload

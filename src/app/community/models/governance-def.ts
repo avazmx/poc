@@ -34,7 +34,7 @@ export const governanceDef = [
     },
     {
         headerName: 'Alt Level 2 Approver',
-        field: 'AtllevelApproverTwo',
+        field: 'atllevelApproverTwo',
         cellRenderer: 'selectMemberNameCell'
     }, {
         headerName: 'Select',

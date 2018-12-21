@@ -194,6 +194,9 @@ export class CommunityGovernanceComponent implements OnInit {
     }
   }
 
+  onRowSelected(isSelected: boolean) {
+
+  }
 
 
   // AG-Grid

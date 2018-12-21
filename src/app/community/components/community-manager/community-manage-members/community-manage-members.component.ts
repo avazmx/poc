@@ -64,7 +64,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
       console.log(this.CommunityObject);
-      // debugger;
       if (this.CommunityObject.geoServices) {
         if (this.CommunityObject.geoServices.length > 0) {
           this.CommunityObject.geoServices.forEach(geoService => {

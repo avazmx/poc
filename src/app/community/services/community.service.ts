@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Subject, fromEventPattern } from 'rxjs';
+import { Subject, fromEventPattern, Observable } from 'rxjs';
 import { Community } from '../models/community.model';
 
 import { environment } from '../../../environments/environment';
@@ -52,5 +52,11 @@ export class CommunityService {
 
     return this.harcodedCommunityTypes;
   }
+
+  /** POST: add a new hero to the database */
+  addPost(community: Community): Observable<any> {
+    return this.http.post<any>(this.url + 'communitystore/community-store', community);
+  }
+
 
 }
