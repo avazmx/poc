@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StateService {
-  private url = environment.apiUrl + 'state';
+  private url = environment.apiUrl + 'stateprovinces';
   private harcodedStates: State[] = [];
   constructor(private http: HttpClient) {
     const comm1 = new State();
@@ -29,7 +29,7 @@ export class StateService {
    * Return the list of states.
    */
   getStates(districtId: number) {
-    return this.http.get(this.url + '/district/v1/list/' + districtId.toString());
+    return this.http.get(this.url + '/state-province/district/' + districtId.toString());
     // return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
   }
 

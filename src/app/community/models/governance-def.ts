@@ -25,16 +25,21 @@ export const governanceDef = [
         cellRenderer: 'selectMemberNameCell'
     }, {
         headerName: 'Level 2 Approver',
-        field: 'lvl2approver',
-    },
-    {
-        headerName: 'Alt Level 2 Approver',
         field: 'levelApproverTwo',
         cellRenderer: 'selectMemberNameCell'
     },
     {
         headerName: 'Alt Level 2 Approver',
-        field: 'altlvl2approver',
+        field: 'AtllevelApproverTwo',
         cellRenderer: 'selectMemberNameCell'
+    }, {
+        headerName: 'Select',
+        field: 'checkbox',
+        checkboxSelection: false,
+        icons: {
+            checkboxChecked: '<span class="far fa-check-square"/>',
+            checkboxUnchecked: `<span class="far fa-square"></span>`,
+        },
+        width: 70
     }
 ];
