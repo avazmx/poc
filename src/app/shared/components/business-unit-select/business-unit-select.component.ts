@@ -56,10 +56,13 @@ export class BusinessUnitSelectComponent implements OnInit {
     return true;
   }
 
+  /**
+   * 
+   * @param selectedBusinessUnit
+   */
   onBusinessUnitChange(selectedBusinessUnit: string) {
     this.selectedBusinessUnit = selectedBusinessUnit;
-    console.log('ahhhh', this.gridApi.getRowNode(0));
-    this.gridColumnApi.setColumnVisible('checkbox', true);
+    // this.gridColumnApi.setColumnVisible('checkbox', true);
     this.gridApi.sizeColumnsToFit();
   }
 

@@ -18,48 +18,35 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public altData;
   public params: any;
   public cell: any;
-  public memberNameSubscription: Subscription;
   public memberNames: Member[];
   public selectedMember: Member;
   public communityObject: Community;
   public currentRow: number;
 
-  @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
+  public selectedLevelApproverOne: Member;
+  public selectedAltLevelApproverOne: Member;
+  public selectedLevelApproverTwo: Member;
+  public selectedAtlLevelApproverTwo: Member;
 
+  public tabTwoSelectedMembers: Member[] = [];
   gridApi;
   gridColumnApi;
 
-  constructor(private memberNameService: MemberNameService, private store: Store<Community>) {}
-  ngOnInit() {
-     // Subscribe to the store in order to get the updated object for the members.
-     this.store.select('community').subscribe((obj: Community) => {
-       this.communityObject = obj;
-     });
+  @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
 
-    //   this.CommunityObject = obj;
-    //   if (obj.activeTab === 1 && this.memberNames.length === 0) {
-    //     // Get members
-    //     this.fetchMembers();
-    //   } else if (obj.activeTab === 2 && obj.activeRow === 0) {
-    //     if (obj.members && obj.members.length > 0) {
-    //       obj.members.forEach(element => {
-    //         this.memberNames.push(element);
-    //       });
-    //     }
-    //     else{
-    //       this.fetchMembers();
-    //     }
-    //   }
-    // });
+  constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
+  ngOnInit() {
+
+
   }
 
   fetchMembers() {
     this.memberNameService.getMemberNames()
-          .subscribe((memberNames: Member[]) => {
-            this.memberNames = memberNames;
-          }, (error: HttpErrorResponse) => {
-            this.memberNames = this.memberNameService.getHardCodedMemberNames();
-          });
+      .subscribe((memberNames: Member[]) => {
+        this.memberNames = memberNames;
+      }, (error: HttpErrorResponse) => {
+        this.memberNames = this.memberNameService.getHardCodedMemberNames();
+      });
   }
 
   // AG Grid Initialize
@@ -69,13 +56,36 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
-      // Get Member units
-      this.memberNameService.getMemberNames()
-        .subscribe((memberNames: Member[]) => {
-          this.memberNames = memberNames;
-        }, (error: HttpErrorResponse) => {
+
+    this.store.select('community').subscribe(selectedCommunity => {
+      this.communityObject = selectedCommunity;
+
+      if (this.communityObject.activeTab === 3) {
+        for (let index = 0; index < this.communityObject.members.length; index++) {
+          const member = this.communityObject.members[index];
+
+          const memberTab2: Member = {
+            id: member.id,
+            email: member.email,
+            lastNameL: member.lastName,
+            name: member.name
+          };
+
+          this.tabTwoSelectedMembers.push(memberTab2);
+        }
+        this.memberNames = this.tabTwoSelectedMembers;
+      } else {
+        // Get Member units
+        this.memberNameService.getMemberNames()
+          .subscribe((memberNames: Member[]) => {
+            this.memberNames = memberNames;
+          }, (error: HttpErrorResponse) => {
             this.memberNames = this.memberNameService.getHardCodedMemberNames();
-        });
+          });
+      }
+    });
+
+
   }
 
   // AG Grid reload

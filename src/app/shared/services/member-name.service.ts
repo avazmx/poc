@@ -30,7 +30,7 @@ export class MemberNameService {
    * Return the list of member names.
    */
   getMemberNames(): Observable<Member[]> {
-    return this.http.get<any>(this.url + 'members/v1/list');
+    return this.http.get<any>(this.url + 'members/member');
     // return this.http.get<Member[]>(this.url + 'member');
   }
 

@@ -54,7 +54,7 @@ export function communityReducer(state = initialState, action: CommunityAttribut
             return newState(state, { members: action.payload.members });
 
         case CommunityAttributesActions.ADD_GOVERNANCE:
-            return newState(state, { governance: action.payload.members });
+            return newState(state, { governance: action.payload.governance });
 
         case CommunityAttributesActions.ADD_COMMUNITY_OBJECT_ATTRIBUTES:
             return newState(state, { attributes: action.payload.attributes });

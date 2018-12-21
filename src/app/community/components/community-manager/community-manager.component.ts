@@ -5,6 +5,7 @@ import { Community } from 'src/app/community/models/community.model';
 
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+import { CommunityService } from '../../services/community.service';
 
 //Services
 import { CountryService } from 'src/app/shared/services/country.service';
@@ -26,30 +27,30 @@ export class CommunityManagerComponent implements OnInit {
   gridColumnApi;
   gridValidator: [
     [
-        {
-          country: false
-          district: false;
-          state: false,
-          slickRangeHigh: false,
-          slickRangeLow: false,
-          businessUnit: false,
-          ground: false,
-          three: false,
-          two: false,
-          one: false,
-        },
-        {
-          memberName: false,
-          accessLevel: false,
-          country: false,
-          district: false,
-          state: false,
-          slicRangeLow: false,
-          slicRangeHigh: false
-        },
-        {}
+      {
+        country: false
+        district: false;
+        state: false,
+        slickRangeHigh: false,
+        slickRangeLow: false,
+        businessUnit: false,
+        ground: false,
+        three: false,
+        two: false,
+        one: false,
+      },
+      {
+        memberName: false,
+        accessLevel: false,
+        country: false,
+        district: false,
+        state: false,
+        slicRangeLow: false,
+        slicRangeHigh: false
+      },
+      {}
     ]
-]
+  ]
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
@@ -60,16 +61,16 @@ export class CommunityManagerComponent implements OnInit {
   agGridFilled: boolean;
   countryIdSubscription: Subscription;
 
-  constructor(private countryService: CountryService, private store: Store<Community>) { }
+  constructor(private store: Store<Community>, private communityService: CommunityService, private countryService: CountryService) { }
 
   ngOnInit() {
-    //Subscribe to the country service subject
+    // Subscribe to the country service subject
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         console.log("I am subscribed and the values are changing")
-      }, (error: any) => {});
+      }, (error: any) => { });
 
-      // Subscribe to the store in order to get the updated object.
+    // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
     });
@@ -108,8 +109,7 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab2(event: any) {
-    if(this.canExitMembersGrid) {
-      alert('Done');
+    if (this.canExitMembersGrid) {
     } else {
       alert('Please fill this');
     }
@@ -141,5 +141,14 @@ export class CommunityManagerComponent implements OnInit {
 
   checkMemberCheckValidity(isRowSelectedMember: boolean) {
     this.canExitMembersGrid = isRowSelectedMember;
-}
+  }
+
+  onSave() {
+    if (this.CommunityObject.governance) {
+      this.communityService.addPost(this.CommunityObject).subscribe(data => {
+        alert('message' + data);
+      });
+    }
+  }
+
 }

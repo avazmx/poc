@@ -185,7 +185,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log('selected data' , selectedData);
+      console.log('selected data', selectedData);
       this.communityObject.members = selectedData;
       this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     }

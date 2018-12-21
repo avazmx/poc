@@ -67,6 +67,6 @@ export const attributesDef = [
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: `<span class="far fa-square"></span>`,
         },
-        width: 55
+        width: 80
     },
 ];
