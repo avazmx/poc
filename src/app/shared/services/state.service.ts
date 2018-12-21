@@ -12,7 +12,7 @@ export class StateService {
   constructor(private http: HttpClient) {
     const comm1 = new State();
     comm1.id = 1;
-    comm1.name = 'HardCoded value 1';
+    comm1.name = 'cccccccccc';
     const comm2 = new State();
     comm2.id = 2;
     comm2.name = 'HardCoded value 2';

@@ -18,7 +18,7 @@ export class DistrictService {
 
     const comm1 = new District();
     comm1.id = 1;
-    comm1.name = 'HardCoded value 1';
+    comm1.name = 'bbbbbbbbbbbbb';
     const comm2 = new District();
     comm2.id = 2;
     comm2.name = 'HardCoded value 2';

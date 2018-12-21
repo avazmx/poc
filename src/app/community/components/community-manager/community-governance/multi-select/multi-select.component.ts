@@ -14,8 +14,11 @@ export class MultiSelectComponent implements OnInit, OnChanges {
   toggles2 = [];
   selectedItems = [];
   data3: any = [];
+  originalList: any;
 
-  constructor() { }
+  constructor() {
+    this.originalList = null;
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // if ()
@@ -158,7 +161,22 @@ export class MultiSelectComponent implements OnInit, OnChanges {
   }
 
   filter($evt) {
-    console.log($evt);
+    console.log(this.list);
+    if($evt.target.value.length > 0){
+      if(this.originalList == null) this.originalList = Array.from(this.list);
+      this.list = this.originalList.filter((obj) => (obj.country.name.includes($evt.target.value) ||
+        obj.country.districts.filter((district) => (district.name.includes($evt.target.value) ||
+          district.states.filter((state) => (state.name.includes($evt.target.value) ||
+            state.slicks.filter((slick) => (parseInt($evt.target.value) >= slick.low &&
+              parseInt($evt.target.value) <= slick.high)
+            ).length > 0)
+          ).length > 0)
+        ).length > 0)
+      );
+    }else{
+      this.list = Array.from(this.originalList);
+      this.originalList = null;
+    }
   }
 
 }
