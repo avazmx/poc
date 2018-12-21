@@ -42,7 +42,6 @@ export class MultiSelectComponent implements OnInit, OnChanges {
       }
       this.toggles2.push(country);
     }
-    console.log('TOGGLES ', this.toggles2);
   }
 
   ngOnInit() {
@@ -147,7 +146,6 @@ export class MultiSelectComponent implements OnInit, OnChanges {
         } else {
           this.toggles2[c_id].value = !this.toggles2[c_id].value;
         }
-        console.log('TOGGLES2 == ', this.toggles2);
       }
     }
   }

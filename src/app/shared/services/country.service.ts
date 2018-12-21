@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import { Country } from '../models/country.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ export class CountryService {
   /**
    * Return the list of countries.
    */
-  getCountries() {
+  getCountries(): Observable<Country[]> {
     // return this.http.get<Country[]>(this.url + 'countries/v1/list');
     return this.http.get<Country[]>(this.url + 'countries');
   }

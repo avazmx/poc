@@ -22,7 +22,7 @@ export const governanceDef = [
     }, {
         headerName: 'Level 1 Approver',
         field: 'levelApproverOne',
-        cellRenderer: 'customizedCountryCell'
+        cellRenderer: 'selectMemberNameCell'
     }, {
         headerName: 'Level 2 Approver',
         field: 'lvl2approver',
@@ -30,9 +30,11 @@ export const governanceDef = [
     {
         headerName: 'Alt Level 2 Approver',
         field: 'levelApproverTwo',
-        cellRenderer: 'customizedCountryCell'
-    }, {
+        cellRenderer: 'selectMemberNameCell'
+    },
+    {
         headerName: 'Alt Level 2 Approver',
         field: 'altlvl2approver',
+        cellRenderer: 'selectMemberNameCell'
     }
 ];

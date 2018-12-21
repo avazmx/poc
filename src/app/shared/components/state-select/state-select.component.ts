@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
 
 import { State } from '../../models/state.model';
 import { DistrictService } from '../../services/district.service';
 import { StateService } from '../../services/state.service';
+import { Store } from '@ngrx/store';
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-state-select',
@@ -13,17 +15,29 @@ import { StateService } from '../../services/state.service';
   styleUrls: ['./state-select.component.scss']
 })
 
-export class StateSelectComponent implements OnDestroy, ICellRendererAngularComp {
+export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAngularComp {
 
   public cellValue: any;
   public params: any;
   public cell: any;
 
+  currentRow: number;
+
   states: State[] = [];
   selectedState: State;
+  communityObject: Community;
 
   districtIdSubscription: Subscription;
-  constructor(private stateService: StateService, private districtService: DistrictService) { }
+  constructor(private stateService: StateService, private districtService: DistrictService,
+    private store: Store<Community>) { }
+
+
+  ngOnInit() {
+    this.currentRow = +this.params.node.id;
+    this.store.select('community').subscribe((obj: Community) => {
+      this.communityObject = obj;
+    });
+  }
   /**
    * When the ag-grid renders the cell this method is called.
    * @param params needed to format the component value.
@@ -38,7 +52,9 @@ export class StateSelectComponent implements OnDestroy, ICellRendererAngularComp
     this.districtIdSubscription = this.districtService.getDistrictId().subscribe(
       (districtId: number) => {
         this.stateService.getStates(districtId).subscribe((states: State[]) => {
-          this.states = states;
+          if (this.communityObject.activeRow === this.currentRow || this.states.length === 0) {
+            this.states = states;
+          }
         }, (error: HttpErrorResponse) => {
           console.log('Error trying to load the coutries list, I will load hardcoded data');
           this.states = this.stateService.getHardCodedStates(districtId);
