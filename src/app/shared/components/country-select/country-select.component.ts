@@ -50,7 +50,12 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
       } else if (obj.activeTab === 2 && this.countries.length === 0) {
         if (obj.geoServices && obj.geoServices.length > 0) {
           obj.geoServices.forEach(element => {
-            this.countries.push(element.country);
+            const added = this.countries.filter(c =>
+              c.id === element.country.id
+            );
+            if (added.length === 0) {
+              this.countries.push(element.country);
+            }
           });
         } else {
           this.fetchCountries();

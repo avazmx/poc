@@ -21,7 +21,7 @@
       <ups-community-manage-members (isRowSelected)="checkMemberCheckValidity($event)"></ups-community-manage-members>
       <br>
       <div class="menu-btns step2">
-        <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
+        <!-- <button type="button" class="btn btn-secondary" awPreviousStep>Back</button> -->
         <button type="button" class="btn btn-primary end-btn" awNextStep>Next</button>
         <!-- <button type="button" class="btn btn-primary end-btn" awNextStep
         (click)="communityMembersAction()">Next</button> -->
@@ -35,7 +35,7 @@
       <ups-community-governance></ups-community-governance>
       <br>
       <div class="menu-btns step2">
-        <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
+        <!-- <button type="button" class="btn btn-secondary" awPreviousStep>Back</button> -->
         <button type="button" class="btn btn-primary end-btn" [disabled]="!this.CommunityObject.governance" (click)="onSave()">Save</button>
       </div>
     </aw-wizard-step>
