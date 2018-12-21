@@ -81,7 +81,15 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
       this.countryService.setCountryId(+selectedCountry);
       this.communityObject.activeRow = +this.params.node.id;
       this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
+
+
     }
   }
+
+  /*onCountryChange(selectedBusinessUnit: string) {
+    this.selectedBusinessUnit = selectedBusinessUnit;
+    this.gridColumnApi.setColumnVisible('checkbox', true);
+    this.gridApi.sizeColumnsToFit();
+  }*/
 
 }

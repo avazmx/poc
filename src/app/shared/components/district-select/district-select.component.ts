@@ -8,6 +8,7 @@ import { Subscription, Subject } from 'rxjs';
 import { map, switchMap, tap, concatMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
+import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-district-select',
@@ -63,6 +64,8 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
 
   onDistrictChange(selectedDistrict: string) {
     if (+selectedDistrict > 0) {
+      this.communityObject.gridValidator[this.communityObject.activeTab, this.params.node.id] = this.params.node.id++;
+      this.store.dispatch(new communityActions.AddRowsValidators(this.communityObject));
       this.selectedDistrict = this.districts.filter(state => state.id === +selectedDistrict)[0];
       this.districtService.setDistrictId(+selectedDistrict);
     }

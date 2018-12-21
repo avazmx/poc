@@ -6,6 +6,9 @@ import { Community } from 'src/app/community/models/community.model';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 
+//Services
+import { CountryService } from 'src/app/shared/services/country.service';
+
 @Component({
   selector: 'ups-community-manager',
   templateUrl: './community-manager.component.html',
@@ -21,21 +24,56 @@ export class CommunityManagerComponent implements OnInit {
   CommunityObject: Community;
   gridApi;
   gridColumnApi;
+  gridValidator: [
+    [
+        {
+          country: false
+          district: false;
+          state: false,
+          slickRangeHigh: false,
+          slickRangeLow: false,
+          businessUnit: false,
+          ground: false,
+          three: false,
+          two: false,
+          one: false,
+        },
+        {
+          memberName: false,
+          accessLevel: false,
+          country: false,
+          district: false,
+          state: false,
+          slicRangeLow: false,
+          slicRangeHigh: false
+        },
+        {}
+    ]
+]
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   canExitAgGrid = false;
+  canExitMembersGrid = false;
   communitySubscription: Subscription;
   agGridFilled: boolean;
+  countryIdSubscription: Subscription;
 
-  constructor(private store: Store<Community>) { }
+  constructor(private countryService: CountryService, private store: Store<Community>) { }
 
   ngOnInit() {
-    // Subscribe to the store in order to get the updated object.
+    //Subscribe to the country service subject
+    this.countryIdSubscription = this.countryService.getCountryId().subscribe(
+      (countryId: number) => {
+        console.log("I am subscribed and the values are changing")
+      }, (error: any) => {});
+
+      // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.CommunityObject = obj;
     });
+
   }
 
   stepEnterTab1(event: any) {
@@ -70,6 +108,11 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab2(event: any) {
+    if(this.canExitMembersGrid) {
+      alert('Done');
+    } else {
+      alert('Please fill this');
+    }
     console.log('Step Enter', event);
     // Here we need to save the members that are added.
   }
@@ -91,8 +134,12 @@ export class CommunityManagerComponent implements OnInit {
    * This method fires when the ag grid validation is emitted.
    * @param isRowSelected Emitted variable from community-attributes component.
    */
+
   checkAgGridValidity(isRowSelected: boolean) {
     this.canExitAgGrid = isRowSelected;
   }
 
+  checkMemberCheckValidity(isRowSelectedMember: boolean) {
+    this.canExitMembersGrid = isRowSelectedMember;
+}
 }

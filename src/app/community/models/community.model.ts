@@ -14,4 +14,5 @@ export class Community {
         public attributes?: any;
         public activeTab?: number;
         public activeRow?: number;
+        public gridValidator?: any[];
 }
