@@ -77,7 +77,7 @@ export class CommunityEdit implements Action {
 
 export class CommunityDelete implements Action {
     readonly type = COMMUNITY_DELETE;
-    constructor(public payload: Community) { }
+    constructor() { }
 }
 
 export class FetchCommunities implements Action {

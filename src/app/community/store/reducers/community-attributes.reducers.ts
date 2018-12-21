@@ -48,7 +48,7 @@ export function communityReducer(state = initialState, action: CommunityAttribut
                 communityType: action.payload.communityType
             });
         case CommunityAttributesActions.ADD_ROW_VALIDATORS:
-            return newState(state, { gridValidator: action.payload })
+            return newState(state, { gridValidator: action.payload });
 
         case CommunityAttributesActions.ADD_MEMBERS:
             return newState(state, { members: action.payload.members });
@@ -77,7 +77,7 @@ export function communityReducer(state = initialState, action: CommunityAttribut
             return newState(state, {});
 
         case CommunityAttributesActions.COMMUNITY_DELETE:
-            return newState(state, {});
+            return newState(state, initialState);
 
         case CommunityAttributesActions.ACTIVE_TAB:
             return newState(state, { activeTab: action.payload.activeTab });

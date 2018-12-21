@@ -145,8 +145,15 @@ export class CommunityManagerComponent implements OnInit {
 
   onSave() {
     if (this.CommunityObject.governance) {
-      this.communityService.addPost(this.CommunityObject).subscribe(data => {
-        alert('message' + data);
+      const communityRequest = Object.assign({}, this.CommunityObject);
+      delete communityRequest['community'];
+      delete communityRequest['activeRow'];
+      delete communityRequest['activeTab'];
+      delete communityRequest['communityId'];
+
+      this.communityService.addPost(communityRequest).subscribe(data => {
+        alert('Community Saved!');
+        this.store.dispatch(new communityActions.CommunityDelete());
       });
     }
   }
