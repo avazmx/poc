@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { State } from '../models/state.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class StateService {
    * Return the list of states.
    */
   getStates(districtId: number) {
-    // return this.http.get<State[]>(this.url + '/district/v1/list/' + districtId.toString());
-    return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
+    return this.http.get(this.url + '/district/v1/list/' + districtId.toString());
+    // return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
   }
 
   getHardCodedStates(districtId: number) {

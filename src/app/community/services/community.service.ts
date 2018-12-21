@@ -30,7 +30,7 @@ export class CommunityService {
   constructor(private http: HttpClient) { }
 
   getCommunityTypes() {
-    return this.http.get<CommunityType[]>(this.url + 'community/type');
+    return this.http.get<CommunityType[]>(this.url + 'communitytypes/v1/list/');
   }
 
   getHardCodedCommunityTypes() {
