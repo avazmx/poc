@@ -51,9 +51,9 @@ export class CountryService {
   /**
    * Return the list of countries.
    */
-  getCountries(): Observable<Country[]> {
-    // return this.http.get<Country[]>(this.url + 'countries/v1/list');
-    return this.http.get<Country[]>(this.url + 'countries');
+  getCountries() {
+    return this.http.get<Country[]>(this.url + 'countries/v1/list');
+    // return this.http.get<Country[]>(this.url + 'countries');
   }
 
   getHardCodedCountries() {

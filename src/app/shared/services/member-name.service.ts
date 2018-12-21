@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Member } from '../models/member.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,9 @@ export class MemberNameService {
   /**
    * Return the list of member names.
    */
-  getMemberNames() {
-    // return this.http.get<MemberName[]>(this.url + 'members/v1/list');
-    return this.http.get<Member[]>(this.url + 'member');
+  getMemberNames(): Observable<Member[]> {
+    return this.http.get<any>(this.url + 'members/v1/list');
+    // return this.http.get<Member[]>(this.url + 'member');
   }
 
   getHardCodedMemberNames() {

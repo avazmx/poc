@@ -29,8 +29,8 @@ export class AccessLevelService {
    * Return the list of access levels.
    */
   getAccessLevels() {
-    // return this.http.get<AccessLevel[]>(this.url + 'accesslevels/v1/list');
-    return this.http.get<AccessLevel[]>(this.url + 'access/level');
+    return this.http.get<AccessLevel[]>(this.url + 'accesslevels/v1/list');
+    // return this.http.get<AccessLevel[]>(this.url + 'access/level');
   }
 
   getHardCodedAccessLevels() {
