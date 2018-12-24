@@ -44,6 +44,6 @@ export const governanceDef = [
             checkboxChecked: '<span class="far fa-check-square"/>',
             checkboxUnchecked: `<span class="far fa-square"></span>`,
         },
-        width: 70
+        width: 80
     }
 ];

@@ -1,0 +1,12 @@
+<ag-grid-angular #savedGrid class="ag-theme-bootstrap" [enableColResize]="true" 
+  [rowData]="rowData" 
+  [columnDefs]="savedDef" rowSelection="multiple" 
+  (gridReady)="onGridReady($event)" [animateRows]="true" 
+  [suppressRowClickSelection]="true">
+</ag-grid-angular>
+
+<!-- 
+  [frameworkComponents]="frameworkComponents"
+  (rowSelected)="onRowSelected($event.node.selected)"
+  (selectionChanged)="onSelectionChanged($event)"
+ -->
