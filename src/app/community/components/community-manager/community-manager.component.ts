@@ -78,18 +78,18 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepEnterTab1(event: any) {
-    this.CommunityObject.activeTab = 1;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    // this.CommunityObject.activeTab = 1;
+    this.store.dispatch(new communityActions.ActiveTab(1));
   }
 
   stepEnterTab2(event: any) {
-    this.CommunityObject.activeTab = 2;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    // this.CommunityObject.activeTab = 2;
+    this.store.dispatch(new communityActions.ActiveTab(2));
   }
 
   stepEnterTab3(event: any) {
-    this.CommunityObject.activeTab = 3;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    // this.CommunityObject.activeTab = 3;
+    this.store.dispatch(new communityActions.ActiveTab(3));
   }
 
   stepExitTab1(event: any) {

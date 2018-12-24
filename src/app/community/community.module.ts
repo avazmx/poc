@@ -32,6 +32,7 @@ import { StateSelectComponent } from '../shared/components/state-select/state-se
 import { BusinessUnitSelectComponent } from '../shared/components/business-unit-select/business-unit-select.component';
 import { MemberNameSelectComponent } from '../shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from '../shared/components/access-level-select/access-level-select.component';
+import * as fromCommunity from '../community/store/reducers/community-attributes.reducers';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { AccessLevelSelectComponent } from '../shared/components/access-level-se
   imports: [
     CommonModule,
     SharedModule,
-    StoreModule.forFeature('communityes', communityReducer),
+    StoreModule.forFeature('community', fromCommunity.communityReducer),
     EffectsModule.forFeature([CommunityEffects]),
     CommunityRoutingModule,
     ArchwizardModule,

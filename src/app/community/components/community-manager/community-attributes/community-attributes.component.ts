@@ -1,5 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -14,14 +20,16 @@ import { StateSelectComponent } from 'src/app/shared/components/state-select/sta
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
+import * as fromApp from '../../../../store/reducers/app.reducers';
+import * as fromCommunity from '../../../store/reducers/community-attributes.reducers';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ups-community-attributes',
   templateUrl: './community-attributes.component.html',
   styleUrls: ['./community-attributes.component.scss']
 })
-
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
   @Output() isRowSelected: EventEmitter<boolean> = new EventEmitter();
@@ -54,7 +62,11 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    * @param communityService Exposes the methods to load the community types.
    * @param store Ngrx store to get the community object.
    */
-  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private communityService: CommunityService,
+    private store: Store<fromCommunity.FeatureState>
+  ) {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
@@ -64,7 +76,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       selectCountryCell: CountrySelectComponent,
       selectDistrictCell: DistrictSelectComponent,
       selectStateCell: StateSelectComponent,
-      selectBusinessUnitCell: BusinessUnitSelectComponent,
+      selectBusinessUnitCell: BusinessUnitSelectComponent
     };
   }
 
@@ -76,7 +88,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       communityType: [null, Validators.required],
       name: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', Validators.required]
     });
 
     // Subscribe to the form changes.
@@ -85,18 +97,23 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to the store in order to get the updated object.
-    this.communitySubscription = this.store.select('community').subscribe((communityUpdated) => {
-      this.communityObject = communityUpdated;
-    });
+    this.communitySubscription = this.store
+      .select('community').pipe(take(1))
+      .subscribe((communityUpdated: fromCommunity.State) => {
+        this.communityObject = communityUpdated.community;
+      });
 
     // Subscribe to the communitytype service.
-    this.communityService.getCommunityTypes().subscribe(types => {
-      this.communityTypes = types;
-      this.loading = false;
-    }, (error: HttpErrorResponse) => {
-      this.communityTypes = this.communityService.getHardCodedCommunityTypes();
-      this.loading = false;
-    });
+    // hf-personal uncoment this getCommunitytipes()
+    // this.communityService.getCommunityTypes().subscribe(types => {
+    //   this.communityTypes = types;
+    //   this.loading = false;
+    // }, (error: HttpErrorResponse) => {
+    //   this.communityTypes = this.communityService.getHardCodedCommunityTypes();
+    //   this.loading = false;
+    // });
+    this.communityTypes = this.communityService.getHardCodedCommunityTypes();
+    this.loading = false;
   }
 
   /**
@@ -129,11 +146,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       ground: 'ground',
       three: 'three',
       two: 'two',
-      one: 'one',
+      one: 'one'
     };
-    // We update the activate row in order to fill and change the new row selects.
-    this.communityObject.activeRow++;
-    this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     this.newRow = true;
 
     // We add the row to the ag-grid
@@ -147,16 +161,16 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   onSelectionChanged(event: any) {
     if (event) {
       // Getting the selected rows of the grid, rows that are checked.
-      const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
+      const selectedData: GeoService[] = this.gridApi
+        .getSelectedNodes()
+        .map(node => node.data);
 
       // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
-
       // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
         for (let index = 0; index < selectedData.length; index++) {
-
           // Get the node parameters.
           const node = renderedNodes[index];
           const countryParams = { columns: ['country'], rowNodes: [node] };
@@ -164,21 +178,40 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           const stateParams = { columns: ['state'], rowNodes: [node] };
           const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
           const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
-          const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
+          const businessUnitParams = {
+            columns: ['businessUnit'],
+            rowNodes: [node]
+          };
           const groundParams = { columns: ['ground'], rowNodes: [node] };
           const threeParams = { columns: ['three'], rowNodes: [node] };
           const twoParams = { columns: ['two'], rowNodes: [node] };
           const oneParams = { columns: ['one'], rowNodes: [node] };
 
           // Get the instance from the node parameters.
-          const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
-          const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
-          const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
-          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
-          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
-          const businessUnitInstance = this.gridApi.getCellRendererInstances(businessUnitParams);
-          const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
-          const threeInstance = this.gridApi.getCellRendererInstances(threeParams);
+          const countryInstance = this.gridApi.getCellRendererInstances(
+            countryParams
+          );
+          const districtInstance = this.gridApi.getCellRendererInstances(
+            districtParams
+          );
+          const stateInstance = this.gridApi.getCellRendererInstances(
+            stateParams
+          );
+          const slicLowInstance = this.gridApi.getCellRendererInstances(
+            slicLowParams
+          );
+          const slicHighInstance = this.gridApi.getCellRendererInstances(
+            slicHighParams
+          );
+          const businessUnitInstance = this.gridApi.getCellRendererInstances(
+            businessUnitParams
+          );
+          const groundInstance = this.gridApi.getCellRendererInstances(
+            groundParams
+          );
+          const threeInstance = this.gridApi.getCellRendererInstances(
+            threeParams
+          );
           const twoInstance = this.gridApi.getCellRendererInstances(twoParams);
           const oneInstance = this.gridApi.getCellRendererInstances(oneParams);
 
@@ -186,13 +219,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           if (countryInstance.length > 0) {
             const wapperCountryInstance = countryInstance[0];
             const frameworkCountryInstance = wapperCountryInstance.getFrameworkComponentInstance();
-            selectedData[index].country = frameworkCountryInstance.selectedCountry;
+            selectedData[index].country =
+              frameworkCountryInstance.selectedCountry;
           }
 
           if (districtInstance.length > 0) {
             const wapperDistrictInstance = districtInstance[0];
             const frameworkDistrictInstance = wapperDistrictInstance.getFrameworkComponentInstance();
-            selectedData[index].district = frameworkDistrictInstance.selectedDistrict;
+            selectedData[index].district =
+              frameworkDistrictInstance.selectedDistrict;
           }
 
           if (stateInstance.length > 0) {
@@ -210,13 +245,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
           if (slicHighInstance.length > 0) {
             const wrapperSlicHighInstance = slicHighInstance[0];
             const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
+            selectedData[index].slicRangeHigh =
+              frameworkSlicHighInstance.slicHigh;
           }
 
           if (businessUnitInstance.length > 0) {
             const wrapperBusinessUnitInstance = businessUnitInstance[0];
             const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
-            selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
+            selectedData[index].businessUnit =
+              frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
 
           if (groundInstance.length > 0) {
@@ -247,7 +284,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
       // We assign the selected data to the gioservice object in the community and dispatch the action.
       this.communityObject.geoServices = selectedData;
-      this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
+      this.store.dispatch(
+        new communityActions.AddGeoService(this.communityObject.geoServices)
+      );
     }
   }
 
@@ -259,11 +298,15 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.isRowSelected.emit(isSelected);
   }
 
+  onCellClicked(rowId: string) {
+    this.communityObject.activeRow = +rowId;
+    this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
+  }
+
   /**
    * When the component is destroyed then we unsubscribe to the community subscription.
    */
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
-
 }

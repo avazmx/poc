@@ -44,6 +44,7 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
+
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
         this.fetchCountries();
@@ -64,13 +65,15 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
     });
   }
 
+  // hf-personal uncomment this code
   fetchCountries() {
-    this.countryService.getCountries()
-      .subscribe((countries: Country[]) => {
-        this.countries = countries;
-      }, (error: HttpErrorResponse) => {
-        this.countries = this.countryService.getHardCodedCountries();
-    });
+    // this.countryService.getCountries()
+    //   .subscribe((countries: Country[]) => {
+    //     this.countries = countries;
+    //   }, (error: HttpErrorResponse) => {
+    //     this.countries = this.countryService.getHardCodedCountries();
+    // });
+    this.countries = this.countryService.getHardCodedCountries();
   }
 
   // AG Grid reload
@@ -84,10 +87,6 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.communityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
-
-
     }
   }
 

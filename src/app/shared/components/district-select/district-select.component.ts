@@ -15,7 +15,8 @@ import * as communityActions from 'src/app/community/store/actions/community-att
   templateUrl: './district-select.component.html',
   styleUrls: ['./district-select.component.scss']
 })
-export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRendererAngularComp {
+export class DistrictSelectComponent
+  implements OnInit, OnDestroy, ICellRendererAngularComp {
   public altData;
   public params: any;
   public cell: any;
@@ -26,23 +27,29 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   communityObject: Community;
   currentRow: number;
 
-  constructor(private districtService: DistrictService, private countryService: CountryService, private store: Store<Community>) { }
+  constructor(
+    private districtService: DistrictService,
+    private countryService: CountryService,
+    private store: Store<Community>
+  ) {}
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;
     // get Districts
-    this.countryIdSubscription = this.countryService.getCountryId().subscribe(
-      (countryId: number) => {
-        this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
-          if (this.communityObject.activeRow === this.currentRow || this.districts.length === 0) {
-            this.districts = districts;
-          }
-        }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
-          this.districts = this.districtService.getHardCodedDistricts(countryId);
-        });
-      }
-    );
+    this.countryIdSubscription = this.countryService
+      .getCountryId()
+      .subscribe((countryId: number) => {
+        // hf-personal uncomment this code
+        // this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
+        //   if (this.communityObject.activeRow === this.currentRow || this.districts.length === 0) {
+        //     this.districts = districts;
+        //   }
+        // }, (error: HttpErrorResponse) => {
+        //   console.log('Error trying to load the coutries list, I will load hardcoded data');
+        //   this.districts = this.districtService.getHardCodedDistricts(countryId);
+        // });
+        this.districts = this.districtService.getHardCodedDistricts(countryId);
+      });
 
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
@@ -64,9 +71,9 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
 
   onDistrictChange(selectedDistrict: string) {
     if (+selectedDistrict > 0) {
-      //  this.communityObject.gridValidator[this.communityObject.activeTab, this.params.node.id] = this.params.node.id++;
-      // this.store.dispatch(new communityActions.AddRowsValidators(this.communityObject));
-      this.selectedDistrict = this.districts.filter(state => state.id === +selectedDistrict)[0];
+      this.selectedDistrict = this.districts.filter(
+        state => state.id === +selectedDistrict
+      )[0];
       this.districtService.setDistrictId(+selectedDistrict);
     }
   }
@@ -74,5 +81,4 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   ngOnDestroy(): void {
     this.countryIdSubscription.unsubscribe();
   }
-
 }

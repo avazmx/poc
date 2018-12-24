@@ -9,14 +9,15 @@ import { StateService } from '../../services/state.service';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
 
+import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
+
 @Component({
   selector: 'ups-state-select',
   templateUrl: './state-select.component.html',
   styleUrls: ['./state-select.component.scss']
 })
-
-export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAngularComp {
-
+export class StateSelectComponent
+  implements OnInit, OnDestroy, ICellRendererAngularComp {
   public cellValue: any;
   public params: any;
   public cell: any;
@@ -28,9 +29,11 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
   communityObject: Community;
 
   districtIdSubscription: Subscription;
-  constructor(private stateService: StateService, private districtService: DistrictService,
-    private store: Store<Community>) { }
-
+  constructor(
+    private stateService: StateService,
+    private districtService: DistrictService,
+    private store: Store<Community>
+  ) {}
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;
@@ -49,18 +52,20 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     this.cell = { row: params.value, col: params.colDef.headerName };
 
     // We Subscribe to the district change and we get all the filtered states.
-    this.districtIdSubscription = this.districtService.getDistrictId().subscribe(
-      (districtId: number) => {
-        this.stateService.getStates(districtId).subscribe((states: State[]) => {
-          if (this.communityObject.activeRow === this.currentRow || this.states.length === 0) {
-            this.states = states;
-          }
-        }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
-          this.states = this.stateService.getHardCodedStates(districtId);
-        });
-      }
-    );
+    this.districtIdSubscription = this.districtService
+      .getDistrictId()
+      .subscribe((districtId: number) => {
+        // hf-personal uncomment this code
+        // this.stateService.getStates(districtId).subscribe((states: State[]) => {
+        //   if (this.communityObject.activeRow === this.currentRow || this.states.length === 0) {
+        //     this.states = states;
+        //   }
+        // }, (error: HttpErrorResponse) => {
+        //   console.log('Error trying to load the coutries list, I will load hardcoded data');
+        //   this.states = this.stateService.getHardCodedStates(districtId);
+        // });
+        this.states = this.stateService.getHardCodedStates(districtId);
+      });
   }
 
   /**
@@ -78,7 +83,9 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
    */
   onStateChange(selectedCountry: string) {
     if (+selectedCountry > 0) {
-      this.selectedState = this.states.filter(state => state.id === +selectedCountry)[0];
+      this.selectedState = this.states.filter(
+        state => state.id === +selectedCountry
+      )[0];
       console.log(this.selectedState);
     }
   }
