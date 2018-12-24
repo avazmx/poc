@@ -10,6 +10,8 @@ import { CommunityService } from '../../services/community.service';
 //Services
 import { CountryService } from 'src/app/shared/services/country.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'ups-community-manager',
   templateUrl: './community-manager.component.html',
@@ -104,14 +106,24 @@ export class CommunityManagerComponent implements OnInit {
       this.CommunityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
     } else {
-      alert(`Please fill out the details mark with * to continue`);
+      //alert(`Please fill out the details mark with * to continue`);
+      Swal(
+        'Some details are missing',
+        'Please fill out the details mark with * to continue',
+        'info'
+      )
     }
   }
 
   stepExitTab2(event: any) {
     if (this.canExitMembersGrid) {
     } else {
-      alert('Please fill this');
+      //alert('Please fill this');
+      Swal(
+        'Some information is missing',
+        'Please fill this',
+        'info'
+      )
     }
     console.log('Step Enter', event);
     // Here we need to save the members that are added.
@@ -152,7 +164,11 @@ export class CommunityManagerComponent implements OnInit {
       delete communityRequest['communityId'];
 
       this.communityService.addPost(communityRequest).subscribe(data => {
-        alert('Community Saved!');
+        //alert('Community Saved!');
+        Swal({
+          type: 'success',
+          title: 'Community Saved!'
+        })
         this.store.dispatch(new communityActions.CommunityDelete());
       });
     }
