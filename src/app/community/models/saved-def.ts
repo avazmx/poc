@@ -2,19 +2,20 @@ export const savedDef = [
     {
         headerName: 'Name',
         field: 'name',
-        width: 120
+        width: 300
     }, {
         headerName: 'Description',
         field: 'description',
-        width: 120
+        width: 300
     }, {
-        headerName: '*',
+        headerName: 'More info',
         field: 'checkbox',
         checkboxSelection: true,
         icons: {
-            checkboxChecked: '<span class="far fa-check-square"/>',
-            checkboxUnchecked: `<span class="far fa-square"></span>`,
+            // checkboxChecked: '<span> <strong>Show less</strong> &nbsp;<span class="fas fa-minus"/></span>',
+            checkboxChecked: '<span>&nbsp; <span class="fas fa-minus"/></span>',
+            checkboxUnchecked: `<span>&nbsp; <span class="fas fa-plus"/></span>`
         },
-        width: 80
+        width: 400
     }
 ];

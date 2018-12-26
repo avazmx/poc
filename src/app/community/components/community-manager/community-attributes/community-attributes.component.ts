@@ -14,7 +14,7 @@ import { StateSelectComponent } from 'src/app/shared/components/state-select/sta
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
+import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
 
 @Component({
   selector: 'ups-community-attributes',

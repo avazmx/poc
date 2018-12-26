@@ -5,7 +5,7 @@ import { CommunitySavedComponent } from './components/community-saved/community-
 
 const routes: Routes = [
   { path: 'create', component: CommunityManagerComponent },
-  { path: 'saved', component: CommunitySavedComponent },
+  { path: 'communities', component: CommunitySavedComponent },
 ];
 
 @NgModule({

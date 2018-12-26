@@ -10,12 +10,13 @@ import { Store } from '@ngrx/store';
 })
 export class CommunitySavedComponent implements OnInit {
   rowData;
-  private savedDef;
+  savedDef;
   private frameworkComponents;
   private gridApi;
   private gridColumnApi;
   private savedGrid;
   communityObject: Community;
+  communityDetails: boolean;
 
   constructor(private store: Store<Community>) {
     // Row Sample
@@ -25,11 +26,14 @@ export class CommunitySavedComponent implements OnInit {
     this.savedDef = savedDef;
     this.frameworkComponents = {};
 
+    // More Info Boolean
+    this.communityDetails = false;
   }
 
   ngOnInit() {
     this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
+      console.log(this.communityObject);
     });
   }
 
@@ -40,6 +44,19 @@ export class CommunitySavedComponent implements OnInit {
 
     this.gridApi.setDomLayout('autoHeight');
     this.savedGrid = document.querySelector('#savedGrid');
+
+    const newData = {
+      name: this.communityObject.name,
+      description: this.communityObject.description
+    };
+
+    // We add the row to the ag-grid
+    this.gridApi.updateRowData({ add: [newData] });
+  }
+
+  onSelectionChanged(e) {
+    console.log(e);
+    this.communityDetails = !this.communityDetails;
   }
 
 }

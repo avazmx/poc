@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ups-header',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  constructor(public router: Router) { }
+  ngOnInit() { }
 
-  constructor() { }
+  redirectToCreate() {
+    this.router.navigate(['/community/create']);
+  }
 
-  ngOnInit() {
+  redirectToSaved() {
+    this.router.navigate(['/community/communities']);
   }
 
 }

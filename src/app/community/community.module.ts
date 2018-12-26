@@ -22,7 +22,6 @@ import {
   CommunityManageMembersComponent,
 } from './components/community-manager/community-manage-members/community-manage-members.component';
 import { CommunityManagerComponent } from './components/community-manager/community-manager.component';
-import { CommunitySelectComponent } from './components/community-manager/community-select/community-select.component';
 import { CommunityEffects } from './store/effects/community-effects';
 import { communityReducer } from './store/reducers/community-attributes.reducers';
 import { CountrySelectComponent } from '../shared/components/country-select/country-select.component';
@@ -33,6 +32,7 @@ import { BusinessUnitSelectComponent } from '../shared/components/business-unit-
 import { MemberNameSelectComponent } from '../shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from '../shared/components/access-level-select/access-level-select.component';
 import { CommunitySavedComponent } from './components/community-saved/community-saved.component';
+import { CommunitySelectComponent } from '../shared/components/community-select/community-select.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import { CommunitySavedComponent } from './components/community-saved/community-
     CommunityAttributesComponent,
     CommunityManageMembersComponent,
     CommunityGovernanceComponent,
-    CommunitySelectComponent,
     MultiSelectComponent,
     CommunitySavedComponent,
   ],
