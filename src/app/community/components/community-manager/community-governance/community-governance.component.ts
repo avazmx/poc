@@ -52,7 +52,7 @@ export class CommunityGovernanceComponent implements OnInit {
         console.log('Backend service failed for Governance levels');
         this.governanceLevels = this.governanceService.getHardCodedGovernanceLevels();
         this.loading = false;
-    });
+      });
 
     // AG Grid Component Info
     this.governanceDef = governanceDef;
@@ -70,6 +70,10 @@ export class CommunityGovernanceComponent implements OnInit {
       if (this.communityObject.activeTab === 3) {
         this.createObject();
       }
+
+      // if (this.communityObject.activeTab === 3) {
+      //   this.gridApi.sizeColumnsToFit();
+      // }
     });
   }
 
@@ -205,7 +209,6 @@ export class CommunityGovernanceComponent implements OnInit {
 
   }
 
-
   // AG-Grid
   onGridReady(params) {
     this.gridApi = params.api;
@@ -213,17 +216,7 @@ export class CommunityGovernanceComponent implements OnInit {
 
     this.gridApi.setDomLayout('autoHeight');
     this.governanceGrid = document.querySelector('#governanceGrid');
-
-
-
-    // Subscribe to the store in order to get the updated object.
-    this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      this.CommunityObject = obj;
-
-      if (this.CommunityObject.activeTab === 3) {
-        this.gridApi.sizeColumnsToFit();
-      }
-    });
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

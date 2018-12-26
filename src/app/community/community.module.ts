@@ -25,6 +25,7 @@ import { CommunityManagerComponent } from './components/community-manager/commun
 import { CommunitySelectComponent } from './components/community-manager/community-select/community-select.component';
 import { CommunityEffects } from './store/effects/community-effects';
 import { communityReducer } from './store/reducers/community-attributes.reducers';
+import * as fromCommunity from './store/reducers/community-attributes.reducers';
 import { CountrySelectComponent } from '../shared/components/country-select/country-select.component';
 import { SharedModule } from '../shared/shared.module';
 import { DistrictSelectComponent } from '../shared/components/district-select/district-select.component';
@@ -45,7 +46,7 @@ import { AccessLevelSelectComponent } from '../shared/components/access-level-se
   imports: [
     CommonModule,
     SharedModule,
-    StoreModule.forFeature('communityes', communityReducer),
+    StoreModule.forFeature('community', fromCommunity.communityReducer),
     EffectsModule.forFeature([CommunityEffects]),
     CommunityRoutingModule,
     ArchwizardModule,
