@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/community/create']);
   }
 
-  redirectToSaved() {
-    this.router.navigate(['/community/communities']);
+  redirectToComunities() {
+    this.router.navigate(['/communities']);
   }
 
 }

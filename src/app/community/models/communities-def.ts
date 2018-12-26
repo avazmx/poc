@@ -1,4 +1,4 @@
-export const savedDef = [
+export const communitiesDef = [
     {
         headerName: 'Name',
         field: 'name',

@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { ArchwizardModule } from 'angular-archwizard';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { CommunityRoutingModule } from './community-routing.module';
 import {
   CommunityAttributesComponent,
@@ -31,22 +30,22 @@ import { StateSelectComponent } from '../shared/components/state-select/state-se
 import { BusinessUnitSelectComponent } from '../shared/components/business-unit-select/business-unit-select.component';
 import { MemberNameSelectComponent } from '../shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from '../shared/components/access-level-select/access-level-select.component';
-import { CommunitySavedComponent } from './components/community-saved/community-saved.component';
+import { CommunitiesComponent } from './components/communities/communities.component';
 import { CommunitySelectComponent } from '../shared/components/community-select/community-select.component';
 
 @NgModule({
   declarations: [
+    CommunitiesComponent,
     CommunityManagerComponent,
     CommunityAttributesComponent,
     CommunityManageMembersComponent,
     CommunityGovernanceComponent,
     MultiSelectComponent,
-    CommunitySavedComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    StoreModule.forFeature('communityes', communityReducer),
+    StoreModule.forFeature('communities', communityReducer),
     EffectsModule.forFeature([CommunityEffects]),
     CommunityRoutingModule,
     ArchwizardModule,

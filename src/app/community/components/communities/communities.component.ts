@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { savedDef } from '../../models/saved-def';
+import { communitiesDef } from '../../models/communities-def';
 import { Community } from '../../models/community.model';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'ups-community-saved',
-  templateUrl: './community-saved.component.html',
-  styleUrls: ['./community-saved.component.scss']
+  selector: 'ups-communities',
+  templateUrl: './communities.component.html',
+  styleUrls: ['./communities.component.scss']
 })
-export class CommunitySavedComponent implements OnInit {
+export class CommunitiesComponent implements OnInit {
   rowData;
-  savedDef;
+  communitiesDef;
   private frameworkComponents;
   private gridApi;
   private gridColumnApi;
-  private savedGrid;
+  private communitiesGrid;
   communityObject: Community;
   communityDetails: boolean;
 
@@ -23,7 +23,7 @@ export class CommunitySavedComponent implements OnInit {
     this.rowData = [];
 
     // AG Grid Component Info
-    this.savedDef = savedDef;
+    this.communitiesDef = communitiesDef;
     this.frameworkComponents = {};
 
     // More Info Boolean
@@ -43,7 +43,7 @@ export class CommunitySavedComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
 
     this.gridApi.setDomLayout('autoHeight');
-    this.savedGrid = document.querySelector('#savedGrid');
+    this.communitiesGrid = document.querySelector('#communitiesGrid');
 
     const newData = {
       name: this.communityObject.name,
@@ -55,7 +55,6 @@ export class CommunitySavedComponent implements OnInit {
   }
 
   onSelectionChanged(e) {
-    console.log(e);
     this.communityDetails = !this.communityDetails;
   }
 

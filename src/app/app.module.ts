@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AgGridModule } from 'ag-grid-angular';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
