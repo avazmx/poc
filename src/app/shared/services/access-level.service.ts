@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccessLevel } from '../models/access-level.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,22 @@ export class AccessLevelService {
     this.harcodedAccessLevels.push(comm3);
   }
 
+  private accessLevelId = new Subject<number>();
+
   /**
    * Return the list of access levels.
    */
+
+  setAccessLevelId(id: number) {
+    this.accessLevelId.next(id);
+  }
+
+  getAccessLevelId() {
+    return this.accessLevelId.asObservable();
+  }
+
   getAccessLevels() {
-    return this.http.get<AccessLevel[]>(this.url + 'accesslevels/v1/list');
+    return this.http.get<AccessLevel[]>(this.url + 'accesslevels/access-level');
     // return this.http.get<AccessLevel[]>(this.url + 'access/level');
   }
 

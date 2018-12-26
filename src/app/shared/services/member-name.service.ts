@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Member } from '../models/member.model';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,20 @@ export class MemberNameService {
     this.harcodedMemberNames.push(comm3);
   }
 
+  private memberId = new Subject<number>();
+
   /**
    * Return the list of member names.
    */
+  setMemberId(id: number) {
+    this.memberId.next(id);
+  }
+
+  getMemberId() {
+    return this.memberId.asObservable();
+  }
   getMemberNames(): Observable<Member[]> {
-    return this.http.get<any>(this.url + 'members/v1/list');
+    return this.http.get<any>(this.url + 'members/members');
     // return this.http.get<Member[]>(this.url + 'member');
   }
 

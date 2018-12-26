@@ -14,6 +14,6 @@ export class GovernanceLevelService {
    * Return the list of governance level.
    */
   getGovernanceLevel() {
-    return this.http.get<GovernanceLevel>(this.url + 'governancelevel/v1/list/');
+    return this.http.get<GovernanceLevel>(this.url + 'governancelevel/governance-level');
   }
 }

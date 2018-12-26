@@ -25,14 +25,7 @@ const initialState: State = {
         governance: null,
         attributes: null,
         activeTab: 1,
-        activeRow: -1,
-        gridValidator: [
-            [
-                {},
-                {},
-                {}
-            ]
-        ]
+        activeRow: -1
     }
 };
 

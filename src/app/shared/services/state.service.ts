@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { State } from '../models/state.model';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +27,21 @@ export class StateService {
     this.harcodedStates.push(comm3);
   }
 
+  private stateId = new Subject<number>();
+
+  setStateId(id: number) {
+    this.stateId.next(id);
+  }
+
+  getStateId() {
+    return this.stateId.asObservable();
+  }
+
   /**
    * Return the list of states.
    */
   getStates(districtId: number) {
-    return this.http.get(this.url + '/district/v1/list/' + districtId.toString());
+    return this.http.get(this.url + 'district/district' + districtId.toString());
     // return this.http.get<State[]>(this.url + '/district/' + districtId.toString());
   }
 

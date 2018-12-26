@@ -8,6 +8,10 @@ import { CommunityAttributesComponent } from './community-attributes/community-a
 
 //Services
 import { CountryService } from 'src/app/shared/services/country.service';
+import { DistrictService } from 'src/app/shared/services/district.service';
+import { MemberNameService } from 'src/app/shared/services/member-name.service';
+import { AccessLevelService } from 'src/app/shared/services/access-level.service';
+import { StateService } from 'src/app/shared/services/state.service';
 
 @Component({
   selector: 'ups-community-manager',
@@ -24,50 +28,100 @@ export class CommunityManagerComponent implements OnInit {
   CommunityObject: Community;
   gridApi;
   gridColumnApi;
+  //Object/model that will authenticate the grid from the second tab
   gridValidator: [
     [
         {
-          country: false
-          district: false;
-          state: false,
-          slickRangeHigh: false,
-          slickRangeLow: false,
-          businessUnit: false,
-          ground: false,
-          three: false,
-          two: false,
-          one: false,
+          country: boolean,
+          district: boolean,
+          state: boolean,
+          slickRangeHigh: boolean,
+          slickRangeLow: boolean,
+          businessUnit: boolean,
+          ground: boolean,
+          three: boolean,
+          two: boolean,
+          one: boolean,
         },
         {
-          memberName: false,
-          accessLevel: false,
-          country: false,
-          district: false,
-          state: false,
-          slicRangeLow: false,
-          slicRangeHigh: false
+          memberName: boolean,
+          accessLevel: boolean,
+          country: boolean,
+          district: boolean,
+          state: boolean,
+          slicRangeLow: boolean,
+          slicRangeHigh: boolean
         },
         {}
     ]
 ]
+
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   canExitAgGrid = false;
   canExitMembersGrid = false;
-  communitySubscription: Subscription;
   agGridFilled: boolean;
+  //Subscription
+  communitySubscription: Subscription;
   countryIdSubscription: Subscription;
+  districtSubscription: Subscription;
+  memberNameSubscription: Subscription;
+  accessLevelSubscription: Subscription;
+  stateSubscription: Subscription;
 
-  constructor(private countryService: CountryService, private store: Store<Community>) { }
+  constructor(private districtService: DistrictService,
+              private countryService: CountryService,
+              private memberNameService: MemberNameService,
+              private accessLevelService: AccessLevelService,
+              private stateService: StateService,
+              private store: Store<Community>) { }
 
   ngOnInit() {
-    //Subscribe to the country service subject
+    //Subscribe to the services subjects
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
-        console.log("I am subscribed and the values are changing")
+        console.log("Country");
+        /*if(countryId > 0) {
+          this.gridValidator[0][1].country = true;
+        }*/
       }, (error: any) => {});
+
+      this.districtSubscription = this.districtService.getDistrictId().subscribe(
+        (districtId: number) => {
+          console.log("District");
+          /*if(districtId > 0) {
+            this.gridValidator[0][1].district = true;
+          }*/
+        }, (error: any) => {});
+
+      this.memberNameSubscription = this.memberNameService.getMemberId().subscribe(
+        (memberNameId: number) => {
+          console.log('Member Name');
+          /*if(memberNameId > 0) {
+            this.gridValidator[0][1].memberName = true;
+          }*/
+        }
+      )
+
+      this.stateSubscription = this.stateService.getStateId().subscribe(
+        (stateId: number) => {
+          console.log('State');
+          /*if(stateId > 0) {
+            this.gridValidator[0][1].state
+          }*/
+        }
+      )
+
+      this.accessLevelSubscription = this.accessLevelService.getAccessLevelId().subscribe(
+        (accessLevelId: number) => {
+          console.log('Access Level');
+          /*if(accessLevelId > 0) {
+            this.gridValidator[0][1].accessLevel = true;
+          }*/
+        }
+      )
 
       // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {

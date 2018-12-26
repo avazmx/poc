@@ -44,7 +44,7 @@ export class DistrictService {
    * Return the list of districts.
    */
   getDistrictsByCountryId(countryId: number) {
-    return this.http.get<District[]>(this.url + '/countries/v1/list/' + countryId.toString());
+    return this.http.get<District[]>(this.url + 'countries/country' + countryId.toString());
   }
 
   getHardCodedDistricts(countryId: number) {
