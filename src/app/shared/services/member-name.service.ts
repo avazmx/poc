@@ -30,15 +30,23 @@ export class MemberNameService {
   private memberId = new Subject<number>();
 
   /**
-   * Return the list of member names.
+   * Sets the id of the member id id selected
+   * @param id id of the member id selected
    */
   setMemberId(id: number) {
     this.memberId.next(id);
   }
 
+  /**
+   * returns the id of the member selected
+   */
   getMemberId() {
     return this.memberId.asObservable();
   }
+
+  /**
+   * Return the list of member names.
+   */
   getMemberNames(): Observable<Member[]> {
     return this.http.get<any>(this.url + 'members/members');
     // return this.http.get<Member[]>(this.url + 'member');

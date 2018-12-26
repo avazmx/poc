@@ -29,10 +29,17 @@ export class StateService {
 
   private stateId = new Subject<number>();
 
+  /**
+   * Sets the id of the state id id selected
+   * @param id id of the state id selected
+   */
   setStateId(id: number) {
     this.stateId.next(id);
   }
 
+  /**
+   * returns the id of the state selected
+   */
   getStateId() {
     return this.stateId.asObservable();
   }

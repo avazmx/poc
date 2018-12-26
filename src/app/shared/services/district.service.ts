@@ -30,11 +30,16 @@ export class DistrictService {
     this.harcodedDistricts.push(comm3);
   }
 
-
+  /**
+   * Sets the id of the district id selected
+   * @param id id of the district selected
+   */
   setDistrictId(id: number) {
     this.districtIdState.next(id);
   }
-
+  /**
+   * returns the id of the district selected
+   */
   getDistrictId() {
     return this.districtIdState.asObservable();
   }

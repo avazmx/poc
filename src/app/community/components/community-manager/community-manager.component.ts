@@ -29,6 +29,7 @@ export class CommunityManagerComponent implements OnInit {
   gridApi;
   gridColumnApi;
   //Object/model that will authenticate the grid from the second tab
+  //Galdino
   gridValidator: [
     [
         {
@@ -79,7 +80,12 @@ export class CommunityManagerComponent implements OnInit {
               private store: Store<Community>) { }
 
   ngOnInit() {
+    //Galdino
     //Subscribe to the services subjects
+    //These are the subscriptions that are going to fill
+    //the booleans that are going to validate when fullfiled
+    //after an option of the select has been changed
+
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         console.log("Country");
@@ -122,6 +128,8 @@ export class CommunityManagerComponent implements OnInit {
           }*/
         }
       )
+
+    //Galdino end
 
       // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
