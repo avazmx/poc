@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -137,7 +136,7 @@ export class CommunityGovernanceComponent implements OnInit {
               levelApproverOne: '',
               atllevelApproverOne: '',
               levelApproverTwo: '',
-              AtllevelApproverTwo: '',
+              atllevelApproverTwo: '',
               checkbox: ''
             };
 

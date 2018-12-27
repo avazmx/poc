@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 // Components
-import { CommunitySelectComponent } from '../community-select/community-select.component';
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
@@ -18,7 +17,7 @@ import { AccessLevelSelectComponent } from 'src/app/shared/components/access-lev
 import { ManageMember } from 'src/app/shared/models/manage-member.model';
 
 import * as communityActions from '../../../store/actions/community-attributes.actions';
-import { appInitializerFactory } from '@angular/platform-browser/src/browser/server-transition';
+import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
 
 @Component({
   selector: 'ups-community-manage-members',
