@@ -57,8 +57,12 @@ export class CommunitiesComponent implements OnInit {
     this.gridApi.updateRowData({ add: [newData] });
   }
 
-  // Show more details about specific community
-  onSelectionChanged(e) {
+/**
+ * When you click on the plus sign below "More info",
+ * it will show more information about the specific community that has been selected.
+ * "communityDetails" is a boolean that will hide and show the info about GeoServices, Members and Governance.
+ */
+  onSelectionChanged() {
     this.communityDetails = !this.communityDetails;
   }
 
