@@ -2,13 +2,9 @@
   <h3>East Region Small Package Community - Community Governance</h3>
   <hr>
   <label>GOVERNANCE LEVEL*</label>
-  <ng-select  bindLabel="name" bindValue="id" class="custom selectInput" 
-    [items]="governanceLevels" placeholder="Select a level" [loading]="loading">
+  <ng-select bindLabel="name" bindValue="id" class="custom selectInput" [items]="governanceLevels" placeholder="Select a level"
+    [loading]="loading" (change)="onGovernanceLevelChange($event)">
   </ng-select>
-
-  <!-- <select>
-    <option *ngFor="let level of governanceLevels"> {{level.name}} </option>
-  </select> -->
   <br>
   <div class="transferContainer">
     <div class="transferBox">
@@ -44,5 +40,5 @@
 <ag-grid-angular #governanceGrid class="ag-theme-bootstrap" [headerHeight]="headerHeight" [enableColResize]="true"
   [rowData]="rowData" [columnDefs]="governanceDef" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)"
   rowSelection="multiple" [frameworkComponents]="frameworkComponents" [animateRows]="true" [suppressRowClickSelection]="true"
-  (rowSelected)="onRowSelected($event.node.selected)">
+  (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>

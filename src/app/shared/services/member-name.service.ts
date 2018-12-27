@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Member } from '../models/member.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,49 @@ import { Observable } from 'rxjs';
 export class MemberNameService {
   private url = environment.apiUrl;
   public harcodedMemberNames: Member[] = [];
+
+  private memberOneState = new Subject<any>();
+  private memberTwoState = new Subject<any>();
+  private altMemberOneState = new Subject<any>();
+  private altMembertwoState = new Subject<any>();
+
+  public memberOne: Member;
+  public memberTwo: Member;
+  public altMemberOne: Member;
+  public altMemberTwo: Member;
+
+  setMemberOne(member: any) {
+    this.memberOneState.next(member);
+  }
+
+  getMemberOneState() {
+    return this.memberOneState.asObservable();
+  }
+
+  setAltMemberOne(member: any) {
+    this.altMemberOneState.next(member);
+  }
+
+  getAltMemberOneState() {
+    return this.altMemberOneState.asObservable();
+  }
+
+  setMemberTwo(member: any) {
+    this.memberTwoState.next(member);
+  }
+
+  getMemberTwoState() {
+    return this.memberTwoState.asObservable();
+  }
+
+  setAltMemberTwo(member: any) {
+    this.altMembertwoState.next(member);
+  }
+
+  getAltMemberTwoState() {
+    return this.altMembertwoState.asObservable();
+  }
+
 
   constructor(private http: HttpClient) {
     const comm1 = new Member();

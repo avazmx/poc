@@ -54,7 +54,7 @@ export class CommunityService {
   }
 
   /** POST: add a new hero to the database */
-  addPost(community: Community): Observable<any> {
+  addPost(community: any): Observable<any> {
     return this.http.post<any>(this.url + 'communitystore/community-store', community);
   }
 

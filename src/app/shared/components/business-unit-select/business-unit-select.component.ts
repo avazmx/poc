@@ -19,7 +19,6 @@ export class BusinessUnitSelectComponent implements OnInit {
   public cell: any;
   public businessUnitSubscription: Subscription;
   public businessUnits: BusinessUnit[];
-  public businessUnit;
   public selectedBusinessUnit;
   public CommunityObject: Community;
   gridApi;
@@ -57,13 +56,13 @@ export class BusinessUnitSelectComponent implements OnInit {
   }
 
   /**
-   * 
-   * @param selectedBusinessUnit
+   * This method fires when the bussines unit dropdown changes the selection.
+   * @param selectedBusinessUnit the selected element from the dropdown list
    */
   onBusinessUnitChange(selectedBusinessUnit: string) {
-    this.selectedBusinessUnit = selectedBusinessUnit;
-    // this.gridColumnApi.setColumnVisible('checkbox', true);
-    this.gridApi.sizeColumnsToFit();
+    if (+selectedBusinessUnit > 0) {
+      this.selectedBusinessUnit = this.businessUnits.filter(bussinesUnit => bussinesUnit.id === +selectedBusinessUnit)[0];
+    }
   }
 
 }

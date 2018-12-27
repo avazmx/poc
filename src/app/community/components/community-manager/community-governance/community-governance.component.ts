@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommunitySelectComponent } from '../community-select/community-select.component';
 
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 import { governanceDef } from '../../../models/governance-def';
 import { Governance } from 'src/app/community/models/governance.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MemberNameService } from 'src/app/shared/services/member-name.service';
 
 @Component({
   selector: 'ups-community-governance',
@@ -22,7 +23,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CommunityGovernanceComponent implements OnInit {
 
   rowData;
-  private gridApi;
+  public gridApi;
   private gridColumnApi;
   private governanceGrid;
   private governanceDef;
@@ -33,12 +34,14 @@ export class CommunityGovernanceComponent implements OnInit {
   secondData = [];
   headerHeight = 38;
   communitySubscription: Subscription;
-  CommunityObject: Community;
   timesEmitted = 0;
   loading = true;
+  @Output() memberSelected: EventEmitter<any>;
+  @Output() governanceLevelChange: EventEmitter<GovernanceLevel>;
 
 
-  constructor(private governanceService: GovernanceLevelService, private store: Store<Community>) {
+  constructor(private governanceService: GovernanceLevelService, private store: Store<Community>,
+    private memberService: MemberNameService) {
     // Row Sample
     this.rowData = [];
 
@@ -46,7 +49,6 @@ export class CommunityGovernanceComponent implements OnInit {
     this.governanceService.getGovernanceLevel()
       .subscribe((governance: GovernanceLevel) => {
         this.governanceLevels = governance;
-        console.log(this.governanceLevels);
         this.loading = false;
       }, (error: HttpErrorResponse) => {
         console.log('Backend service failed for Governance levels');
@@ -61,6 +63,9 @@ export class CommunityGovernanceComponent implements OnInit {
     };
 
     this.data = [];
+
+    this.memberSelected = new EventEmitter<any>();
+    this.governanceLevelChange = new EventEmitter<GovernanceLevel>();
 
   }
 
@@ -154,10 +159,13 @@ export class CommunityGovernanceComponent implements OnInit {
     this.secondData = selected;
   }
 
+  /**
+   * Fires when the user adds a new approver to the grid.
+   * @param event the row object.
+   */
   onSelectionChanged(event: any) {
     if (event) {
       const selectedData: Governance[] = this.gridApi.getSelectedNodes().map(node => node.data);
-      // Get the nodes of the grid.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
       if (renderedNodes.length > 0) {
@@ -199,17 +207,73 @@ export class CommunityGovernanceComponent implements OnInit {
           }
         }
       }
-      console.log('selected data', selectedData);
-      this.CommunityObject.governance = selectedData;
-      this.store.dispatch(new communityActions.AddGovernance(this.CommunityObject));
+      this.communityObject.governance = selectedData;
+      this.store.dispatch(new communityActions.AddGovernance(this.communityObject));
     }
   }
 
-  onRowSelected(isSelected: boolean) {
+  /**
+   * Fires when the user clicks in the cell this method help us to identify which user has been added to the governance approvers.
+   * @param event  the cell clicked.
+   */
+  onCellClicked(event: any) {
+    if (event.column.colDef.field === 'levelApproverOne' || event.column.colDef.field === 'atllevelApproverOne'
+      || event.column.colDef.field === 'levelApproverTwo' || event.column.colDef.field === 'atllevelApproverTwo') {
+      // Get the nodes of the grid.
+      const renderedNodes = this.gridApi.getRenderedNodes().filter(x => x.id === event.node.id)[0];
 
+      if (renderedNodes) {
+        const levelApproverOne = { columns: ['levelApproverOne'], rowNodes: [renderedNodes] };
+        const atlLevelApproverOne = { columns: ['atllevelApproverOne'], rowNodes: [renderedNodes] };
+        const levelApproverTwo = { columns: ['levelApproverTwo'], rowNodes: [renderedNodes] };
+        const atlLevelApproverTwo = { columns: ['atllevelApproverTwo'], rowNodes: [renderedNodes] };
+
+        const levelApproverOneInstance = this.gridApi.getCellRendererInstances(levelApproverOne);
+        const altlevelApproverOneInstance = this.gridApi.getCellRendererInstances(atlLevelApproverOne);
+        const levelApproverTwoInstance = this.gridApi.getCellRendererInstances(levelApproverTwo);
+        const atlLevelApproverTwoInstance = this.gridApi.getCellRendererInstances(atlLevelApproverTwo);
+
+        if (event.column.colDef.field === 'levelApproverOne') {
+          if (levelApproverOneInstance.length > 0) {
+            const wrapperLevelOneApprover = levelApproverOneInstance[0];
+            const frameworkLevelApproverOneInstance = wrapperLevelOneApprover.getFrameworkComponentInstance();
+            if (frameworkLevelApproverOneInstance.selectedLevelApproverOne === null) {
+              this.memberService.setMemberOne(true);
+            }
+          }
+        } else if (event.column.colDef.field === 'atllevelApproverOne') {
+          if (altlevelApproverOneInstance.length > 0) {
+            const wrapperAltLevelOneApprover = altlevelApproverOneInstance[0];
+            const frameworkAtlLevelApproverOneInstance = wrapperAltLevelOneApprover.getFrameworkComponentInstance();
+            if (frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne === null) {
+              this.memberService.setAltMemberOne(true);
+            }
+          }
+        } else if (event.column.colDef.field === 'levelApproverTwo') {
+          if (levelApproverTwoInstance.length > 0) {
+            const wrapperLevelTwoApprover = levelApproverTwoInstance[0];
+            const frameworkLevelApproverTwoInstance = wrapperLevelTwoApprover.getFrameworkComponentInstance();
+            if (frameworkLevelApproverTwoInstance.selectedLevelApproverTwo === null) {
+              this.memberService.setMemberTwo(true);
+            }
+          }
+        } else if (event.column.colDef.field === 'atllevelApproverTwo') {
+          if (atlLevelApproverTwoInstance.length > 0) {
+            const wrapperAtlLevvelTwoApproverInstance = atlLevelApproverTwoInstance[0];
+            const frameworkAtlLevvelTwoApproverInstance = wrapperAtlLevvelTwoApproverInstance.getFrameworkComponentInstance();
+            if (frameworkAtlLevvelTwoApproverInstance.selectedAtlLevelApproverTwo === null) {
+              this.memberService.setAltMemberTwo(true);
+            }
+          }
+        }
+      }
+    }
   }
 
-  // AG-Grid
+  /**
+   * Fires when the ag-grid is loaded.
+   * @param params the ag-grid api.
+   */
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -217,6 +281,12 @@ export class CommunityGovernanceComponent implements OnInit {
     this.gridApi.setDomLayout('autoHeight');
     this.governanceGrid = document.querySelector('#governanceGrid');
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
+    if (selectedGovernance !== undefined && selectedGovernance !== null) {
+      this.governanceLevelChange.emit(selectedGovernance);
+    }
   }
 
 }
