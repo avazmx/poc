@@ -5,7 +5,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
 
 const routes: Routes = [
   { path: 'create', component: CommunityManagerComponent },
-  { path: '', component: CommunitiesComponent },
+  { path: 'communities', component: CommunitiesComponent },
 ];
 
 @NgModule({

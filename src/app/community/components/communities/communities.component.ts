@@ -31,20 +31,23 @@ export class CommunitiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Loading of the community object
     this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
       console.log(this.communityObject);
     });
   }
 
-  // AG-Grid
+  // AG-Grid Initialize
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
+    // Necessary info for the loading of AG Grid
     this.gridApi.setDomLayout('autoHeight');
     this.communitiesGrid = document.querySelector('#communitiesGrid');
 
+    // Info of the new ag-grid row
     const newData = {
       name: this.communityObject.name,
       description: this.communityObject.description
@@ -54,6 +57,7 @@ export class CommunitiesComponent implements OnInit {
     this.gridApi.updateRowData({ add: [newData] });
   }
 
+  // Show more details about specific community
   onSelectionChanged(e) {
     this.communityDetails = !this.communityDetails;
   }

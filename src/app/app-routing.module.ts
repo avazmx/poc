@@ -8,10 +8,6 @@ const routes: Routes = [
     loadChildren: './community/community.module#CommunityModule'
   },
   {
-    path: 'communities',
-    loadChildren: './community/community.module#CommunityModule'
-  },
-  {
     path: '**',
     redirectTo: 'community/create'
   }
