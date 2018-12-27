@@ -8,6 +8,8 @@ import * as communityActions from '../../store/actions/community-attributes.acti
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'ups-community-manager',
   templateUrl: './community-manager.component.html',
@@ -118,8 +120,11 @@ export class CommunityManagerComponent implements OnInit {
       this.communityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     } else {
-      // Integrate sweet alert here.
-      alert(`Please fill out the details mark with * to continue`);
+      Swal(
+        'Some details are missing',
+        'Please fill out the details mark with * to continue',
+        'info'
+      );
     }
   }
 
@@ -214,7 +219,10 @@ export class CommunityManagerComponent implements OnInit {
       // Call community save service.
       this.communityService.addPost(saveCommunity).subscribe(data => {
         console.log('Community Saved: ', data);
-        // Send a sweet alert with the apis message.
+        Swal({
+          type: 'success',
+          title: 'Community Saved!'
+        })
         this.store.dispatch(new communityActions.CommunityDelete());
       });
     }
