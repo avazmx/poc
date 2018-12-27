@@ -25,38 +25,32 @@ export class CommunityManagerComponent implements OnInit {
    */
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
-  CommunityObject: Community;
+  communityObject: Community;
   gridApi;
   gridColumnApi;
   //Object/model that will authenticate the grid from the second tab
   //Galdino
-  gridValidator: [
-    [
+  gridValidator =
         {
-          country: boolean,
-          district: boolean,
-          state: boolean,
-          slickRangeHigh: boolean,
-          slickRangeLow: boolean,
-          businessUnit: boolean,
-          ground: boolean,
-          three: boolean,
-          two: boolean,
-          one: boolean,
-        },
-        {
-          memberName: boolean,
-          accessLevel: boolean,
-          country: boolean,
-          district: boolean,
-          state: boolean,
-          slicRangeLow: boolean,
-          slicRangeHigh: boolean
-        },
-        {}
-    ]
-]
+          tab1Country: false,
+          tab1District: false,
+          tab1State: false,
+          tab1SlickRangeHigh: false,
+          tab1SlickRangeLow: false,
+          tab1BusinessUnit: false,
+          tab1Ground: false,
+          tab1Three: false,
+          tab1Two: false,
+          tab1one: false,
 
+          tab2MemberName:false,
+          tab2AccessLevel: false,
+          tab2Country:false,
+          tab2District: false,
+          tab2State: false,
+          tab2SlicRangeLow: false,
+          tab2SlicRangeHigh: false
+        };
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
@@ -85,85 +79,95 @@ export class CommunityManagerComponent implements OnInit {
     //These are the subscriptions that are going to fill
     //the booleans that are going to validate when fullfiled
     //after an option of the select has been changed
-
+    debugger;
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         console.log("Country");
-        /*if(countryId > 0) {
-          this.gridValidator[0][1].country = true;
-        }*/
+        if(this.communityObject.activeTab = 1) {
+          this.gridValidator.tab1Country = true;
+        }
+        if(this.communityObject.activeTab = 2) {
+          this.gridValidator.tab2Country = true;
+        }
+
       }, (error: any) => {});
 
       this.districtSubscription = this.districtService.getDistrictId().subscribe(
         (districtId: number) => {
           console.log("District");
-          /*if(districtId > 0) {
-            this.gridValidator[0][1].district = true;
-          }*/
+          if(this.communityObject.activeTab = 1) {
+            this.gridValidator.tab1District = true;
+          }
+          if(this.communityObject.activeTab = 2) {
+            this.gridValidator.tab2District = true;
+          }
+
         }, (error: any) => {});
 
       this.memberNameSubscription = this.memberNameService.getMemberId().subscribe(
         (memberNameId: number) => {
           console.log('Member Name');
-          /*if(memberNameId > 0) {
-            this.gridValidator[0][1].memberName = true;
-          }*/
-        }
-      )
+          if(this.communityObject.activeTab = 2) {
+            this.gridValidator.tab2MemberName = true;
+          }
+
+        }, (error: any) => {});
 
       this.stateSubscription = this.stateService.getStateId().subscribe(
         (stateId: number) => {
           console.log('State');
-          /*if(stateId > 0) {
-            this.gridValidator[0][1].state
-          }*/
-        }
-      )
+          if(this.communityObject.activeTab = 1) {
+            this.gridValidator.tab1State = true;
+          }
+          if(this.communityObject.activeTab = 2) {
+            this.gridValidator.tab2State;
+          }
+
+        }, (error: any) => {});
 
       this.accessLevelSubscription = this.accessLevelService.getAccessLevelId().subscribe(
         (accessLevelId: number) => {
           console.log('Access Level');
-          /*if(accessLevelId > 0) {
-            this.gridValidator[0][1].accessLevel = true;
-          }*/
-        }
-      )
+          if(this.communityObject.activeTab = 2) {
+            this.gridValidator.tab2AccessLevel;
+          }
+        }, (error: any) => {});
 
     //Galdino end
 
       // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
-      this.CommunityObject = obj;
+      this.communityObject = obj;
     });
 
   }
 
   stepEnterTab1(event: any) {
-    this.CommunityObject.activeTab = 1;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    this.communityObject.activeTab = 1;
+    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
   }
 
   stepEnterTab2(event: any) {
-    this.CommunityObject.activeTab = 2;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    this.communityObject.activeTab = 2;
+    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
   }
 
   stepEnterTab3(event: any) {
-    this.CommunityObject.activeTab = 3;
-    this.store.dispatch(new communityActions.ActiveTab(this.CommunityObject));
+    this.communityObject.activeTab = 3;
+    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
   }
 
   stepExitTab1(event: any) {
     if (this.attributeComponent.form.valid && this.canExitAgGrid && this.canExitAttributesComponent) {
-      this.CommunityObject.name = this.attributeComponent.form.controls['name'].value;
-      this.CommunityObject.description = this.attributeComponent.form.controls['description'].value;
+      this.communityObject.name = this.attributeComponent.form.controls['name'].value;
+      this.communityObject.description = this.attributeComponent.form.controls['description'].value;
 
       const communityType = this.attributeComponent.communityTypes.filter(type =>
         type.id === this.attributeComponent.form.controls['communityType'].value
       );
 
-      this.CommunityObject.communityType = communityType[0];
-      this.store.dispatch(new communityActions.AddAttributes(this.CommunityObject));
+      this.communityObject.communityType = communityType[0];
+      this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     } else {
       alert(`Please fill out the details mark with * to continue`);
     }
@@ -203,5 +207,17 @@ export class CommunityManagerComponent implements OnInit {
 
   checkMemberCheckValidity(isRowSelectedMember: boolean) {
     this.canExitMembersGrid = isRowSelectedMember;
+}
+
+ngOnDestroy(): void {
+  /**
+   *
+   */
+  this.countryIdSubscription.unsubscribe();
+  this.accessLevelSubscription.unsubscribe();
+  this.communitySubscription.unsubscribe();
+  this.memberNameSubscription.unsubscribe();
+  this.stateSubscription.unsubscribe();
+  this.districtSubscription.unsubscribe();
 }
 }

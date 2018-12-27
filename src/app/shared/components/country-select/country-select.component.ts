@@ -8,6 +8,7 @@ import { Community } from 'src/app/community/models/community.model';
 import { Country } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
 import * as communityActions from '../../../community/store/actions/community-attributes.actions';
+import { CommunityService } from 'src/app/community/services/community.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
   public currentRow: number;
   public communityObject: Community;
 
-  constructor(private countryService: CountryService, private store: Store<Community>) { }
+  constructor(private countryService: CountryService, private store: Store<Community>, private coommunityService:CommunityService) { }
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;
@@ -77,6 +78,7 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
   // Country selection
   onCountryChange(selectedCountry: string) {
     if (+selectedCountry > 0) {
+      //this.coommunityService.setCountryValid(true);
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
       this.communityObject.activeRow = +this.params.node.id;
