@@ -7,6 +7,7 @@ import { CommunityType } from 'src/app/community/models/community-type.model';
 import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
 import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
+import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
@@ -14,7 +15,7 @@ import { StateSelectComponent } from 'src/app/shared/components/state-select/sta
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
-import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
+import * as fromCommunity from '../../../store/reducers/community-attributes.reducers';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -54,7 +55,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    * @param communityService Exposes the methods to load the community types.
    * @param store Ngrx store to get the community object.
    */
-  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<Community>) {
+  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<fromCommunity.State>) {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
@@ -132,8 +133,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       one: 'one',
     };
     // We update the activate row in order to fill and change the new row selects.
-    this.communityObject.activeRow++;
-    this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
+    // Hectorf: I commented this because we are managing this with the cellClickEvent
+    // this.communityObject.activeRow++;
+    // this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
     this.newRow = true;
 
     // We add the row to the ag-grid
@@ -260,10 +262,17 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * This method is executed every time an ag-grid cell is clicked, we dispatch an action that indicates the row id we are editing.
+   * @param rowId the selected row id.
+   */
+  onCellClicked(rowId: string) {
+    this.store.dispatch(new communityActions.ActiveRow(+rowId));
+  }
+
+  /**
    * When the component is destroyed then we unsubscribe to the community subscription.
    */
   ngOnDestroy() {
     this.communitySubscription.unsubscribe();
   }
-
 }

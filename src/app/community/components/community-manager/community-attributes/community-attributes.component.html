@@ -39,5 +39,6 @@
 
 <ag-grid-angular #attributesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" [columnDefs]="attributesDef"
   (selectionChanged)="onSelectionChanged($event)" rowSelection="multiple" [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true" (rowSelected)="onRowSelected($event.node.selected)">
+  (gridReady)="onGridReady($event)" [animateRows]="true" [suppressRowClickSelection]="true" (rowSelected)="onRowSelected($event.node.selected)"
+  (cellClicked)="onCellClicked($event.node.id)">
 </ag-grid-angular>

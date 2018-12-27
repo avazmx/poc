@@ -70,7 +70,7 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
         this.countries = countries;
       }, (error: HttpErrorResponse) => {
         this.countries = this.countryService.getHardCodedCountries();
-    });
+      });
   }
 
   // AG Grid reload
@@ -84,10 +84,6 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
     if (+selectedCountry > 0) {
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.communityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
-
-
     }
   }
 

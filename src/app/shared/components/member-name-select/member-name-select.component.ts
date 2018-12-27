@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Member } from 'src/app/shared/models/member.model';
-//import { ManageMember } from 'src/app/shared/models/manage-member.model';
+// import { ManageMember } from 'src/app/shared/models/manage-member.model';
 import { MemberNameService } from '../../services/member-name.service';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-//import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
+// import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Community } from 'src/app/community/models/community.model';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
@@ -23,10 +23,16 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public communityObject: Community;
   public currentRow: number;
 
-  public selectedLevelApproverOne: Member;
-  public selectedAltLevelApproverOne: Member;
-  public selectedLevelApproverTwo: Member;
-  public selectedAtlLevelApproverTwo: Member;
+  public selectedLevelApproverOne: Member = null;
+  public selectedAltLevelApproverOne: Member = null;
+  public selectedLevelApproverTwo: Member = null;
+  public selectedAtlLevelApproverTwo: Member = null;
+
+  public isLevelOneSelected = false;
+  public isLevelTwoSelected = false;
+  public isAltLevelOneSelected = false;
+  public isAltLevelTwoSelected = false;
+
 
   public tabTwoSelectedMembers: Member[] = [];
   gridApi;
@@ -36,8 +42,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
   ngOnInit() {
-
-
   }
 
   fetchMembers() {
@@ -85,6 +89,18 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
       }
     });
 
+    this.memberNameService.getMemberOneState().subscribe(one => {
+      this.isLevelOneSelected = one;
+    });
+    this.memberNameService.getMemberTwoState().subscribe(two => {
+      this.isLevelTwoSelected = two;
+    });
+    this.memberNameService.getAltMemberOneState().subscribe(altTwo => {
+      this.isAltLevelOneSelected = altTwo;
+    });
+    this.memberNameService.getAltMemberTwoState().subscribe(altTwo => {
+      this.isAltLevelTwoSelected = altTwo;
+    });
 
   }
 
@@ -94,10 +110,35 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     return true;
   }
 
+  /**
+   * Fires when the select changes, we check if we are in the third tab and do some validations.
+   * @param selectedMemberName the selected member id.
+   */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
-    this.gridColumnApi.setColumnVisible('checkbox', true);
-    this.gridApi.sizeColumnsToFit();
+    if (this.communityObject.activeTab !== 3) {
+      this.gridColumnApi.setColumnVisible('checkbox', true);
+      this.gridApi.sizeColumnsToFit();
+    } else {
+      if (this.isLevelOneSelected) {
+        this.memberNameService.setMemberOne(false);
+        this.isLevelOneSelected = false;
+        this.selectedLevelApproverOne = this.selectedMember;
+        this.memberNameService.memberOne = this.selectedLevelApproverOne;
+      } if (this.isLevelTwoSelected) {
+        this.memberNameService.setMemberTwo(false);
+        this.selectedLevelApproverTwo = this.selectedMember;
+        this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+      } if (this.isAltLevelOneSelected) {
+        this.memberNameService.setAltMemberOne(false);
+        this.selectedAltLevelApproverOne = this.selectedMember;
+        this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
+      } if (this.isAltLevelTwoSelected) {
+        this.memberNameService.setAltMemberTwo(false);
+        this.selectedAtlLevelApproverTwo = this.selectedMember;
+        this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
+      }
+    }
   }
 
   onMemberNameSet(isMemberNameSet: boolean) {

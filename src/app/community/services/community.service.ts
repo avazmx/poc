@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Subject, fromEventPattern, Observable } from 'rxjs';
-import { Community } from '../models/community.model';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { ManageMember } from '../../shared/models/manage-member.model';
-import { GeoService } from '../models/geo-services.model';
 import { CommunityType } from '../models/community-type.model';
+import { Community } from '../models/community.model';
+import { GeoService } from '../models/geo-services.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +52,11 @@ export class CommunityService {
     return this.harcodedCommunityTypes;
   }
 
-  /** POST: add a new hero to the database */
-  addPost(community: Community): Observable<any> {
+  /**
+   * This method saves the community object into the database.
+   * @param community the community to be added.
+   */
+  addPost(community: any): Observable<any> {
     return this.http.post<any>(this.url + 'communitystore/community-store', community);
   }
 

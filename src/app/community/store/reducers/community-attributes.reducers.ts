@@ -80,10 +80,10 @@ export function communityReducer(state = initialState, action: CommunityAttribut
             return newState(state, initialState);
 
         case CommunityAttributesActions.ACTIVE_TAB:
-            return newState(state, { activeTab: action.payload.activeTab });
+            return newState(state, { activeTab: action.payload });
 
         case CommunityAttributesActions.ACTIVE_ROW:
-            return newState(state, { activeRow: action.payload.activeRow });
+            return newState(state, { activeRow: action.payload });
 
         default:
             return state;

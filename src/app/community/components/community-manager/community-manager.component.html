@@ -17,7 +17,7 @@
 
   <div class="row">
     <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepEnter)="stepEnterTab2($event)"
-      (stepExit)="stepExitTab2($event)" [canExit]="canExitMembersGrid" [stepId]="2">
+      [canExit]="canExitMembersGrid" [stepId]="2">
       <ups-community-manage-members (isRowSelected)="checkMemberCheckValidity($event)"></ups-community-manage-members>
       <br>
       <div class="menu-btns step2">
@@ -31,12 +31,12 @@
 
   <div class="row governance">
     <aw-wizard-step stepTitle="Community Governance" [navigationSymbol]="{ symbol: '3' }" (stepEnter)="stepEnterTab3($event)"
-      (stepExit)="stepExitTab3($event)" [stepId]="3">
-      <ups-community-governance></ups-community-governance>
+      [stepId]="3">
+      <ups-community-governance (governanceLevelChange)="onGovernanceLevelChange($event)"></ups-community-governance>
       <br>
       <div class="menu-btns step2">
         <!-- <button type="button" class="btn btn-secondary" awPreviousStep>Back</button> -->
-        <button type="button" class="btn btn-primary end-btn" [disabled]="!this.CommunityObject.governance" (click)="onSave()">Save</button>
+        <button type="button" class="btn btn-primary end-btn" [disabled]="!this.communityObject.governance" (click)="onSave()">Save</button>
       </div>
     </aw-wizard-step>
   </div>
