@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Community } from 'src/app/community/models/community.model';
 
+import { GovernanceLevel } from '../../models/governance-level.model';
 import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
-import { GovernanceLevel } from '../../models/governance-level.model';
 
 @Component({
   selector: 'ups-community-manager',

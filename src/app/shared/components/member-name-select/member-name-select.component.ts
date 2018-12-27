@@ -42,8 +42,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
   ngOnInit() {
-
-
   }
 
   fetchMembers() {
@@ -92,7 +90,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     });
 
     this.memberNameService.getMemberOneState().subscribe(one => {
-      debugger;
       this.isLevelOneSelected = one;
     });
     this.memberNameService.getMemberTwoState().subscribe(two => {
@@ -113,13 +110,16 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     return true;
   }
 
+  /**
+   * Fires when the select changes, we check if we are in the third tab and do some validations.
+   * @param selectedMemberName the selected member id.
+   */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
     if (this.communityObject.activeTab !== 3) {
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
     } else {
-      debugger;
       if (this.isLevelOneSelected) {
         this.memberNameService.setMemberOne(false);
         this.isLevelOneSelected = false;

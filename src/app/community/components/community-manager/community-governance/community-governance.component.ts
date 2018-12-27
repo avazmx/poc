@@ -1,18 +1,16 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
+import { Governance } from 'src/app/community/models/governance.model';
 import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
 import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
-import * as communityActions from '../../../store/actions/community-attributes.actions';
+import { MemberNameService } from 'src/app/shared/services/member-name.service';
 
 import { governanceDef } from '../../../models/governance-def';
-import { Governance } from 'src/app/community/models/governance.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MemberNameService } from 'src/app/shared/services/member-name.service';
+import * as communityActions from '../../../store/actions/community-attributes.actions';
 
 @Component({
   selector: 'ups-community-governance',
@@ -69,19 +67,21 @@ export class CommunityGovernanceComponent implements OnInit {
 
   }
 
+  /**
+   * Fires when the component is created.
+   */
   ngOnInit() {
     this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
       if (this.communityObject.activeTab === 3) {
         this.createObject();
       }
-
-      // if (this.communityObject.activeTab === 3) {
-      //   this.gridApi.sizeColumnsToFit();
-      // }
     });
   }
 
+  /**
+   * Creates the json object for the transfer.
+   */
   createObject() {
     const transferObject = [];
     let slicId = 1;
@@ -119,7 +119,10 @@ export class CommunityGovernanceComponent implements OnInit {
     this.data = transferObject;
   }
 
-  // Selected Community Geography
+  /**
+   * We get the transfer data in order to add rows to the ag-grid.
+   * @param selected get the selected data from the transfer.
+   */
   onSelected(selected) {
 
     // I removed the rows that were in the ag grid.
@@ -283,6 +286,10 @@ export class CommunityGovernanceComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
+  /**
+   * Emitts the community governance level to de parent component.
+   * @param selectedGovernance the community governance level to be emitted.
+   */
   onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
     if (selectedGovernance !== undefined && selectedGovernance !== null) {
       this.governanceLevelChange.emit(selectedGovernance);
