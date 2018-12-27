@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import Swal from 'sweetalert2';
+
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
     /**
@@ -26,6 +28,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 }
                 // I handle whatever I want to do with the error, then return the throwError.
                 // alert(errorMessage);
+                Swal({
+                    type: 'error',
+                    title: 'Something went wrong',
+                    text: errorMessage
+                  });
                 return throwError(error);
             })
         );

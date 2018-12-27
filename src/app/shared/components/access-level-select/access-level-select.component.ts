@@ -37,7 +37,7 @@ export class AccessLevelSelectComponent implements OnInit {
             this.accessLevels.push(element.accessLevel);
           });
         }
-        else{
+        else {
           this.fetchAccessLevels();
         }
       }
@@ -46,11 +46,11 @@ export class AccessLevelSelectComponent implements OnInit {
 
   fetchAccessLevels() {
     this.accessLevelService.getAccessLevels()
-          .subscribe((accessLevels: AccessLevel[]) => {
-            this.accessLevels = accessLevels;
-          }, (error: HttpErrorResponse) => {
-            this.accessLevels = this.accessLevelService.getHardCodedAccessLevels();
-          });
+      .subscribe((accessLevels: AccessLevel[]) => {
+        this.accessLevels = accessLevels;
+      }, (error: HttpErrorResponse) => {
+        this.accessLevels = this.accessLevelService.getHardCodedAccessLevels();
+      });
   }
 
   // AG Grid Initialize
@@ -69,7 +69,7 @@ export class AccessLevelSelectComponent implements OnInit {
         .subscribe((accessLevels: AccessLevel[]) => {
           this.accessLevels = accessLevels;
         }, (error: HttpErrorResponse) => {
-            this.accessLevels = this.accessLevelService.getHardCodedAccessLevels();
+          this.accessLevels = this.accessLevelService.getHardCodedAccessLevels();
         });
     });
   }
@@ -84,7 +84,7 @@ export class AccessLevelSelectComponent implements OnInit {
     if (+selectedAccessLevel > 0) {
       this.selectedAccessLevel = this.accessLevels.filter(state => state.id === +selectedAccessLevel)[0];
       this.CommunityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.CommunityObject));
+      this.store.dispatch(new communityActions.ActiveRow(+this.params.node.id));
     }
   }
 

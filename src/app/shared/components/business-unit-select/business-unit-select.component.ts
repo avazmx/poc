@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { BusinessUnitService } from '../../services/business-unit.service';
-import { BusinessUnit } from '../../models/business-unit.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { GeoService } from 'src/app/community/models/geo-services.model';
 import { Community } from 'src/app/community/models/community.model';
+import { GeoService } from 'src/app/community/models/geo-services.model';
+
+import { BusinessUnit } from '../../models/business-unit.model';
+import { BusinessUnitService } from '../../services/business-unit.service';
 
 @Component({
   selector: 'ups-business-unit-select',
@@ -19,7 +20,6 @@ export class BusinessUnitSelectComponent implements OnInit {
   public cell: any;
   public businessUnitSubscription: Subscription;
   public businessUnits: BusinessUnit[];
-  public businessUnit;
   public selectedBusinessUnit;
   public CommunityObject: Community;
   gridApi;
@@ -56,10 +56,15 @@ export class BusinessUnitSelectComponent implements OnInit {
     return true;
   }
 
+  /**
+   * This method fires when the bussines unit dropdown changes the selection.
+   * @param selectedBusinessUnit the selected element from the dropdown list
+   */
   onBusinessUnitChange(selectedBusinessUnit: string) {
-    this.selectedBusinessUnit = selectedBusinessUnit;
-    console.log('On business uni change test: ', this.gridApi.getRowNode(0));
     this.gridColumnApi.setColumnVisible('checkbox', true);
+    if (+selectedBusinessUnit > 0) {
+      this.selectedBusinessUnit = this.businessUnits.filter(bussinesUnit => bussinesUnit.id === +selectedBusinessUnit)[0];
+    }
     this.gridApi.sizeColumnsToFit();
   }
 

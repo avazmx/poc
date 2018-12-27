@@ -51,7 +51,12 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
       } else if (obj.activeTab === 2 && this.countries.length === 0) {
         if (obj.geoServices && obj.geoServices.length > 0) {
           obj.geoServices.forEach(element => {
-            this.countries.push(element.country);
+            const added = this.countries.filter(c =>
+              c.id === element.country.id
+            );
+            if (added.length === 0) {
+              this.countries.push(element.country);
+            }
           });
         } else {
           this.fetchCountries();
@@ -66,7 +71,7 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
         this.countries = countries;
       }, (error: HttpErrorResponse) => {
         this.countries = this.countryService.getHardCodedCountries();
-    });
+      });
   }
 
   // AG Grid reload
@@ -81,10 +86,6 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
       //this.coommunityService.setCountryValid(true);
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
-      this.communityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
-
-
     }
   }
 

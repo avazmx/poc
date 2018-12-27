@@ -77,7 +77,7 @@ export class CommunityEdit implements Action {
 
 export class CommunityDelete implements Action {
     readonly type = COMMUNITY_DELETE;
-    constructor(public payload: Community) { }
+    constructor() { }
 }
 
 export class FetchCommunities implements Action {
@@ -97,12 +97,12 @@ export class StoreCommunities implements Action {
 
 export class ActiveTab implements Action {
     readonly type = ACTIVE_TAB;
-    constructor(public payload: Community) { }
+    constructor(public payload: number) { }
 }
 
 export class ActiveRow implements Action {
     readonly type = ACTIVE_ROW;
-    constructor(public payload: Community) { }
+    constructor(public payload: number) { }
 }
 
 export type CommunityActions = ShowAttributes

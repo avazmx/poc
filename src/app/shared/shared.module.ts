@@ -7,6 +7,8 @@ import { MemberNameSelectComponent } from './components/member-name-select/membe
 import { AccessLevelSelectComponent } from './components/access-level-select/access-level-select.component';
 import { BusinessUnitSelectComponent } from './components/business-unit-select/business-unit-select.component';
 import { FormsModule } from '@angular/forms';
+import { CommunitySelectComponent } from './components/community-select/community-select.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { FormsModule } from '@angular/forms';
     StateSelectComponent,
     MemberNameSelectComponent,
     AccessLevelSelectComponent,
-    BusinessUnitSelectComponent
+    BusinessUnitSelectComponent,
+    CommunitySelectComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    AngularFontAwesomeModule,
   ],
   exports: [
     CountrySelectComponent,
@@ -28,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     MemberNameSelectComponent,
     AccessLevelSelectComponent,
     BusinessUnitSelectComponent,
+    CommunitySelectComponent,
   ]
 })
 export class SharedModule { }

@@ -11,11 +11,9 @@ export class DistrictService {
   private url = environment.apiUrl + 'district';
   private harcodedDistricts: District[] = [];
 
-
   private districtIdState = new Subject<number>();
 
   constructor(private http: HttpClient) {
-
     const comm1 = new District();
     comm1.id = 1;
     comm1.name = 'HardCoded value 1';
@@ -49,10 +47,11 @@ export class DistrictService {
    * Return the list of districts.
    */
   getDistrictsByCountryId(countryId: number) {
-    return this.http.get<District[]>(this.url + 'countries/country' + countryId.toString());
+    return this.http.get<District[]>(this.url + '/district/country/' + countryId.toString());
   }
 
   getHardCodedDistricts(countryId: number) {
     return this.harcodedDistricts.filter(district => district.id === countryId);
   }
+
 }

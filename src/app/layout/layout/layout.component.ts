@@ -7,14 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
-
-  redirectToCreate() {
-    this.router.navigate(['/community/create']);
-
-  }
+  constructor(public router: Router) { }
+  ngOnInit() { }
 }

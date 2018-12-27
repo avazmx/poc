@@ -64,8 +64,6 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
 
   onDistrictChange(selectedDistrict: string) {
     if (+selectedDistrict > 0) {
-      //this.communityObject.gridValidator[this.communityObject.activeTab, this.params.node.id] = this.params.node.id++;
-      this.store.dispatch(new communityActions.AddRowsValidators(this.communityObject));
       this.selectedDistrict = this.districts.filter(state => state.id === +selectedDistrict)[0];
       this.districtService.setDistrictId(+selectedDistrict);
     }

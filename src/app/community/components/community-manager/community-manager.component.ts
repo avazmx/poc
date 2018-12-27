@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
 
+import { GovernanceLevel } from '../../models/governance-level.model';
+import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+
 
 //Services
 import { CountryService } from 'src/app/shared/services/country.service';
@@ -12,6 +14,9 @@ import { DistrictService } from 'src/app/shared/services/district.service';
 import { MemberNameService } from 'src/app/shared/services/member-name.service';
 import { AccessLevelService } from 'src/app/shared/services/access-level.service';
 import { StateService } from 'src/app/shared/services/state.service';
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'ups-community-manager',
@@ -26,6 +31,7 @@ export class CommunityManagerComponent implements OnInit {
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
   communityObject: Community;
+
   gridApi;
   gridColumnApi;
   //Object/model that will authenticate the grid from the second tab
@@ -52,7 +58,8 @@ export class CommunityManagerComponent implements OnInit {
           tab2SlicRangeHigh: false
         };
 
-  // Hectorf
+  selectedGovernance: GovernanceLevel;
+
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   canExitAgGrid = false;
@@ -71,8 +78,12 @@ export class CommunityManagerComponent implements OnInit {
               private memberNameService: MemberNameService,
               private accessLevelService: AccessLevelService,
               private stateService: StateService,
-              private store: Store<Community>) { }
+              private store: Store<Community>,
+              private communityService: CommunityService) { }
 
+  /**
+   * This fires when the component is creating, Subscribe to the store in order to get the updated object.
+   */
   ngOnInit() {
     //Galdino
     //Subscribe to the services subjects
@@ -139,24 +150,39 @@ export class CommunityManagerComponent implements OnInit {
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
     });
-
   }
 
+  /**
+  * When we enter to the first tab we change the activeTab in the store.
+  * @param event the id of the tab.
+  */
   stepEnterTab1(event: any) {
-    this.communityObject.activeTab = 1;
-    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
+    // this.CommunityObject.activeTab = 1;
+    this.store.dispatch(new communityActions.ActiveTab(1));
   }
 
+  /**
+    * When we enter to the second tab we change the activeTab in the store.
+    * @param event the id of the tab.
+    */
   stepEnterTab2(event: any) {
-    this.communityObject.activeTab = 2;
-    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
+    // this.CommunityObject.activeTab = 2;
+    this.store.dispatch(new communityActions.ActiveTab(2));
   }
 
+  /**
+   * When we enter to the third tab we change the activeTab in the store.
+   * @param event the id of the tab.
+   */
   stepEnterTab3(event: any) {
-    this.communityObject.activeTab = 3;
-    this.store.dispatch(new communityActions.ActiveTab(this.communityObject));
+    // this.CommunityObject.activeTab = 3;
+    this.store.dispatch(new communityActions.ActiveTab(3));
   }
 
+  /**
+   * Every times you click next in the first tab it will fire, fill the community object and dispatch an action.
+   * @param event the id of the tab.
+   */
   stepExitTab1(event: any) {
     if (this.attributeComponent.form.valid && this.canExitAgGrid && this.canExitAttributesComponent) {
       this.communityObject.name = this.attributeComponent.form.controls['name'].value;
@@ -169,23 +195,12 @@ export class CommunityManagerComponent implements OnInit {
       this.communityObject.communityType = communityType[0];
       this.store.dispatch(new communityActions.AddAttributes(this.communityObject));
     } else {
-      alert(`Please fill out the details mark with * to continue`);
+      Swal(
+        'Some details are missing',
+        'Please fill out the details mark with * to continue',
+        'info'
+      );
     }
-  }
-
-  stepExitTab2(event: any) {
-    if(this.canExitMembersGrid) {
-      alert('Done');
-    } else {
-      alert('Please fill this');
-    }
-    console.log('Step Enter', event);
-    // Here we need to save the members that are added.
-  }
-
-  stepExitTab3(event: any) {
-    console.log('Step Enter', event);
-    // Here we need to save all the community object.
   }
 
   /**
@@ -200,11 +215,14 @@ export class CommunityManagerComponent implements OnInit {
    * This method fires when the ag grid validation is emitted.
    * @param isRowSelected Emitted variable from community-attributes component.
    */
-
   checkAgGridValidity(isRowSelected: boolean) {
     this.canExitAgGrid = isRowSelected;
   }
 
+  /**
+   * Checks the validity of the members data, and determines if can leave from the second tab.
+   * @param isRowSelectedMember the value that returns the validation true or false.
+   */
   checkMemberCheckValidity(isRowSelectedMember: boolean) {
     this.canExitMembersGrid = isRowSelectedMember;
 }
@@ -220,4 +238,89 @@ ngOnDestroy(): void {
   this.stateSubscription.unsubscribe();
   this.districtSubscription.unsubscribe();
 }
+  
+
+  /**
+   * This methods call the community api to save the fethced community.
+   */
+  onSave() {
+    if (this.communityObject.governance) {
+      // Fetching geo services.
+      const communityGeoServices = [];
+      this.communityObject.geoServices.forEach(geoService => {
+        communityGeoServices.push({
+          bussinesUnit: geoService.businessUnit.id,
+          community: 0,
+          gnd: geoService.ground,
+          id: 0,
+          oneds: geoService.one,
+          slicRangeHigh: geoService.slicRangeHigh,
+          slicRangeLow: geoService.slicRangeLow,
+          stateProvince: geoService.state.id,
+          treeds: geoService.three,
+          twods: geoService.two
+        });
+      });
+
+      // Fetching governances.
+      const communityGovernances = [];
+      this.communityObject.governance.forEach(governance => {
+        communityGovernances.push({
+          atLevelOneApprover: governance.altlevelOneApprover.id,
+          atLevelTwoApprover: governance.atlLevelTwoApprover.id,
+          geoService: 0,
+          community: 0,
+          id: 0,
+          levelOneApprover: governance.levelOneApprover.id,
+          levelTwoApprover: governance.levelOTwoApprover.id
+        });
+      });
+
+      // Fetching the members.
+      const communnityMembers = [];
+      this.communityObject.members.forEach(member => {
+        communnityMembers.push({
+          accessLevel: member.accessLevel.id,
+          id: 0,
+          mannageMembers: {
+            community: 0,
+            id: 0,
+            slicRangeLow: member.slicRangeLow,
+            slicRangehigh: member.slicRangeHigh,
+            stateProvince: member.state.id,
+            member: member.id
+          }
+        });
+      });
+
+      // Save the community object.
+      const saveCommunity = {
+        id: 0,
+        name: this.communityObject.name,
+        communityType: this.communityObject.communityType.id,
+        communityGeoServices: communityGeoServices,
+        communityGovernances: communityGovernances,
+        communnityMembers: communnityMembers,
+        governanceLevel: this.selectedGovernance.id
+      };
+
+      // Call community save service.
+      this.communityService.addPost(saveCommunity).subscribe(data => {
+        console.log('Community Saved: ', data);
+        Swal({
+          type: 'success',
+          title: 'Community Saved!'
+        });
+        this.store.dispatch(new communityActions.CommunityDelete());
+      });
+    }
+  }
+
+  /**
+   * Fires every time the governance level select changes.
+   * @param selectedGovernance the selected governance.
+   */
+  onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
+    this.selectedGovernance = selectedGovernance;
+  }
 }
