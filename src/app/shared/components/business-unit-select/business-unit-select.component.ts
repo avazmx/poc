@@ -64,6 +64,7 @@ export class BusinessUnitSelectComponent implements OnInit {
     this.gridColumnApi.setColumnVisible('checkbox', true);
     if (+selectedBusinessUnit > 0) {
       this.selectedBusinessUnit = this.businessUnits.filter(bussinesUnit => bussinesUnit.id === +selectedBusinessUnit)[0];
+      this.businessUnitService.setBusinessUnitId(+selectedBusinessUnit);
     }
     this.gridApi.sizeColumnsToFit();
   }

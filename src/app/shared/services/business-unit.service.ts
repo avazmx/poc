@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { BusinessUnit } from '../models/business-unit.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusinessUnitService {
+
+  private businessUnitId = new Subject<number>();
+
   private url = environment.apiUrl;
   private harcodedBusinessUnits: BusinessUnit[] = [];
 
@@ -35,6 +39,21 @@ export class BusinessUnitService {
 
   getHardCodedBusinessUnits() {
     return this.harcodedBusinessUnits;
+  }
+
+  /**
+   * Sets the id of the business unit id selected
+   * @param id id of the business unit id selected
+   */
+  setBusinessUnitId(id: number) {
+    this.businessUnitId.next(id);
+  }
+
+  /**
+   * returns the id of the member selected
+   */
+  getBusinessUnitId() {
+    return this.businessUnitId.asObservable();
   }
 
 }

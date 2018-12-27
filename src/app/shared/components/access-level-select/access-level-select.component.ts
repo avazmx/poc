@@ -85,6 +85,7 @@ export class AccessLevelSelectComponent implements OnInit {
       this.selectedAccessLevel = this.accessLevels.filter(state => state.id === +selectedAccessLevel)[0];
       this.CommunityObject.activeRow = +this.params.node.id;
       this.store.dispatch(new communityActions.ActiveRow(+this.params.node.id));
+      this.accessLevelService.setAccessLevelId(+this.selectedAccessLevel);
     }
   }
 

@@ -4,7 +4,7 @@
     <aw-wizard-step stepTitle="Community Attributes" [navigationSymbol]="{ symbol: '1' }" (stepEnter)="stepEnterTab1($event)"
       (stepExit)="stepExitTab1($event)" [canExit]="canExitAttributesComponent && canExitAgGrid" [stepId]="1">
       <div class="row">
-        <ups-community-attributes (isFormValid)="checkFormValidity($event)" (isRowSelected)="checkAgGridValidity($event)">
+        <ups-community-attributes (isFormValid)="checkFormValidity($event)" (isRowSelected)="checkAgGridValidityTab1($event)">
         </ups-community-attributes>
       </div>
       <br>
@@ -17,7 +17,9 @@
 
   <div class="row">
     <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepEnter)="stepEnterTab2($event)"
-      [canExit]="canExitMembersGrid" [stepId]="2">
+      (stepExit)="stepExitTab2($event)"
+      [canExit]="canExitAgGridMembers"
+      [stepId]="2">
       <ups-community-manage-members (isRowSelected)="checkMemberCheckValidity($event)"></ups-community-manage-members>
       <br>
       <div class="menu-btns step2">

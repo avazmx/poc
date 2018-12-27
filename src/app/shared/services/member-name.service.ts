@@ -11,6 +11,7 @@ export class MemberNameService {
   private url = environment.apiUrl;
   public harcodedMemberNames: Member[] = [];
 
+  private memberId = new Subject<number>();
   // Emitters for the members change
   private memberOneState = new Subject<any>();
   private memberTwoState = new Subject<any>();
@@ -22,6 +23,21 @@ export class MemberNameService {
   public memberTwo: Member;
   public altMemberOne: Member;
   public altMemberTwo: Member;
+
+  constructor(private http: HttpClient) {
+    const comm1 = new Member();
+    comm1.id = 1;
+    comm1.name = 'Vikash value 1';
+    const comm2 = new Member();
+    comm2.id = 2;
+    comm2.name = 'Mango value 2';
+    const comm3 = new Member();
+    comm3.id = 3;
+    comm3.name = 'Satish value 3';
+    this.harcodedMemberNames.push(comm1);
+    this.harcodedMemberNames.push(comm2);
+    this.harcodedMemberNames.push(comm3);
+  }
 
   /**
    * Emittes a new member.
@@ -82,24 +98,6 @@ export class MemberNameService {
   getAltMemberTwoState() {
     return this.altMembertwoState.asObservable();
   }
-
-
-  constructor(private http: HttpClient) {
-    const comm1 = new Member();
-    comm1.id = 1;
-    comm1.name = 'Vikash value 1';
-    const comm2 = new Member();
-    comm2.id = 2;
-    comm2.name = 'Mango value 2';
-    const comm3 = new Member();
-    comm3.id = 3;
-    comm3.name = 'Satish value 3';
-    this.harcodedMemberNames.push(comm1);
-    this.harcodedMemberNames.push(comm2);
-    this.harcodedMemberNames.push(comm3);
-  }
-
-  private memberId = new Subject<number>();
 
   /**
    * Sets the id of the member id id selected
