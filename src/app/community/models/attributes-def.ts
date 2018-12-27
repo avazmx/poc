@@ -38,26 +38,42 @@ export const attributesDef = [
     }, {
         headerName: 'GND',
         field: 'ground',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'ground' },
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'ground' },
+        editable: true,
+        cellRenderer: params => {
+            return `<input type='checkbox' ${params.value ? false : true } />`;
+        },
         width: 100,
     }, {
         headerName: '3DS',
         field: 'three',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'three' },
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'three' },
+        editable: true,
+        cellRenderer: params => {
+            return `<input type='checkbox' ${params.value ? false : true } />`;
+        },
         width: 100,
     }, {
         headerName: '2DS',
         field: 'two',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'two' },
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'two' },
+        editable: true,
+        cellRenderer: params => {
+            return `<input type='checkbox' ${params.value ? false : true } />`;
+        },
         width: 100,
     }, {
         headerName: '1DA',
         field: 'one',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'one' },
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'one' },
+        editable: true,
+        cellRenderer: params => {
+            return `<input type='checkbox' ${params.value ? false : true } />`;
+        },
         width: 93,
     }, {
         headerName: '*',

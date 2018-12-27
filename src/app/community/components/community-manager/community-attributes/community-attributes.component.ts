@@ -148,6 +148,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    */
   onSelectionChanged(event: any) {
     if (event) {
+      // debugger;
       // Getting the selected rows of the grid, rows that are checked.
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
 
@@ -221,29 +222,29 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
             selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
 
-          if (groundInstance.length > 0) {
-            const wrapperGroundInstance = groundInstance[0];
-            const frameworkGroundInstance = wrapperGroundInstance.getFrameworkComponentInstance();
-            selectedData[index].ground = frameworkGroundInstance.groundChecked;
-          }
+          // if (groundInstance.length > 0) {
+          //   const wrapperGroundInstance = groundInstance[0];
+          //   const frameworkGroundInstance = wrapperGroundInstance.getFrameworkComponentInstance();
+          //   selectedData[index].ground = frameworkGroundInstance.groundChecked;
+          // }
 
-          if (threeInstance.length > 0) {
-            const wrapperThreeDsInstance = threeInstance[0];
-            const frameworkThreeDsInstance = wrapperThreeDsInstance.getFrameworkComponentInstance();
-            selectedData[index].three = frameworkThreeDsInstance.threeChecked;
-          }
+          // if (threeInstance.length > 0) {
+          //   const wrapperThreeDsInstance = threeInstance[0];
+          //   const frameworkThreeDsInstance = wrapperThreeDsInstance.getFrameworkComponentInstance();
+          //   selectedData[index].three = frameworkThreeDsInstance.threeChecked;
+          // }
 
-          if (twoInstance.length > 0) {
-            const wrapperTwoDsInstance = twoInstance[0];
-            const frameworkTwoDsInstance = wrapperTwoDsInstance.getFrameworkComponentInstance();
-            selectedData[index].two = frameworkTwoDsInstance.twoChecked;
-          }
+          // if (twoInstance.length > 0) {
+          //   const wrapperTwoDsInstance = twoInstance[0];
+          //   const frameworkTwoDsInstance = wrapperTwoDsInstance.getFrameworkComponentInstance();
+          //   selectedData[index].two = frameworkTwoDsInstance.twoChecked;
+          // }
 
-          if (oneInstance.length > 0) {
-            const wrapperOneInstance = oneInstance[0];
-            const frameworkOneInstance = wrapperOneInstance.getFrameworkComponentInstance();
-            selectedData[index].one = frameworkOneInstance.oneChecked;
-          }
+          // if (oneInstance.length > 0) {
+          //   const wrapperOneInstance = oneInstance[0];
+          //   const frameworkOneInstance = wrapperOneInstance.getFrameworkComponentInstance();
+          //   selectedData[index].one = frameworkOneInstance.oneChecked;
+          // }
         }
       }
 

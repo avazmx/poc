@@ -28,11 +28,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 }
                 // I handle whatever I want to do with the error, then return the throwError.
                 // alert(errorMessage);
-                Swal({
+                /* Swal({
                     type: 'error',
                     title: 'Something went wrong',
                     text: errorMessage
-                  });
+                  }); */
                 return throwError(error);
             })
         );
