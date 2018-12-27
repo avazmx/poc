@@ -7,6 +7,7 @@ import { CommunityType } from 'src/app/community/models/community-type.model';
 import { Community } from 'src/app/community/models/community.model';
 import { GeoService } from 'src/app/community/models/geo-services.model';
 import { BusinessUnitSelectComponent } from 'src/app/shared/components/business-unit-select/business-unit-select.component';
+import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
@@ -15,7 +16,6 @@ import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
 import * as fromCommunity from '../../../store/reducers/community-attributes.reducers';
-import { CommunitySelectComponent } from '../community-select/community-select.component';
 
 @Component({
   selector: 'ups-community-attributes',

@@ -12,6 +12,7 @@ import { MemberNameService } from 'src/app/shared/services/member-name.service';
 import { governanceDef } from '../../../models/governance-def';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
 
+
 @Component({
   selector: 'ups-community-governance',
   templateUrl: './community-governance.component.html',
@@ -149,7 +150,7 @@ export class CommunityGovernanceComponent implements OnInit {
               levelApproverOne: '',
               atllevelApproverOne: '',
               levelApproverTwo: '',
-              AtllevelApproverTwo: '',
+              atllevelApproverTwo: '',
               checkbox: ''
             };
 

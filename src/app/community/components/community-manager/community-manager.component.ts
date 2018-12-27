@@ -7,6 +7,7 @@ import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 
+
 @Component({
   selector: 'ups-community-manager',
   templateUrl: './community-manager.component.html',
@@ -134,7 +135,6 @@ export class CommunityManagerComponent implements OnInit {
    * This method fires when the ag grid validation is emitted.
    * @param isRowSelected Emitted variable from community-attributes component.
    */
-
   checkAgGridValidity(isRowSelected: boolean) {
     this.canExitAgGrid = isRowSelected;
   }
