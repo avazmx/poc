@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AgGridModule } from 'ag-grid-angular';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,8 +13,6 @@ import { HttpAuthInterceptor } from './shared/interceptors/http-auth-interceptor
 import { HttpErrorInterceptor } from './shared/interceptors/http-error-interceptor';
 import { reducers } from './store/reducers/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { CountrySelectComponent } from './shared/components/country-select/country-select.component';
-import { CommunitySelectComponent } from './community/components/community-manager/community-select/community-select.component';
 
 @NgModule({
   declarations: [

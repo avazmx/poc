@@ -32,7 +32,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     type: 'error',
                     title: 'Something went wrong',
                     text: errorMessage
-                  })
+                  });
                 return throwError(error);
             })
         );

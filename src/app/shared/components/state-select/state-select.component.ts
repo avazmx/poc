@@ -79,7 +79,6 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
   onStateChange(selectedCountry: string) {
     if (+selectedCountry > 0) {
       this.selectedState = this.states.filter(state => state.id === +selectedCountry)[0];
-      console.log(this.selectedState);
     }
   }
 

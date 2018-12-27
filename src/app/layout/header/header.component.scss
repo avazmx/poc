@@ -1,9 +1,25 @@
 nav {
     background-color: #351C15;
     padding: 0.4rem 0.67rem;
+    display: flex;
+    img {
+        height: 2.5rem;
+        margin: 0.17rem 0;
+    }
     span {
         color: #FFF;
         font-weight: 700;
         font-size: 1.67rem;
+    }
+    button {
+        color: #FFCC33;
+        font-weight: 600;
+        font-size: 1.45rem;
+        margin-left: 0.85rem;
+        transition: all .17s;
+        cursor: pointer;
+        &:hover {
+            color: #FFF;
+        }
     }
 }

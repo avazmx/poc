@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Member } from '../models/member.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,79 @@ import { Observable } from 'rxjs';
 export class MemberNameService {
   private url = environment.apiUrl;
   public harcodedMemberNames: Member[] = [];
+
+  // Emitters for the members change
+  private memberOneState = new Subject<any>();
+  private memberTwoState = new Subject<any>();
+  private altMemberOneState = new Subject<any>();
+  private altMembertwoState = new Subject<any>();
+
+  // Public members for the governance level.
+  public memberOne: Member;
+  public memberTwo: Member;
+  public altMemberOne: Member;
+  public altMemberTwo: Member;
+
+  /**
+   * Emittes a new member.
+   * @param member the member to be emitted.
+   */
+  setMemberOne(member: any) {
+    this.memberOneState.next(member);
+  }
+
+  /**
+   * Gets the observable member
+   */
+  getMemberOneState() {
+    return this.memberOneState.asObservable();
+  }
+
+  /**
+   * Emittes a new member.
+   * @param member the member to be emitted.
+   */
+  setAltMemberOne(member: any) {
+    this.altMemberOneState.next(member);
+  }
+
+  /**
+   * Gets the observable member
+   */
+  getAltMemberOneState() {
+    return this.altMemberOneState.asObservable();
+  }
+
+  /**
+    * Emittes a new member.
+    * @param member the member to be emitted.
+    */
+  setMemberTwo(member: any) {
+    this.memberTwoState.next(member);
+  }
+
+  /**
+   * Gets the observable member
+   */
+  getMemberTwoState() {
+    return this.memberTwoState.asObservable();
+  }
+
+  /**
+   * Emittes a new member.
+   * @param member the member to be emitted.
+   */
+  setAltMemberTwo(member: any) {
+    this.altMembertwoState.next(member);
+  }
+
+  /**
+   * Gets the observable member
+   */
+  getAltMemberTwoState() {
+    return this.altMembertwoState.asObservable();
+  }
+
 
   constructor(private http: HttpClient) {
     const comm1 = new Member();
