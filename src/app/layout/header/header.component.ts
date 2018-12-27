@@ -10,12 +10,17 @@ export class HeaderComponent implements OnInit {
   constructor(public router: Router) { }
   ngOnInit() { }
 
-  // Go to "Create Community"
+  /**
+   * This method will allow us to go to "Create Community"
+   */
   redirectToCreate() {
     this.router.navigate(['/community/create']);
   }
 
-  // Go to "Communities"
+/**
+  * This method will allow us to go to the "Communities" section,
+  * in which you will see all the communities that have been created.
+  */
   redirectToComunities() {
     this.router.navigate(['/community/communities']);
   }

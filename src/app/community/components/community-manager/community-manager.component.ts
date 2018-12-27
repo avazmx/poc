@@ -7,7 +7,7 @@ import * as communityActions from '../../store/actions/community-attributes.acti
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 import { CommunityService } from '../../services/community.service';
 
-//Services
+// Services
 import { CountryService } from 'src/app/shared/services/country.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class CommunityManagerComponent implements OnInit {
       },
       {}
     ]
-  ]
+  ];
 
   // Hectorf
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
@@ -67,7 +67,7 @@ export class CommunityManagerComponent implements OnInit {
     // Subscribe to the country service subject
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
-        console.log("I am subscribed and the values are changing")
+        console.log('I am subscribed and the values are changing');
       }, (error: any) => { });
 
     // Subscribe to the store in order to get the updated object.
@@ -134,7 +134,6 @@ export class CommunityManagerComponent implements OnInit {
    * This method fires when the ag grid validation is emitted.
    * @param isRowSelected Emitted variable from community-attributes component.
    */
-
   checkAgGridValidity(isRowSelected: boolean) {
     this.canExitAgGrid = isRowSelected;
   }
