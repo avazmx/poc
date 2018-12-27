@@ -222,7 +222,7 @@ export class CommunityManagerComponent implements OnInit {
         Swal({
           type: 'success',
           title: 'Community Saved!'
-        })
+        });
         this.store.dispatch(new communityActions.CommunityDelete());
       });
     }
