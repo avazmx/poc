@@ -51,11 +51,11 @@ export class BusinessUnitSelectComponent implements OnInit {
             this.isShow = true;
           }
         } else if (this.communityObject.activeTab === 2) {
-          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+          /*if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
             this.businessUnits.push(this.communityObject.members[this.currentRow].businessUnit);
-            this.selectedBusinessUnit = this.communityObject.members[this.currentRow].businessUnit;
+            this.selectedBusinessUnit = this.communityObject.members[this.currentRow].businessUnit; 
             this.isShow = true;
-          }
+          }*/
         }
       }
 
