@@ -19,11 +19,13 @@ export class BusinessUnitSelectComponent implements OnInit {
   public params: any;
   public cell: any;
   public businessUnitSubscription: Subscription;
-  public businessUnits: BusinessUnit[];
+  public businessUnits: BusinessUnit[] = [];
   public selectedBusinessUnit;
-  public CommunityObject: Community;
+  public communityObject: Community;
+  currentRow: number;
   gridApi;
   gridColumnApi;
+  isShow = false;
 
   constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>) { }
   ngOnInit() { }
@@ -35,10 +37,27 @@ export class BusinessUnitSelectComponent implements OnInit {
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
+    this.currentRow = +this.params.node.id;
 
     // Subscribe to the store in order to get the updated object for the countries.
     this.businessUnitSubscription = this.store.select('community').subscribe((obj: any) => {
-      this.businessUnits = [];
+      this.communityObject = obj;
+
+      if (this.businessUnits.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+        if (this.communityObject.activeTab === 1) {
+          if (this.communityObject.geoServices[this.currentRow]) {
+            this.businessUnits.push(this.communityObject.geoServices[this.currentRow].businessUnit);
+            this.selectedBusinessUnit = this.communityObject.geoServices[this.currentRow].businessUnit;
+            this.isShow = true;
+          }
+        } else if (this.communityObject.activeTab === 2) {
+          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+            this.businessUnits.push(this.communityObject.members[this.currentRow].businessUnit);
+            this.selectedBusinessUnit = this.communityObject.members[this.currentRow].businessUnit;
+            this.isShow = true;
+          }
+        }
+      }
 
       // Get Business units
       this.businessUnitService.getBusinessUnits()

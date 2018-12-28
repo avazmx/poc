@@ -52,6 +52,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   countries;
   newCount = 1;
   colorError: string;
+  isBack = false;
 
   /**
    * Constructor of the component we initialize the framework components.
@@ -121,7 +122,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.attributesGrid = document.querySelector('#attributesGrid');
     params.api.sizeColumnsToFit();
   }
-
+  
   /**
    * Creates a new row in the ag-grid.
    */

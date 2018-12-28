@@ -1,7 +1,7 @@
 <span>
   <select (change)="onStateChange($event.target.value)" class="agSelect">
-    <option value="" disabled selected>Select</option>
-    <option *ngFor="let state of states" [value]="state.id">
+    <option *ngIf="!isShow" value="" disabled selected>Select</option>
+    <option *ngFor="let state of states" [value]="state.id" [selected]="isShow">
       {{state.name}}
     </option>
   </select>

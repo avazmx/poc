@@ -63,14 +63,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
-      if (this.communityObject.geoServices) {
+      /* if (this.communityObject.geoServices) {
         if (this.communityObject.geoServices.length > 0) {
           this.communityObject.geoServices.forEach(geoService => {
             this.countries.push(geoService.country);
             console.log('Countries from members => ' + this.countries.length);
           });
         }
-      }
+      } */
     });
   }
 
