@@ -15,8 +15,8 @@ export class CommunitiesComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   private communitiesGrid;
-  communityObject: Community;
   communityDetails: boolean;
+  communities: Community;
 
   constructor(private store: Store<Community>) {
     // Row Sample
@@ -33,8 +33,8 @@ export class CommunitiesComponent implements OnInit {
   ngOnInit() {
     // Loading of the community object
     this.store.select('community').subscribe((obj) => {
-      this.communityObject = obj;
-      console.log(this.communityObject);
+      this.communities = obj;
+      console.log(this.communities);
     });
   }
 

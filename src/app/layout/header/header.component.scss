@@ -3,8 +3,8 @@ nav {
     padding: 0.4rem 0.67rem;
     display: flex;
     img {
-        height: 1.85rem;
-        margin: 0.5rem 0;
+        height: 2.15rem;
+        // margin: 0.15rem 0;
     }
     span {
         color: #FFF;
@@ -27,5 +27,5 @@ nav {
 .activeLink {
     color: #FFF !important;
     border-bottom: 5px solid #FFF;
-    margin-bottom: -0.35rem;
+    margin-bottom: -0.4rem;
 }

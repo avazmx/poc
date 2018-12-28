@@ -1,4 +1,4 @@
-<div *ngIf="!communityObject.name" class="notFound">
+<div *ngIf="!communities" class="notFound">
   <h1 class="title">No communities found!</h1>
   <span>
     please go to 
@@ -7,7 +7,7 @@
   </span>
 </div>
 
-<div class="commmunityCard" *ngIf="communityObject.name">
+<div class="commmunityCard" *ngIf="communities == null">
   <h4 class="cardTitle">{{communityObject.name}}</h4>
   <div class="subtitles">
     <div class="subtitlesSection">
@@ -32,16 +32,16 @@
   </div>
 </div>
 
-<div *ngIf="communityDetails" class="details">
+<div *ngIf="communityDetails" class="details fadeIn">
   <div class="communityStructure">
     <div class="row structureDetail">
-      <div class="col">
+      <div class="row">
         <h6 class="title">Community Type:</h6> 
         <h6>&nbsp; {{communityObject.communityType.description}}</h6>
       </div>
     </div>
     <div class="row structureDetail">
-      <div class="col">
+      <div class="row">
         <h6 class="title">Description:</h6>
         <h6>&nbsp; {{communityObject.description}}</h6>
       </div>
@@ -50,9 +50,12 @@
   <span class="hr"></span>
   <div class="row stepDetails">
     <div class="col stepCol">
-      <div *ngFor="let geoService of communityObject.geoServices; let i = index">
+      <div *ngFor="let geoService of communities.geoServices; let i = index">
         <h5>Geo/Service({{i+1}})</h5>
-        <h6><span>Country:</span> {{geoService.country.name}}</h6>
+        <div class="row">
+          <h6 class="title">Country:</h6> 
+          <h6>{{geoService.country.name}}</h6>
+        </div>
         <h6><span>District:</span> {{geoService.district.name}}</h6>
         <h6><span>State:</span> {{geoService.state.name}}</h6>
         <h6><span>SLIC Range Low:</span> {{geoService.slicRangeLow}}</h6>
@@ -66,7 +69,7 @@
       </div>
     </div>
     <div class="col stepCol">
-      <div *ngFor="let member of communityObject.members; let i = index">
+      <div *ngFor="let member of communities.members; let i = index">
         <h5>Manage Members({{i+1}})</h5>
         <h6><span>Member Name:</span> {{member.name}}</h6>
         <h6><span>Access Level:</span> {{member.accessLevel.name}}</h6>
@@ -74,7 +77,7 @@
       </div>
     </div>
     <div class="col stepCol">
-      <div *ngFor="let governance of communityObject.governance; let i = index">
+      <div *ngFor="let governance of communities.governance; let i = index">
         <h5>Community Governance({{i+1}})</h5>
         <h6><span>Governance Level:</span> {{governance.state}}</h6>
         <h6><span>Level 1 Approver Name:</span> {{governance.levelApproverOne}}</h6>
