@@ -17,9 +17,7 @@
 
   <div class="row">
     <aw-wizard-step stepTitle="Manage Members" [navigationSymbol]="{ symbol: '2' }" awOptionalStep (stepEnter)="stepEnterTab2($event)"
-      (stepExit)="stepExitTab2($event)"
-      [canExit]="canExitAgGridMembers"
-      [stepId]="2">
+      (stepExit)="stepExitTab2($event)" [canExit]="canExitStep2" [stepId]="2">
       <ups-community-manage-members (isRowSelected)="checkAgGridValidityTab2($event)"></ups-community-manage-members>
       <br>
       <div class="menu-btns step2">
@@ -38,8 +36,9 @@
       <br>
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" [disabled]="!this.communityObject.governance && !this.selectedGovernance" (click)="onSave()">Save</button>
-        
+        <button type="button" class="btn btn-primary end-btn" [disabled]="!this.communityObject.governance && !this.selectedGovernance"
+          (click)="onSave()">Save</button>
+
       </div>
     </aw-wizard-step>
   </div>
