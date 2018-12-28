@@ -157,7 +157,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    */
   onSelectionChanged(event: any) {
     if (event) {
-      // debugger;
       // Getting the selected rows of the grid, rows that are checked.
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
 
