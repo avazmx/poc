@@ -21,6 +21,9 @@ nav {
         &:hover {
             color: #FFF;
         }
+        &:focus {
+            outline: none !important;
+        }
     }
 }
 
@@ -28,4 +31,7 @@ nav {
     color: #FFF !important;
     border-bottom: 5px solid #FFF;
     margin-bottom: -0.4rem;
+    &:focus {
+        outline: none !important;
+    }
 }
