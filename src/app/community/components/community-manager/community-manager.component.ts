@@ -58,8 +58,6 @@ export class CommunityManagerComponent implements OnInit {
           tab2SlicRangeHigh: false
         };
 
-  selectedGovernance: GovernanceLevel;
-
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   canExitAgGrid = false;
@@ -389,7 +387,7 @@ ngOnDestroy(): void {
       };
 
       // Call community save service.
-      this.communityService.addPost(saveCommunity).subscribe(createdCommunity => {
+      this.communityService.addCommunity(saveCommunity).subscribe(createdCommunity => {
         if (createdCommunity.id) {
           Swal({
             type: 'success',
