@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { communitiesDef } from '../../models/communities-def';
 import { Community } from '../../models/community.model';
 import { Store } from '@ngrx/store';
+import { CommunityService } from '../../services/community.service';
 
 @Component({
   selector: 'ups-communities',
@@ -16,9 +17,10 @@ export class CommunitiesComponent implements OnInit {
   private gridColumnApi;
   private communitiesGrid;
   communityDetails: boolean;
-  communities: Community;
+  communityObject: Community;
+  communities;
 
-  constructor(private store: Store<Community>) {
+  constructor(private store: Store<Community>, private communitiesService: CommunityService) {
     // Row Sample
     this.rowData = [];
 
@@ -33,8 +35,12 @@ export class CommunitiesComponent implements OnInit {
   ngOnInit() {
     // Loading of the community object
     this.store.select('community').subscribe((obj) => {
-      this.communities = obj;
-      console.log(this.communities);
+      this.communityObject = obj;
+      console.log(this.communityObject);
+    });
+
+    this.communitiesService.getCommunities().subscribe(data => {
+      this.communities = data;
     });
   }
 
