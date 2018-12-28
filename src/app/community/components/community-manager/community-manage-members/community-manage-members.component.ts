@@ -51,7 +51,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // AG Grid framework info
     this.columnDefs = membersDef;
     this.frameworkComponents = {
-      customizedCountryCell: CommunitySelectComponent,
       selectCountryCell: CountrySelectComponent,
       selectDistrictCell: DistrictSelectComponent,
       selectStateCell: StateSelectComponent,
@@ -64,14 +63,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
-      if (this.communityObject.geoServices) {
+      /* if (this.communityObject.geoServices) {
         if (this.communityObject.geoServices.length > 0) {
           this.communityObject.geoServices.forEach(geoService => {
             this.countries.push(geoService.country);
             console.log('Countries from members => ' + this.countries.length);
           });
         }
-      }
+      } */
     });
   }
 
@@ -99,23 +98,15 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       country: 'country',
       district: 'district',
       state: 'state',
-      slicLow: 'slicLow',
-      slicHigh: 'slicHigh'
-      // slicRangeLow: this.CommunityObject.geoServices[0].slicRangeLow,
-      // slicRangeHigh: this.CommunityObject.geoServices[0].slicRangeHigh
+      slicLow: '',
+      slicHigh: ''
     };
-
-    // We update the activate row in order to fill and change the new row selects.
-    //this.communityObject.activeRow++;
-    //this.store.dispatch(new communityActions.ActiveRow(this.communityObject));
-    //this.newRow = true;
 
     this.gridApi.updateRowData({ add: [newData] });
   }
 
   onSelectionChanged(event: any) {
     if (event) {
-
       const selectedData: ManageMember[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
@@ -123,63 +114,37 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       if (renderedNodes.length > 0) {
         for (let index = 0; index < selectedData.length; index++) {
           const node = renderedNodes[index];
-          const memberNameParams = { columns: ['memberName'], rowNodes: [node] };
-          const accessLevelParams = { columns: ['accessLevel'], rowNodes: [node] };
-          const countryParams = { columns: ['country'], rowNodes: [node] };
-          const districtParams = { columns: ['district'], rowNode: [node] };
-          const stateParams = { columns: ['state'], rowNode: [node] };
-          const slicLowParams = { columns: ['slicLow'], rowNode: [node] };
-          const slicHighParams = { columns: ['slicHigh'], rowNode: [node] };
 
-          const memberNameInstance = this.gridApi.getCellRendererInstances(memberNameParams);
-          const accessLevelInstance = this.gridApi.getCellRendererInstances(accessLevelParams);
-          const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
-          const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
-          const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
-          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
-          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
+          const memberNameInstance = this.gridApi.getCellRendererInstances({ columns: ['memberName'], rowNodes: [node] });
+          const accessLevelInstance = this.gridApi.getCellRendererInstances({ columns: ['accessLevel'], rowNodes: [node] });
+          const countryInstance = this.gridApi.getCellRendererInstances({ columns: ['country'], rowNodes: [node] });
+          const districtInstance = this.gridApi.getCellRendererInstances({ columns: ['district'], rowNode: [node] });
+          const stateInstance = this.gridApi.getCellRendererInstances({ columns: ['state'], rowNode: [node] });
 
           if (memberNameInstance.length > 0) {
-            const wapperMemberNameInstance = memberNameInstance[0];
-            const frameworkMemberNameInstance = wapperMemberNameInstance.getFrameworkComponentInstance();
+            const frameworkMemberNameInstance = memberNameInstance[0].getFrameworkComponentInstance();
             selectedData[index].id = frameworkMemberNameInstance.selectedMember.id;
             selectedData[index].name = frameworkMemberNameInstance.selectedMember.name;
           }
 
           if (accessLevelInstance.length > 0) {
-            const wapperAccessLevelInstance = accessLevelInstance[0];
-            const frameworkAccessLevelInstance = wapperAccessLevelInstance.getFrameworkComponentInstance();
+            const frameworkAccessLevelInstance = accessLevelInstance[0].getFrameworkComponentInstance();
             selectedData[index].accessLevel = frameworkAccessLevelInstance.selectedAccessLevel;
           }
 
           if (countryInstance.length > 0) {
-            const wrapperCountryInstance = countryInstance[0];
-            const frameworkCountryInstance = wrapperCountryInstance.getFrameworkComponentInstance();
+            const frameworkCountryInstance = countryInstance[0].getFrameworkComponentInstance();
             selectedData[index].country = frameworkCountryInstance.selectedCountry;
           }
 
           if (districtInstance.length > 0) {
-            const wrapperDistrictInstance = districtInstance[0];
-            const frameworkDistrictInstance = wrapperDistrictInstance.getFrameworkComponentInstance();
+            const frameworkDistrictInstance = districtInstance[0].getFrameworkComponentInstance();
             selectedData[index].district = frameworkDistrictInstance.selectedDistrict;
           }
 
           if (stateInstance.length > 0) {
-            const wrapperStateInstance = stateInstance[0];
-            const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
+            const frameworkStateInstance = stateInstance[0].getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
-          }
-
-          if (slicLowInstance.length > 0) {
-            const wrapperSlicLowInstance = slicLowInstance[0];
-            const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeLow = frameworkSlicLowInstance.slicLow;
-          }
-
-          if (slicHighInstance.length > 0) {
-            const wrapperSlicHighInstance = slicHighInstance[0];
-            const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
           }
         }
       }

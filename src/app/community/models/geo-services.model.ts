@@ -8,8 +8,8 @@ export class GeoService {
     public country: Country;
     public district: District;
     public state: State;
-    public slicRangeLow: number;
-    public slicRangeHigh: number;
+    public slicLow: number;
+    public slicHigh: number;
     public businessUnit: BusinessUnit;
     public ground: boolean;
     public three: boolean;

@@ -15,7 +15,7 @@ import * as communityActions from 'src/app/community/store/actions/community-att
   templateUrl: './district-select.component.html',
   styleUrls: ['./district-select.component.scss']
 })
-export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRendererAngularComp {
+export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp {
   public altData;
   public params: any;
   public cell: any;
@@ -25,6 +25,8 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
   countryId: number;
   communityObject: Community;
   currentRow: number;
+  tabNumber = -1;
+  isShow = false;
 
   constructor(private districtService: DistrictService,
               private countryService: CountryService,
@@ -36,7 +38,8 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
-          if (this.communityObject.activeRow === this.currentRow || this.districts.length === 0) {
+          if ((this.communityObject.activeRow === this.currentRow || this.districts.length === 0)
+            && this.tabNumber === this.communityObject.activeTab) {
             this.districts = districts;
           }
         }, (error: HttpErrorResponse) => {
@@ -45,9 +48,29 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
         });
       }
     );
-
+    
     this.store.select('community').subscribe((obj: Community) => {
+      if (this.tabNumber === -1) {
+        this.tabNumber = obj.activeTab;
+      }
       this.communityObject = obj;
+
+      if (this.districts.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+        if (this.communityObject.activeTab === 1) {
+          if (this.communityObject.geoServices[this.currentRow]) {
+            this.districts.push(this.communityObject.geoServices[this.currentRow].district);
+            this.selectedDistrict = this.communityObject.geoServices[this.currentRow].district;
+            this.isShow = true;
+          }
+        } else if (this.communityObject.activeTab === 2) {
+          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+            this.districts.push(this.communityObject.members[this.currentRow].district);
+            this.selectedDistrict = this.communityObject.members[this.currentRow].district;
+            this.isShow = true;
+          }
+        }
+      }
+
     });
   }
 
@@ -71,8 +94,8 @@ export class DistrictSelectComponent implements OnInit, OnDestroy, ICellRenderer
     }
   }
 
-  ngOnDestroy(): void {
+  /* ngOnDestroy(): void {
     this.countryIdSubscription.unsubscribe();
-  }
+  } */
 
 }

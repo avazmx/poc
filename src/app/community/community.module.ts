@@ -33,6 +33,10 @@ import { MemberNameSelectComponent } from '../shared/components/member-name-sele
 import { AccessLevelSelectComponent } from '../shared/components/access-level-select/access-level-select.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
 import { CommunitySelectComponent } from '../shared/components/community-select/community-select.component';
+import { ThreeDsComponent } from '../shared/components/three-ds/three-ds.component';
+import { TwoDsComponent } from '../shared/components/two-ds/two-ds.component';
+import { OneDaComponent } from '../shared/components/one-da/one-da.component';
+import { GroundSelectComponent } from '../shared/components/ground-select/ground-select.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +65,11 @@ import { CommunitySelectComponent } from '../shared/components/community-select/
       StateSelectComponent,
       BusinessUnitSelectComponent,
       MemberNameSelectComponent,
-      AccessLevelSelectComponent
+      AccessLevelSelectComponent,
+      ThreeDsComponent,
+      TwoDsComponent,
+      OneDaComponent,
+      GroundSelectComponent
     ]),
   ],
   entryComponents: [

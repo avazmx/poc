@@ -25,6 +25,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
 
   states: State[] = [];
   selectedState: State;
+  isShow = false;
   communityObject: Community;
 
   districtIdSubscription: Subscription;
@@ -36,6 +37,21 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     this.currentRow = +this.params.node.id;
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
+      if (this.states.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+        if (this.communityObject.activeTab === 1) {
+          if (this.communityObject.geoServices[this.currentRow]) {
+            this.states.push(this.communityObject.geoServices[this.currentRow].state);
+            this.selectedState = this.communityObject.geoServices[this.currentRow].state;
+            this.isShow = true;
+          }
+        } else if (this.communityObject.activeTab === 2) {
+          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+            this.states.push(this.communityObject.members[this.currentRow].state);
+            this.selectedState = this.communityObject.members[this.currentRow].state;
+            this.isShow = true;
+          }
+        }
+      }
     });
   }
   /**

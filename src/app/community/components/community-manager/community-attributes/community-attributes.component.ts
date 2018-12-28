@@ -16,6 +16,10 @@ import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
 import * as fromCommunity from '../../../store/reducers/community-attributes.reducers';
+import { GroundSelectComponent } from 'src/app/shared/components/ground-select/ground-select.component';
+import { OneDaComponent } from 'src/app/shared/components/one-da/one-da.component';
+import { TwoDsComponent } from 'src/app/shared/components/two-ds/two-ds.component';
+import { ThreeDsComponent } from 'src/app/shared/components/three-ds/three-ds.component';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -48,6 +52,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   countries;
   newCount = 1;
   colorError: string;
+  isBack = false;
 
   /**
    * Constructor of the component we initialize the framework components.
@@ -61,7 +66,10 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.attributesDef = attributesDef;
     this.agGridSelection = false;
     this.frameworkComponents = {
-      customizedCountryCell: CommunitySelectComponent,
+      threeDsCell: ThreeDsComponent,
+      twoDsCell: TwoDsComponent,
+      oneDaCell: OneDaComponent,
+      groundCell: GroundSelectComponent,
       selectCountryCell: CountrySelectComponent,
       selectDistrictCell: DistrictSelectComponent,
       selectStateCell: StateSelectComponent,
@@ -114,7 +122,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.attributesGrid = document.querySelector('#attributesGrid');
     params.api.sizeColumnsToFit();
   }
-
+  
   /**
    * Creates a new row in the ag-grid.
    */
@@ -124,8 +132,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       country: 'country',
       district: 'district',
       state: 'state',
-      slicLow: 'slicLow',
-      slicHigh: 'slicHigh',
+      slicLow: '',
+      slicHigh: '',
       businessUnit: 'businessUnit',
       ground: 'ground',
       three: 'three',
@@ -148,12 +156,12 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    */
   onSelectionChanged(event: any) {
     if (event) {
+      // debugger;
       // Getting the selected rows of the grid, rows that are checked.
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
 
       // Get the nodes of the grid, all the nodes.
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
-
 
       // if we have nodes then iterate thru the selected data.
       if (renderedNodes.length > 0) {
@@ -161,87 +169,55 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
           // Get the node parameters.
           const node = renderedNodes[index];
-          const countryParams = { columns: ['country'], rowNodes: [node] };
-          const districtParams = { columns: ['district'], rowNodes: [node] };
-          const stateParams = { columns: ['state'], rowNodes: [node] };
-          const slicLowParams = { columns: ['slicLow'], rowNodes: [node] };
-          const slicHighParams = { columns: ['slicHigh'], rowNodes: [node] };
-          const businessUnitParams = { columns: ['businessUnit'], rowNodes: [node] };
-          const groundParams = { columns: ['ground'], rowNodes: [node] };
-          const threeParams = { columns: ['three'], rowNodes: [node] };
-          const twoParams = { columns: ['two'], rowNodes: [node] };
-          const oneParams = { columns: ['one'], rowNodes: [node] };
 
           // Get the instance from the node parameters.
-          const countryInstance = this.gridApi.getCellRendererInstances(countryParams);
-          const districtInstance = this.gridApi.getCellRendererInstances(districtParams);
-          const stateInstance = this.gridApi.getCellRendererInstances(stateParams);
-          const slicLowInstance = this.gridApi.getCellRendererInstances(slicLowParams);
-          const slicHighInstance = this.gridApi.getCellRendererInstances(slicHighParams);
-          const businessUnitInstance = this.gridApi.getCellRendererInstances(businessUnitParams);
-          const groundInstance = this.gridApi.getCellRendererInstances(groundParams);
-          const threeInstance = this.gridApi.getCellRendererInstances(threeParams);
-          const twoInstance = this.gridApi.getCellRendererInstances(twoParams);
-          const oneInstance = this.gridApi.getCellRendererInstances(oneParams);
+          const countryInstance = this.gridApi.getCellRendererInstances({ columns: ['country'], rowNodes: [node] });
+          const districtInstance = this.gridApi.getCellRendererInstances({ columns: ['district'], rowNodes: [node] });
+          const stateInstance = this.gridApi.getCellRendererInstances({ columns: ['state'], rowNodes: [node] });
+          const businessUnitInstance = this.gridApi.getCellRendererInstances({ columns: ['businessUnit'], rowNodes: [node] });
+          const groundInstance = this.gridApi.getCellRendererInstances({ columns: ['ground'], rowNodes: [node] });
+          const threeInstance = this.gridApi.getCellRendererInstances({ columns: ['three'], rowNodes: [node] });
+          const twoInstance = this.gridApi.getCellRendererInstances({ columns: ['two'], rowNodes: [node] });
+          const oneInstance = this.gridApi.getCellRendererInstances({ columns: ['one'], rowNodes: [node] });
 
           // Validate if we get the instances and fetch the geoservice object.
           if (countryInstance.length > 0) {
-            const wapperCountryInstance = countryInstance[0];
-            const frameworkCountryInstance = wapperCountryInstance.getFrameworkComponentInstance();
+            const frameworkCountryInstance = countryInstance[0].getFrameworkComponentInstance();
             selectedData[index].country = frameworkCountryInstance.selectedCountry;
           }
 
           if (districtInstance.length > 0) {
-            const wapperDistrictInstance = districtInstance[0];
-            const frameworkDistrictInstance = wapperDistrictInstance.getFrameworkComponentInstance();
+            const frameworkDistrictInstance = districtInstance[0].getFrameworkComponentInstance();
             selectedData[index].district = frameworkDistrictInstance.selectedDistrict;
           }
 
           if (stateInstance.length > 0) {
-            const wrapperStateInstance = stateInstance[0];
-            const frameworkStateInstance = wrapperStateInstance.getFrameworkComponentInstance();
+            const frameworkStateInstance = stateInstance[0].getFrameworkComponentInstance();
             selectedData[index].state = frameworkStateInstance.selectedState;
           }
 
-          if (slicLowInstance.length > 0) {
-            const wrapperSlicLowInstance = slicLowInstance[0];
-            const frameworkSlicLowInstance = wrapperSlicLowInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeLow = frameworkSlicLowInstance.slicLow;
-          }
-
-          if (slicHighInstance.length > 0) {
-            const wrapperSlicHighInstance = slicHighInstance[0];
-            const frameworkSlicHighInstance = wrapperSlicHighInstance.getFrameworkComponentInstance();
-            selectedData[index].slicRangeHigh = frameworkSlicHighInstance.slicHigh;
-          }
-
           if (businessUnitInstance.length > 0) {
-            const wrapperBusinessUnitInstance = businessUnitInstance[0];
-            const frameworkBusinessUnitInstance = wrapperBusinessUnitInstance.getFrameworkComponentInstance();
+            const frameworkBusinessUnitInstance = businessUnitInstance[0].getFrameworkComponentInstance();
             selectedData[index].businessUnit = frameworkBusinessUnitInstance.selectedBusinessUnit;
           }
 
           if (groundInstance.length > 0) {
-            const wrapperGroundInstance = groundInstance[0];
-            const frameworkGroundInstance = wrapperGroundInstance.getFrameworkComponentInstance();
+            const frameworkGroundInstance = groundInstance[0].getFrameworkComponentInstance();
             selectedData[index].ground = frameworkGroundInstance.groundChecked;
           }
 
           if (threeInstance.length > 0) {
-            const wrapperThreeDsInstance = threeInstance[0];
-            const frameworkThreeDsInstance = wrapperThreeDsInstance.getFrameworkComponentInstance();
+            const frameworkThreeDsInstance = threeInstance[0].getFrameworkComponentInstance();
             selectedData[index].three = frameworkThreeDsInstance.threeChecked;
           }
 
           if (twoInstance.length > 0) {
-            const wrapperTwoDsInstance = twoInstance[0];
-            const frameworkTwoDsInstance = wrapperTwoDsInstance.getFrameworkComponentInstance();
+            const frameworkTwoDsInstance = twoInstance[0].getFrameworkComponentInstance();
             selectedData[index].two = frameworkTwoDsInstance.twoChecked;
           }
 
           if (oneInstance.length > 0) {
-            const wrapperOneInstance = oneInstance[0];
-            const frameworkOneInstance = wrapperOneInstance.getFrameworkComponentInstance();
+            const frameworkOneInstance = oneInstance[0].getFrameworkComponentInstance();
             selectedData[index].one = frameworkOneInstance.oneChecked;
           }
         }
