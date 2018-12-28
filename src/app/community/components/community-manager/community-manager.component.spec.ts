@@ -139,4 +139,5 @@ describe('CommunityManagerComponent', () => {
     let newRows: number = component.attributeComponent.agGrid.api.getRenderedNodes().length;
     expect(newRows).toBeGreaterThan(previousRows);
   });
+  
 });
