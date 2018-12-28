@@ -132,7 +132,7 @@ export class CommunityManagerComponent implements OnInit {
             console.log('State in tab 1');
           }
           if(this.communityObject.activeTab === 2) {
-            this.gridValidator.tab2State;
+            this.gridValidator.tab2State = true;
             console.log('State in tab 2');
           }
         }, (error: any) => {});
@@ -140,7 +140,7 @@ export class CommunityManagerComponent implements OnInit {
       this.accessLevelSubscription = this.accessLevelService.getAccessLevelId().subscribe(
         (accessLevelId: number) => {
           if(this.communityObject.activeTab === 2) {
-            this.gridValidator.tab2AccessLevel;
+            this.gridValidator.tab2AccessLevel = true;
             console.log('Access Level in tab 2');
           }
         }, (error: any) => {});
@@ -223,7 +223,7 @@ export class CommunityManagerComponent implements OnInit {
   }
 
   stepExitTab2(event: any) {
-    if (this.canExitAgGrid) {
+    if (this.canExitAgGridMembers) {
       /*this.communityObject.name = this.attributeComponent.form.controls['name'].value;
       this.communityObject.description = this.attributeComponent.form.controls['description'].value;
 
@@ -232,15 +232,16 @@ export class CommunityManagerComponent implements OnInit {
       );*/
 
       //this.communityObject.communityType = communityType[0];
-      this.store.dispatch(new communityActions.AddMembers(this.communityObject));
+      //this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     } else {
       Swal({
         title: "Some fields are missing!!",
         html:'<p>Please fill the next fields: </p>' +
         (!this.gridValidator.tab2AccessLevel ? '<br>Access Level*' : '')+
-        (!this.gridValidator.tab2Country? '<br>State*' : '')+
-        (!this.gridValidator.tab2District ? '<br>Country*' : '') +
-        (!this.gridValidator.tab2MemberName ? '<br>Member*' : ''),
+        (!this.gridValidator.tab2Country ? '<br>Country*' : '')+
+        (!this.gridValidator.tab2District ? '<br>District*' : '') +
+        (!this.gridValidator.tab2MemberName ? '<br>Member*' : '') +
+        (!this.gridValidator.tab2State ? '<br>State*' : ''),
         type: "warning",
         confirmButtonText: "Ok"
       });
@@ -263,8 +264,18 @@ export class CommunityManagerComponent implements OnInit {
     //this.canExitAgGrid = isRowSelected;
     if(this.gridValidator.tab1BusinessUnit && this.gridValidator.tab1State && this.gridValidator.tab1District
        && this.gridValidator.tab1Country) {
-      this.canExitAgGrid = isRowSelected;
+      this.canExitAgGrid = true;
     }
+  }
+  /**
+   * Function that check if every option on the members tab has been selected
+   * @param isRowSelected boolean
+   */
+  checkAgGridValidityTab2(isRowSelected: boolean) {
+    if(this.gridValidator.tab2AccessLevel && this.gridValidator.tab2Country && this.gridValidator.tab2District
+      && this.gridValidator.tab2State && this.gridValidator.tab2MemberName) {
+        this.canExitAgGridMembers = true;
+      }
   }
 
   /**
@@ -277,14 +288,15 @@ export class CommunityManagerComponent implements OnInit {
 
 ngOnDestroy(): void {
   /**
-   *
+   *Unsuscribing
    */
-  this.countryIdSubscription.unsubscribe();
   this.accessLevelSubscription.unsubscribe();
+  this.businessUnitSubscription.unsubscribe();
   this.communitySubscription.unsubscribe();
+  this.countryIdSubscription.unsubscribe();
+  this.districtSubscription.unsubscribe();
   this.memberNameSubscription.unsubscribe();
   this.stateSubscription.unsubscribe();
-  this.districtSubscription.unsubscribe();
 }
 
   /**
