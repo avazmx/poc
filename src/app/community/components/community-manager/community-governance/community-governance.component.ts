@@ -93,10 +93,10 @@ export class CommunityGovernanceComponent implements OnInit {
         if (selectedDistrict.length > 0) {
           const selectedState = selectedDistrict[0].states.filter(stat => stat.id === geo.state.id);
           if (selectedState.length > 0) {
-            selectedState[0].slicks.push({ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh });
+            selectedState[0].slicks.push({ id: slicId++, low: geo.slicLow, high: geo.slicHigh });
           } else {
             let newState = JSON.parse(JSON.stringify(geo.state));
-            newState['slicks'] = [{ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh }];
+            newState['slicks'] = [{ id: slicId++, low: geo.slicLow, high: geo.slicHigh }];
             selectedDistrict[0].states.push(newState);
           }
 
@@ -104,7 +104,7 @@ export class CommunityGovernanceComponent implements OnInit {
           let newDistrict = JSON.parse(JSON.stringify(geo.district));
           newDistrict.states = [];
           let newState = JSON.parse(JSON.stringify(geo.state));
-          newState['slicks'] = [{ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh }];
+          newState['slicks'] = [{ id: slicId++, low: geo.slicLow, high: geo.slicHigh }];
           newDistrict.states.push(newState);
           selectedCountry[0].country.districts.push(newDistrict);
         }
@@ -113,7 +113,7 @@ export class CommunityGovernanceComponent implements OnInit {
 
         ctry.country['districts'] = [geo.district];
         ctry.country.districts[0]['states'] = [geo.state];
-        ctry.country.districts[0].states[0]['slicks'] = [{ id: slicId++, low: geo.slicRangeLow, high: geo.slicRangeHigh }];
+        ctry.country.districts[0].states[0]['slicks'] = [{ id: slicId++, low: geo.slicLow, high: geo.slicHigh }];
         transferObject.push(ctry);
       }
     }

@@ -23,7 +23,7 @@ export class CommunityManagerComponent implements OnInit {
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
   communityObject: Community;
-  selectedGovernance: GovernanceLevel;
+  selectedGovernance: GovernanceLevel = null;
   gridApi;
   gridColumnApi;
 
@@ -156,35 +156,48 @@ export class CommunityManagerComponent implements OnInit {
    * This methods call the community api to save the fethced community.
    */
   onSave() {
-    if (this.communityObject.governance) {
+    if (this.communityObject.governance && this.selectedGovernance) {
       // Fetching geo services.
       const communityGeoServices = [];
       this.communityObject.geoServices.forEach(geoService => {
-        communityGeoServices.push({
-          bussinesUnit: geoService.businessUnit.id,
-          community: 0,
-          gnd: geoService.ground,
-          id: 0,
-          oneds: geoService.one,
-          slicRangeHigh: geoService.slicRangeHigh,
-          slicRangeLow: geoService.slicRangeLow,
-          stateProvince: geoService.state.id,
-          treeds: geoService.three,
-          twods: geoService.two
-        });
+        communityGeoServices.push(
+          {
+            bussinesUnit: {
+              id: geoService.businessUnit.id
+            },
+            community: {
+              communityType: { id: 0 },
+              id: 0
+            },
+            gnd: geoService.ground,
+            id: 0,
+            oneds: geoService.one,
+            slicRangeHigh: geoService.slicHigh,
+            slicRangeLow: geoService.slicLow,
+            stateProvince: {
+              id: geoService.state.id,
+              district: {
+                id: 0,
+                country: {
+                  id: 0
+                }
+              }
+            },
+            treeds: geoService.three,
+            twods: geoService.two
+          }
+        );
       });
 
       // Fetching governances.
       const communityGovernances = [];
       this.communityObject.governance.forEach(governance => {
         communityGovernances.push({
-          atLevelOneApprover: governance.altlevelOneApprover.id,
-          atLevelTwoApprover: governance.atlLevelTwoApprover.id,
-          geoService: 0,
-          community: 0,
+          atLevelOneApprover: { id: governance.altlevelOneApprover.id },
+          atLevelTwoApprover: { id: governance.atlLevelTwoApprover.id },
           id: 0,
-          levelOneApprover: governance.levelOneApprover.id,
-          levelTwoApprover: governance.levelOTwoApprover.id
+          levelOneApprover: { id: governance.levelOneApprover.id },
+          levelTwoApprover: { id: governance.levelOTwoApprover.id }
         });
       });
 
@@ -192,38 +205,57 @@ export class CommunityManagerComponent implements OnInit {
       const communnityMembers = [];
       this.communityObject.members.forEach(member => {
         communnityMembers.push({
-          accessLevel: member.accessLevel.id,
+          accessLevel: { id: member.accessLevel.id },
           id: 0,
           mannageMembers: {
             community: 0,
             id: 0,
-            slicRangeLow: member.slicRangeLow,
-            slicRangehigh: member.slicRangeHigh,
-            stateProvince: member.state.id,
-            member: member.id
-          }
+            slicRangeLow: member.slicLow,
+            slicRangehigh: member.slicHigh,
+            stateProvince: {
+              id: member.state.id,
+              district: {
+                id: 0,
+                country: {
+                  id: 0
+                }
+              }
+            }
+          },
+          member: { id: member.id }
         });
       });
 
       // Save the community object.
       const saveCommunity = {
-        id: 0,
-        name: this.communityObject.name,
-        communityType: this.communityObject.communityType.id,
+        id: '0',
+        community: {
+          id: 0,
+          name: this.communityObject.name,
+          communityType: { id: this.communityObject.communityType.id },
+          description: this.communityObject.description
+        },
+        governanceLevel: { id: this.selectedGovernance.id },
         communityGeoServices: communityGeoServices,
         communityGovernances: communityGovernances,
-        communnityMembers: communnityMembers,
-        governanceLevel: this.selectedGovernance.id
+        communnityMembers: communnityMembers
       };
 
       // Call community save service.
-      this.communityService.addPost(saveCommunity).subscribe(data => {
-        console.log('Community Saved: ', data);
-        Swal({
-          type: 'success',
-          title: 'Community Saved!'
-        });
-        this.store.dispatch(new communityActions.CommunityDelete());
+      this.communityService.addPost(saveCommunity).subscribe(createdCommunity => {
+        if (createdCommunity.id) {
+          Swal({
+            type: 'success',
+            title: 'Community Saved!'
+          });
+          this.store.dispatch(new communityActions.CommunityDelete());
+          console.log(this.communityObject);
+        }
+      });
+    } else {
+      Swal({
+        type: 'info',
+        title: 'Please fill the required values!'
       });
     }
   }
