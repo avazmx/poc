@@ -1,18 +1,55 @@
-<h5>Select a Community to see more information: </h5>
-<ag-grid-angular #communitiesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" 
-  [columnDefs]="communitiesDef" rowSelection="multiple" [animateRows]="true" [suppressRowClickSelection]="true"
-  (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)">
-</ag-grid-angular>
+<div *ngIf="!communityObject.name" class="notFound">
+  <h1 class="title">No communities found!</h1>
+  <span>
+    please go to 
+    <a routerLink="/commmunity/create" class="link">create community</a> 
+    to see the list of created comunities
+  </span>
+</div>
+
+<div class="commmunityCard" *ngIf="communityObject.name">
+  <h4 class="cardTitle">{{communityObject.name}}</h4>
+  <div class="subtitles">
+    <div class="subtitlesSection">
+      <h6 class="title">Date Created</h6>
+      <h6>12/27/2018</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Governance Type</h6>
+      <h6>F1 + F2</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Member Count</h6>
+      <h6 *ngIf="communityObject.members">{{communityObject.members.length}}</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Access Level</h6>
+      <h6> View and Edit</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="link" (click)="showMore()">Show More <span class="fas fa-chevron-down"></span></h6>
+    </div>
+  </div>
+</div>
 
 <div *ngIf="communityDetails" class="details">
-
-  <h3>Community Structure:</h3>
-  <h6><span>Type:</span> {{communityObject.communityType.description}}</h6>
-  <h6><span>Name:</span> {{communityObject.name}}</h6>
-  <h6><span>Description:</span> {{communityObject.description}}</h6>
+  <div class="communityStructure">
+    <div class="row structureDetail">
+      <div class="col">
+        <h6 class="title">Community Type:</h6> 
+        <h6>&nbsp; {{communityObject.communityType.description}}</h6>
+      </div>
+    </div>
+    <div class="row structureDetail">
+      <div class="col">
+        <h6 class="title">Description:</h6>
+        <h6>&nbsp; {{communityObject.description}}</h6>
+      </div>
+    </div>
+  </div>
   <span class="hr"></span>
-  <div class="row">
-    <div class="col">
+  <div class="row stepDetails">
+    <div class="col stepCol">
       <div *ngFor="let geoService of communityObject.geoServices; let i = index">
         <h5>Geo/Service({{i+1}})</h5>
         <h6><span>Country:</span> {{geoService.country.name}}</h6>
@@ -28,7 +65,7 @@
         <span class="hr"></span>
       </div>
     </div>
-    <div class="col">
+    <div class="col stepCol">
       <div *ngFor="let member of communityObject.members; let i = index">
         <h5>Manage Members({{i+1}})</h5>
         <h6><span>Member Name:</span> {{member.name}}</h6>
@@ -36,7 +73,7 @@
         <span class="hr"></span>
       </div>
     </div>
-    <div class="col"> 
+    <div class="col stepCol">
       <div *ngFor="let governance of communityObject.governance; let i = index">
         <h5>Community Governance({{i+1}})</h5>
         <h6><span>Governance Level:</span> {{governance.state}}</h6>

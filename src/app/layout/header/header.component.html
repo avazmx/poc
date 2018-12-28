@@ -1,9 +1,9 @@
 <nav>
   <img src="assets/img/ups-logo.png" />
-  <button (click)="redirectToCreate()">
+  <button routerLink="/community/create" routerLinkActive="activeLink">
     <fa name="plus"></fa> Create Community
   </button>
-  <button (click)="redirectToComunities()">
+  <button routerLink="/community/communities" routerLinkActive="activeLink">
     <fa name="users"></fa> Communities
   </button>
 </nav>

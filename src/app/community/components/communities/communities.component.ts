@@ -62,7 +62,7 @@ export class CommunitiesComponent implements OnInit {
  * it will show more information about the specific community that has been selected.
  * "communityDetails" is a boolean that will hide and show the info about GeoServices, Members and Governance.
  */
-  onSelectionChanged() {
+  showMore() {
     this.communityDetails = !this.communityDetails;
   }
 
