@@ -28,7 +28,9 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
   tabNumber = -1;
   isShow = false;
 
-  constructor(private districtService: DistrictService, private countryService: CountryService, private store: Store<Community>) { }
+  constructor(private districtService: DistrictService,
+              private countryService: CountryService,
+              private store: Store<Community>) { }
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;

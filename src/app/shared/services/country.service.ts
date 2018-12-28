@@ -31,10 +31,17 @@ export class CountryService {
   private countryIdState = new Subject<number>();
   private memberCountriesState = new Subject<Country[]>();
 
+  /**
+   * Sets the id of the country id selected
+   * @param id id of the country selected
+   */
   setCountryId(id: number) {
     this.countryIdState.next(id);
   }
 
+  /**
+   * returns the id of the country selected
+   */
   getCountryId() {
     return this.countryIdState.asObservable();
   }
