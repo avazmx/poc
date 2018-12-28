@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { communitiesDef } from '../../models/communities-def';
 import { Community } from '../../models/community.model';
 import { Store } from '@ngrx/store';
+import { CommunityService } from '../../services/community.service';
 
 @Component({
   selector: 'ups-communities',
@@ -15,10 +16,11 @@ export class CommunitiesComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   private communitiesGrid;
-  communityObject: Community;
   communityDetails: boolean;
+  communityObject: Community;
+  communities;
 
-  constructor(private store: Store<Community>) {
+  constructor(private store: Store<Community>, private communitiesService: CommunityService) {
     // Row Sample
     this.rowData = [];
 
@@ -35,6 +37,10 @@ export class CommunitiesComponent implements OnInit {
     this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
       console.log(this.communityObject);
+    });
+
+    this.communitiesService.getCommunities().subscribe(data => {
+      this.communities = data;
     });
   }
 
@@ -62,7 +68,7 @@ export class CommunitiesComponent implements OnInit {
  * it will show more information about the specific community that has been selected.
  * "communityDetails" is a boolean that will hide and show the info about GeoServices, Members and Governance.
  */
-  onSelectionChanged() {
+  showMore() {
     this.communityDetails = !this.communityDetails;
   }
 

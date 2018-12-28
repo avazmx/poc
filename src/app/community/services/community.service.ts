@@ -7,6 +7,8 @@ import { ManageMember } from '../../shared/models/manage-member.model';
 import { CommunityType } from '../models/community-type.model';
 import { Community } from '../models/community.model';
 import { GeoService } from '../models/geo-services.model';
+import { Governance } from '../models/governance.model';
+import { GovernanceLevel } from '../models/governance-level.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,37 +30,29 @@ export class CommunityService {
 
   constructor(private http: HttpClient) { }
 
-  getCommunityTypes() {
-    return this.http.get<CommunityType[]>(this.url + 'communitytypes/community-type');
+  /**
+   * This method will return all the communities from the database.
+   */
+  getCommunities() {
+    return this.http.get<Community[]>(this.url + 'communitystore/community-store');
   }
 
-  getHardCodedCommunityTypes() {
-    const comm1 = new CommunityType();
-    comm1.id = 1;
-    comm1.description = 'HardCoded value 1';
-    comm1.name = 'HardCoded value 1';
-    const comm2 = new CommunityType();
-    comm2.id = 2;
-    comm2.description = 'HardCoded value 2';
-    comm2.name = 'HardCoded value 2';
-    const comm3 = new CommunityType();
-    comm3.id = 3;
-    comm3.description = 'HardCoded value 3';
-    comm3.name = 'HardCoded value 3';
-    this.harcodedCommunityTypes.push(comm1);
-    this.harcodedCommunityTypes.push(comm2);
-    this.harcodedCommunityTypes.push(comm3);
-
-    return this.harcodedCommunityTypes;
+  /**
+   * This method will return the values from GeoServices, Manage Members and Governance.
+   * @param id is related to the id from the community.
+   */
+  getCommunityDetail(id: string) {
+    return this.http.get<{geoServices: GeoService[],
+      members: ManageMember[], governance: Governance[],
+      governanceLevel: GovernanceLevel}>(this.url + 'communitystore/community-store/' + id);
   }
 
   /**
    * This method saves the community object into the database.
    * @param community the community to be added.
    */
-  addPost(community: any): Observable<any> {
+  addCommunity(community: any): Observable<any> {
     return this.http.post<any>(this.url + 'communitystore/community-store', community);
   }
-
 
 }
