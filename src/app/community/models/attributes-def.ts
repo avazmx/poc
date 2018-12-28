@@ -20,14 +20,17 @@ export const attributesDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'slicLow' },
+
+        editable: true,
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'slicLow' },
         width: 210,
     }, {
         headerName: 'SLIC Range High',
         field: 'slicHigh',
-        cellRenderer: 'customizedCountryCell',
-        cellRendererParams: { field: 'slicHigh' },
+        editable: true,
+        // cellRenderer: 'customizedCountryCell',
+        // cellRendererParams: { field: 'slicHigh' },
         width: 215,
     }, {
         headerName: 'Business Unit',
@@ -38,42 +41,41 @@ export const attributesDef = [
     }, {
         headerName: 'GND',
         field: 'ground',
-        // cellRenderer: 'customizedCountryCell',
-        // cellRendererParams: { field: 'ground' },
-        editable: true,
-        cellRenderer: params => {
-            return `<input type='checkbox' ${params.value ? false : true } />`;
-        },
+        cellRenderer: 'groundCell',
+        cellRendererParams: { field: 'ground' },
+        // cellRenderer: params => {
+        //     return `<input type='checkbox' value='${params.value ? false : true}' />`;
+        // },
         width: 100,
     }, {
         headerName: '3DS',
         field: 'three',
-        // cellRenderer: 'customizedCountryCell',
-        // cellRendererParams: { field: 'three' },
-        editable: true,
-        cellRenderer: params => {
-            return `<input type='checkbox' ${params.value ? false : true } />`;
-        },
+        cellRenderer: 'threeDsCell',
+        cellRendererParams: { field: 'three' },
+        // cellRenderer: function (params) {
+        //     return `<input type='checkbox'  value='${params.value ? false : true}' />`;
+        // },
         width: 100,
     }, {
         headerName: '2DS',
         field: 'two',
-        // cellRenderer: 'customizedCountryCell',
-        // cellRendererParams: { field: 'two' },
-        editable: true,
-        cellRenderer: params => {
-            return `<input type='checkbox' ${params.value ? false : true } />`;
-        },
+        cellRenderer: 'twoDsCell',
+        cellRendererParams: { field: 'two' },
+        // cellRenderer: function (params) {
+        //     const test = `<input type='checkbox' value='${params.value ? false : true}' />`;
+        //     console.log(test);
+        //     console.log(params);
+        //     return test;
+        // },
         width: 100,
     }, {
         headerName: '1DA',
         field: 'one',
-        // cellRenderer: 'customizedCountryCell',
-        // cellRendererParams: { field: 'one' },
-        editable: true,
-        cellRenderer: params => {
-            return `<input type='checkbox' ${params.value ? false : true } />`;
-        },
+        cellRenderer: 'oneDaCell',
+        cellRendererParams: { field: 'one' },
+        // cellRenderer: params => {
+        //     return `<input type='checkbox' value='${params.value ? false : true}' />`;
+        // },
         width: 93,
     }, {
         headerName: '*',
