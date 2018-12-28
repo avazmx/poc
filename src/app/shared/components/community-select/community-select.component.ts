@@ -14,9 +14,6 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
   public altData;
   public params: any;
   public cell: any;
-
-  public slicLow: number;
-  public slicHigh: number;
   public groundChecked = false;
   public threeChecked = false;
   public twoChecked = false;
@@ -30,9 +27,6 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
 
   // AG Grid Initialize
   agInit(params: any) {
-    this.slicLow = 1000;
-    this.slicHigh = 10000;
-
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
@@ -47,7 +41,8 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
   }
 
   // groundCheckedSelected checkmark boolean
-  groundCheckedSelected() {
+  groundCheckedSelected(event: boolean) {
+    
     this.groundChecked = !this.groundChecked;
   }
 
@@ -64,22 +59,6 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
   // oneCheckedSelected checkmark boolean
   oneCheckedSelected() {
     this.oneChecked = !this.oneChecked;
-  }
-
-  // Slic Low set event
-  slicLowChange(event) {
-    this.slicLow = +event;
-    if (this.slicLow > this.slicHigh) {
-      return this.slicHigh;
-    }
-  }
-
-  // Slic High set event
-  slicHighChange(event) {
-    this.slicHigh = +event;
-    if (this.slicHigh < this.slicLow) {
-      return this.slicLow;
-    }
   }
 
 }

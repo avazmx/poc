@@ -9,6 +9,10 @@ import { BusinessUnitSelectComponent } from './components/business-unit-select/b
 import { FormsModule } from '@angular/forms';
 import { CommunitySelectComponent } from './components/community-select/community-select.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { GroundSelectComponent } from './components/ground-select/ground-select.component';
+import { ThreeDsComponent } from './components/three-ds/three-ds.component';
+import { TwoDsComponent } from './components/two-ds/two-ds.component';
+import { OneDaComponent } from './components/one-da/one-da.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AccessLevelSelectComponent,
     BusinessUnitSelectComponent,
     CommunitySelectComponent,
+    GroundSelectComponent,
+    ThreeDsComponent,
+    TwoDsComponent,
+    OneDaComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +41,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AccessLevelSelectComponent,
     BusinessUnitSelectComponent,
     CommunitySelectComponent,
+    ThreeDsComponent,
+    TwoDsComponent,
+    OneDaComponent,
+    GroundSelectComponent
   ]
 })
 export class SharedModule { }
