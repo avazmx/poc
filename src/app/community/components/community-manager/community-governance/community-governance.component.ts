@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
 import { GovernanceLevel } from 'src/app/community/models/governance-level.model';
+import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { Governance } from 'src/app/community/models/governance.model';
 import { GovernanceLevelService } from 'src/app/community/services/governance-level.service';
 import { MemberNameSelectComponent } from 'src/app/shared/components/member-name-select/member-name-select.component';
@@ -20,6 +21,8 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 })
 
 export class CommunityGovernanceComponent implements OnInit {
+
+  @ViewChild('upsMultiSelect') upsMultiSelect: MultiSelectComponent;
 
   rowData;
   public gridApi;

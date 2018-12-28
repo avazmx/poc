@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { CommunitySelectComponent } from 'src/app/shared/components/community-se
 import { CountrySelectComponent } from 'src/app/shared/components/country-select/country-select.component';
 import { DistrictSelectComponent } from 'src/app/shared/components/district-select/district-select.component';
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { AgGridNg2 } from 'ag-grid-angular';
 
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
@@ -24,6 +26,10 @@ import * as fromCommunity from '../../../store/reducers/community-attributes.red
 })
 
 export class CommunityAttributesComponent implements OnInit, OnDestroy {
+
+  @ViewChild(NgSelectComponent) ngSelect: NgSelectComponent;
+  @ViewChild(AgGridNg2) agGrid: AgGridNg2;
+
   @Output() isFormValid: EventEmitter<boolean> = new EventEmitter();
   @Output() isRowSelected: EventEmitter<boolean> = new EventEmitter();
   agGridSelection: boolean;
@@ -139,7 +145,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     this.newRow = true;
 
     // We add the row to the ag-grid
-    this.gridApi.updateRowData({ add: [newData] });
+    this.agGrid.api.updateRowData({ add: [newData] });
   }
 
   /**

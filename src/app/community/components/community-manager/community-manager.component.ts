@@ -20,6 +20,9 @@ export class CommunityManagerComponent implements OnInit {
   /**
    * 	small | large-filled | large-empty | large-filled-symbols | large-empty-symbols
    */
+
+  @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
+
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
   communityObject: Community;
@@ -27,7 +30,6 @@ export class CommunityManagerComponent implements OnInit {
   gridApi;
   gridColumnApi;
 
-  @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   canExitAttributesComponent = false;
   canExitAgGrid = false;
   canExitMembersGrid = false;

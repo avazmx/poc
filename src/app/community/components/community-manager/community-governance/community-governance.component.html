@@ -24,7 +24,7 @@
     <div class="transferBox">
       <div class="boxTitle">Selected Geography</div>
       <div class="insideBox">
-        <ups-multi-select [active]="false" [list]="secondData" (selectedList)="onSelected($event)"></ups-multi-select>
+        <ups-multi-select #upsMultiSelect [active]="false" [list]="secondData" (selectedList)="onSelected($event)"></ups-multi-select>
       </div>
     </div>
   </div>

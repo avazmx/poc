@@ -14,16 +14,16 @@
     <div class="col" [ngClass]="form.get('name').hasError('required') && form.get('name').touched ? 'colorError' : ''">
       <label> NAME*</label>
       <div class="form-group">
-        <input type="text" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
-        <h6 *ngIf="form.get('name').hasError('required') && form.get('name').touched">
+        <input type="text" id="inpName" class="form-control inputBig" placeholder="Enter Name..." formControlName="name">
+        <h6 *ngIf="form.get('name').hasError('required') && form.get('name').touched" class="nameRequired">
           Name is required*
         </h6>
       </div>
     </div>
     <div class="col" [ngClass]="form.get('description').hasError('required') && form.get('description').touched ? 'colorError' : ''">
       <label> DESCRIPTION*</label>
-      <input type="text" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
-      <h6 *ngIf="form.get('description').hasError('required') && form.get('description').touched">
+      <input type="text" id="inpDescription" class="form-control inputBig" placeholder="Enter Description..." formControlName="description">
+      <h6 *ngIf="form.get('description').hasError('required') && form.get('description').touched" class="descriptionRequired">
         Description is required*
       </h6>
     </div>
@@ -32,7 +32,7 @@
 
 <h4>Geo/Service*</h4>
 <div class="end">
-  <button (click)="createNewRowData()" class="emptyBtn" [disabled]="">
+  <button #btnAddRow (click)="createNewRowData()" class="emptyBtn" [disabled]="">
     <fa name="plus-circle"></fa>&nbsp; Add Row
   </button>
 </div>
