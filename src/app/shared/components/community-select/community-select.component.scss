@@ -1,9 +1,3 @@
- // ng-select {
-//     // margin: -0.5rem -0.5rem 0 0;
-//     // height: 10px;
-//     position: absolute;
-// }
-
 select, input {
     padding: 0 0 0 0.25rem !important;
     margin: -1rem 0 0 -0.7rem !important;
@@ -11,7 +5,7 @@ select, input {
     border-radius: 0;
     border: 0 !important;
     &:focus {
-        outline: none !important;;
+        outline: none !important;
     }
 }
 
