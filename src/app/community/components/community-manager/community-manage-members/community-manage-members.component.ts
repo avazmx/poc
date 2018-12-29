@@ -86,9 +86,13 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
       if (this.communityObject.activeTab === 2) {
+
         this.gridApi.sizeColumnsToFit();
       }
     });
+
+    // We create one row ones the grid is ready.
+    this.createNewRowMembersData();
   }
 
   createNewRowMembersData() {
