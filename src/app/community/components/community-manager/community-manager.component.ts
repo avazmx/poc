@@ -246,14 +246,13 @@ export class CommunityManagerComponent implements OnInit {
 
   stepExitTab2(event: any) {
     if (!this.canExitAgGridMembers) {
-
       Swal({
         title: 'Some fields are missing!!',
         html: '<p>Please fill the next fields: </p>' +
           (!this.gridValidator.tab2AccessLevel ? '<br>Access Level*' : '') +
           (!this.gridValidator.tab2Country ? '<br>Country*' : '') +
           (!this.gridValidator.tab2District ? '<br>District*' : '') +
-          (!this.gridValidator.tab2MemberName ? '<br>Member*' : '') +
+          (!this.gridValidator.tab2MemberName ? '<br>Member Name*' : '') +
           (!this.gridValidator.tab2State ? '<br>State*' : ''),
         type: 'warning',
         confirmButtonText: 'Ok'
