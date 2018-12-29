@@ -142,6 +142,11 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
         this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
       }
     }
+
+    if (+this.selectedMember.id > 0) {
+      this.selectedMember = this.memberNames.filter(member => member.id === +this.selectedMember)[0];
+      this.memberNameService.setMemberId(+this.selectedMember);
+    }
   }
 
   onMemberNameSet(isMemberNameSet: boolean) {
