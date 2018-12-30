@@ -139,5 +139,35 @@ describe('CommunityManagerComponent', () => {
     let newRows: number = component.attributeComponent.agGrid.api.getRenderedNodes().length;
     expect(newRows).toBeGreaterThan(previousRows);
   });
+
+  it('should let you pass to step 2', () => {
+    let communityService = fixture.debugElement.injector.get(CommunityService);
+    component.attributeComponent.ngSelect.items = communityService.getHardCodedCommunityTypes();
+    fixture.detectChanges();
+    component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.items[0]);
+    fixture.detectChanges();
+    let inpName = fixture.debugElement.query(By.css('#inpName'));
+    inpName.nativeElement.setAttribute("value", "a");
+    fixture.detectChanges();
+    let inpDescription = fixture.debugElement.query(By.css('#inpDescription'));
+    inpDescription.nativeElement.setAttribute("value", "a");
+    fixture.detectChanges();
+    let btnAddRow = fixture.debugElement.query(By.css('#btnAddRow'));
+    btnAddRow.nativeElement.click();
+    fixture.detectChanges();
+    let uca = fixture.debugElement.query(By.css("ups-community-attributes"));
+    let aggrid = uca.query(By.css("ag-grid-angular"));
+    let row0 = aggrid.query(By.css(".ag-row-level-0"));
+    let cell11 = row0.query(By.css('.ag-cell'));
+    console.log(aggrid.childNodes);
+    expect(cell11).toBe(true);
+    /*
+    let agSelectionCheckbox: HTMLSpanElement = cell11.querySelector(".ag-selection-checkbox");
+    agSelectionCheckbox.click();
+    fixture.detectChanges();
+    let spanArray: NodeListOf<HTMLSpanElement> = agSelectionCheckbox.querySelectorAll("span");
+    expect(spanArray[1].classList.contains("ag-hidden")).toBe(true);
+    */
+  });
   
 });
