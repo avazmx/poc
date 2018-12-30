@@ -20,7 +20,6 @@ export const attributesDef = [
     }, {
         headerName: 'SLIC Range Low',
         field: 'slicLow',
-
         editable: true,
         // cellRenderer: 'customizedCountryCell',
         // cellRendererParams: { field: 'slicLow' },

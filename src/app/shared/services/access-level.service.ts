@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccessLevel } from '../models/access-level.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,27 @@ export class AccessLevelService {
     this.harcodedAccessLevels.push(comm3);
   }
 
+  //Galdino
+  //Subject created for validation
+  private accessLevelId = new Subject<number>();
+
   /**
    * Return the list of access levels.
    */
+  /**
+   * Sets the id of the access level id selected
+   * @param id id of the access level selected
+   */
+  setAccessLevelId(id: number) {
+    this.accessLevelId.next(id);
+  }
+  /**
+   * Returns the id of the access level selected
+   */
+  getAccessLevelId() {
+    return this.accessLevelId.asObservable();
+  }
+
   getAccessLevels() {
     return this.http.get<AccessLevel[]>(this.url + 'accesslevels/access-level');
     // return this.http.get<AccessLevel[]>(this.url + 'access/level');

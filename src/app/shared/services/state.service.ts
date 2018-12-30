@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { State } from '../models/state.model';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,23 @@ export class StateService {
     this.harcodedStates.push(comm1);
     this.harcodedStates.push(comm2);
     this.harcodedStates.push(comm3);
+  }
+
+  private stateId = new Subject<number>();
+
+  /**
+   * Sets the id of the state id id selected
+   * @param id id of the state id selected
+   */
+  setStateId(id: number) {
+    this.stateId.next(id);
+  }
+
+  /**
+   * returns the id of the state selected
+   */
+  getStateId() {
+    return this.stateId.asObservable();
   }
 
   /**

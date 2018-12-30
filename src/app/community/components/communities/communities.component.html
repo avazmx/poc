@@ -1,49 +1,137 @@
-<h5>Select a Community to see more information: </h5>
-<ag-grid-angular #communitiesGrid class="ag-theme-bootstrap" [enableColResize]="true" [rowData]="rowData" 
-  [columnDefs]="communitiesDef" rowSelection="multiple" [animateRows]="true" [suppressRowClickSelection]="true"
-  (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)">
-</ag-grid-angular>
+<div *ngIf="!communityObject.name" class="notFound">
+  <h1 class="title">No communities found!</h1>
+  <span>
+    please go to 
+    <a routerLink="/commmunity/create" class="link">create community</a> 
+    to see the list of created comunities
+  </span>
+</div>
 
-<div *ngIf="communityDetails" class="details">
+<div class="commmunityCard" *ngIf="communityObject">
+  <h4 class="cardTitle">{{communityObject.name}}</h4>
+  <div class="subtitles">
+    <div class="subtitlesSection">
+      <h6 class="title">Date Created</h6>
+      <h6>12/27/2018</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Governance Type</h6>
+      <h6>F1 + F2</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Member Count</h6>
+      <h6 *ngIf="communityObject.members">{{communityObject.members.length}}</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="title">Access Level</h6>
+      <h6> View and Edit</h6>
+    </div>
+    <div class="subtitlesSection">
+      <h6 class="link" (click)="showMore()">Show More <span [ngClass]="communityDetails ? 'fas fa-chevron-up rotate':'fas fa-chevron-down rotate'"></span></h6>
+    </div>
+  </div>
+</div>
 
-  <h3>Community Structure:</h3>
-  <h6><span>Type:</span> {{communityObject.communityType.description}}</h6>
-  <h6><span>Name:</span> {{communityObject.name}}</h6>
-  <h6><span>Description:</span> {{communityObject.description}}</h6>
+<div *ngIf="communityDetails" class="details fadeIn">
+  <div class="communityStructure">
+    <div class="col structureDetail">
+      <div class="row">
+        <h6 class="title">Community Type:</h6> 
+        <h6>&nbsp; {{communityObject.communityType.description}}</h6>
+      </div>
+    </div>
+    <div class="col structureDetail">
+      <div class="row">
+        <h6 class="title">Description:</h6>
+        <h6>&nbsp; {{communityObject.description}}</h6>
+      </div>
+    </div>
+  </div>
   <span class="hr"></span>
-  <div class="row">
-    <div class="col">
+  <div class="row stepDetails">
+    <div class="col stepCol">
       <div *ngFor="let geoService of communityObject.geoServices; let i = index">
         <h5>Geo/Service({{i+1}})</h5>
-        <h6><span>Country:</span> {{geoService.country.name}}</h6>
-        <h6><span>District:</span> {{geoService.district.name}}</h6>
-        <h6><span>State:</span> {{geoService.state.name}}</h6>
-        <h6><span>SLIC Range Low:</span> {{geoService.slicRangeLow}}</h6>
-        <h6><span>SLIC Range High:</span> {{geoService.slicRangeHigh}}</h6>
-        <h6><span>Business Unit:</span> {{geoService.businessUnit}}</h6>
-        <h6 *ngIf="geoService.ground"><span>GND:</span> Yes</h6>
-        <h6 *ngIf="geoService.three"><span>3DS:</span> Yes</h6>
-        <h6 *ngIf="geoService.two"><span>2DS:</span> Yes</h6>
-        <h6 *ngIf="geoService.one"><span>1DA:</span> Yes</h6>
+        <div class="row">
+          <h6 class="title">Country: </h6> 
+          <h6>&nbsp; {{geoService.country.name}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">District: </h6>
+          <h6>&nbsp; {{geoService.district.name}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">State: </h6>
+          <h6>&nbsp; {{geoService.state.name}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">SLIC Range Low: </h6>
+          <h6>&nbsp; {{geoService.slicRangeLow}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">SLIC Range High: </h6>
+          <h6>&nbsp; {{geoService.slicRangeHigh}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">Business Unit: </h6>
+          <h6>&nbsp; {{geoService.businessUnit}}</h6>
+        </div>
+        <div class="row" *ngIf="geoService.ground">
+          <h6 class="title">GND: </h6>
+          <h6>&nbsp; Yes</h6>
+        </div>
+        <div class="row" *ngIf="geoService.three">
+          <h6 class="title">3DS: </h6>
+          <h6>&nbsp; Yes</h6>
+        </div>
+        <div class="row" *ngIf="geoService.two">
+          <h6 class="title">2DS: </h6>
+          <h6>&nbsp; Yes</h6>
+        </div>
+        <div class="row" *ngIf="geoService.one">
+          <h6 class="title">1DA: </h6>
+          <h6>&nbsp; Yes</h6>
+        </div>
         <span class="hr"></span>
       </div>
     </div>
-    <div class="col">
+    <div class="col stepCol">
       <div *ngFor="let member of communityObject.members; let i = index">
         <h5>Manage Members({{i+1}})</h5>
-        <h6><span>Member Name:</span> {{member.name}}</h6>
-        <h6><span>Access Level:</span> {{member.accessLevel.name}}</h6>
+        <div class="row">
+          <h6 class="title">Member Name: </h6>
+          <h6>&nbsp; {{member.name}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">Access Level: </h6>
+          <h6>&nbsp; {{member.accessLevel.name}}</h6>
+        </div>
         <span class="hr"></span>
       </div>
     </div>
-    <div class="col"> 
+    <div class="col stepCol">
       <div *ngFor="let governance of communityObject.governance; let i = index">
         <h5>Community Governance({{i+1}})</h5>
-        <h6><span>Governance Level:</span> {{governance.state}}</h6>
-        <h6><span>Level 1 Approver Name:</span> {{governance.levelApproverOne}}</h6>
-        <h6 *ngIf="governance.atllevelApproverOne"><span>Alt Level 1 Approver Name:</span> {{governance.atllevelApproverOne}}</h6>
-        <h6><span>Level 2 Approver Name:</span> {{governance.levelApproverTwo}}</h6>
-        <h6 *ngIf="governance.atllevelApproverTwo"><span>Alt Level 2 Approver Name:</span> {{governance.atllevelApproverTwo}}</h6>
+        <div class="row">
+          <h6 class="title">Governance Level: </h6>
+          <h6>&nbsp; {{governance.state}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">Level 1 Approver Name:</h6>
+          <h6>&nbsp; {{governance.levelApproverOne}}</h6>
+        </div>
+        <div class="row" *ngIf="governance.atllevelApproverOne">
+          <h6 class="title">Alt Level 1 Approver Name:</h6>
+          <h6>&nbsp; {{governance.atllevelApproverOne}}</h6>
+        </div>
+        <div class="row">
+          <h6 class="title">Level 2 Approver Name:</h6>
+          <h6>&nbsp; {{governance.levelApproverTwo}}</h6>
+        </div>
+        <div class="row" *ngIf="governance.atllevelApproverTwo">
+          <h6 class="title">Alt Level 2 Approver Name:</h6>
+          <h6>&nbsp; {{governance.atllevelApproverTwo}}</h6>
+        </div>
         <span class="hr"></span>
       </div>
     </div>

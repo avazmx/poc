@@ -8,6 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 // import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
 import { Community } from 'src/app/community/models/community.model';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { disableDebugTools } from '@angular/platform-browser';
+//Services
 
 @Component({
   selector: 'ups-member-name-select',
@@ -116,6 +118,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
    */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
+
     if (this.communityObject.activeTab !== 3) {
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
@@ -138,6 +141,11 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
         this.selectedAtlLevelApproverTwo = this.selectedMember;
         this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
       }
+    }
+
+    if (+this.selectedMember.id > 0) {
+      this.selectedMember = this.memberNames.filter(member => member.id === +this.selectedMember)[0];
+      this.memberNameService.setMemberId(+this.selectedMember);
     }
   }
 

@@ -79,6 +79,7 @@ export class CommunityGovernanceComponent implements OnInit {
       this.communityObject = obj;
       if (this.communityObject.activeTab === 3) {
         this.createObject();
+        this.gridApi.sizeColumnsToFit();
       }
     });
   }

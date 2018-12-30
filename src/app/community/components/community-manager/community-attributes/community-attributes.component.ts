@@ -16,6 +16,7 @@ import { AgGridNg2 } from 'ag-grid-angular';
 
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
+import { CommunityTypeService } from '../../../services/community-type.service';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
 import * as fromCommunity from '../../../store/reducers/community-attributes.reducers';
 import { GroundSelectComponent } from 'src/app/shared/components/ground-select/ground-select.component';
@@ -66,7 +67,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    * @param communityService Exposes the methods to load the community types.
    * @param store Ngrx store to get the community object.
    */
-  constructor(private formBuilder: FormBuilder, private communityService: CommunityService, private store: Store<fromCommunity.State>) {
+  constructor(private formBuilder: FormBuilder, private communityTypeService: CommunityTypeService, private store: Store<fromCommunity.State>) {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
@@ -105,11 +106,11 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to the communitytype service.
-    this.communityService.getCommunityTypes().subscribe(types => {
+    this.communityTypeService.getCommunityTypes().subscribe(types => {
       this.communityTypes = types;
       this.loading = false;
     }, (error: HttpErrorResponse) => {
-      this.communityTypes = this.communityService.getHardCodedCommunityTypes();
+      this.communityTypes = this.communityTypeService.getHardCodedCommunityTypes();
       this.loading = false;
     });
   }
@@ -162,7 +163,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    */
   onSelectionChanged(event: any) {
     if (event) {
-      // debugger;
       // Getting the selected rows of the grid, rows that are checked.
       const selectedData: GeoService[] = this.gridApi.getSelectedNodes().map(node => node.data);
 
