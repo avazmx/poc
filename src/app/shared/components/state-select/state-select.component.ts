@@ -37,7 +37,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     this.currentRow = +this.params.node.id;
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
-      if (this.states.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+      if (this.states.length === 0 && this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
         if (this.communityObject.activeTab === 1) {
           if (this.communityObject.geoServices[this.currentRow]) {
             this.states.push(this.communityObject.geoServices[this.currentRow].state);
@@ -87,7 +87,6 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
             this.states = states;
           }
         }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
           this.states = this.stateService.getHardCodedStates(districtId);
         });
       }

@@ -144,8 +144,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     }
 
     if (+this.selectedMember.id > 0) {
-      this.selectedMember = this.memberNames.filter(member => member.id === +this.selectedMember)[0];
-      this.memberNameService.setMemberId(+this.selectedMember);
+      this.memberNameService.setMemberId(+this.selectedMember.id);
     }
   }
 

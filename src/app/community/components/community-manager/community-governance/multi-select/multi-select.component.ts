@@ -150,8 +150,6 @@ export class MultiSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  filter($evt) {
-    console.log($evt);
-  }
+  filter($evt) {}
 
 }

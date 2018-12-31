@@ -36,7 +36,6 @@ export class CommunitiesComponent implements OnInit {
     // Loading of the community object
     this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
-      console.log(this.communityObject);
     });
 
     // Loading the communitites from database
