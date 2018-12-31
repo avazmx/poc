@@ -20,15 +20,29 @@ export class AccessLevelSelectComponent implements OnInit {
   public accessLevelSubscription: Subscription;
   public accessLevels: AccessLevel[];
   public selectedAccessLevel: AccessLevel;
-  public CommunityObject: Community;
+  public communityObject: Community;
+  isShow = false;
+  currentRow: number;
 
   constructor(private accessLevelService: AccessLevelService, private store: Store<ManageMember>) { }
   ngOnInit() {
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
 
-      this.CommunityObject = obj;
-      if (obj.activeTab === 1 && this.accessLevels.length === 0) {
+      this.communityObject = obj;
+
+      if (this.communityObject.activeTab === 2) {
+          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+            this.accessLevels.push(this.communityObject.members[this.currentRow].accessLevel);
+            this.selectedAccessLevel = this.communityObject.members[this.currentRow].accessLevel;
+            this.isShow = true;
+          } else {
+            this.fetchAccessLevels();
+          }
+      } else if (this.communityObject.activeTab === 3) {
+      }
+
+      /* if (obj.activeTab === 1 && this.accessLevels.length === 0) {
         // Get countries
         this.fetchAccessLevels();
       } else if (obj.activeTab === 2 && this.accessLevels.length === 0) {
@@ -39,8 +53,8 @@ export class AccessLevelSelectComponent implements OnInit {
         }
         else {
           this.fetchAccessLevels();
-        }
-      }
+        } 
+    }*/
     });
   }
 
@@ -58,6 +72,7 @@ export class AccessLevelSelectComponent implements OnInit {
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
+    this.currentRow = +this.params.node.id;
 
 
     // Subscribe to the store in order to get the updated object for the countries.
@@ -83,7 +98,7 @@ export class AccessLevelSelectComponent implements OnInit {
   onAccessLevelChange(selectedAccessLevel: string) {
     if (+selectedAccessLevel > 0) {
       this.selectedAccessLevel = this.accessLevels.filter(state => state.id === +selectedAccessLevel)[0];
-      this.CommunityObject.activeRow = +this.params.node.id;
+      this.communityObject.activeRow = +this.params.node.id;
       this.store.dispatch(new communityActions.ActiveRow(+this.params.node.id));
       this.accessLevelService.setAccessLevelId(+this.selectedAccessLevel);
     }
