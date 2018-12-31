@@ -193,3 +193,41 @@ aw-wizard-navigation-bar.horizontal ul.steps-indicator li.done div a {
         outline: none;
     }
 }
+
+// Animations
+@keyframes fadeIn {
+    from { 
+        -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -90deg);
+        transform: perspective(400px) rotate3d(1, 0, 0, -90deg);
+        opacity: 0;
+    }
+    to { 
+        -webkit-transform: perspective(100%);
+        transform: perspective(100%);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from { 
+        -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -90deg);
+        transform: perspective(400px) rotate3d(1, 0, 0, -90deg);
+        opacity: 0;
+    }
+    to { 
+        -webkit-transform: perspective(100%);
+        transform: perspective(100%);
+        opacity: 1;
+    }
+}
+
+
+@keyframes fadeInOpacity {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+@-webkit-keyframes fadeInOpacity {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
