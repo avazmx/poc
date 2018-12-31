@@ -67,8 +67,23 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     // We Subscribe to the district change and we get all the filtered states.
     this.districtIdSubscription = this.districtService.getDistrictId().subscribe(
       (districtId: number) => {
+        let filteredStates;
         this.stateService.getStates(districtId).subscribe((states: State[]) => {
-          if (this.communityObject.activeRow === this.currentRow || this.states.length === 0) {
+          if (this.communityObject.activeTab === 2) {
+            filteredStates = this.communityObject.geoServices.filter(geo =>
+              districtId === geo.district.id
+            );
+            filteredStates.forEach(element => {
+              const alreadyAdded = this.states.filter(stat =>
+                stat.id === element.state.id
+              );
+              if (alreadyAdded.length < 1) {
+                this.states.push(element.state);
+              }
+            });
+          }
+          if ((this.communityObject.activeRow === this.currentRow || this.states.length === 0)
+            && (!filteredStates || filteredStates.length < 1)) {
             this.states = states;
           }
         }, (error: HttpErrorResponse) => {

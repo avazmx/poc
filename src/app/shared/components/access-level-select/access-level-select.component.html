@@ -1,8 +1,8 @@
 <span>
   <!-- (change)="onAccessLevelChange($event.target.value)" -->
   <select (change)="onAccessLevelChange($event.target.value)" class="agSelect">
-    <option value="" disabled selected>Select</option>
-    <option *ngFor="let level of accessLevels" [value]="level.id">
+    <option value="" *ngIf="!isShow" disabled  selected>Select</option>
+    <option *ngFor="let level of accessLevels" [value]="level.id" [selected]="isShow">
       {{level.name}}
     </option>
   </select>

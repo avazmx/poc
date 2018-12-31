@@ -28,18 +28,19 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
   public selectedTab: number;
   public currentRow: number;
   public communityObject: Community;
+  public isShow = false;
 
   constructor(private countryService: CountryService, private store: Store<Community>, private coommunityService:CommunityService) { }
 
   ngOnInit() {
-    this.currentRow = +this.params.node.id;
   }
-
+  
   // AG Grid Initialize
   agInit(params: any) {
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
+    this.currentRow = +this.params.node.id;
 
     // this.currentRow = +this.params.node.id;
     // Subscribe to the store in order to get the updated object for the countries.
@@ -49,17 +50,23 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
         // Get countries
         this.fetchCountries();
       } else if (obj.activeTab === 2 && this.countries.length === 0) {
-        if (obj.geoServices && obj.geoServices.length > 0) {
-          obj.geoServices.forEach(element => {
-            const added = this.countries.filter(c =>
-              c.id === element.country.id
-            );
-            if (added.length === 0) {
-              this.countries.push(element.country);
-            }
-          });
+        if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+          this.countries.push(this.communityObject.members[this.currentRow].country);
+          this.selectedCountry = this.communityObject.members[this.currentRow].country;
+          this.isShow = true;
         } else {
-          this.fetchCountries();
+          if (obj.geoServices && obj.geoServices.length > 0) {
+            obj.geoServices.forEach(element => {
+              const added = this.countries.filter(c =>
+                c.id === element.country.id
+              );
+              if (added.length === 0) {
+                this.countries.push(element.country);
+              }
+            });
+          } else {
+            this.fetchCountries();
+          }
         }
       }
     });
