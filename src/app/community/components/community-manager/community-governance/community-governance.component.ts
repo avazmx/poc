@@ -50,7 +50,6 @@ export class CommunityGovernanceComponent implements OnInit {
         this.governanceLevels = governance;
         this.loading = false;
       }, (error: HttpErrorResponse) => {
-        console.log('Backend service failed for Governance levels');
         this.governanceLevels = this.governanceService.getHardCodedGovernanceLevels();
         this.loading = false;
       });

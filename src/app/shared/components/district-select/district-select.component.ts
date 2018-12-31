@@ -43,7 +43,6 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
             this.districts = districts;
           }
         }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
           this.districts = this.districtService.getHardCodedDistricts(countryId);
         });
       }

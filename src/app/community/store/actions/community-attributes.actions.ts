@@ -62,7 +62,7 @@ export class ChangeName implements Action {
 
 export class CommunityInitialize implements Action {
     readonly type = COMMUNITY_INITIALIZE;
-    constructor(public payload: Community) { console.log('action payload ahh ', payload); }
+    constructor(public payload: Community) { }
 }
 
 export class CommunityAdd implements Action {
