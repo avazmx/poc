@@ -83,7 +83,8 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       }
     });
 
-    // We create one row ones the grid is ready.
+    // We create two rows ones the grid is ready.
+    this.createNewRowMembersData();
     this.createNewRowMembersData();
   }
 
@@ -144,7 +145,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           }
         }
       }
-      
+
       this.communityObject.members = selectedData;
       this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     }

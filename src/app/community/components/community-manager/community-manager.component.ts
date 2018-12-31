@@ -32,6 +32,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
   selectedGovernance: GovernanceLevel = null;
   gridApi;
   gridColumnApi;
+  membersAdded = false;
 
   gridValidator =
     {
@@ -250,7 +251,8 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
           (!this.gridValidator.tab2Country ? '<br>Country*' : '') +
           (!this.gridValidator.tab2District ? '<br>District*' : '') +
           (!this.gridValidator.tab2MemberName ? '<br>Member Name*' : '') +
-          (!this.gridValidator.tab2State ? '<br>State*' : ''),
+          (!this.gridValidator.tab2State ? '<br>State*' : '') +
+          (!this.membersAdded ? '<br>Please add at least two members' : ''),
         type: 'warning',
         confirmButtonText: 'Ok'
       });
@@ -286,7 +288,12 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
       if (this.communityObject.members) {
         if (this.communityObject.members.length >= 2) {
           this.canExitAgGridMembers = true;
+          this.membersAdded = true;
+        } else {
+          this.membersAdded = false;
         }
+      } else {
+        this.membersAdded = false;
       }
     }
   }

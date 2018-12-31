@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
 
 import { State } from '../../models/state.model';
 import { DistrictService } from '../../services/district.service';
 import { StateService } from '../../services/state.service';
-import { Store } from '@ngrx/store';
-import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-state-select',
