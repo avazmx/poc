@@ -24,6 +24,8 @@ export class MemberNameService {
   public altMemberOne: Member;
   public altMemberTwo: Member;
 
+  public listOfMembers: Member[] = [];
+
   constructor(private http: HttpClient) {
     const comm1 = new Member();
     comm1.id = 1;
