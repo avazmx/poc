@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -32,53 +32,31 @@ import { BusinessUnitSelectComponent } from '../../../shared/components/business
 import { MemberNameSelectComponent } from '../../../shared/components/member-name-select/member-name-select.component';
 import { AccessLevelSelectComponent } from '../../../shared/components/access-level-select/access-level-select.component';
 
-import { CommunityService } from './../../services/community.service';
+import { CommunityTypeService } from '../../services/community-type.service';
+
+import { CommunityModule } from './../../community.module';
+import { CountryService } from 'src/app/shared/services/country.service';
+import { GroundSelectComponent } from 'src/app/shared/components/ground-select/ground-select.component';
+import { DistrictService } from 'src/app/shared/services/district.service';
+import { StateService } from 'src/app/shared/services/state.service';
+import { BusinessUnitService } from 'src/app/shared/services/business-unit.service';
 
 describe('CommunityManagerComponent', () => {
   let component: CommunityManagerComponent;
   let fixture: ComponentFixture<CommunityManagerComponent>;
-
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        CommunityManagerComponent,
-        CommunityAttributesComponent,
-        CommunityManageMembersComponent,
-        CommunityGovernanceComponent,
-        MultiSelectComponent,
-        CommunitySelectComponent,
-        CountrySelectComponent,
-        DistrictSelectComponent,
-        StateSelectComponent,
-        BusinessUnitSelectComponent,
-        MemberNameSelectComponent,
-        AccessLevelSelectComponent
-      ],
       imports: [
-        ArchwizardModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        AngularFontAwesomeModule,
-        AgGridModule.withComponents([
-          CommunitySelectComponent,
-          CountrySelectComponent,
-          DistrictSelectComponent,
-          StateSelectComponent,
-          BusinessUnitSelectComponent,
-          MemberNameSelectComponent,
-          AccessLevelSelectComponent
-        ]),
-        StoreModule.forFeature('community', fromCommunity.communityReducer),
-        EffectsModule.forFeature([CommunityEffects]),
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),
-        HttpClientModule
+        HttpClientModule,
+        CommunityModule
       ],
       providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
-      ],
+      ]
     })
     .compileComponents();
   }));
@@ -101,8 +79,8 @@ describe('CommunityManagerComponent', () => {
   });
 
   it('should display communityType as required', () => {
-    let communityService = fixture.debugElement.injector.get(CommunityService);
-    component.attributeComponent.ngSelect.items = communityService.getHardCodedCommunityTypes();
+    let communityTypeService = fixture.debugElement.injector.get(CommunityTypeService);
+    component.attributeComponent.ngSelect.items = communityTypeService.getHardCodedCommunityTypes();
     fixture.detectChanges();
     component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.items[0]);
     component.attributeComponent.ngSelect.unselect(component.attributeComponent.ngSelect.items[0]);
@@ -140,34 +118,71 @@ describe('CommunityManagerComponent', () => {
     expect(newRows).toBeGreaterThan(previousRows);
   });
 
-  it('should let you pass to step 2', () => {
-    let communityService = fixture.debugElement.injector.get(CommunityService);
-    component.attributeComponent.ngSelect.items = communityService.getHardCodedCommunityTypes();
+  it('should let you pass to step 2', async (done: DoneFn) => {
+    const communityTypeService: CommunityTypeService = fixture.debugElement.injector.get(CommunityTypeService);
+    const countryService: CountryService = fixture.debugElement.injector.get(CountryService);
+    const districtService: DistrictService = fixture.debugElement.injector.get(DistrictService);
+    const stateService: StateService = fixture.debugElement.injector.get(StateService);
+    const BUService: BusinessUnitService = fixture.debugElement.injector.get(BusinessUnitService);
+
+    component.attributeComponent.ngSelect.items = communityTypeService.getHardCodedCommunityTypes();
     fixture.detectChanges();
     component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.items[0]);
     fixture.detectChanges();
-    let inpName = fixture.debugElement.query(By.css('#inpName'));
-    inpName.nativeElement.setAttribute("value", "a");
+    const inpName = fixture.debugElement.query(By.css('#inpName'));
+      inpName.nativeElement.setAttribute("value", "a");
     fixture.detectChanges();
-    let inpDescription = fixture.debugElement.query(By.css('#inpDescription'));
-    inpDescription.nativeElement.setAttribute("value", "a");
+    const inpDescription = fixture.debugElement.query(By.css('#inpDescription'));
+      inpDescription.nativeElement.setAttribute("value", "a");
     fixture.detectChanges();
-    let btnAddRow = fixture.debugElement.query(By.css('#btnAddRow'));
-    btnAddRow.nativeElement.click();
+    const btnAddRow = fixture.debugElement.query(By.css('#btnAddRow'));
+      btnAddRow.nativeElement.click();
+    component.attributeComponent.agGrid.api.refreshCells();
     fixture.detectChanges();
-    let uca = fixture.debugElement.query(By.css("ups-community-attributes"));
-    let aggrid = uca.query(By.css("ag-grid-angular"));
-    let row0 = aggrid.query(By.css(".ag-row-level-0"));
-    let cell11 = row0.query(By.css('.ag-cell'));
-    console.log(aggrid.childNodes);
-    expect(cell11).toBe(true);
-    /*
-    let agSelectionCheckbox: HTMLSpanElement = cell11.querySelector(".ag-selection-checkbox");
-    agSelectionCheckbox.click();
-    fixture.detectChanges();
-    let spanArray: NodeListOf<HTMLSpanElement> = agSelectionCheckbox.querySelectorAll("span");
-    expect(spanArray[1].classList.contains("ag-hidden")).toBe(true);
-    */
+
+    window.setTimeout(() => {
+      const node0 = component.attributeComponent.agGrid.api.getRenderedNodes()[0];
+      node0.setSelected(true);
+      
+      const countryInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['country'], rowNodes: [node0] });
+      const frameworkCountryInstance: CountrySelectComponent = countryInstance[0].getFrameworkComponentInstance();
+        frameworkCountryInstance.countries = countryService.getHardCodedCountries();
+        fixture.detectChanges();
+        const countrySelect: HTMLSelectElement = frameworkCountryInstance.elementRef.nativeElement.querySelector('select');
+          countrySelect.selectedIndex = 1;
+          countrySelect.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+      const districtInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['district'], rowNodes: [node0] });
+      const frameworkDistrictInstance: DistrictSelectComponent = districtInstance[0].getFrameworkComponentInstance();
+        frameworkDistrictInstance.districts = districtService.getHardCodedDistricts(frameworkCountryInstance.selectedCountry.id);
+        fixture.detectChanges();
+        const districtSelect: HTMLSelectElement = frameworkDistrictInstance.elementRef.nativeElement.querySelector('select');
+          districtSelect.selectedIndex = 0;
+          districtSelect.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+      const stateInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['state'], rowNodes: [node0] });
+      const frameworkStateInstance: StateSelectComponent = stateInstance[0].getFrameworkComponentInstance();
+        frameworkStateInstance.states = stateService.getHardCodedStates(frameworkDistrictInstance.selectedDistrict.id);
+        fixture.detectChanges();
+        const stateSelect: HTMLSelectElement = frameworkStateInstance.elementRef.nativeElement.querySelector('select');
+          stateSelect.selectedIndex = 0;
+          stateSelect.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+      const BUInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['businessUnit'], rowNodes: [node0] });
+      const frameworkBUInstance: BusinessUnitSelectComponent = BUInstance[0].getFrameworkComponentInstance();
+        frameworkBUInstance.businessUnits = BUService.getHardCodedBusinessUnits();
+        fixture.detectChanges();
+        const BUSelect: HTMLSelectElement = frameworkBUInstance.elementRef.nativeElement.querySelector('select');
+          BUSelect.selectedIndex = 0;
+          BUSelect.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+      let btnNextStep1 = fixture.debugElement.query(By.css('.menu-btns.step1 .btn.btn-primary'));
+        btnNextStep1.nativeElement.click();
+        fixture.detectChanges();
+      expect(component.communityObject.activeTab).toBe(2);
+      done();
+    }, 100);
+    
   });
   
 });

@@ -13,6 +13,7 @@ import { DistrictSelectComponent } from 'src/app/shared/components/district-sele
 import { StateSelectComponent } from 'src/app/shared/components/state-select/state-select.component';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { AgGridNg2 } from 'ag-grid-angular';
+import { GridOptions } from 'ag-grid-community';
 
 import { attributesDef } from '../../../models/attributes-def';
 import { CommunityService } from '../../../services/community.service';
@@ -52,6 +53,7 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
   gridApi;
   gridColumnApi;
   frameworkComponents;
+  gridOptions: GridOptions;
   rowData: any;
   altData: any;
   attributesDef;
@@ -81,6 +83,9 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
       selectDistrictCell: DistrictSelectComponent,
       selectStateCell: StateSelectComponent,
       selectBusinessUnitCell: BusinessUnitSelectComponent,
+    };
+    this.gridOptions = <GridOptions>{
+      rowBuffer: 99999
     };
   }
 
@@ -155,6 +160,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
     // We add the row to the ag-grid
     this.agGrid.api.updateRowData({ add: [newData] });
+    const node0 = this.agGrid.api.getRenderedNodes()[0];
+    node0.setSelected(true);
   }
 
   /**

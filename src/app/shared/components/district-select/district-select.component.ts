@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { DistrictService } from '../../services/district.service';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { District } from '../../models/district.model';
@@ -30,7 +30,8 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
 
   constructor(private districtService: DistrictService,
               private countryService: CountryService,
-              private store: Store<Community>) { }
+              private store: Store<Community>,
+              public elementRef: ElementRef) { }
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;

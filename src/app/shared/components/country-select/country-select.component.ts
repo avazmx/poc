@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
@@ -29,7 +29,8 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
   public currentRow: number;
   public communityObject: Community;
 
-  constructor(private countryService: CountryService, private store: Store<Community>, private coommunityService:CommunityService) { }
+  constructor(private countryService: CountryService, private store: Store<Community>, private coommunityService:CommunityService,
+    public elementRef: ElementRef) { }
 
   ngOnInit() {
     this.currentRow = +this.params.node.id;

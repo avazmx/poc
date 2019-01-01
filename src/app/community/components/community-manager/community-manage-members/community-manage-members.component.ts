@@ -109,6 +109,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     if (event) {
       const selectedData: ManageMember[] = this.gridApi.getSelectedNodes().map(node => node.data);
       // Get the nodes of the grid.
+      console.log(selectedData);
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
       if (renderedNodes.length > 0) {

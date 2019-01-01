@@ -1,8 +1,8 @@
 <span>
   <select (change)="onBusinessUnitChange($event.target.value)" class="agSelect">
     <option *ngIf="!isShow" disabled selected>Select</option>
-    <option *ngFor="let unit of businessUnits" [value]="unit.id" [selected]="isShow">
-      {{unit.name}}
+    <option *ngFor="let unit of businessUnits" [value]="unit != null ? unit.id : ''" [selected]="isShow">
+      {{unit != null ? unit.name : ''}}
     </option>
   </select>
 </span>

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
@@ -27,7 +27,8 @@ export class BusinessUnitSelectComponent implements OnInit {
   gridColumnApi;
   isShow = false;
 
-  constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>) { }
+  constructor(private businessUnitService: BusinessUnitService, private store: Store<GeoService>,
+    public elementRef: ElementRef) { }
   ngOnInit() { }
 
   // AG Grid Initialize

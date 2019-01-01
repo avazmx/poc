@@ -1,8 +1,8 @@
 <span>
   <select (change)="onDistrictChange($event.target.value)" class="agSelect">
     <option *ngIf="!isShow" value="" disabled selected>Select</option>
-    <option *ngFor="let district of districts" [value]="district.id" [selected]="isShow">
-      {{district.name}}
+    <option *ngFor="let district of districts" [value]="district != null ? district.id : ''" [selected]="isShow">
+      {{district != null ? district.name : ''}}
     </option>
   </select>
 </span>

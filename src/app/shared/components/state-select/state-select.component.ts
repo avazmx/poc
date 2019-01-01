@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
 
   districtIdSubscription: Subscription;
   constructor(private stateService: StateService, private districtService: DistrictService,
-    private store: Store<Community>) { }
+    private store: Store<Community>, public elementRef: ElementRef) { }
 
 
   ngOnInit() {
