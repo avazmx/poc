@@ -24,6 +24,7 @@ import { GroundSelectComponent } from 'src/app/shared/components/ground-select/g
 import { OneDaComponent } from 'src/app/shared/components/one-da/one-da.component';
 import { TwoDsComponent } from 'src/app/shared/components/two-ds/two-ds.component';
 import { ThreeDsComponent } from 'src/app/shared/components/three-ds/three-ds.component';
+import { Column } from 'ag-grid-community';
 
 @Component({
   selector: 'ups-community-attributes',
@@ -69,7 +70,8 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    * @param communityService Exposes the methods to load the community types.
    * @param store Ngrx store to get the community object.
    */
-  constructor(private formBuilder: FormBuilder, private communityTypeService: CommunityTypeService, private store: Store<fromCommunity.State>) {
+  constructor(private formBuilder: FormBuilder, private communityTypeService: CommunityTypeService,
+    private store: Store<fromCommunity.State>) {
     this.newRow = false;
     this.rowData = [];
     this.attributesDef = attributesDef;
@@ -132,9 +134,11 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
     // Renderize the ag-grid size.
     this.gridApi.setDomLayout('autoHeight');
     this.attributesGrid = document.querySelector('#attributesGrid');
+    // We add one row ones the grid is loaded.
+    this.createNewRowData();
     params.api.sizeColumnsToFit();
   }
-  
+
   /**
    * Creates a new row in the ag-grid.
    */
@@ -256,6 +260,20 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
    */
   onCellClicked(rowId: string) {
     this.store.dispatch(new communityActions.ActiveRow(+rowId));
+  }
+
+  onCellValueChanged(event) {
+    if (event) {
+      const column: Column = event.column;
+      const columnId = column.getColId();
+      if (columnId === 'slicHigh' || columnId === 'slicLow') {
+        if (event.value !== '') {
+
+          // Todo
+        }
+      }
+
+    }
   }
 
   /**

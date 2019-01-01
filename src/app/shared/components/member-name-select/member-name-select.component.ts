@@ -1,15 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Member } from 'src/app/shared/models/member.model';
-// import { ManageMember } from 'src/app/shared/models/manage-member.model';
-import { MemberNameService } from '../../services/member-name.service';
-import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-// import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
-import { Community } from 'src/app/community/models/community.model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { disableDebugTools } from '@angular/platform-browser';
-//Services
+import { Community } from 'src/app/community/models/community.model';
+import { Member } from 'src/app/shared/models/member.model';
+
+import { MemberNameService } from '../../services/member-name.service';
 
 @Component({
   selector: 'ups-member-name-select',
@@ -123,29 +119,63 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
     } else {
+
       if (this.isLevelOneSelected) {
+
+        console.log('One selected => ', this.isLevelOneSelected);
+        console.log('two selected => ', this.isLevelTwoSelected);
+        console.log('Alt One selected => ', this.isAltLevelOneSelected);
+        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
+
         this.memberNameService.setMemberOne(false);
         this.isLevelOneSelected = false;
         this.selectedLevelApproverOne = this.selectedMember;
         this.memberNameService.memberOne = this.selectedLevelApproverOne;
+
       } if (this.isLevelTwoSelected) {
+        console.log('two selected => ', this.isLevelTwoSelected);
+        console.log('Alt One selected => ', this.isAltLevelOneSelected);
+        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
+        console.log('One selected => ', this.isLevelOneSelected);
+
         this.memberNameService.setMemberTwo(false);
         this.selectedLevelApproverTwo = this.selectedMember;
         this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+        if (this.memberNameService.memberOne.id === this.selectedMember.id) {
+          console.log('Service member one === ', this.selectedMember);
+        }
+
       } if (this.isAltLevelOneSelected) {
+        console.log('Alt One selected => ', this.isAltLevelOneSelected);
+        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
+        console.log('One selected => ', this.isLevelOneSelected);
+        console.log('two selected => ', this.isLevelTwoSelected);
+
         this.memberNameService.setAltMemberOne(false);
         this.selectedAltLevelApproverOne = this.selectedMember;
         this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
+
       } if (this.isAltLevelTwoSelected) {
+        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
+        console.log('One selected => ', this.isLevelOneSelected);
+        console.log('two selected => ', this.isLevelTwoSelected);
+        console.log('Alt One selected => ', this.isAltLevelOneSelected);
+
         this.memberNameService.setAltMemberTwo(false);
         this.selectedAtlLevelApproverTwo = this.selectedMember;
         this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
+
       }
+
+
+      console.log(this.memberNameService.memberOne);
+      console.log(this.memberNameService.memberTwo);
+      console.log(this.memberNameService.altMemberTwo);
+      console.log(this.memberNameService.altMemberOne);
     }
 
     if (+this.selectedMember.id > 0) {
-      this.selectedMember = this.memberNames.filter(member => member.id === +this.selectedMember)[0];
-      this.memberNameService.setMemberId(+this.selectedMember);
+      this.memberNameService.setMemberId(+this.selectedMember.id);
     }
   }
 

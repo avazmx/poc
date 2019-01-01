@@ -1,4 +1,6 @@
 .wizard {
+    -webkit-animation: fadeInOpacity .35s;
+    animation: fadeInOpacity .35s;
     .menu-btns {
         display: flex;
         justify-content: flex-end;

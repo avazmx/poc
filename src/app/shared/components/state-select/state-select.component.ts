@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
+import { Community } from 'src/app/community/models/community.model';
 
 import { State } from '../../models/state.model';
 import { DistrictService } from '../../services/district.service';
 import { StateService } from '../../services/state.service';
-import { Store } from '@ngrx/store';
-import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-state-select',
@@ -37,7 +37,7 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     this.currentRow = +this.params.node.id;
     this.store.select('community').subscribe((obj: Community) => {
       this.communityObject = obj;
-      if (this.states.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+      if (this.states.length === 0 && this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
         if (this.communityObject.activeTab === 1) {
           if (this.communityObject.geoServices[this.currentRow]) {
             this.states.push(this.communityObject.geoServices[this.currentRow].state);
@@ -67,12 +67,26 @@ export class StateSelectComponent implements OnInit, OnDestroy, ICellRendererAng
     // We Subscribe to the district change and we get all the filtered states.
     this.districtIdSubscription = this.districtService.getDistrictId().subscribe(
       (districtId: number) => {
+        let filteredStates;
         this.stateService.getStates(districtId).subscribe((states: State[]) => {
-          if (this.communityObject.activeRow === this.currentRow || this.states.length === 0) {
+          if (this.communityObject.activeTab === 2) {
+            filteredStates = this.communityObject.geoServices.filter(geo =>
+              districtId === geo.district.id
+            );
+            filteredStates.forEach(element => {
+              const alreadyAdded = this.states.filter(stat =>
+                stat.id === element.state.id
+              );
+              if (alreadyAdded.length < 1) {
+                this.states.push(element.state);
+              }
+            });
+          }
+          if ((this.communityObject.activeRow === this.currentRow || this.states.length === 0)
+            && (!filteredStates || filteredStates.length < 1)) {
             this.states = states;
           }
         }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
           this.states = this.stateService.getHardCodedStates(districtId);
         });
       }

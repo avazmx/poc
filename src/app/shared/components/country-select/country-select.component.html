@@ -1,7 +1,7 @@
 <span>
-  <select (change)="onCountryChange($event.target.value)" (ngModelChange)="onCountryChange($event.target.value)" class="agSelect">
-    <option value="" disabled selected>Select</option>
-    <option *ngFor="let country of countries" [value]="country.id">
+  <select (change)="onCountryChange($event.target.value)" class="agSelect">
+    <option *ngIf="!isShow" value="" disabled selected>Select</option>
+    <option *ngFor="let country of countries" [value]="country.id" [selected]="isShow">
       {{country.name}}
     </option>
   </select>

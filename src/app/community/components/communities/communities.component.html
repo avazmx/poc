@@ -1,9 +1,9 @@
 <div *ngIf="!communityObject.name" class="notFound">
   <h1 class="title">No communities found!</h1>
   <span>
-    please go to 
-    <a routerLink="/commmunity/create" class="link">create community</a> 
-    to see the list of created comunities
+    please 
+    <a routerLink="/commmunity/create" class="link">create a community here</a> 
+    first.
   </span>
 </div>
 
@@ -27,7 +27,9 @@
       <h6> View and Edit</h6>
     </div>
     <div class="subtitlesSection">
-      <h6 class="link" (click)="showMore()">Show More <span [ngClass]="communityDetails ? 'fas fa-chevron-up rotate':'fas fa-chevron-down rotate'"></span></h6>
+      <h6 class="link" (click)="showMore()">
+        Show More <span class="rotateIcon" [ngClass]="communityDetails ? 'fas fa-chevron-up':'fas fa-chevron-down'"></span>
+      </h6>
     </div>
   </div>
 </div>

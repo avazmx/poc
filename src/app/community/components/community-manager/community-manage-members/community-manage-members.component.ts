@@ -63,14 +63,6 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     // Subscribe to the store in order to get the updated object.
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
-      /* if (this.communityObject.geoServices) {
-        if (this.communityObject.geoServices.length > 0) {
-          this.communityObject.geoServices.forEach(geoService => {
-            this.countries.push(geoService.country);
-            console.log('Countries from members => ' + this.countries.length);
-          });
-        }
-      } */
     });
   }
 
@@ -86,9 +78,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.communitySubscription = this.store.select('community').subscribe((obj) => {
       this.communityObject = obj;
       if (this.communityObject.activeTab === 2) {
+
         this.gridApi.sizeColumnsToFit();
       }
     });
+
+    // We create two rows ones the grid is ready.
+    this.createNewRowMembersData();
+    this.createNewRowMembersData();
   }
 
   createNewRowMembersData() {
@@ -149,7 +146,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log('selected data', selectedData);
+
       this.communityObject.members = selectedData;
       this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     }

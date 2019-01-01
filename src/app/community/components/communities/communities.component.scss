@@ -1,11 +1,15 @@
 .notFound {
     margin-top: 8rem;
     text-align: center;
+    -webkit-animation: fadeInOpacity .25s;
+    animation: fadeInOpacity .25s;
 }
 
 .commmunityCard {
     border-top: 1px solid rgba(53, 28, 21, 0.25);
     border-bottom: 1px solid rgba(53, 28, 21, 0.25);
+    -webkit-animation: fadeInOpacity .25s;
+    animation: fadeInOpacity .25s;
     // padding: 2rem;
 
     .cardTitle {
@@ -30,8 +34,8 @@
 .details {
     margin-top: 1rem;
     color: #351c15;
-    -webkit-animation: fadeIn .25s;
-    animation: fadeIn .25s;
+    -webkit-animation: fadeInOpacity .35s;
+    animation: fadeInOpacity .35s;
     .communityStructure {
         display: flex;
         justify-content: space-between;
@@ -94,35 +98,22 @@
     cursor: pointer;
     transition: all .17s;
     &:hover {
-        color: #0E2554;
+        color: #0E2554 !important;
+        transform: scale(1.05);
     }
+}
+
+.rotateIcon {
+    transform: rotate(180deg) !important;
+}
+
+a {
+    text-decoration: none;
 }
 
 .rotate {
     -webkit-animation: rotateAnimation .7s;
     animation: rotateAnimation .7s;
-}
-
-@keyframes fadeIn {
-    from { 
-        height: 0;
-        opacity: 0;
-    }
-    to { 
-        height: 100%;
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes fadeIn {
-    from { 
-        height: 0%;
-        opacity: 0;
-    }
-    to { 
-        height: 100%;
-        opacity: 1;
-    }
 }
 
 @keyframes rotateAnimation {

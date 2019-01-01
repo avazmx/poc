@@ -39,12 +39,25 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
     this.countryIdSubscription = this.countryService.getCountryId().subscribe(
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
+          let filteredDistricts;
+          if (this.communityObject.activeTab === 2) {
+            filteredDistricts = this.communityObject.geoServices.filter(geo =>
+              countryId === geo.country.id
+            );
+            filteredDistricts.forEach(element => {
+              const alreadyAdded = this.districts.filter(dist =>
+                dist.id === element.district.id
+              );
+              if (alreadyAdded.length < 1) {
+                this.districts.push(element.district);
+              }
+            });
+          }
           if ((this.communityObject.activeRow === this.currentRow || this.districts.length === 0)
-            && this.tabNumber === this.communityObject.activeTab) {
+            && this.tabNumber === this.communityObject.activeTab && (!filteredDistricts || filteredDistricts.length < 1)) {
             this.districts = districts;
           }
         }, (error: HttpErrorResponse) => {
-          console.log('Error trying to load the coutries list, I will load hardcoded data');
           this.districts = this.districtService.getHardCodedDistricts(countryId);
         });
       }
