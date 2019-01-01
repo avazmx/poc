@@ -164,8 +164,6 @@ export class CommunityAttributesComponent implements OnInit, OnDestroy {
 
     // We add the row to the ag-grid
     this.agGrid.api.updateRowData({ add: [newData] });
-    const node0 = this.agGrid.api.getRenderedNodes()[0];
-    node0.setSelected(true);
   }
 
   /**

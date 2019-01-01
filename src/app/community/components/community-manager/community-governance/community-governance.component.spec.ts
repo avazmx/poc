@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommunityGovernanceComponent } from './community-governance.component';
+import { CommunityModule } from 'src/app/community/community.module';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from 'src/app/store/reducers/app.reducers';
 
 describe('CommunityGovernanceComponent', () => {
   let component: CommunityGovernanceComponent;
@@ -8,7 +13,12 @@ describe('CommunityGovernanceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityGovernanceComponent ]
+      imports: [
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([]),
+        HttpClientModule,
+        CommunityModule
+      ]
     })
     .compileComponents();
   }));

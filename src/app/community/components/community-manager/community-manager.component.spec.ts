@@ -40,6 +40,8 @@ import { GroundSelectComponent } from 'src/app/shared/components/ground-select/g
 import { DistrictService } from 'src/app/shared/services/district.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { BusinessUnitService } from 'src/app/shared/services/business-unit.service';
+import { CommunityRoutingModule } from '../../community-routing.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CommunityManagerComponent', () => {
   let component: CommunityManagerComponent;
@@ -51,7 +53,9 @@ describe('CommunityManagerComponent', () => {
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),
         HttpClientModule,
-        CommunityModule
+        CommunityModule,
+        CommunityRoutingModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
@@ -75,7 +79,7 @@ describe('CommunityManagerComponent', () => {
     let btnNextStep1 = fixture.debugElement.query(By.css('.menu-btns.step1 .btn.btn-primary'));
     btnNextStep1.nativeElement.click();
     fixture.detectChanges();
-    expect(window.document.querySelector('div.swal2-container')).toBeDefined();
+    expect(component.communityObject.activeTab).toBe(1);
   });
 
   it('should display communityType as required', () => {
@@ -117,7 +121,7 @@ describe('CommunityManagerComponent', () => {
     let newRows: number = component.attributeComponent.agGrid.api.getRenderedNodes().length;
     expect(newRows).toBeGreaterThan(previousRows);
   });
-
+  
   it('should let you pass to step 2', async (done: DoneFn) => {
     const communityTypeService: CommunityTypeService = fixture.debugElement.injector.get(CommunityTypeService);
     const countryService: CountryService = fixture.debugElement.injector.get(CountryService);
@@ -157,7 +161,7 @@ describe('CommunityManagerComponent', () => {
         frameworkDistrictInstance.districts = districtService.getHardCodedDistricts(frameworkCountryInstance.selectedCountry.id);
         fixture.detectChanges();
         const districtSelect: HTMLSelectElement = frameworkDistrictInstance.elementRef.nativeElement.querySelector('select');
-          districtSelect.selectedIndex = 0;
+          districtSelect.selectedIndex = 1;
           districtSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
       const stateInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['state'], rowNodes: [node0] });
@@ -168,6 +172,7 @@ describe('CommunityManagerComponent', () => {
           stateSelect.selectedIndex = 0;
           stateSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
+          console.log(frameworkStateInstance);
       const BUInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['businessUnit'], rowNodes: [node0] });
       const frameworkBUInstance: BusinessUnitSelectComponent = BUInstance[0].getFrameworkComponentInstance();
         frameworkBUInstance.businessUnits = BUService.getHardCodedBusinessUnits();
