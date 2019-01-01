@@ -79,9 +79,6 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
   stateSubscription: Subscription;
   businessUnitSubscription: Subscription;
 
-  // Get the community attributes component.
-  @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
-
   /**
    * Function that determines if we can leave the aw-wizzard tabs or not depending on the bussines logic.
    */
