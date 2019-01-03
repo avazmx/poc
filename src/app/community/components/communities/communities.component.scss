@@ -31,54 +31,6 @@
     }
 }
 
-.details {
-    margin-top: 1rem;
-    color: #351c15;
-    -webkit-animation: fadeInOpacity .35s;
-    animation: fadeInOpacity .35s;
-    .communityStructure {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 0.5rem;
-        .structureDetail {
-            margin: 0 0 -1rem 0;
-            padding: 0 1.17rem;
-            .title {
-                color: #888;
-            }
-        }
-        h6 {
-            span {
-                color: #351c15;
-                // font-weight: 600;
-            }
-        }
-    }
-
-    .stepDetails {
-        margin-top: -1rem;
-        .stepCol {
-            border-right: 1px solid rgba(53, 28, 21, 0.25);
-            .row {
-                padding: 0 1.5rem;
-                .title {
-                    color: #888;
-                }
-            }
-            &:last-child {
-                border-right: 0;
-            }
-        }
-    }
-}
-
-.hr {
-    display: block;
-    height: 1px;
-    border-top: 1px solid rgba(53, 28, 21, 0.25);
-    margin: 1.5em 0 1rem 0;
-}
-
 .col {
     // border: 1px solid rgba(53, 28, 21, 0.25);
     // border-radius: 2px;

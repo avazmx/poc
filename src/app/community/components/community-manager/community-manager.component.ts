@@ -197,7 +197,6 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
    * @param event the id of the tab.
    */
   stepExitTab1(event: any) {
-    debugger;
     if (this.attributeComponent.form.valid && this.canExitAgGrid && this.canExitAttributesComponent
       && this.gridValidator.tab1BusinessUnit && this.gridValidator.tab1Country && this.gridValidator.tab1District
       && this.gridValidator.tab1State) {

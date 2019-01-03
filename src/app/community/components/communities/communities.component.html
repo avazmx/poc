@@ -1,141 +1,41 @@
-<div *ngIf="!communityObject.name" class="notFound">
+<div *ngIf="!communities" class="notFound">
   <h1 class="title">No communities found!</h1>
   <span>
-    please 
-    <a routerLink="/commmunity/create" class="link">create a community here</a> 
+    please
+    <a routerLink="/commmunity/create" class="link">create a community here</a>
     first.
   </span>
 </div>
 
-<div class="commmunityCard" *ngIf="communityObject">
-  <h4 class="cardTitle">{{communityObject.name}}</h4>
-  <div class="subtitles">
-    <div class="subtitlesSection">
-      <h6 class="title">Date Created</h6>
-      <h6>12/27/2018</h6>
-    </div>
-    <div class="subtitlesSection">
-      <h6 class="title">Governance Type</h6>
-      <h6>F1 + F2</h6>
-    </div>
-    <div class="subtitlesSection">
-      <h6 class="title">Member Count</h6>
-      <h6 *ngIf="communityObject.members">{{communityObject.members.length}}</h6>
-    </div>
-    <div class="subtitlesSection">
-      <h6 class="title">Access Level</h6>
-      <h6> View and Edit</h6>
-    </div>
-    <div class="subtitlesSection">
-      <h6 class="link" (click)="showMore()">
-        Show More <span class="rotateIcon" [ngClass]="communityDetails ? 'fas fa-chevron-up':'fas fa-chevron-down'"></span>
-      </h6>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="communityDetails" class="details fadeIn">
-  <div class="communityStructure">
-    <div class="col structureDetail">
-      <div class="row">
-        <h6 class="title">Community Type:</h6> 
-        <h6>&nbsp; {{communityObject.communityType.description}}</h6>
+<div class="commmunityCard" *ngIf="communities">
+  <!-- Community Card -->
+  <div *ngFor="let commmunity of communities">
+    <h4 class="cardTitle">{{commmunity.name}}</h4>
+    <div class="subtitles">
+      <div class="subtitlesSection">
+        <h6 class="title">Date Created</h6>
+        <h6>12/27/2018</h6>
+      </div>
+      <div class="subtitlesSection">
+        <h6 class="title">Governance Level</h6>
+        <h6>F1 + F2</h6>
+      </div>
+      <div class="subtitlesSection">
+        <h6 class="title">Member Count</h6>
+        <h6 *ngIf="commmunity.members">{{commmunity.members.length}}</h6>
+      </div>
+      <div class="subtitlesSection">
+        <h6 class="title">Access Level</h6>
+        <h6> View and Edit</h6>
+      </div>
+      <div class="subtitlesSection">
+        <h6 class="link" (click)="showMore(commmunity)">
+          Show More <span class="rotateIcon" [ngClass]="communityDetails ? 'fas fa-chevron-up':'fas fa-chevron-down'"></span>
+        </h6>
       </div>
     </div>
-    <div class="col structureDetail">
-      <div class="row">
-        <h6 class="title">Description:</h6>
-        <h6>&nbsp; {{communityObject.description}}</h6>
-      </div>
-    </div>
-  </div>
-  <span class="hr"></span>
-  <div class="row stepDetails">
-    <div class="col stepCol">
-      <div *ngFor="let geoService of communityObject.geoServices; let i = index">
-        <h5>Geo/Service({{i+1}})</h5>
-        <div class="row">
-          <h6 class="title">Country: </h6> 
-          <h6>&nbsp; {{geoService.country.name}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">District: </h6>
-          <h6>&nbsp; {{geoService.district.name}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">State: </h6>
-          <h6>&nbsp; {{geoService.state.name}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">SLIC Range Low: </h6>
-          <h6>&nbsp; {{geoService.slicRangeLow}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">SLIC Range High: </h6>
-          <h6>&nbsp; {{geoService.slicRangeHigh}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">Business Unit: </h6>
-          <h6>&nbsp; {{geoService.businessUnit}}</h6>
-        </div>
-        <div class="row" *ngIf="geoService.ground">
-          <h6 class="title">GND: </h6>
-          <h6>&nbsp; Yes</h6>
-        </div>
-        <div class="row" *ngIf="geoService.three">
-          <h6 class="title">3DS: </h6>
-          <h6>&nbsp; Yes</h6>
-        </div>
-        <div class="row" *ngIf="geoService.two">
-          <h6 class="title">2DS: </h6>
-          <h6>&nbsp; Yes</h6>
-        </div>
-        <div class="row" *ngIf="geoService.one">
-          <h6 class="title">1DA: </h6>
-          <h6>&nbsp; Yes</h6>
-        </div>
-        <span class="hr"></span>
-      </div>
-    </div>
-    <div class="col stepCol">
-      <div *ngFor="let member of communityObject.members; let i = index">
-        <h5>Manage Members({{i+1}})</h5>
-        <div class="row">
-          <h6 class="title">Member Name: </h6>
-          <h6>&nbsp; {{member.name}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">Access Level: </h6>
-          <h6>&nbsp; {{member.accessLevel.name}}</h6>
-        </div>
-        <span class="hr"></span>
-      </div>
-    </div>
-    <div class="col stepCol">
-      <div *ngFor="let governance of communityObject.governance; let i = index">
-        <h5>Community Governance({{i+1}})</h5>
-        <div class="row">
-          <h6 class="title">Governance Level: </h6>
-          <h6>&nbsp; {{governance.state}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">Level 1 Approver Name:</h6>
-          <h6>&nbsp; {{governance.levelApproverOne}}</h6>
-        </div>
-        <div class="row" *ngIf="governance.atllevelApproverOne">
-          <h6 class="title">Alt Level 1 Approver Name:</h6>
-          <h6>&nbsp; {{governance.atllevelApproverOne}}</h6>
-        </div>
-        <div class="row">
-          <h6 class="title">Level 2 Approver Name:</h6>
-          <h6>&nbsp; {{governance.levelApproverTwo}}</h6>
-        </div>
-        <div class="row" *ngIf="governance.atllevelApproverTwo">
-          <h6 class="title">Alt Level 2 Approver Name:</h6>
-          <h6>&nbsp; {{governance.atllevelApproverTwo}}</h6>
-        </div>
-        <span class="hr"></span>
-      </div>
-    </div>
+    <!-- Community Card Details -->
+    <ups-communities-details [community]="community.id">
+    </ups-communities-details>
   </div>
 </div>

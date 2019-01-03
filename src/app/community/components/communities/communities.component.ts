@@ -19,6 +19,7 @@ export class CommunitiesComponent implements OnInit {
   communityDetails: boolean;
   communityObject: Community;
   communities;
+  community: Community;
 
   constructor(private store: Store<Community>, private communitiesService: CommunityService) {
     // Row Sample
@@ -41,6 +42,7 @@ export class CommunitiesComponent implements OnInit {
     // Loading the communitites from database
     this.communitiesService.getCommunities().subscribe(data => {
       this.communities = data;
+      console.log(this.communities);
     });
   }
 
@@ -68,8 +70,11 @@ export class CommunitiesComponent implements OnInit {
  * it will show more information about the specific community that has been selected.
  * "communityDetails" is a boolean that will hide and show the info about GeoServices, Members and Governance.
  */
-  showMore() {
+  showMore(community) {
+    debugger;
     this.communityDetails = !this.communityDetails;
+    console.log(community);
+    this.community = community;
   }
 
 }
