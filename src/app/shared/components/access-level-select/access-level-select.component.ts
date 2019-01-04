@@ -32,13 +32,13 @@ export class AccessLevelSelectComponent implements OnInit {
       this.communityObject = obj;
 
       if (this.communityObject.activeTab === 2) {
-          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
-            this.accessLevels.push(this.communityObject.members[this.currentRow].accessLevel);
-            this.selectedAccessLevel = this.communityObject.members[this.currentRow].accessLevel;
-            this.isShow = true;
-          } else {
-            this.fetchAccessLevels();
-          }
+        if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+          this.accessLevels.push(this.communityObject.members[this.currentRow].accessLevel);
+          this.selectedAccessLevel = this.communityObject.members[this.currentRow].accessLevel;
+          this.isShow = true;
+        } else {
+          this.fetchAccessLevels();
+        }
       } else if (this.communityObject.activeTab === 3) {
       }
 
@@ -98,10 +98,7 @@ export class AccessLevelSelectComponent implements OnInit {
   onAccessLevelChange(selectedAccessLevel: string) {
     if (+selectedAccessLevel > 0) {
       this.selectedAccessLevel = this.accessLevels.filter(state => state.id === +selectedAccessLevel)[0];
-      this.communityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(+this.params.node.id));
       this.accessLevelService.setAccessLevelId(+this.selectedAccessLevel);
     }
   }
-
 }
