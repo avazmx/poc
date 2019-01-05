@@ -34,7 +34,7 @@ export class CommunityService {
    * This method will return all the communities from the database.
    */
   getCommunities() {
-    return this.http.get<Community[]>(this.url + 'communitystore/community-store');
+    return this.http.get<Community[]>(this.url + 'community-store/service');
   }
 
   /**
@@ -44,7 +44,7 @@ export class CommunityService {
   getCommunityDetail(id: string) {
     return this.http.get<{geoServices: GeoService[],
       members: ManageMember[], governance: Governance[],
-      governanceLevel: GovernanceLevel}>(this.url + 'communitystore/community-store/' + id);
+      governanceLevel: GovernanceLevel}>(this.url + 'community-store/service/' + id);
   }
 
   /**
@@ -52,7 +52,7 @@ export class CommunityService {
    * @param community the community to be added.
    */
   addCommunity(community: any): Observable<any> {
-    return this.http.post<any>(this.url + 'communitystore/community-store', community);
+    return this.http.post<any>(this.url + 'community-store/service', community);
   }
 
 }

@@ -26,8 +26,7 @@ export class AccessLevelService {
     this.harcodedAccessLevels.push(comm3);
   }
 
-  //Galdino
-  //Subject created for validation
+  // Subject created for validation
   private accessLevelId = new Subject<number>();
 
   /**
@@ -48,7 +47,7 @@ export class AccessLevelService {
   }
 
   getAccessLevels() {
-    return this.http.get<AccessLevel[]>(this.url + 'accesslevels/access-level');
+    return this.http.get<AccessLevel[]>(this.url + 'access-level/service');
     // return this.http.get<AccessLevel[]>(this.url + 'access/level');
   }
 

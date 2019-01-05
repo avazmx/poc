@@ -1,7 +1,5 @@
 <span>
-  <!-- (change)="onBusinessUnitChange($event.target.value)" -->
-  <select class="agSelect" (change)="onMemberNameChange($event); onMemberNameSet($event)">
-    <option value="" disabled selected>Select</option>
+  <select #ddlMember class="agSelect"  (change)="onMemberNameChange($event); onMemberNameSet($event)">
     <option *ngFor="let member of memberNames" [value]="member.id">
       {{member.name}}
     </option>
