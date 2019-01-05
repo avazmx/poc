@@ -33,7 +33,7 @@ export class BusinessUnitService {
    * Return the list of business units.
    */
   getBusinessUnits() {
-    return this.http.get<BusinessUnit[]>(this.url + 'business/business-unit');
+    return this.http.get<BusinessUnit[]>(this.url + 'business-unit/service');
     // return this.http.get<BusinessUnit[]>(this.url + 'business/unit');
   }
 

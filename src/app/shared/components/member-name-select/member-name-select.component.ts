@@ -121,7 +121,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   /**

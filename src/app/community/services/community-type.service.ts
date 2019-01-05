@@ -17,7 +17,7 @@ export class CommunityTypeService {
    * This method will return the community types.
    */
   getCommunityTypes() {
-    return this.http.get<CommunityType[]>(this.url + 'communitytypes/community-type');
+    return this.http.get<CommunityType[]>(this.url + 'community-type/service');
   }
 
   /**

@@ -37,7 +37,7 @@ export class CommunitySelectComponent implements ICellRendererAngularComp {
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   // groundCheckedSelected checkmark boolean
