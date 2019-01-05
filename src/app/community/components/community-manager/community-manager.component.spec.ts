@@ -42,11 +42,12 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { BusinessUnitService } from 'src/app/shared/services/business-unit.service';
 import { CommunityRoutingModule } from '../../community-routing.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EventEmitter } from 'events';
 
 describe('CommunityManagerComponent', () => {
   let component: CommunityManagerComponent;
   let fixture: ComponentFixture<CommunityManagerComponent>;
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -132,18 +133,22 @@ describe('CommunityManagerComponent', () => {
     component.attributeComponent.ngSelect.items = communityTypeService.getHardCodedCommunityTypes();
     fixture.detectChanges();
     component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.items[0]);
+    component.attributeComponent.ngSelect.detectChanges();
+    component.attributeComponent.ngSelect.changeEvent.emit("change");
     fixture.detectChanges();
+    console.log(component.attributeComponent.form);
     const inpName = fixture.debugElement.query(By.css('#inpName'));
-      inpName.nativeElement.setAttribute("value", "a");
+      inpName.nativeElement.value = "a";
+      inpName.nativeElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     const inpDescription = fixture.debugElement.query(By.css('#inpDescription'));
-      inpDescription.nativeElement.setAttribute("value", "a");
-    fixture.detectChanges();
-    const btnAddRow = fixture.debugElement.query(By.css('#btnAddRow'));
-      btnAddRow.nativeElement.click();
-    component.attributeComponent.agGrid.api.refreshCells();
+      inpDescription.nativeElement.value = "a";
+      inpDescription.nativeElement.dispatchEvent(new Event('input'));
+    component.attributeComponent.form.updateValueAndValidity();
     fixture.detectChanges();
 
+    console.log(component.attributeComponent.form);
+    console.log(component.attributeComponent.ngSelect);
     window.setTimeout(() => {
       const node0 = component.attributeComponent.agGrid.api.getRenderedNodes()[0];
       node0.setSelected(true);
@@ -169,16 +174,15 @@ describe('CommunityManagerComponent', () => {
         frameworkStateInstance.states = stateService.getHardCodedStates(frameworkDistrictInstance.selectedDistrict.id);
         fixture.detectChanges();
         const stateSelect: HTMLSelectElement = frameworkStateInstance.elementRef.nativeElement.querySelector('select');
-          stateSelect.selectedIndex = 0;
+          stateSelect.selectedIndex = 1;
           stateSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
-          console.log(frameworkStateInstance);
       const BUInstance: any = component.attributeComponent.agGrid.api.getCellRendererInstances({ columns: ['businessUnit'], rowNodes: [node0] });
       const frameworkBUInstance: BusinessUnitSelectComponent = BUInstance[0].getFrameworkComponentInstance();
         frameworkBUInstance.businessUnits = BUService.getHardCodedBusinessUnits();
         fixture.detectChanges();
         const BUSelect: HTMLSelectElement = frameworkBUInstance.elementRef.nativeElement.querySelector('select');
-          BUSelect.selectedIndex = 0;
+          BUSelect.selectedIndex = 1;
           BUSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
       let btnNextStep1 = fixture.debugElement.query(By.css('.menu-btns.step1 .btn.btn-primary'));
