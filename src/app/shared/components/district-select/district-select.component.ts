@@ -40,6 +40,7 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
           let filteredDistricts;
+          debugger;
           if (this.communityObject.activeTab === 2) {
             filteredDistricts = this.communityObject.geoServices.filter(geo =>
               countryId === geo.country.id
@@ -62,14 +63,14 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
         });
       }
     );
-    
+
     this.store.select('community').subscribe((obj: Community) => {
       if (this.tabNumber === -1) {
         this.tabNumber = obj.activeTab;
       }
       this.communityObject = obj;
 
-      if (this.districts.length === 0 &&  this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
+      if (this.districts.length === 0 && this.communityObject.geoServices && this.communityObject.geoServices.length > 0) {
         if (this.communityObject.activeTab === 1) {
           if (this.communityObject.geoServices[this.currentRow]) {
             this.districts.push(this.communityObject.geoServices[this.currentRow].district);
@@ -98,7 +99,7 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   onDistrictChange(selectedDistrict: string) {

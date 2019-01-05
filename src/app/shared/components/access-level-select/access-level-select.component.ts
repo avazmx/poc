@@ -29,35 +29,35 @@ export class AccessLevelSelectComponent implements OnInit {
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {
 
+      // We Get the community strore object.
       this.communityObject = obj;
 
+      // If the tab is the second
       if (this.communityObject.activeTab === 2) {
-          if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
-            this.accessLevels.push(this.communityObject.members[this.currentRow].accessLevel);
-            this.selectedAccessLevel = this.communityObject.members[this.currentRow].accessLevel;
-            this.isShow = true;
-          } else {
-            this.fetchAccessLevels();
-          }
-      } else if (this.communityObject.activeTab === 3) {
-      }
 
-      /* if (obj.activeTab === 1 && this.accessLevels.length === 0) {
-        // Get countries
-        this.fetchAccessLevels();
-      } else if (obj.activeTab === 2 && this.accessLevels.length === 0) {
-        if (obj.members && obj.members.length > 0) {
-          obj.members.forEach(element => {
-            this.accessLevels.push(element.accessLevel);
-          });
-        }
-        else {
+        // If the community object has members and is the selected row.
+        if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+
+          // Add to the access level the element selected in the community object.
+          this.accessLevels.push(this.communityObject.members[this.currentRow].accessLevel);
+
+          // Asign the local acces level from the community object.
+          this.selectedAccessLevel = this.communityObject.members[this.currentRow].accessLevel;
+
+          // Is changes to true.
+          this.isShow = true;
+
+        } else {
+          // Otherwise we fetch all the levels.
           this.fetchAccessLevels();
-        } 
-    }*/
+        }
+      }
     });
   }
 
+  /**
+   * Get all the access levels from the service.
+   */
   fetchAccessLevels() {
     this.accessLevelService.getAccessLevels()
       .subscribe((accessLevels: AccessLevel[]) => {
@@ -92,16 +92,13 @@ export class AccessLevelSelectComponent implements OnInit {
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   onAccessLevelChange(selectedAccessLevel: string) {
     if (+selectedAccessLevel > 0) {
       this.selectedAccessLevel = this.accessLevels.filter(state => state.id === +selectedAccessLevel)[0];
-      this.communityObject.activeRow = +this.params.node.id;
-      this.store.dispatch(new communityActions.ActiveRow(+this.params.node.id));
       this.accessLevelService.setAccessLevelId(+this.selectedAccessLevel);
     }
   }
-
 }

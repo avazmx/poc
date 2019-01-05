@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { Community } from 'src/app/community/models/community.model';
@@ -30,16 +30,27 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public isLevelTwoSelected = false;
   public isAltLevelOneSelected = false;
   public isAltLevelTwoSelected = false;
+  selectedOption = null;
+
+  @ViewChild('ddlMember') ddlMember: ElementRef;
 
 
   public tabTwoSelectedMembers: Member[] = [];
   gridApi;
   gridColumnApi;
 
+
+  defaultOption = '0';
+  memberSelectOption = new Member();
+
+
+
   @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
   ngOnInit() {
+    this.memberSelectOption.id = 0;
+    this.memberSelectOption.name = 'Select';
   }
 
   fetchMembers() {
@@ -76,15 +87,20 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
           this.tabTwoSelectedMembers.push(memberTab2);
         }
         this.memberNames = this.tabTwoSelectedMembers;
+        this.memberNames.unshift(this.memberSelectOption);
+        // this.selectedMember = this.selectedOption;
       } else {
         // Get Member units
         this.memberNameService.getMemberNames()
           .subscribe((memberNames: Member[]) => {
             this.memberNames = memberNames;
+            this.memberNames.unshift(this.memberSelectOption);
+            // this.selectedMember = this.selectedOption;
           }, (error: HttpErrorResponse) => {
             this.memberNames = this.memberNameService.getHardCodedMemberNames();
           });
       }
+
     });
 
     this.memberNameService.getMemberOneState().subscribe(one => {
@@ -105,7 +121,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   /**
@@ -114,7 +130,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
    */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
-
+    console.log('selected member => ', this.selectedMember);
     if (this.communityObject.activeTab !== 3) {
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
@@ -122,59 +138,63 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
       if (this.isLevelOneSelected) {
 
-        console.log('One selected => ', this.isLevelOneSelected);
-        console.log('two selected => ', this.isLevelTwoSelected);
-        console.log('Alt One selected => ', this.isAltLevelOneSelected);
-        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
 
+        if (this.memberNameService.memberTwo) {
+          if (this.memberNameService.memberTwo.id === this.selectedMember.id) {
+            alert('should be different');
+            this.defaultOption = this.memberSelectOption.id.toString();
+            this.ddlMember.nativeElement.value = this.defaultOption;
+            // this.selectedMember = null;
+          } else {
+            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+            this.isLevelOneSelected = false;
+            this.selectedLevelApproverOne = this.selectedMember;
+            this.memberNameService.memberOne = this.selectedLevelApproverOne;
+          }
+        } else {
+          this.isLevelOneSelected = false;
+          this.selectedLevelApproverOne = this.selectedMember;
+          this.memberNameService.memberOne = this.selectedLevelApproverOne;
+        }
         this.memberNameService.setMemberOne(false);
-        this.isLevelOneSelected = false;
-        this.selectedLevelApproverOne = this.selectedMember;
-        this.memberNameService.memberOne = this.selectedLevelApproverOne;
 
       } if (this.isLevelTwoSelected) {
-        console.log('two selected => ', this.isLevelTwoSelected);
-        console.log('Alt One selected => ', this.isAltLevelOneSelected);
-        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
-        console.log('One selected => ', this.isLevelOneSelected);
 
-        this.memberNameService.setMemberTwo(false);
-        this.selectedLevelApproverTwo = this.selectedMember;
-        this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
-        if (this.memberNameService.memberOne.id === this.selectedMember.id) {
-          console.log('Service member one === ', this.selectedMember);
+        if (this.memberNameService.memberOne) {
+          if (this.memberNameService.memberOne.id === this.selectedMember.id) {
+            alert('should be different');
+            this.defaultOption = this.memberSelectOption.id.toString();
+            this.ddlMember.nativeElement.value = this.defaultOption;
+            // this.selectedMember = null;
+          } else {
+            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+            this.selectedLevelApproverTwo = this.selectedMember;
+            this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+          }
+        } else {
+
+          this.memberNameService.setMemberTwo(false);
+          this.selectedLevelApproverTwo = this.selectedMember;
+          this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+
         }
+        this.memberNameService.setMemberTwo(false);
 
       } if (this.isAltLevelOneSelected) {
-        console.log('Alt One selected => ', this.isAltLevelOneSelected);
-        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
-        console.log('One selected => ', this.isLevelOneSelected);
-        console.log('two selected => ', this.isLevelTwoSelected);
 
         this.memberNameService.setAltMemberOne(false);
         this.selectedAltLevelApproverOne = this.selectedMember;
         this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
 
       } if (this.isAltLevelTwoSelected) {
-        console.log('Alt two selected => ', this.isAltLevelTwoSelected);
-        console.log('One selected => ', this.isLevelOneSelected);
-        console.log('two selected => ', this.isLevelTwoSelected);
-        console.log('Alt One selected => ', this.isAltLevelOneSelected);
 
         this.memberNameService.setAltMemberTwo(false);
         this.selectedAtlLevelApproverTwo = this.selectedMember;
         this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
 
       }
-
-
-      console.log(this.memberNameService.memberOne);
-      console.log(this.memberNameService.memberTwo);
-      console.log(this.memberNameService.altMemberTwo);
-      console.log(this.memberNameService.altMemberOne);
     }
-
-    if (+this.selectedMember.id > 0) {
+    if (this.selectedMember && +this.selectedMember.id > 0) {
       this.memberNameService.setMemberId(+this.selectedMember.id);
     }
   }

@@ -27,6 +27,7 @@ export const attributesDef = [
         field: 'slicHigh',
         editable: true,
         width: 215,
+        filter: 'agNumberColumnFilter'
     }, {
         headerName: 'Business Unit',
         field: 'businessUnit',

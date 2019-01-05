@@ -7,17 +7,10 @@
   </div>
 </div>
 
-<ag-grid-angular #membersGrid
-  class="ag-theme-bootstrap"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
-  [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)"
-  (selectionChanged)="onSelectionChanged($event)"
-  [suppressRowClickSelection]="true"
-  [animateRows]="true"
-  rowSelection="multiple"
-  (rowSelected)="onRowSelected($event.node.selected)">
+<ag-grid-angular #membersGrid class="ag-theme-bootstrap" [rowData]="rowData" [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)"
+  [suppressRowClickSelection]="true" [animateRows]="true" rowSelection="multiple" (rowSelected)="onRowSelected($event.node.selected)"
+  (cellClicked)="onCellClicked($event.node.id)">
 </ag-grid-angular>
 
 <!-- 

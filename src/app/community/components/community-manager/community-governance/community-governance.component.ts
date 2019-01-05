@@ -244,33 +244,33 @@ export class CommunityGovernanceComponent implements OnInit {
           if (levelApproverOneInstance.length > 0) {
             const wrapperLevelOneApprover = levelApproverOneInstance[0];
             const frameworkLevelApproverOneInstance = wrapperLevelOneApprover.getFrameworkComponentInstance();
-            if (frameworkLevelApproverOneInstance.selectedLevelApproverOne === null) {
+            // if (frameworkLevelApproverOneInstance.selectedLevelApproverOne === null) {
               this.memberService.setMemberOne(true);
-            }
+            //}
           }
         } else if (event.column.colDef.field === 'atllevelApproverOne') {
           if (altlevelApproverOneInstance.length > 0) {
             const wrapperAltLevelOneApprover = altlevelApproverOneInstance[0];
             const frameworkAtlLevelApproverOneInstance = wrapperAltLevelOneApprover.getFrameworkComponentInstance();
-            if (frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne === null) {
-              this.memberService.setAltMemberOne(true);
-            }
+            // if (frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne === null) {
+               this.memberService.setAltMemberOne(true);
+            // }
           }
         } else if (event.column.colDef.field === 'levelApproverTwo') {
           if (levelApproverTwoInstance.length > 0) {
             const wrapperLevelTwoApprover = levelApproverTwoInstance[0];
             const frameworkLevelApproverTwoInstance = wrapperLevelTwoApprover.getFrameworkComponentInstance();
-            if (frameworkLevelApproverTwoInstance.selectedLevelApproverTwo === null) {
+            // if (frameworkLevelApproverTwoInstance.selectedLevelApproverTwo === null) {
               this.memberService.setMemberTwo(true);
-            }
+            // }
           }
         } else if (event.column.colDef.field === 'atllevelApproverTwo') {
           if (atlLevelApproverTwoInstance.length > 0) {
             const wrapperAtlLevvelTwoApproverInstance = atlLevelApproverTwoInstance[0];
             const frameworkAtlLevvelTwoApproverInstance = wrapperAtlLevvelTwoApproverInstance.getFrameworkComponentInstance();
-            if (frameworkAtlLevvelTwoApproverInstance.selectedAtlLevelApproverTwo === null) {
-              this.memberService.setAltMemberTwo(true);
-            }
+            // if (frameworkAtlLevvelTwoApproverInstance.selectedAtlLevelApproverTwo === null) {
+               this.memberService.setAltMemberTwo(true);
+            // }
           }
         }
       }

@@ -160,6 +160,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
     this.isMemberCheckBoxSet.emit(isMemberCheckBoxSet);
   }
 
+  /**
+   * This method is executed every time an ag-grid cell is clicked, we dispatch an action that indicates the row id we are editing.
+   * @param rowId the selected row id.
+   */
+  onCellClicked(rowId: string) {
+    this.store.dispatch(new communityActions.ActiveRow(+rowId));
+  }
+
   ngOnDestroy(): void {
     this.communitySubscription.unsubscribe();
   }
