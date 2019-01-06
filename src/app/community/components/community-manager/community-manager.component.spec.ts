@@ -130,13 +130,16 @@ describe('CommunityManagerComponent', () => {
     const stateService: StateService = fixture.debugElement.injector.get(StateService);
     const BUService: BusinessUnitService = fixture.debugElement.injector.get(BusinessUnitService);
 
-    component.attributeComponent.ngSelect.items = communityTypeService.getHardCodedCommunityTypes();
+    component.attributeComponent.communityTypes = communityTypeService.getHardCodedCommunityTypes();
+    component.attributeComponent.loading = false;
+    component.attributeComponent.ngSelect.open();
     fixture.detectChanges();
-    component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.items[0]);
+    
+    component.attributeComponent.ngSelect.select(component.attributeComponent.ngSelect.itemsList.items[0]);
     component.attributeComponent.ngSelect.detectChanges();
     component.attributeComponent.ngSelect.changeEvent.emit("change");
+    
     fixture.detectChanges();
-    console.log(component.attributeComponent.form);
     const inpName = fixture.debugElement.query(By.css('#inpName'));
       inpName.nativeElement.value = "a";
       inpName.nativeElement.dispatchEvent(new Event('input'));
@@ -146,9 +149,7 @@ describe('CommunityManagerComponent', () => {
       inpDescription.nativeElement.dispatchEvent(new Event('input'));
     component.attributeComponent.form.updateValueAndValidity();
     fixture.detectChanges();
-
-    console.log(component.attributeComponent.form);
-    console.log(component.attributeComponent.ngSelect);
+    
     window.setTimeout(() => {
       const node0 = component.attributeComponent.agGrid.api.getRenderedNodes()[0];
       node0.setSelected(true);
@@ -188,6 +189,7 @@ describe('CommunityManagerComponent', () => {
       let btnNextStep1 = fixture.debugElement.query(By.css('.menu-btns.step1 .btn.btn-primary'));
         btnNextStep1.nativeElement.click();
         fixture.detectChanges();
+      component.attributeComponent.agGrid.api.selectNode(node0)
       expect(component.communityObject.activeTab).toBe(2);
       done();
     }, 100);
