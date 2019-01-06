@@ -1,15 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Member } from 'src/app/shared/models/member.model';
-// import { ManageMember } from 'src/app/shared/models/manage-member.model';
-import { MemberNameService } from '../../services/member-name.service';
-import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-// import * as communityActions from 'src/app/community/store/actions/community-attributes.actions';
-import { Community } from 'src/app/community/models/community.model';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { disableDebugTools } from '@angular/platform-browser';
-//Services
+import { Community } from 'src/app/community/models/community.model';
+import { Member } from 'src/app/shared/models/member.model';
+
+import { MemberNameService } from '../../services/member-name.service';
 
 @Component({
   selector: 'ups-member-name-select',
@@ -34,16 +30,27 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public isLevelTwoSelected = false;
   public isAltLevelOneSelected = false;
   public isAltLevelTwoSelected = false;
+  selectedOption = null;
+
+  @ViewChild('ddlMember') ddlMember: ElementRef;
 
 
   public tabTwoSelectedMembers: Member[] = [];
   gridApi;
   gridColumnApi;
 
+
+  defaultOption = '0';
+  memberSelectOption = new Member();
+
+
+
   @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
   ngOnInit() {
+    this.memberSelectOption.id = 0;
+    this.memberSelectOption.name = 'Select';
   }
 
   fetchMembers() {
@@ -80,15 +87,20 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
           this.tabTwoSelectedMembers.push(memberTab2);
         }
         this.memberNames = this.tabTwoSelectedMembers;
+        this.memberNames.unshift(this.memberSelectOption);
+        // this.selectedMember = this.selectedOption;
       } else {
         // Get Member units
         this.memberNameService.getMemberNames()
           .subscribe((memberNames: Member[]) => {
             this.memberNames = memberNames;
+            this.memberNames.unshift(this.memberSelectOption);
+            // this.selectedMember = this.selectedOption;
           }, (error: HttpErrorResponse) => {
             this.memberNames = this.memberNameService.getHardCodedMemberNames();
           });
       }
+
     });
 
     this.memberNameService.getMemberOneState().subscribe(one => {
@@ -109,7 +121,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   /**
@@ -118,32 +130,71 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
    */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
-
+    console.log('selected member => ', this.selectedMember);
     if (this.communityObject.activeTab !== 3) {
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
     } else {
+
       if (this.isLevelOneSelected) {
+
+
+        if (this.memberNameService.memberTwo) {
+          if (this.memberNameService.memberTwo.id === this.selectedMember.id) {
+            alert('should be different');
+            this.defaultOption = this.memberSelectOption.id.toString();
+            this.ddlMember.nativeElement.value = this.defaultOption;
+            // this.selectedMember = null;
+          } else {
+            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+            this.isLevelOneSelected = false;
+            this.selectedLevelApproverOne = this.selectedMember;
+            this.memberNameService.memberOne = this.selectedLevelApproverOne;
+          }
+        } else {
+          this.isLevelOneSelected = false;
+          this.selectedLevelApproverOne = this.selectedMember;
+          this.memberNameService.memberOne = this.selectedLevelApproverOne;
+        }
         this.memberNameService.setMemberOne(false);
-        this.isLevelOneSelected = false;
-        this.selectedLevelApproverOne = this.selectedMember;
-        this.memberNameService.memberOne = this.selectedLevelApproverOne;
+
       } if (this.isLevelTwoSelected) {
+
+        if (this.memberNameService.memberOne) {
+          if (this.memberNameService.memberOne.id === this.selectedMember.id) {
+            alert('should be different');
+            this.defaultOption = this.memberSelectOption.id.toString();
+            this.ddlMember.nativeElement.value = this.defaultOption;
+            // this.selectedMember = null;
+          } else {
+            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+            this.selectedLevelApproverTwo = this.selectedMember;
+            this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+          }
+        } else {
+
+          this.memberNameService.setMemberTwo(false);
+          this.selectedLevelApproverTwo = this.selectedMember;
+          this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+
+        }
         this.memberNameService.setMemberTwo(false);
-        this.selectedLevelApproverTwo = this.selectedMember;
-        this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+
       } if (this.isAltLevelOneSelected) {
+
         this.memberNameService.setAltMemberOne(false);
         this.selectedAltLevelApproverOne = this.selectedMember;
         this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
+
       } if (this.isAltLevelTwoSelected) {
+
         this.memberNameService.setAltMemberTwo(false);
         this.selectedAtlLevelApproverTwo = this.selectedMember;
         this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
+
       }
     }
-
-    if (+this.selectedMember.id > 0) {
+    if (this.selectedMember && +this.selectedMember.id > 0) {
       this.memberNameService.setMemberId(+this.selectedMember.id);
     }
   }

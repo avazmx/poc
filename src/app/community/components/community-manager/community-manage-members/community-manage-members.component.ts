@@ -83,7 +83,8 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
       }
     });
 
-    // We create one row ones the grid is ready.
+    // We create two rows ones the grid is ready.
+    this.createNewRowMembersData();
     this.createNewRowMembersData();
   }
 
@@ -144,7 +145,7 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
           }
         }
       }
-      
+
       this.communityObject.members = selectedData;
       this.store.dispatch(new communityActions.AddMembers(this.communityObject));
     }
@@ -156,6 +157,14 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
 
   onMemberNameSet(isMemberCheckBoxSet: boolean) {
     this.isMemberCheckBoxSet.emit(isMemberCheckBoxSet);
+  }
+
+  /**
+   * This method is executed every time an ag-grid cell is clicked, we dispatch an action that indicates the row id we are editing.
+   * @param rowId the selected row id.
+   */
+  onCellClicked(rowId: string) {
+    this.store.dispatch(new communityActions.ActiveRow(+rowId));
   }
 
   ngOnDestroy(): void {

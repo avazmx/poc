@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { Store } from '@ngrx/store';
+import { Community } from 'src/app/community/models/community.model';
 
 @Component({
   selector: 'ups-two-ds',
@@ -14,7 +16,7 @@ export class TwoDsComponent implements ICellRendererAngularComp {
 
   public currentRow: number;
 
-  constructor() { }
+  constructor(private store: Store<Community>) { }
 
   // AG Grid Initialize
   agInit(params: any) {
@@ -23,6 +25,11 @@ export class TwoDsComponent implements ICellRendererAngularComp {
     this.cell = { row: params.value, col: params.colDef.headerName };
 
     this.currentRow = +this.params.node.id;
+    this.store.select('community').subscribe((obj: Community) => {
+      if (obj.activeTab === 1 && obj.geoServices && obj.geoServices[this.currentRow]) {
+        this.twoChecked = obj.geoServices[this.currentRow].two;
+      }
+    });
   }
 
   // AG Grid reload

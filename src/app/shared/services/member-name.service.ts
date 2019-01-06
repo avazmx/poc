@@ -24,6 +24,8 @@ export class MemberNameService {
   public altMemberOne: Member;
   public altMemberTwo: Member;
 
+  public listOfMembers: Member[] = [];
+
   constructor(private http: HttpClient) {
     const comm1 = new Member();
     comm1.id = 1;
@@ -118,7 +120,7 @@ export class MemberNameService {
    * Return the list of member names.
    */
   getMemberNames(): Observable<Member[]> {
-    return this.http.get<any>(this.url + 'members/member');
+    return this.http.get<any>(this.url + 'members/service');
     // return this.http.get<Member[]>(this.url + 'member');
   }
 

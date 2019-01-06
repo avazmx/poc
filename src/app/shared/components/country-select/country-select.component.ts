@@ -84,13 +84,13 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
   // AG Grid reload
   refresh(params: any): boolean {
     this.altData = params.value;
-    return true;
+    return false;
   }
 
   // Country selection
   onCountryChange(selectedCountry: string) {
     if (+selectedCountry > 0) {
-      //this.coommunityService.setCountryValid(true);
+      // this.coommunityService.setCountryValid(true);
       this.selectedCountry = this.countries.filter(state => state.id === +selectedCountry)[0];
       this.countryService.setCountryId(+selectedCountry);
     }
