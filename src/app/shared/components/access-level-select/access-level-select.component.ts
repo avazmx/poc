@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { AccessLevel } from '../../models/access-level.model';
 import { AccessLevelService } from '../../services/access-level.service';
 import { Subscription } from 'rxjs';
@@ -24,7 +24,8 @@ export class AccessLevelSelectComponent implements OnInit {
   isShow = false;
   currentRow: number;
 
-  constructor(private accessLevelService: AccessLevelService, private store: Store<ManageMember>) { }
+  constructor(private accessLevelService: AccessLevelService, private store: Store<ManageMember>,
+    public elementRef: ElementRef) { }
   ngOnInit() {
     // Subscribe to the store in order to get the updated object for the countries.
     this.store.select('community').subscribe((obj: Community) => {

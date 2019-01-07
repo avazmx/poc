@@ -47,7 +47,8 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
   @Output() isMemberNameSet: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
+  constructor(private memberNameService: MemberNameService, private store: Store<Community>,
+    public elementRef: ElementRef) { }
   ngOnInit() {
     this.memberSelectOption.id = 0;
     this.memberSelectOption.name = 'Select';

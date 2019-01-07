@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -18,6 +18,7 @@ import { ManageMember } from 'src/app/shared/models/manage-member.model';
 
 import * as communityActions from '../../../store/actions/community-attributes.actions';
 import { CommunitySelectComponent } from 'src/app/shared/components/community-select/community-select.component';
+import { AgGridNg2 } from 'ag-grid-angular';
 
 @Component({
   selector: 'ups-community-manage-members',
@@ -26,6 +27,7 @@ import { CommunitySelectComponent } from 'src/app/shared/components/community-se
 })
 
 export class CommunityManageMembersComponent implements OnInit, OnDestroy {
+  @ViewChild(AgGridNg2) agGrid: AgGridNg2;
   gridApi;
   gridColumnApi;
   frameworkComponents;

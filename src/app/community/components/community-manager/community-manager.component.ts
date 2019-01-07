@@ -15,6 +15,7 @@ import { GovernanceLevel } from '../../models/governance-level.model';
 import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+import { CommunityManageMembersComponent } from './community-manage-members/community-manage-members.component';
 
 @Component({
   selector: 'ups-community-manager',
@@ -28,6 +29,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
    */
 
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
+  @ViewChild(CommunityManageMembersComponent) manageMembersComponent: CommunityManageMembersComponent;
 
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
@@ -228,7 +230,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
         (!this.gridValidator.tab1Country ? '<br>Country*' : '') +
         (!this.gridValidator.tab1District ? '<br>District*' : '') +
         (!this.gridValidator.tab1State ? '<br>State*' : '');
-
+      
       Swal({
         title: 'Some fields are missing!!',
         html: html,
