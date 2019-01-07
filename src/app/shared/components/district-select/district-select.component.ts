@@ -40,7 +40,6 @@ export class DistrictSelectComponent implements OnInit, ICellRendererAngularComp
       (countryId: number) => {
         this.districtService.getDistrictsByCountryId(countryId).subscribe((districts: District[]) => {
           let filteredDistricts;
-          debugger;
           if (this.communityObject.activeTab === 2) {
             filteredDistricts = this.communityObject.geoServices.filter(geo =>
               countryId === geo.country.id
