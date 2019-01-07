@@ -80,13 +80,6 @@ describe('CommunityManagerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  it('click next in step one with empty inputs should display info message', () => {
-    let btnNextStep1 = fixture.debugElement.query(By.css('.menu-btns.step1 .btn.btn-primary'));
-    btnNextStep1.nativeElement.click();
-    fixture.detectChanges();
-    expect(component.communityObject.activeTab).toBe(1);
-  });
 
   it('should display communityType as required', () => {
     let communityTypeService = fixture.debugElement.injector.get(CommunityTypeService);
@@ -315,11 +308,11 @@ describe('CommunityManagerComponent', () => {
         if(accessLevelInstance.length > 0 && countryInstance.length > 0 && districtInstance.length > 0 &&
           stateInstance.length > 0 && accessLevelInstance2.length > 0 && countryInstance2.length > 0 &&
           districtInstance2.length > 0 && stateInstance2.length > 0){
-            let btnNextStep2 = fixture.debugElement.query(By.css('.menu-btns.step2 .btn.btn-primary'));
-            btnNextStep2.nativeElement.click();
-            fixture.detectChanges();
-
-            resolve('finished');
+              let btnNextStep2 = fixture.debugElement.query(By.css('.menu-btns.step2 .btn.btn-primary'));
+              btnNextStep2.nativeElement.click();
+              fixture.detectChanges();
+    
+              resolve('finished');
         }
       });
       
@@ -356,6 +349,18 @@ describe('CommunityManagerComponent', () => {
 
     }, 1000);
     
+  });
+
+  it('Once in step 3 should have more than 1 element in the transfer component', async (done: DoneFn) => {
+    await validateStep1();
+
+    window.setTimeout(async () => {
+      await validateStep2();
+
+      expect(component.governanceComponent.upsMultiSelect.list.length).toBeGreaterThan(0);
+      done();
+
+    }, 1000);
   });
   
 });

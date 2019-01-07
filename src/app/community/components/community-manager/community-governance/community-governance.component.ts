@@ -12,6 +12,7 @@ import { MemberNameService } from 'src/app/shared/services/member-name.service';
 
 import { governanceDef } from '../../../models/governance-def';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
+import { AgGridNg2 } from 'ag-grid-angular';
 
 
 @Component({
@@ -23,6 +24,7 @@ import * as communityActions from '../../../store/actions/community-attributes.a
 export class CommunityGovernanceComponent implements OnInit {
 
   @ViewChild('upsMultiSelect') upsMultiSelect: MultiSelectComponent;
+  @ViewChild(AgGridNg2) agGrid: AgGridNg2;
 
   rowData;
   public gridApi;

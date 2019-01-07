@@ -16,6 +16,7 @@ import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 import { CommunityManageMembersComponent } from './community-manage-members/community-manage-members.component';
+import { CommunityGovernanceComponent } from './community-governance/community-governance.component';
 
 @Component({
   selector: 'ups-community-manager',
@@ -30,6 +31,8 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
 
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
   @ViewChild(CommunityManageMembersComponent) manageMembersComponent: CommunityManageMembersComponent;
+  @ViewChild(CommunityGovernanceComponent) governanceComponent: CommunityGovernanceComponent;
+  CommunityGovernanceComponent
 
   wizzardLayout = 'large-empty-symbols';
   formNotValid = true;
