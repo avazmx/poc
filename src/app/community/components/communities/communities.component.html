@@ -9,8 +9,9 @@
 
 <div class="commmunityCard" *ngIf="communities">
   <!-- Community Card -->
-  <div *ngFor="let commmunity of communities">
-    <h4 class="cardTitle">{{commmunity.name}}</h4>
+  <div *ngFor="let community of communities; let i = index">
+    <h4 class="cardTitle">{{community.name}}</h4>
+
     <div class="subtitles">
       <div class="subtitlesSection">
         <h6 class="title">Date Created</h6>
@@ -22,20 +23,25 @@
       </div>
       <div class="subtitlesSection">
         <h6 class="title">Member Count</h6>
-        <h6 *ngIf="commmunity.members">{{commmunity.members.length}}</h6>
+        <h6 *ngIf="community.members">{{community.members.length}}</h6>
       </div>
       <div class="subtitlesSection">
         <h6 class="title">Access Level</h6>
         <h6> View and Edit</h6>
       </div>
-      <div class="subtitlesSection">
-        <h6 class="link" (click)="showMore(commmunity)">
-          Show More <span class="rotateIcon" [ngClass]="communityDetails ? 'fas fa-chevron-up':'fas fa-chevron-down'"></span>
-        </h6>
+      <div class="subtitlesSection" id="{{i}}">
+        <button class="link fadeIn" (click)="showMore(community.id)" *ngIf="communityId !== community.id">
+          Show More <span class="rotateIcon" class="fas fa-chevron-down"></span>
+        </button>
+        <button class="link fadeIn" (click)="showLess()" *ngIf="communityId == community.id">
+          Show Less <span class="rotateIcon" class="fas fa-chevron-up"></span>
+        </button>
       </div>
     </div>
+
     <!-- Community Card Details -->
-    <ups-communities-details [community]="community.id">
+    <ups-communities-details *ngIf="communityId == community.id" [communityId]="community.id">
     </ups-communities-details>
-  </div>
+
+  </div>  
 </div>

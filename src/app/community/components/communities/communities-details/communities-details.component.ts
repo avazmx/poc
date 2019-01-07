@@ -7,18 +7,17 @@ import { CommunityService } from 'src/app/community/services/community.service';
   styleUrls: ['./communities-details.component.scss']
 })
 export class CommunitiesDetailsComponent implements OnInit {
-  @Input() community: string;
+  @Input() communityId: string;
   communityDetails;
 
   constructor(private communitiesService: CommunityService) { }
 
   ngOnInit() {
-    /* if (this.community) {
-      this.communitiesService.getCommunityDetail(this.community)
-        .subscribe(data => {
-          this.communityDetails = data;
-        });
-    } */
+    this.communitiesService.getCommunityDetail(this.communityId)
+      .subscribe(data => {
+        this.communityDetails = data;
+        // console.log(this.communityDetails);
+      });
   }
 
 }

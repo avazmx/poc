@@ -53,6 +53,9 @@
         color: #0E2554 !important;
         transform: scale(1.05);
     }
+    &:focus {
+        outline: none;
+    }
 }
 
 .rotateIcon {

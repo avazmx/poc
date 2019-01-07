@@ -5,13 +5,13 @@
     <div class="col structureDetail">
       <div class="row">
         <h6 class="title">Community Type:</h6>
-        <h6>&nbsp; {{communityDetails.community.communityType.name}}</h6>
+        <h6 *ngIf="communityDetails">&nbsp; {{communityDetails.community.communityType.name}}</h6>
       </div>
     </div>
     <div class="col structureDetail">
       <div class="row">
         <h6 class="title">Description:</h6>
-        <h6>&nbsp; {{communityDetails.community.communityType.description}}</h6>
+        <h6 *ngIf="communityDetails">&nbsp; {{communityDetails.community.communityType.description}}</h6>
       </div>
     </div>
   </div>
@@ -34,23 +34,20 @@
         <th scope="col">1DA </th>
       </tr>
     </thead>
-    <tbody>
-
-      <div *ngIf="communityDetails">
-        <tr *ngFor="let geoService of communityDetails.communityGeoServices; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{geoService.stateProvince.district.country.name}}</td>
-          <td>{{geoService.stateProvince.district.name}}</td>
-          <td>{{geoService.stateProvince.name}}</td>
-          <td>{{geoService.slicRangeLow}}</td>
-          <td>{{geoService.slicRangeHigh}}</td>
-          <td>{{geoService.bussinesUnit.name}}</td>
-          <td>{{geoService.gnd ? 'Yes': 'No'}}</td>
-          <td>{{geoService.treeds ? 'Yes': 'No'}}</td>
-          <td>{{geoService.twods ? 'Yes': 'No'}}</td>
-          <td>{{geoService.oneds ? 'Yes': 'No'}}</td>
-        </tr>
-      </div>
+    <tbody *ngIf="communityDetails">
+      <tr *ngFor="let geoService of communityDetails.communityGeoServices; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{geoService.stateProvince.district.country.name}}</td>
+        <td>{{geoService.stateProvince.district.name}}</td>
+        <td>{{geoService.stateProvince.name}}</td>
+        <td>{{geoService.slicRangeLow}}</td>
+        <td>{{geoService.slicRangeHigh}}</td>
+        <td>{{geoService.bussinesUnit.name}}</td>
+        <td>{{geoService.gnd ? 'Yes': 'No'}}</td>
+        <td>{{geoService.treeds ? 'Yes': 'No'}}</td>
+        <td>{{geoService.twods ? 'Yes': 'No'}}</td>
+        <td>{{geoService.oneds ? 'Yes': 'No'}}</td>
+      </tr>
     </tbody>
   </table>
 
@@ -68,19 +65,17 @@
         <th scope="col">SLIC Range High </th>
       </tr>
     </thead>
-    <tbody>
-      <div *ngIf="communityDetails">
-        <tr *ngFor="let member of communityDetails.communnityMembers; let i = index">
-          <th scope="row">{{i+1}}</th>
-          <td>{{member.member.name}}</td>
-          <td>{{member.accessLevel.name}}</td>
-          <td>{{member.mannageMembers.stateProvince.district.country.name}}</td>
-          <td>{{member.mannageMembers.stateProvince.district.name}}</td>
-          <td>{{member.mannageMembers.stateProvince.name}}</td>
-          <td>{{member.mannageMembers.slicRangeLow}}</td>
-          <td>{{member.mannageMembers.slicRangeHigh}}</td>
-        </tr>
-      </div>
+    <tbody *ngIf="communityDetails">
+      <tr *ngFor="let member of communityDetails.communnityMembers; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{member.member.name}}</td>
+        <td>{{member.accessLevel.name}}</td>
+        <td>{{member.mannageMembers.stateProvince.district.country.name}}</td>
+        <td>{{member.mannageMembers.stateProvince.district.name}}</td>
+        <td>{{member.mannageMembers.stateProvince.name}}</td>
+        <td>{{member.mannageMembers.slicRangeLow}}</td>
+        <td>{{member.mannageMembers.slicRangeHigh}}</td>
+      </tr>
     </tbody>
   </table>
 
@@ -96,7 +91,7 @@
         <th scope="col">Alt Level 2 Approver Name</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="communityDetails">
       <tr *ngFor="let governance of communityDetails.communityGovernances; let i = index">
         <th scope="row">{{i+1}}</th>
         <td>{{communityDetails.governanceLevel.name}}</td>

@@ -31,6 +31,5 @@ export class Community {
                 this.activeTab = 1;
                 this.activeRow = -1;
                 this.gridValidator = [];
-
         }
 }
