@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/community/models/community.model';
@@ -11,6 +11,7 @@ import { MemberNameService } from 'src/app/shared/services/member-name.service';
 
 import { governanceDef } from '../../../models/governance-def';
 import * as communityActions from '../../../store/actions/community-attributes.actions';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class CommunityGovernanceComponent implements OnInit {
   loading = true;
   @Output() memberSelected: EventEmitter<any>;
   @Output() governanceLevelChange: EventEmitter<GovernanceLevel>;
+  @ViewChild('governanceGrid') agGrid: CommunityGovernanceComponent;
 
 
   constructor(private governanceService: GovernanceLevelService, private store: Store<Community>,
@@ -78,6 +80,10 @@ export class CommunityGovernanceComponent implements OnInit {
         this.gridApi.sizeColumnsToFit();
       }
     });
+  }
+
+  resetGrid() {
+    this.gridApi.setRowData([]);
   }
 
   /**
@@ -172,6 +178,9 @@ export class CommunityGovernanceComponent implements OnInit {
       const selectedData: Governance[] = this.gridApi.getSelectedNodes().map(node => node.data);
       const renderedNodes: any[] = this.gridApi.getRenderedNodes();
 
+      let idMember1 = 0;
+      let idMember2 = 0;
+      let valiate = 0;
       if (renderedNodes.length > 0) {
         for (let index = 0; index < selectedData.length; index++) {
           const node = renderedNodes[index];
@@ -189,30 +198,46 @@ export class CommunityGovernanceComponent implements OnInit {
           if (levelApproverOneInstance.length > 0) {
             const wrapperLevelOneApprover = levelApproverOneInstance[0];
             const frameworkLevelApproverOneInstance = wrapperLevelOneApprover.getFrameworkComponentInstance();
-            selectedData[index].levelOneApprover = frameworkLevelApproverOneInstance.selectedLevelApproverOne;
+            selectedData[index].levelOneApprover = frameworkLevelApproverOneInstance.selectedMember;
+            idMember1 = selectedData[index].levelOneApprover.id;
           }
 
           if (altlevelApproverOneInstance.length > 0) {
             const wrapperAltLevelOneApprover = altlevelApproverOneInstance[0];
             const frameworkAtlLevelApproverOneInstance = wrapperAltLevelOneApprover.getFrameworkComponentInstance();
-            selectedData[index].altlevelOneApprover = frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne;
+            selectedData[index].altlevelOneApprover = frameworkAtlLevelApproverOneInstance.selectedMember;
           }
 
           if (levelApproverTwoInstance.length > 0) {
             const wrapperLevelTwoApprover = levelApproverTwoInstance[0];
             const frameworkLevelApproverTwoInstance = wrapperLevelTwoApprover.getFrameworkComponentInstance();
-            selectedData[index].levelOTwoApprover = frameworkLevelApproverTwoInstance.selectedLevelApproverTwo;
+            selectedData[index].levelOTwoApprover = frameworkLevelApproverTwoInstance.selectedMember;
+            idMember2 = selectedData[index].levelOTwoApprover.id;
           }
 
           if (atlLevelApproverTwoInstance.length > 0) {
             const wrapperAtlLevvelTwoApproverInstance = atlLevelApproverTwoInstance[0];
             const frameworkAtlLevvelTwoApproverInstance = wrapperAtlLevvelTwoApproverInstance.getFrameworkComponentInstance();
-            selectedData[index].atlLevelTwoApprover = frameworkAtlLevvelTwoApproverInstance.selectedAtlLevelApproverTwo;
+            selectedData[index].atlLevelTwoApprover = frameworkAtlLevvelTwoApproverInstance.selectedMember;
+          }
+          if (idMember1 === idMember2) {
+            valiate++;
+          }
+        }
+
+        if (valiate === 0 && selectedData.length > 0) {
+          this.communityObject.governance = selectedData;
+          this.store.dispatch(new communityActions.AddGovernance(this.communityObject));
+        } else {
+          if (valiate > 0) {
+            swal({
+              type: 'warning',
+              title: 'The Approver one and Approver two most be different!'
+            });
+            this.gridApi.deselectAll();
           }
         }
       }
-      this.communityObject.governance = selectedData;
-      this.store.dispatch(new communityActions.AddGovernance(this.communityObject));
     }
   }
 
@@ -241,24 +266,36 @@ export class CommunityGovernanceComponent implements OnInit {
           if (levelApproverOneInstance.length > 0) {
             const wrapperLevelOneApprover = levelApproverOneInstance[0];
             const frameworkLevelApproverOneInstance = wrapperLevelOneApprover.getFrameworkComponentInstance();
-            // if (frameworkLevelApproverOneInstance.selectedLevelApproverOne === null) {
-              this.memberService.setMemberOne(true);
-            //}
+
+            // if (this.memberService.isMemberOneSelected) {
+            this.memberService.setMemberOne(true);
+            this.memberService.isMemberOneSelected = true;
+            // } else {
+            // this.memberService.setMemberOne(false);
+            // this.memberService.isMemberOneSelected = false;
+            // }
+
           }
         } else if (event.column.colDef.field === 'atllevelApproverOne') {
           if (altlevelApproverOneInstance.length > 0) {
             const wrapperAltLevelOneApprover = altlevelApproverOneInstance[0];
             const frameworkAtlLevelApproverOneInstance = wrapperAltLevelOneApprover.getFrameworkComponentInstance();
             // if (frameworkAtlLevelApproverOneInstance.selectedAltLevelApproverOne === null) {
-               this.memberService.setAltMemberOne(true);
+            this.memberService.setAltMemberOne(true);
             // }
           }
         } else if (event.column.colDef.field === 'levelApproverTwo') {
           if (levelApproverTwoInstance.length > 0) {
             const wrapperLevelTwoApprover = levelApproverTwoInstance[0];
             const frameworkLevelApproverTwoInstance = wrapperLevelTwoApprover.getFrameworkComponentInstance();
-            // if (frameworkLevelApproverTwoInstance.selectedLevelApproverTwo === null) {
-              this.memberService.setMemberTwo(true);
+            // if (this.memberService.isMemberTwoSelected) {
+
+            this.memberService.setMemberTwo(true);
+            this.memberService.isMemberTwoSelected = true;
+            // } else {
+            // this.memberService.setMemberTwo(false);
+            // this.memberService.isMemberTwoSelected = false;
+
             // }
           }
         } else if (event.column.colDef.field === 'atllevelApproverTwo') {
@@ -266,7 +303,7 @@ export class CommunityGovernanceComponent implements OnInit {
             const wrapperAtlLevvelTwoApproverInstance = atlLevelApproverTwoInstance[0];
             const frameworkAtlLevvelTwoApproverInstance = wrapperAtlLevvelTwoApproverInstance.getFrameworkComponentInstance();
             // if (frameworkAtlLevvelTwoApproverInstance.selectedAtlLevelApproverTwo === null) {
-               this.memberService.setAltMemberTwo(true);
+            this.memberService.setAltMemberTwo(true);
             // }
           }
         }

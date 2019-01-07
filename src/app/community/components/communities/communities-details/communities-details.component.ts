@@ -16,7 +16,6 @@ export class CommunitiesDetailsComponent implements OnInit {
     this.communitiesService.getCommunityDetail(this.communityId)
       .subscribe(data => {
         this.communityDetails = data;
-        // console.log(this.communityDetails);
       });
   }
 

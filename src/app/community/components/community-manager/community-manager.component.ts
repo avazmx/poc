@@ -15,6 +15,7 @@ import { GovernanceLevel } from '../../models/governance-level.model';
 import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
+import { CommunityGovernanceComponent } from './community-governance/community-governance.component';
 
 @Component({
   selector: 'ups-community-manager',
@@ -78,6 +79,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
 
   // Get the community attributes component.
   @ViewChild(CommunityAttributesComponent) attributeComponent: CommunityAttributesComponent;
+  @ViewChild(CommunityGovernanceComponent) gobernanceComponent: CommunityGovernanceComponent;
 
   /**
    * Function that determines if we can leave the aw-wizzard tabs or not depending on the bussines logic.
@@ -418,6 +420,9 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
           });
           this.store.dispatch(new communityActions.CommunityDelete());
         }
+      }, (error) => {
+        console.log(error);
+        this.gobernanceComponent.resetGrid();
       });
     } else {
       Swal({
