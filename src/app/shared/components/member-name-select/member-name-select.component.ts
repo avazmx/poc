@@ -31,6 +31,8 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public isAltLevelOneSelected = false;
   public isAltLevelTwoSelected = false;
   selectedOption = null;
+  isShow = false;
+
 
   @ViewChild('ddlMember') ddlMember: ElementRef;
 
@@ -49,8 +51,71 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
   constructor(private memberNameService: MemberNameService, private store: Store<Community>) { }
   ngOnInit() {
+    this.currentRow = +this.params.node.id;
     this.memberSelectOption.id = 0;
     this.memberSelectOption.name = 'Select';
+
+
+
+    this.store.select('community').subscribe(selectedCommunity => {
+      this.communityObject = selectedCommunity;
+      this.memberNames = [];
+
+      if (this.communityObject.activeTab === 3) {
+        for (let index = 0; index < this.communityObject.members.length; index++) {
+          const member = this.communityObject.members[index];
+
+          const memberTab2: Member = {
+            id: member.id,
+            email: member.email,
+            lastNameL: member.lastName,
+            name: member.name
+          };
+
+          this.tabTwoSelectedMembers.push(memberTab2);
+        }
+        this.memberNames = this.tabTwoSelectedMembers;
+        // this.memberNames.unshift(this.memberSelectOption);
+      } else {
+        // Get Member units
+        if (this.memberNames.length === 0 && this.communityObject.members && this.communityObject.members.length > 0) {
+          if (this.communityObject.activeTab === 2 || this.communityObject.activeTab === 3) {
+            if (this.communityObject.members[this.currentRow]) {
+
+              const selectedMemberTabTwo: Member = {
+                id: this.communityObject.members[this.currentRow].id,
+                email: this.communityObject.members[this.currentRow].email,
+                lastNameL: this.communityObject.members[this.currentRow].lastName,
+                name: this.communityObject.members[this.currentRow].name
+              };
+
+              this.memberNames.push(selectedMemberTabTwo);
+              this.selectedMember = selectedMemberTabTwo;
+              this.isShow = true;
+            }
+          }
+        } else {
+          this.fetchMembers();
+        }
+      }
+
+
+      if (this.communityObject.activeTab === 3) {
+        this.memberNameService.getMemberOneState().subscribe(one => {
+          this.isLevelOneSelected = one;
+        });
+        this.memberNameService.getMemberTwoState().subscribe(two => {
+          this.isLevelTwoSelected = two;
+        });
+        this.memberNameService.getAltMemberOneState().subscribe(altTwo => {
+          this.isAltLevelOneSelected = altTwo;
+        });
+        this.memberNameService.getAltMemberTwoState().subscribe(altTwo => {
+          this.isAltLevelTwoSelected = altTwo;
+        });
+      }
+
+    });
   }
 
   fetchMembers() {
@@ -69,53 +134,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
     this.altData = params.value;
     this.params = params;
     this.cell = { row: params.value, col: params.colDef.headerName };
-
-    this.store.select('community').subscribe(selectedCommunity => {
-      this.communityObject = selectedCommunity;
-
-      if (this.communityObject.activeTab === 3) {
-        for (let index = 0; index < this.communityObject.members.length; index++) {
-          const member = this.communityObject.members[index];
-
-          const memberTab2: Member = {
-            id: member.id,
-            email: member.email,
-            lastNameL: member.lastName,
-            name: member.name
-          };
-
-          this.tabTwoSelectedMembers.push(memberTab2);
-        }
-        this.memberNames = this.tabTwoSelectedMembers;
-        this.memberNames.unshift(this.memberSelectOption);
-        // this.selectedMember = this.selectedOption;
-      } else {
-        // Get Member units
-        this.memberNameService.getMemberNames()
-          .subscribe((memberNames: Member[]) => {
-            this.memberNames = memberNames;
-            this.memberNames.unshift(this.memberSelectOption);
-            // this.selectedMember = this.selectedOption;
-          }, (error: HttpErrorResponse) => {
-            this.memberNames = this.memberNameService.getHardCodedMemberNames();
-          });
-      }
-
-    });
-
-    this.memberNameService.getMemberOneState().subscribe(one => {
-      this.isLevelOneSelected = one;
-    });
-    this.memberNameService.getMemberTwoState().subscribe(two => {
-      this.isLevelTwoSelected = two;
-    });
-    this.memberNameService.getAltMemberOneState().subscribe(altTwo => {
-      this.isAltLevelOneSelected = altTwo;
-    });
-    this.memberNameService.getAltMemberTwoState().subscribe(altTwo => {
-      this.isAltLevelTwoSelected = altTwo;
-    });
-
   }
 
   // AG Grid reload
@@ -130,69 +148,98 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
    */
   onMemberNameChange(selectedMemberName: any) {
     this.selectedMember = this.memberNames.filter(id => id.id === +selectedMemberName.target.value)[0];
-    console.log('selected member => ', this.selectedMember);
+
     if (this.communityObject.activeTab !== 3) {
       this.gridColumnApi.setColumnVisible('checkbox', true);
       this.gridApi.sizeColumnsToFit();
-    } else {
-
-      if (this.isLevelOneSelected) {
+    } else if (this.communityObject.activeTab === 3) {
 
 
-        if (this.memberNameService.memberTwo) {
-          if (this.memberNameService.memberTwo.id === this.selectedMember.id) {
-            alert('should be different');
-            this.defaultOption = this.memberSelectOption.id.toString();
-            this.ddlMember.nativeElement.value = this.defaultOption;
-            // this.selectedMember = null;
-          } else {
-            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
-            this.isLevelOneSelected = false;
-            this.selectedLevelApproverOne = this.selectedMember;
-            this.memberNameService.memberOne = this.selectedLevelApproverOne;
-          }
-        } else {
-          this.isLevelOneSelected = false;
-          this.selectedLevelApproverOne = this.selectedMember;
-          this.memberNameService.memberOne = this.selectedLevelApproverOne;
-        }
-        this.memberNameService.setMemberOne(false);
 
-      } if (this.isLevelTwoSelected) {
 
-        if (this.memberNameService.memberOne) {
-          if (this.memberNameService.memberOne.id === this.selectedMember.id) {
-            alert('should be different');
-            this.defaultOption = this.memberSelectOption.id.toString();
-            this.ddlMember.nativeElement.value = this.defaultOption;
-            // this.selectedMember = null;
-          } else {
-            this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
-            this.selectedLevelApproverTwo = this.selectedMember;
-            this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
-          }
-        } else {
 
-          this.memberNameService.setMemberTwo(false);
-          this.selectedLevelApproverTwo = this.selectedMember;
-          this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
 
-        }
-        this.memberNameService.setMemberTwo(false);
+      // if (this.isLevelOneSelected) {
+      //   this.memberNameService.isMemberTwoSelected = false;
+      //   if (this.memberNameService.memberTwo) {
 
-      } if (this.isAltLevelOneSelected) {
+      //     if (this.memberNameService.memberTwo.id === this.selectedMember.id) {
+      //       this.isLevelOneSelected = false;
+      //       alert('should be different in select approver one');
+      //       this.defaultOption = this.memberSelectOption.id.toString();
+      //       this.ddlMember.nativeElement.value = '0';
+      //       this.selectedMember = null;
+      //       this.memberNameService.memberOne = null;
 
-        this.memberNameService.setAltMemberOne(false);
-        this.selectedAltLevelApproverOne = this.selectedMember;
-        this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
+      //     } else {
 
-      } if (this.isAltLevelTwoSelected) {
+      //       this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+      //       this.isLevelOneSelected = false;
+      //       this.memberNameService.setMemberOne(false);
+      //       this.selectedLevelApproverOne = this.selectedMember;
+      //       this.memberNameService.memberOne = this.selectedLevelApproverOne;
 
-        this.memberNameService.setAltMemberTwo(false);
-        this.selectedAtlLevelApproverTwo = this.selectedMember;
-        this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
+      //     }
+      //   } else {
 
-      }
+      //     this.isLevelOneSelected = false;
+      //     this.memberNameService.setMemberOne(false);
+      //     this.selectedLevelApproverOne = this.selectedMember;
+      //     this.memberNameService.memberOne = this.selectedLevelApproverOne;
+
+      //   }
+      //   this.isLevelOneSelected = false;
+      //   this.memberNameService.setMemberOne(false);
+
+      // } else if (this.isLevelTwoSelected) {
+      //   this.memberNameService.isMemberTwoSelected = false;
+      //   if (this.memberNameService.memberOne) {
+
+      //     if (this.memberNameService.memberOne.id === this.selectedMember.id) {
+      //       this.isLevelTwoSelected = false;
+      //       alert('should be different in select approver two');
+      //       this.defaultOption = this.memberSelectOption.id.toString();
+      //       this.ddlMember.nativeElement.value = '0';
+      //       this.selectedMember = null;
+      //       this.memberNameService.memberTwo = null;
+
+      //     } else {
+
+      //       this.isLevelTwoSelected = false;
+      //       this.memberNameService.setMemberTwo(false);
+      //       this.ddlMember.nativeElement.value = this.selectedMember.id.toString();
+      //       this.selectedLevelApproverTwo = this.selectedMember;
+      //       this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+
+      //     }
+
+      //   } else {
+
+      //     this.isLevelTwoSelected = false;
+      //     this.memberNameService.setMemberTwo(false);
+      //     this.selectedLevelApproverTwo = this.selectedMember;
+      //     this.memberNameService.memberTwo = this.selectedLevelApproverTwo;
+
+      //   }
+      //   this.isLevelTwoSelected = false;
+      //   this.memberNameService.setMemberTwo(false);
+      // }
+
+
+      // if (this.isAltLevelOneSelected) {
+
+      //   this.memberNameService.setAltMemberOne(false);
+      //   this.selectedAltLevelApproverOne = this.selectedMember;
+      //   this.memberNameService.altMemberOne = this.selectedAltLevelApproverOne;
+
+      // }
+      // if (this.isAltLevelTwoSelected) {
+
+      //   this.memberNameService.setAltMemberTwo(false);
+      //   this.selectedAtlLevelApproverTwo = this.selectedMember;
+      //   this.memberNameService.altMemberTwo = this.selectedAtlLevelApproverTwo;
+
+      // }
     }
     if (this.selectedMember && +this.selectedMember.id > 0) {
       this.memberNameService.setMemberId(+this.selectedMember.id);

@@ -1,6 +1,7 @@
 <span>
-  <select #ddlMember class="agSelect"  (change)="onMemberNameChange($event); onMemberNameSet($event)">
-    <option *ngFor="let member of memberNames" [value]="member.id">
+  <select #ddlMember class="agSelect"  (change)="onMemberNameChange($event)">
+    <option *ngIf="!isShow" disabled selected [value]="0">Select</option>
+    <option *ngFor="let member of memberNames" [value]="member.id" [selected]="isShow">
       {{member.name}}
     </option>
   </select>

@@ -13,16 +13,19 @@ export class MemberNameService {
 
   private memberId = new Subject<number>();
   // Emitters for the members change
-  private memberOneState = new Subject<any>();
-  private memberTwoState = new Subject<any>();
-  private altMemberOneState = new Subject<any>();
-  private altMembertwoState = new Subject<any>();
+  private memberOneState = new Subject<boolean>();
+  private memberTwoState = new Subject<boolean>();
+  private altMemberOneState = new Subject<boolean>();
+  private altMembertwoState = new Subject<boolean>();
 
   // Public members for the governance level.
   public memberOne: Member;
   public memberTwo: Member;
   public altMemberOne: Member;
   public altMemberTwo: Member;
+
+  public isMemberOneSelected = false;
+  public isMemberTwoSelected = false;
 
   public listOfMembers: Member[] = [];
 
