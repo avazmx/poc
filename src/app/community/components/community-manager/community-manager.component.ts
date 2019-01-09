@@ -423,6 +423,9 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
           });
           this.store.dispatch(new communityActions.CommunityDelete());
         }
+      }, (error) => {
+        console.log(error);
+        this.gobernanceComponent.resetGrid();
       });
     } else {
       Swal({

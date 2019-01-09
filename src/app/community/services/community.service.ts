@@ -40,6 +40,9 @@ export class CommunityService {
   /**
    * This method will return the values from GeoServices, Manage Members and Governance.
    * @param id is related to the id from the community.
+   * {geoServices: GeoService[],
+      members: ManageMember[], governance: Governance[],
+      governanceLevel: GovernanceLevel}
    */
   getCommunityDetail(id: string) {
     return this.http.get<{geoServices: GeoService[],

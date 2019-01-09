@@ -37,6 +37,7 @@ import { ThreeDsComponent } from '../shared/components/three-ds/three-ds.compone
 import { TwoDsComponent } from '../shared/components/two-ds/two-ds.component';
 import { OneDaComponent } from '../shared/components/one-da/one-da.component';
 import { GroundSelectComponent } from '../shared/components/ground-select/ground-select.component';
+import { CommunitiesDetailsComponent } from './components/communities/communities-details/communities-details.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { GroundSelectComponent } from '../shared/components/ground-select/ground
     CommunityManageMembersComponent,
     CommunityGovernanceComponent,
     MultiSelectComponent,
+    CommunitiesDetailsComponent,
   ],
   imports: [
     CommonModule,

@@ -16,9 +16,10 @@ export class CommunitiesComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   private communitiesGrid;
-  communityDetails: boolean;
   communityObject: Community;
   communities;
+  communityId;
+  communityDetails: boolean;
 
   constructor(private store: Store<Community>, private communitiesService: CommunityService) {
     // Row Sample
@@ -68,8 +69,16 @@ export class CommunitiesComponent implements OnInit {
  * it will show more information about the specific community that has been selected.
  * "communityDetails" is a boolean that will hide and show the info about GeoServices, Members and Governance.
  */
-  showMore() {
+  showMore(communityId) {
+    this.communityId = communityId;
     this.communityDetails = !this.communityDetails;
+  }
+
+/**
+ * This method will hide the details of the selected method.
+ */
+  showLess() {
+    this.communityId = '';
   }
 
 }

@@ -6,20 +6,20 @@ nav {
         height: 2.15rem;
         // margin: 0.15rem 0;
     }
-    span {
-        color: #FFF;
-        font-weight: 700;
-        font-size: 1.67rem;
-    }
+    // span {
+    //     color: #FFF;
+    //     font-weight: 700;
+    //     font-size: 1.67rem;
+    // }
     button {
-        color: #FFCC33;
+        color: #FFF;
         font-weight: 600;
         font-size: 1.45rem;
         margin-left: 0.85rem;
         transition: all .17s;
         cursor: pointer;
         &:hover {
-            color: #FFF;
+            color: #FFCC33;
         }
         &:focus {
             outline: none !important;
@@ -28,8 +28,8 @@ nav {
 }
 
 .activeLink {
-    color: #FFF !important;
-    border-bottom: 5px solid #FFF;
+    color: #FFCC33 !important;
+    border-bottom: 5px solid #FFCC33;
     margin-bottom: -0.4rem;
     &:focus {
         outline: none !important;
