@@ -164,7 +164,9 @@ export class CommunityManageMembersComponent implements OnInit, OnDestroy {
    * @param rowId the selected row id.
    */
   onCellClicked(rowId: string) {
-    this.store.dispatch(new communityActions.ActiveRow(+rowId));
+    if (this.communityObject.activeRow !== +rowId) {
+      this.store.dispatch(new communityActions.ActiveRow(+rowId));
+    }
   }
 
   ngOnDestroy(): void {

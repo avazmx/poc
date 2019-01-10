@@ -10,7 +10,7 @@ export class Community {
         public description: string;
         public geoServices?: GeoService[];
         public members: ManageMember[];
-        public governance: Governance[];
+        public governance: any[];
         public attributes?: any;
         public activeTab?: number;
         public activeRow?: number;

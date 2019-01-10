@@ -16,7 +16,7 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
   public altData;
   public params: any;
   public cell: any;
-  public memberNames: Member[];
+  public memberNames: Member[] = [];
   public selectedMember: Member;
   public communityObject: Community;
   public currentRow: number;
@@ -59,7 +59,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
 
     this.store.select('community').subscribe(selectedCommunity => {
       this.communityObject = selectedCommunity;
-      this.memberNames = [];
 
       if (this.communityObject.activeTab === 3) {
         for (let index = 0; index < this.communityObject.members.length; index++) {
@@ -78,10 +77,10 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
         // this.memberNames.unshift(this.memberSelectOption);
       } else {
         // Get Member units
-        if (this.memberNames.length === 0 && this.communityObject.members && this.communityObject.members.length > 0) {
-          if (this.communityObject.activeTab === 2 || this.communityObject.activeTab === 3) {
+        if (this.communityObject.members && this.communityObject.members.length > 0) {
+          if (this.communityObject.activeTab === 2) {
             if (this.communityObject.members[this.currentRow]) {
-
+              this.memberNames = [];
               const selectedMemberTabTwo: Member = {
                 id: this.communityObject.members[this.currentRow].id,
                 email: this.communityObject.members[this.currentRow].email,
@@ -93,9 +92,25 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
               this.selectedMember = selectedMemberTabTwo;
               this.isShow = true;
             }
+          } else if (this.communityObject.activeTab === 3) {
+            if (this.communityObject.governance[this.currentRow]) {
+              this.memberNames = [];
+              const selectedMemberTabTwo: Member = {
+                id: this.communityObject.governance[this.currentRow].id,
+                email: this.communityObject.governance[this.currentRow].email,
+                lastNameL: this.communityObject.governance[this.currentRow].lastName,
+                name: this.communityObject.governance[this.currentRow].name
+              };
+
+              this.memberNames.push(selectedMemberTabTwo);
+              this.selectedMember = selectedMemberTabTwo;
+              this.isShow = true;
+            }
           }
         } else {
-          this.fetchMembers();
+          if (this.memberNames.length === 0) {
+            this.fetchMembers();
+          }
         }
       }
 

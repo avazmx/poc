@@ -18,7 +18,7 @@ export class AccessLevelSelectComponent implements OnInit {
   public params: any;
   public cell: any;
   public accessLevelSubscription: Subscription;
-  public accessLevels: AccessLevel[];
+  public accessLevels: AccessLevel[] = [];
   public selectedAccessLevel: AccessLevel;
   public communityObject: Community;
   isShow = false;
@@ -77,7 +77,6 @@ export class AccessLevelSelectComponent implements OnInit {
 
     // Subscribe to the store in order to get the updated object for the countries.
     this.accessLevelSubscription = this.store.select('community').subscribe((obj: any) => {
-      this.accessLevels = [];
 
       // Get Business units
       this.accessLevelService.getAccessLevels()
