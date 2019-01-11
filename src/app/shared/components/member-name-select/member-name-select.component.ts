@@ -61,19 +61,25 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
       this.communityObject = selectedCommunity;
 
       if (this.communityObject.activeTab === 3) {
-        for (let index = 0; index < this.communityObject.members.length; index++) {
-          const member = this.communityObject.members[index];
+        if (this.communityObject.governance && this.communityObject.governance[this.currentRow]) {
 
-          const memberTab2: Member = {
-            id: member.id,
-            email: member.email,
-            lastNameL: member.lastName,
-            name: member.name
-          };
+        } else {
+          if (this.memberNames.length === 0) {
+            this.tabTwoSelectedMembers = [];
+            for (let index = 0; index < this.communityObject.members.length; index++) {
+              const member = this.communityObject.members[index];
+              const memberTab2: Member = {
+                id: member.id,
+                email: member.email,
+                lastNameL: member.lastName,
+                name: member.name
+              };
 
-          this.tabTwoSelectedMembers.push(memberTab2);
+              this.tabTwoSelectedMembers.push(memberTab2);
+              this.memberNames = this.tabTwoSelectedMembers;
+            }
+          }
         }
-        this.memberNames = this.tabTwoSelectedMembers;
         // this.memberNames.unshift(this.memberSelectOption);
       } else {
         // Get Member units
@@ -86,20 +92,6 @@ export class MemberNameSelectComponent implements OnInit, ICellRendererAngularCo
                 email: this.communityObject.members[this.currentRow].email,
                 lastNameL: this.communityObject.members[this.currentRow].lastName,
                 name: this.communityObject.members[this.currentRow].name
-              };
-
-              this.memberNames.push(selectedMemberTabTwo);
-              this.selectedMember = selectedMemberTabTwo;
-              this.isShow = true;
-            }
-          } else if (this.communityObject.activeTab === 3) {
-            if (this.communityObject.governance[this.currentRow]) {
-              this.memberNames = [];
-              const selectedMemberTabTwo: Member = {
-                id: this.communityObject.governance[this.currentRow].id,
-                email: this.communityObject.governance[this.currentRow].email,
-                lastNameL: this.communityObject.governance[this.currentRow].lastName,
-                name: this.communityObject.governance[this.currentRow].name
               };
 
               this.memberNames.push(selectedMemberTabTwo);

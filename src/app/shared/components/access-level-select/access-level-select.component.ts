@@ -49,7 +49,9 @@ export class AccessLevelSelectComponent implements OnInit {
 
         } else {
           // Otherwise we fetch all the levels.
-          this.fetchAccessLevels();
+          if (this.accessLevels.length === 0) {
+            this.fetchAccessLevels();
+          }
         }
       }
     });
@@ -79,12 +81,7 @@ export class AccessLevelSelectComponent implements OnInit {
     this.accessLevelSubscription = this.store.select('community').subscribe((obj: any) => {
 
       // Get Business units
-      this.accessLevelService.getAccessLevels()
-        .subscribe((accessLevels: AccessLevel[]) => {
-          this.accessLevels = accessLevels;
-        }, (error: HttpErrorResponse) => {
-          this.accessLevels = this.accessLevelService.getHardCodedAccessLevels();
-        });
+
     });
   }
 
