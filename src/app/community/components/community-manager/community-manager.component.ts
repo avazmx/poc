@@ -32,6 +32,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
   formNotValid = true;
   communityObject: Community;
   selectedGovernance: GovernanceLevel = null;
+  isGovernanceGridSelected = 0;
   gridApi;
   gridColumnApi;
   membersAdded = false;
@@ -445,6 +446,11 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
    * @param selectedGovernance the selected governance.
    */
   onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
+    console.log(selectedGovernance);
     this.selectedGovernance = selectedGovernance;
+  }
+
+  onGovernanceGridSelected(selection: number) {
+    this.isGovernanceGridSelected = selection;
   }
 }

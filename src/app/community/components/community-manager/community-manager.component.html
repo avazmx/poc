@@ -32,12 +32,11 @@
   <div class="row governance">
     <aw-wizard-step stepTitle="Community Governance" [navigationSymbol]="{ symbol: '3' }" (stepEnter)="stepEnterTab3($event)"
       [stepId]="3">
-      <ups-community-governance (governanceLevelChange)="onGovernanceLevelChange($event)"></ups-community-governance>
+      <ups-community-governance (governanceLevelChange)="onGovernanceLevelChange($event)" (isGovernanceGridSelected)="onGovernanceGridSelected($event)"></ups-community-governance>
       <br>
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn"
-         [disabled]="!this.communityObject.governance?.length && !this.selectedGovernance"
+        <button type="button" class="btn btn-primary end-btn" [disabled]="this.isGovernanceGridSelected === 0 || !this.selectedGovernance"
           (click)="onSave()">Save</button>
 
       </div>
