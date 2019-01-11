@@ -38,6 +38,7 @@ export class CommunityGovernanceComponent implements OnInit {
   loading = true;
   @Output() memberSelected: EventEmitter<any>;
   @Output() governanceLevelChange: EventEmitter<GovernanceLevel>;
+  @Output() isGovernanceGridSelected: EventEmitter<number>;
   @ViewChild('governanceGrid') agGrid: CommunityGovernanceComponent;
 
 
@@ -66,6 +67,7 @@ export class CommunityGovernanceComponent implements OnInit {
 
     this.memberSelected = new EventEmitter<any>();
     this.governanceLevelChange = new EventEmitter<GovernanceLevel>();
+    this.isGovernanceGridSelected = new EventEmitter<number>();
 
   }
 
@@ -228,6 +230,7 @@ export class CommunityGovernanceComponent implements OnInit {
         if (valiate === 0 && selectedData.length > 0) {
           this.communityObject.governance = selectedData;
           this.store.dispatch(new communityActions.AddGovernance(this.communityObject));
+          this.isGovernanceGridSelected.emit(selectedData.length);
         } else {
           if (valiate > 0) {
             swal({
@@ -235,6 +238,7 @@ export class CommunityGovernanceComponent implements OnInit {
               title: 'The Approver one and Approver two most be different!'
             });
             this.gridApi.deselectAll();
+            this.isGovernanceGridSelected.emit(0);
           }
         }
       }
@@ -329,9 +333,9 @@ export class CommunityGovernanceComponent implements OnInit {
    * @param selectedGovernance the community governance level to be emitted.
    */
   onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
-    if (selectedGovernance !== undefined && selectedGovernance !== null) {
-      this.governanceLevelChange.emit(selectedGovernance);
-    }
+    // if (selectedGovernance !== undefined && selectedGovernance !== null) {
+    this.governanceLevelChange.emit(selectedGovernance);
+    // }
   }
 
 }

@@ -16,6 +16,7 @@ import { CommunityService } from '../../services/community.service';
 import * as communityActions from '../../store/actions/community-attributes.actions';
 import { CommunityAttributesComponent } from './community-attributes/community-attributes.component';
 import { CommunityGovernanceComponent } from './community-governance/community-governance.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ups-community-manager',
@@ -31,6 +32,7 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
   formNotValid = true;
   communityObject: Community;
   selectedGovernance: GovernanceLevel = null;
+  isGovernanceGridSelected = 0;
   gridApi;
   gridColumnApi;
   membersAdded = false;
@@ -104,7 +106,8 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
   constructor(private districtService: DistrictService, private countryService: CountryService,
     private memberNameService: MemberNameService, private accessLevelService: AccessLevelService,
     private stateService: StateService, private store: Store<Community>,
-    private communityService: CommunityService, private businessUnitService: BusinessUnitService) { }
+    private communityService: CommunityService, private businessUnitService: BusinessUnitService,
+    private router: Router) { }
 
   /**
    * This fires when the component is creating, Subscribe to the store in order to get the updated object.
@@ -359,12 +362,18 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
         );
       });
 
-      // Fetching governances.
+      // Fetching governances send empty if the alt members are not selected.
       const communityGovernances = [];
       this.communityObject.governance.forEach(governance => {
         communityGovernances.push({
-          atLevelOneApprover: { id: governance.altlevelOneApprover.id },
-          atLevelTwoApprover: { id: governance.atlLevelTwoApprover.id },
+          atLevelOneApprover: {
+            id: (governance.altlevelOneApprover) === null ? '' :
+              (governance.altlevelOneApprover) === undefined ? '' : governance.altlevelOneApprover.id
+          },
+          atLevelTwoApprover: {
+            id: (governance.atlLevelTwoApprover) === null ? '' :
+              (governance.atlLevelTwoApprover) === undefined ? '' : governance.atlLevelTwoApprover.id
+          },
           id: 0,
           levelOneApprover: { id: governance.levelOneApprover.id },
           levelTwoApprover: { id: governance.levelOTwoApprover.id }
@@ -419,9 +428,9 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
             title: 'Community Saved!'
           });
           this.store.dispatch(new communityActions.CommunityDelete());
+          this.router.navigate(['/community/communities']);
         }
       }, (error) => {
-        console.log(error);
         this.gobernanceComponent.resetGrid();
       });
     } else {
@@ -437,6 +446,11 @@ export class CommunityManagerComponent implements OnInit, OnDestroy {
    * @param selectedGovernance the selected governance.
    */
   onGovernanceLevelChange(selectedGovernance: GovernanceLevel) {
+    console.log(selectedGovernance);
     this.selectedGovernance = selectedGovernance;
+  }
+
+  onGovernanceGridSelected(selection: number) {
+    this.isGovernanceGridSelected = selection;
   }
 }
