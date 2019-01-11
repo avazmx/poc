@@ -48,7 +48,13 @@ export class CountrySelectComponent implements ICellRendererAngularComp, OnInit 
       this.communityObject = obj;
       if (obj.activeTab === 1 && this.countries.length === 0) {
         // Get countries
-        this.fetchCountries();
+        if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
+          this.countries.push(this.communityObject.members[this.currentRow].country);
+          this.selectedCountry = this.communityObject.members[this.currentRow].country;
+          this.isShow = true;
+        } else {
+          this.fetchCountries();
+        }
       } else if (obj.activeTab === 2 && this.countries.length === 0) {
         if (this.communityObject.members && this.communityObject.members[this.currentRow]) {
           this.countries.push(this.communityObject.members[this.currentRow].country);
