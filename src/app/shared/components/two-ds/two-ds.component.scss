@@ -1,0 +1,19 @@
+span {
+    padding-left: 0.67rem;
+    input {
+	    -webkit-appearance: none;
+        appearance: none;
+        color: rgba(53, 28, 21, 0.37);
+        transition: all .17s;
+        &:hover {
+            color: rgba(14, 37, 84, 0.5);
+            transform: scale(1.1);
+        }
+        &:checked {
+            color: #351C15;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}

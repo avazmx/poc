@@ -7,9 +7,9 @@
   </span>
 </div>
 
-<div class="commmunityCard" *ngIf="communities">
+<div *ngIf="communities">
   <!-- Community Card -->
-  <div *ngFor="let community of communities; let i = index">
+  <div *ngFor="let community of communities; let i = index" class="commmunityCard">
     <h4 class="cardTitle">{{community.name}}</h4>
 
     <div class="subtitles">

@@ -9,6 +9,7 @@ import { CommunityService } from '../../services/community.service';
   templateUrl: './communities.component.html',
   styleUrls: ['./communities.component.scss']
 })
+
 export class CommunitiesComponent implements OnInit {
   rowData;
   communitiesDef;
@@ -42,6 +43,7 @@ export class CommunitiesComponent implements OnInit {
     // Loading the communitites from database
     this.communitiesService.getCommunities().subscribe(data => {
       this.communities = data;
+      // console.log(this.communities);
     });
   }
 
