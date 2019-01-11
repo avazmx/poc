@@ -43,7 +43,7 @@ export class CommunitiesComponent implements OnInit {
     // Loading the communitites from database
     this.communitiesService.getCommunities().subscribe(data => {
       this.communities = data;
-      // console.log(this.communities);
+      console.log(this.communities);
     });
   }
 

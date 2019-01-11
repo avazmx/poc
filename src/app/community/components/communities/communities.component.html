@@ -15,19 +15,19 @@
     <div class="subtitles">
       <div class="subtitlesSection">
         <h6 class="title">Date Created</h6>
-        <h6>12/27/2018</h6>
+        <h6>{{community.createdAt * 1000 | date: 'dd/MM/yyyy - HH:mm'}}</h6>
       </div>
       <div class="subtitlesSection">
         <h6 class="title">Governance Level</h6>
-        <h6>F1 + F2</h6>
+        <h6>{{community.governanceLevel.name}}</h6>
       </div>
       <div class="subtitlesSection">
         <h6 class="title">Member Count</h6>
-        <h6 *ngIf="community.members">{{community.members.length}}</h6>
+        <h6>{{community.memberQty}}</h6>
       </div>
       <div class="subtitlesSection">
-        <h6 class="title">Access Level</h6>
-        <h6> View and Edit</h6>
+        <!-- <h6 class="title">Access Level</h6>
+        <h6> View and Edit</h6> -->
       </div>
       <div class="subtitlesSection" id="{{i}}">
         <button class="link fadeIn" (click)="showMore(community.id)" *ngIf="communityId !== community.id">
