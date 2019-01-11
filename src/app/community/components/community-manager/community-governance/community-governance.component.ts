@@ -235,7 +235,7 @@ export class CommunityGovernanceComponent implements OnInit {
           if (valiate > 0) {
             swal({
               type: 'warning',
-              title: 'The Approver one and Approver two most be different!'
+              title: 'The Approver one and Approver two must be different!'
             });
             this.gridApi.deselectAll();
             this.isGovernanceGridSelected.emit(0);
