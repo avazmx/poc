@@ -36,7 +36,8 @@
       <br>
       <div class="menu-btns step2">
         <button type="button" class="btn btn-secondary" awPreviousStep>Back</button>
-        <button type="button" class="btn btn-primary end-btn" [disabled]="!this.communityObject.governance && !this.selectedGovernance"
+        <button type="button" class="btn btn-primary end-btn"
+         [disabled]="!this.communityObject.governance?.length && !this.selectedGovernance"
           (click)="onSave()">Save</button>
 
       </div>
