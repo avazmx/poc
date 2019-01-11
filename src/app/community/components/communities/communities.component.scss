@@ -6,15 +6,27 @@
 }
 
 .commmunityCard {
-    border-top: 1px solid rgba(53, 28, 21, 0.25);
-    border-bottom: 1px solid rgba(53, 28, 21, 0.25);
+    border: 1px solid rgba(53, 28, 21, 0.1);
+    border-radius: 5px;
+    margin: 1.37rem 0;
+    padding: 1rem 0.67rem;
+    box-shadow: 1px 1px 4px #ddd;
     -webkit-animation: fadeInOpacity .25s;
     animation: fadeInOpacity .25s;
+    transition: all .17s;
+    &:last-child {
+        border-bottom: 1px solid rgba(53, 28, 21, 0.25);
+        margin-bottom: 3rem;
+    }
+    &:hover {
+        // background: rgba(29, 121, 209, 0.067);
+        box-shadow: 2px 4px 12px #ddd;
+    }
     // padding: 2rem;
 
     .cardTitle {
-        border-bottom: 1px solid rgba(53, 28, 21, 0.25);
-        padding: 1rem 0;
+        border-bottom: 1px solid rgba(53, 28, 21, 0.1);
+        padding: 0 1rem 0.67rem 1rem;
         text-transform: capitalize;
     }
 

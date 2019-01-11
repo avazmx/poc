@@ -1,15 +1,13 @@
 .details {
-    margin: 1rem 0 2rem 0;
+    padding: 0 0.5rem;
     color: #351c15;
     -webkit-animation: fadeInOpacity .35s;
     animation: fadeInOpacity .35s;
     .communityStructure {
         display: flex;
         justify-content: space-between;
-        padding: 0 0.5rem;
         .structureDetail {
-            margin: 0 0 -1rem 0;
-            padding: 0 1.17rem;
+            // margin: 0 0 -1rem 0;
             .title {
                 color: #888;
             }
@@ -54,6 +52,6 @@
 .hr {
     display: block;
     height: 1px;
-    border-top: 1px solid rgba(53, 28, 21, 0.25);
+    border-top: 1px solid rgba(53, 28, 21, 0.1);
     margin: 1em 0 1.5em 0;
 }

@@ -1,8 +1,10 @@
 <ups-header></ups-header>
-<h2 *ngIf="router.url == '/community/create'">Create Community</h2>
-<h2 *ngIf="router.url == '/community/communities'">Communities</h2>
-<hr>
-<div class="container">
+<div>
+  <h2 *ngIf="router.url == '/community/create'">Create Community</h2>
+  <h2 *ngIf="router.url == '/community/communities'">Communities</h2>
+  <hr>
+</div>
+<div [ngClass]="router.url == '/community/communities' ? 'comContainer' : 'container'">
   <ng-content></ng-content>
 </div>
 <ups-footer></ups-footer>

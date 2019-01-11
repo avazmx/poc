@@ -63,7 +63,7 @@ hr {
     border: 0;
     padding: 8px;
     margin: 16px 0 16px 16px;
-    min-width: 48px;
+    min-width: 127px;
     min-height: 32px;
     border-radius: 3px;
     font-weight: 600;
@@ -77,6 +77,9 @@ hr {
         background: $dark-blue;
         border-color: $dark-blue;
     }
+    &:disabled:hover {
+        background: #999;
+    }
 }
 
 .btn-secondary {
@@ -88,6 +91,9 @@ hr {
         background: transparent;
         border-color: $dark-blue;
         color: $dark-blue;
+    }
+    &:disabled:hover {
+        background: #999;
     }
 }
 
